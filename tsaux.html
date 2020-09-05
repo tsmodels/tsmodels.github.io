@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 tsaux package | A Time Series Models Framework</title>
+  <meta name="description" content="Documentation for the tsmodels framework" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 tsaux package | A Time Series Models Framework" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Documentation for the tsmodels framework" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 tsaux package | A Time Series Models Framework" />
+  
+  <meta name="twitter:description" content="Documentation for the tsmodels framework" />
+  
+
+<meta name="author" content="Alexios Galanos, Keith O’Hara and James Nesbit" />
+
+
+<meta name="date" content="2020-09-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tsforeign.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series Forecasting Framework</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>2</b> tsmethods package</a><ul>
+<li class="chapter" data-level="2.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods-simulation"><i class="fa fa-check"></i><b>2.2</b> Ensembling of Forecast Distributions</a></li>
+<li class="chapter" data-level="2.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>2.3</b> Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>3</b> tsets package</a><ul>
+<li class="chapter" data-level="3.1" data-path="tsets.html"><a href="tsets.html#tsets:intro"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="tsets.html"><a href="tsets.html#tsets:taxonomy"><i class="fa fa-check"></i><b>3.2</b> Taxonomy of Models</a></li>
+<li class="chapter" data-level="3.3" data-path="tsets.html"><a href="tsets.html#tsets:extensions"><i class="fa fa-check"></i><b>3.3</b> Extensions</a></li>
+<li class="chapter" data-level="3.4" data-path="tsets.html"><a href="tsets.html#some-encompasing-alternatives"><i class="fa fa-check"></i><b>3.4</b> Some Encompasing Alternatives</a></li>
+<li class="chapter" data-level="3.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>3.5</b> Package Implementation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="tsets.html"><a href="tsets.html#tsets:implementation:constraints"><i class="fa fa-check"></i><b>3.5.1</b> Constraints</a></li>
+<li class="chapter" data-level="3.5.2" data-path="tsets.html"><a href="tsets.html#tsets:implementation:initialization"><i class="fa fa-check"></i><b>3.5.2</b> Initialization</a></li>
+<li class="chapter" data-level="3.5.3" data-path="tsets.html"><a href="tsets.html#tsets:implementation:transformations"><i class="fa fa-check"></i><b>3.5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>3.6</b> Demonstration</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:specification"><i class="fa fa-check"></i><b>3.6.1</b> The specification object</a></li>
+<li class="chapter" data-level="3.6.2" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:estimation"><i class="fa fa-check"></i><b>3.6.2</b> Estimation</a></li>
+<li class="chapter" data-level="3.6.3" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:prediction"><i class="fa fa-check"></i><b>3.6.3</b> Prediction</a></li>
+<li class="chapter" data-level="3.6.4" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:filtering"><i class="fa fa-check"></i><b>3.6.4</b> Filtering</a></li>
+<li class="chapter" data-level="3.6.5" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:simulation"><i class="fa fa-check"></i><b>3.6.5</b> Simulation</a></li>
+<li class="chapter" data-level="3.6.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:profiling"><i class="fa fa-check"></i><b>3.6.6</b> Profiling</a></li>
+<li class="chapter" data-level="3.6.7" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:backtesting"><i class="fa fa-check"></i><b>3.6.7</b> Backtesting</a></li>
+<li class="chapter" data-level="3.6.8" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:benchmarking"><i class="fa fa-check"></i><b>3.6.8</b> Benchmarking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>4</b> tsissm package</a><ul>
+<li class="chapter" data-level="4.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:initialization"><i class="fa fa-check"></i><b>4.2</b> State Initialization</a></li>
+<li class="chapter" data-level="4.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:likelihood"><i class="fa fa-check"></i><b>4.3</b> Log Likelihood</a></li>
+<li class="chapter" data-level="4.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:implementation"><i class="fa fa-check"></i><b>4.4</b> Package Implementation</a></li>
+<li class="chapter" data-level="4.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>4.5</b> Demonstration</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:specification"><i class="fa fa-check"></i><b>4.5.1</b> Specification</a></li>
+<li class="chapter" data-level="4.5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:estimation"><i class="fa fa-check"></i><b>4.5.2</b> Estimation</a></li>
+<li class="chapter" data-level="4.5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:prediction"><i class="fa fa-check"></i><b>4.5.3</b> Prediction</a></li>
+<li class="chapter" data-level="4.5.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:simulation"><i class="fa fa-check"></i><b>4.5.4</b> Simulation</a></li>
+<li class="chapter" data-level="4.5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:filtering"><i class="fa fa-check"></i><b>4.5.5</b> Filtering</a></li>
+<li class="chapter" data-level="4.5.6" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:profiling"><i class="fa fa-check"></i><b>4.5.6</b> Profiling</a></li>
+<li class="chapter" data-level="4.5.7" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:backtesting"><i class="fa fa-check"></i><b>4.5.7</b> Backtesting</a></li>
+<li class="chapter" data-level="4.5.8" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:benchmarking"><i class="fa fa-check"></i><b>4.5.8</b> Benchmarking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>5</b> tsvets package</a><ul>
+<li class="chapter" data-level="5.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:regressors"><i class="fa fa-check"></i><b>5.2</b> Inclusion of External Regressors</a></li>
+<li class="chapter" data-level="5.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:likelihood"><i class="fa fa-check"></i><b>5.3</b> Log Likelihood</a></li>
+<li class="chapter" data-level="5.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>5.4</b> Dependence Structure</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:diagonal"><i class="fa fa-check"></i><b>5.4.1</b> Diagonal Covariance</a></li>
+<li class="chapter" data-level="5.4.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:equicorrelation"><i class="fa fa-check"></i><b>5.4.2</b> Equicorrelation</a></li>
+<li class="chapter" data-level="5.4.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:shrinkage"><i class="fa fa-check"></i><b>5.4.3</b> Shrinkage Covariance</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:grouping"><i class="fa fa-check"></i><b>5.5</b> Grouping and Pooling</a></li>
+<li class="chapter" data-level="5.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:homogeneous"><i class="fa fa-check"></i><b>5.6</b> Homogeneous Coefficients and Aggregation</a></li>
+<li class="chapter" data-level="5.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>5.7</b> Demonstration</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:specification"><i class="fa fa-check"></i><b>5.7.1</b> Specification</a></li>
+<li class="chapter" data-level="5.7.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example1"><i class="fa fa-check"></i><b>5.7.2</b> Example: Australian Retail Sales</a></li>
+<li class="chapter" data-level="5.7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example2"><i class="fa fa-check"></i><b>5.7.3</b> Example: Australian Retail Sales Grouped Dynamics</a></li>
+<li class="chapter" data-level="5.7.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example3"><i class="fa fa-check"></i><b>5.7.4</b> Example: Australian Retail Sales Filtering</a></li>
+<li class="chapter" data-level="5.7.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example4"><i class="fa fa-check"></i><b>5.7.5</b> Example: Australian Retail Sales Aggregation</a></li>
+<li class="chapter" data-level="5.7.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>5.7.6</b> Example: Price Volume Aggregation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>6</b> tsforeign package</a></li>
+<li class="chapter" data-level="7" data-path="tsaux.html"><a href="tsaux.html"><i class="fa fa-check"></i><b>7</b> tsaux package</a><ul>
+<li class="chapter" data-level="7.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Time Series Models Framework</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tsaux" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> tsaux package</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<p>The <strong>tsaux</strong> package provides a set of auxiliary functions commonly used by the packages in the tsmodels framework. These include functions related to calendar sequences as well as the Box Cox transformation for both the univariate and multivariate case.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tsforeign.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

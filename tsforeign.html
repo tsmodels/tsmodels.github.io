@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 tsforeign package | A Time Series Framework</title>
+  <meta name="description" content="Documentation for the tsmodels framework" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 tsforeign package | A Time Series Framework" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Documentation for the tsmodels framework" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 tsforeign package | A Time Series Framework" />
+  
+  <meta name="twitter:description" content="Documentation for the tsmodels framework" />
+  
+
+<meta name="author" content="The tsmodels team" />
+
+
+<meta name="date" content="2020-09-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tsvets.html"/>
+<link rel="next" href="other.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series Forecasting Framework</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a></li>
+<li class="chapter" data-level="3" data-path="the-tsmodels-team.html"><a href="the-tsmodels-team.html"><i class="fa fa-check"></i><b>3</b> The tsmodels team</a></li>
+<li class="chapter" data-level="4" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>4</b> tsmethods package</a><ul>
+<li class="chapter" data-level="4.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods-simulation"><i class="fa fa-check"></i><b>4.2</b> Ensembling of Forecast Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>4.3</b> Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>5</b> tsets package</a><ul>
+<li class="chapter" data-level="5.1" data-path="tsets.html"><a href="tsets.html#tsets:intro"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="tsets.html"><a href="tsets.html#tsets:taxonomy"><i class="fa fa-check"></i><b>5.2</b> Taxonomy of Models</a></li>
+<li class="chapter" data-level="5.3" data-path="tsets.html"><a href="tsets.html#tsets:extensions"><i class="fa fa-check"></i><b>5.3</b> Extensions</a></li>
+<li class="chapter" data-level="5.4" data-path="tsets.html"><a href="tsets.html#some-encompasing-alternatives"><i class="fa fa-check"></i><b>5.4</b> Some Encompasing Alternatives</a></li>
+<li class="chapter" data-level="5.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>5.5</b> Package Implementation</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="tsets.html"><a href="tsets.html#tsets:implementation:constraints"><i class="fa fa-check"></i><b>5.5.1</b> Constraints</a></li>
+<li class="chapter" data-level="5.5.2" data-path="tsets.html"><a href="tsets.html#tsets:implementation:initialization"><i class="fa fa-check"></i><b>5.5.2</b> Initialization</a></li>
+<li class="chapter" data-level="5.5.3" data-path="tsets.html"><a href="tsets.html#tsets:implementation:transformations"><i class="fa fa-check"></i><b>5.5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>5.6</b> Demonstration</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:specification"><i class="fa fa-check"></i><b>5.6.1</b> The specification object</a></li>
+<li class="chapter" data-level="5.6.2" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:estimation"><i class="fa fa-check"></i><b>5.6.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.6.3" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:prediction"><i class="fa fa-check"></i><b>5.6.3</b> Prediction</a></li>
+<li class="chapter" data-level="5.6.4" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:filtering"><i class="fa fa-check"></i><b>5.6.4</b> Filtering</a></li>
+<li class="chapter" data-level="5.6.5" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:simulation"><i class="fa fa-check"></i><b>5.6.5</b> Simulation</a></li>
+<li class="chapter" data-level="5.6.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:profiling"><i class="fa fa-check"></i><b>5.6.6</b> Profiling</a></li>
+<li class="chapter" data-level="5.6.7" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:backtesting"><i class="fa fa-check"></i><b>5.6.7</b> Backtesting</a></li>
+<li class="chapter" data-level="5.6.8" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:benchmarking"><i class="fa fa-check"></i><b>5.6.8</b> Benchmarking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>6</b> tsissm package</a><ul>
+<li class="chapter" data-level="6.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:initialization"><i class="fa fa-check"></i><b>6.2</b> State Initialization</a></li>
+<li class="chapter" data-level="6.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:likelihood"><i class="fa fa-check"></i><b>6.3</b> Log Likelihood</a></li>
+<li class="chapter" data-level="6.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:implementation"><i class="fa fa-check"></i><b>6.4</b> Package Implementation</a></li>
+<li class="chapter" data-level="6.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>6.5</b> Demonstration</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:specification"><i class="fa fa-check"></i><b>6.5.1</b> Specification</a></li>
+<li class="chapter" data-level="6.5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:estimation"><i class="fa fa-check"></i><b>6.5.2</b> Estimation</a></li>
+<li class="chapter" data-level="6.5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:prediction"><i class="fa fa-check"></i><b>6.5.3</b> Prediction</a></li>
+<li class="chapter" data-level="6.5.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:simulation"><i class="fa fa-check"></i><b>6.5.4</b> Simulation</a></li>
+<li class="chapter" data-level="6.5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:filtering"><i class="fa fa-check"></i><b>6.5.5</b> Filtering</a></li>
+<li class="chapter" data-level="6.5.6" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:profiling"><i class="fa fa-check"></i><b>6.5.6</b> Profiling</a></li>
+<li class="chapter" data-level="6.5.7" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:backtesting"><i class="fa fa-check"></i><b>6.5.7</b> Backtesting</a></li>
+<li class="chapter" data-level="6.5.8" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:benchmarking"><i class="fa fa-check"></i><b>6.5.8</b> Benchmarking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>7</b> tsvets package</a><ul>
+<li class="chapter" data-level="7.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:regressors"><i class="fa fa-check"></i><b>7.2</b> Inclusion of External Regressors</a></li>
+<li class="chapter" data-level="7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:likelihood"><i class="fa fa-check"></i><b>7.3</b> Log Likelihood</a></li>
+<li class="chapter" data-level="7.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>7.4</b> Dependence Structure</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:diagonal"><i class="fa fa-check"></i><b>7.4.1</b> Diagonal Covariance</a></li>
+<li class="chapter" data-level="7.4.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:equicorrelation"><i class="fa fa-check"></i><b>7.4.2</b> Equicorrelation</a></li>
+<li class="chapter" data-level="7.4.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:shrinkage"><i class="fa fa-check"></i><b>7.4.3</b> Shrinkage Covariance</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:grouping"><i class="fa fa-check"></i><b>7.5</b> Grouping and Pooling</a></li>
+<li class="chapter" data-level="7.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:homogeneous"><i class="fa fa-check"></i><b>7.6</b> Homogeneous Coefficients and Aggregation</a></li>
+<li class="chapter" data-level="7.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>7.7</b> Demonstration</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:specification"><i class="fa fa-check"></i><b>7.7.1</b> Specification</a></li>
+<li class="chapter" data-level="7.7.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example1"><i class="fa fa-check"></i><b>7.7.2</b> Example: Australian Retail Sales</a></li>
+<li class="chapter" data-level="7.7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example2"><i class="fa fa-check"></i><b>7.7.3</b> Example: Australian Retail Sales Grouped Dynamics</a></li>
+<li class="chapter" data-level="7.7.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example3"><i class="fa fa-check"></i><b>7.7.4</b> Example: Australian Retail Sales Filtering</a></li>
+<li class="chapter" data-level="7.7.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example4"><i class="fa fa-check"></i><b>7.7.5</b> Example: Australian Retail Sales Aggregation</a></li>
+<li class="chapter" data-level="7.7.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>7.7.6</b> Example: Price Volume Aggregation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>8</b> tsforeign package</a><ul>
+<li class="chapter" data-level="8.1" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>8.2</b> arima model</a></li>
+<li class="chapter" data-level="8.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>8.3</b> bsts model</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Time Series Framework</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tsforeign" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> tsforeign package</h1>
+<div id="tsforeign:introduction" class="section level2">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<p>The <strong>tsforeign</strong> package provides custom wrappers for the <em>auto.arima</em> function from the forecast package of <span class="citation">(Hyndman et al. <a href="#ref-R-forecast" role="doc-biblioref">2020</a>)</span> package and the <em>bsts</em> method from bsts package of <span class="citation">(Scott <a href="#ref-R-bsts" role="doc-biblioref">2020</a>)</span>, with methods for estimation, some diagnostics and prediction. This package may be extended in future to provide wrappers for other interesting models. For the <em>bsts</em> model, we have also made use of the <em>tsconvert</em> method from the <strong>tsmethods</strong> package to convert the output of the model to one conforming to the required inputs of the <strong>dlm</strong> package, for which we provide an example in the demonstration section.</p>
+<p>Since both of those packages have their own vignettes and documentation, we proceed here directly into a demonstration of the functionality.</p>
+</div>
+<div id="tsforeign:arima" class="section level2">
+<h2><span class="header-section-number">8.2</span> arima model</h2>
+<p>The entry point for the arima model is the <em>arima_modelspec</em> function</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="tsforeign.html#cb188-1"></a><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(tsforeign))</span>
+<span id="cb188-2"><a href="tsforeign.html#cb188-2"></a><span class="kw">library</span>(xts)</span>
+<span id="cb188-3"><a href="tsforeign.html#cb188-3"></a><span class="kw">library</span>(tsaux)</span>
+<span id="cb188-4"><a href="tsforeign.html#cb188-4"></a><span class="kw">args</span>(arima_modelspec)</span></code></pre></div>
+<pre><code>## function (y, xreg = NULL, frequency = NULL, seasonal = FALSE, 
+##     seasonal_type = &quot;regular&quot;, lambda = NULL, seasonal_harmonics = NULL, 
+##     lambda_lower = 0, lambda_upper = 1.5, ...) 
+## NULL</code></pre>
+<p>which allows for both regular and trigonometric seasonality, with additional <em>auto.arima</em> arguments passed to the <span class="math inline">\(\dots\)</span> .</p>
+<p>For the demonstration example, we’ll use the AirPassengers dataset after first converting it into an xts object:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="tsforeign.html#cb190-1"></a>air &lt;-<span class="st"> </span>AirPassengers</span>
+<span id="cb190-2"><a href="tsforeign.html#cb190-2"></a>dt &lt;-<span class="st"> </span><span class="kw">future_dates</span>(<span class="kw">as.Date</span>(<span class="st">&quot;1948-12-31&quot;</span>), <span class="st">&quot;months&quot;</span>, <span class="kw">length</span>(air))</span>
+<span id="cb190-3"><a href="tsforeign.html#cb190-3"></a>air &lt;-<span class="st"> </span><span class="kw">xts</span>(<span class="kw">as.numeric</span>(air), dt)</span>
+<span id="cb190-4"><a href="tsforeign.html#cb190-4"></a>spec &lt;-<span class="st"> </span><span class="kw">arima_modelspec</span>(<span class="dt">y =</span> air, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">seasonal_type =</span> <span class="st">&quot;regular&quot;</span>, <span class="dt">seasonal =</span> <span class="ot">TRUE</span>, <span class="dt">lambda =</span> <span class="ot">NA</span>)</span>
+<span id="cb190-5"><a href="tsforeign.html#cb190-5"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec)</span>
+<span id="cb190-6"><a href="tsforeign.html#cb190-6"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
+<pre><code>## ARIMA(0,1,1)(0,1,1)[12] 
+## ------------------------ 
+##      Estimate Std.Error t value  Pr(&gt;|t|)
+## ma1   -0.4018   0.08964  -4.482 7.381e-06
+## sma1  -0.5569   0.07310  -7.619 2.554e-14
+## 
+## sigma : 0.037
+## 
+##      AIC     BIC    AICc
+##  -483.31 -474.69 -483.13
+## 
+##    MAPE   MASE  MSLRE BIAS
+##  0.0262 0.2297 0.0012    0</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="tsforeign.html#cb192-1"></a><span class="kw">tsmetrics</span>(mod)</span></code></pre></div>
+<pre><code>##     n no.pars   LogLik       AIC       BIC      AICc       MAPE      MASE
+## 1 131       2 244.6574 -483.3147 -474.6891 -483.1258 0.02623633 0.2297063
+##         MSLRE         BIAS
+## 1 0.001228422 4.059721e-05</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="tsforeign.html#cb194-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>The predict function generates a predictive distribution via simulation and returns an object of class <em>tsmodel.predict</em>:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="tsforeign.html#cb195-1"></a>p &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">h =</span> <span class="dv">12</span>)</span>
+<span id="cb195-2"><a href="tsforeign.html#cb195-2"></a><span class="kw">plot</span>(p)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Additionally, there is also a backtest method:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="tsforeign.html#cb196-1"></a>b &lt;-<span class="st"> </span><span class="kw">tsbacktest</span>(spec, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">alpha =</span> <span class="kw">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="dt">cores =</span> <span class="dv">5</span>, <span class="dt">trace =</span> F)</span>
+<span id="cb196-2"><a href="tsforeign.html#cb196-2"></a>b<span class="op">$</span>metrics</span></code></pre></div>
+<pre><code>##     horizon variable       MAPE        MSLRE        BIAS  n MIS[0.02]  MIS[0.1]
+##  1:       1        y 0.02350838 0.0009487283 0.003706631 72  75.63536  58.16644
+##  2:       2        y 0.02823440 0.0013786515 0.006312084 71  78.31743  64.32781
+##  3:       3        y 0.03297864 0.0018391489 0.008307571 70  93.27225  75.69191
+##  4:       4        y 0.03709349 0.0023076325 0.009706971 69 116.93308  86.36686
+##  5:       5        y 0.03859823 0.0024726785 0.011553894 68 123.57655  90.79089
+##  6:       6        y 0.04181438 0.0027870929 0.013224976 67 128.23273  95.80723
+##  7:       7        y 0.04406943 0.0031064555 0.015669258 66 139.00076 100.76296
+##  8:       8        y 0.04535357 0.0031950824 0.018474240 65 139.93516 105.38304
+##  9:       9        y 0.04686415 0.0033958718 0.020592314 64 146.17553 113.46859
+## 10:      10        y 0.04911117 0.0037472561 0.023934309 63 153.69261 119.69767
+## 11:      11        y 0.04989690 0.0038712908 0.026049580 62 164.13428 123.97936
+## 12:      12        y 0.05261114 0.0041906831 0.027682026 61 168.74715 130.53432</code></pre>
+</div>
+<div id="tsforeign:bsts" class="section level2">
+<h2><span class="header-section-number">8.3</span> bsts model</h2>
+<p>The bsts package of <span class="citation">(Scott <a href="#ref-R-bsts" role="doc-biblioref">2020</a>)</span> provides functions for fitting Bayesian structural time series models. The entry point in our wrapper is the <em>bsts_modelspec</em> function:</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="tsforeign.html#cb198-1"></a><span class="kw">args</span>(bsts_modelspec)</span></code></pre></div>
+<pre><code>## function (y, xreg = NULL, frequency = NULL, differences = 0, 
+##     level = TRUE, slope = TRUE, damped = FALSE, seasonal = FALSE, 
+##     seasonal_frequency = 4, ar = FALSE, ar_max = 1, cycle = FALSE, 
+##     cycle_frequency = NULL, cycle_names = NULL, seasonal_type = &quot;regular&quot;, 
+##     lambda = NULL, lambda_lower = 0, lambda_upper = 1, seasonal_harmonics = NULL, 
+##     distribution = &quot;gaussian&quot;, ...) 
+## NULL</code></pre>
+<p>which provides a rich set of options such as degree of differencing<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>, a sparse AR component, sparse regressors, regular or trigonometric seasonal components (including multiple seasonal), cyclical components and the Box Cox transformation. Once an object is estimated, and all required components have been generated, any additional methods on the estimated component are performed directly by custom written functions in the <strong>tsforeign</strong> package.</p>
+<p>For the demonstration we’ll use the priceunits dataset. Once a series is estimated, the resulting MCMC draws are converted to an mcmc object from the coda package of [R-coda] in order to provide a nice summary report.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="tsforeign.html#cb200-1"></a><span class="kw">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb200-2"><a href="tsforeign.html#cb200-2"></a>spec &lt;-<span class="st"> </span><span class="kw">bsts_modelspec</span>(<span class="dt">y =</span> priceunits[<span class="dv">1</span><span class="op">:</span><span class="dv">80</span>,<span class="dv">1</span>], <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">differences =</span> <span class="dv">0</span>, <span class="dt">level =</span> T, <span class="dt">slope =</span> T, <span class="dt">damped =</span> T, <span class="dt">seasonal =</span> T, </span>
+<span id="cb200-3"><a href="tsforeign.html#cb200-3"></a>                       <span class="dt">seasonal_frequency =</span> <span class="dv">12</span>, <span class="dt">ar =</span> T, <span class="dt">ar_max =</span> <span class="dv">3</span>, <span class="dt">lambda =</span> <span class="dv">0</span>)</span>
+<span id="cb200-4"><a href="tsforeign.html#cb200-4"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">n_iter =</span> <span class="dv">2000</span>, <span class="dt">trace =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb200-5"><a href="tsforeign.html#cb200-5"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## Iterations = 1:2000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 2000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##                        Mean       SD  Naive SE Time-series SE Prob[Include]
+## obs.sigma         0.0116617 0.006260 1.400e-04      0.0006759        1.0000
+## level.sigma       0.0043762 0.005393 1.206e-04      0.0018394        1.0000
+## slope.sigma       0.0326992 0.005601 1.252e-04      0.0004317        1.0000
+## slope.ar         -0.3941451 0.223029 4.987e-03      0.0170276        1.0000
+## seasonal12.sigma  0.0009405 0.001783 3.987e-05      0.0004350        1.0000
+## ar1               0.0253365 0.212130 4.743e-03      0.0130899        0.6740
+## ar2               0.0339851 0.133642 2.988e-03      0.0098030        0.4270
+## ar3              -0.0053966 0.051169 1.144e-03      0.0020989        0.2235
+## ar3.sigma         0.0285592 0.006545 1.464e-04      0.0003267        1.0000
+## 
+## 2. Quantiles for each variable:
+## 
+##                        2.5%        25%        50%        75%    97.5%
+## obs.sigma         4.859e-03  0.0078972  0.0105516  0.0141568 0.023304
+## level.sigma       6.799e-05  0.0004075  0.0021138  0.0058649 0.019396
+## slope.sigma       2.225e-02  0.0288842  0.0324754  0.0365164 0.044140
+## slope.ar         -7.650e-01 -0.5534112 -0.4187680 -0.2625470 0.117374
+## seasonal12.sigma  9.034e-05  0.0002319  0.0004469  0.0008238 0.007463
+## ar1              -4.026e-01 -0.0580787  0.0000000  0.1195511 0.507647
+## ar2              -1.914e-01  0.0000000  0.0000000  0.0196223 0.430215
+## ar3              -1.476e-01  0.0000000  0.0000000  0.0000000 0.089121
+## ar3.sigma         2.109e-02  0.0254464  0.0280054  0.0309178 0.037930
+## 
+## 
+## Harvey&#39;s Goodness of Fit Statistic: 0.2179459 
+## 
+##    MAPE   MASE  MSLRE   BIAS
+##  0.0371 0.4692 0.0023 -1e-04</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="tsforeign.html#cb202-1"></a><span class="kw">tsmetrics</span>(mod)</span></code></pre></div>
+<pre><code>##    n no.pars      MAPE      MASE       MSLRE          BIAS
+## 1 80       9 0.0370866 0.4692441 0.002276552 -6.369941e-05</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="tsforeign.html#cb204-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-43-1.png" width="768" /></p>
+<p>The decomposition of the model into it’s fitted components is done via the <em>tsdecompose</em> method. However, note that the bsts routine returns the smoothed component states, not the filtered ones.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="tsforeign.html#cb205-1"></a>tde &lt;-<span class="st"> </span><span class="kw">tsdecompose</span>(mod)</span>
+<span id="cb205-2"><a href="tsforeign.html#cb205-2"></a><span class="co"># distribution objects of state components</span></span>
+<span id="cb205-3"><a href="tsforeign.html#cb205-3"></a><span class="kw">str</span>(tde)</span></code></pre></div>
+<pre><code>## List of 5
+##  $ Level     : &#39;tsmodel.distribution&#39; num [1:1985, 1:80] 1.61 1.72 1.62 1.61 1.58 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
+##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;
+##  $ Slope     : &#39;tsmodel.distribution&#39; num [1:1985, 1:80] -0.0282 -0.1905 -0.031 -0.0453 -0.0746 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
+##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;
+##  $ AR        : &#39;tsmodel.distribution&#39; num [1:1985, 1:80] 0.000106 -0.110461 -0.044147 0.026621 0.03742 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
+##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;
+##  $ X         : NULL
+##  $ Seasonal12: &#39;tsmodel.distribution&#39; num [1:1985, 1:80] -0.0447 -0.0369 -0.0261 -0.044 -0.0539 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
+##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;</code></pre>
+<p>Once bsts model is estimated, we can convert it to a <em>dlm</em> object<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> using either the mean values of the parameters and initial states, or a specific draw using the <em>tsconvert</em> method.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="tsforeign.html#cb207-1"></a><span class="kw">library</span>(dlm)</span>
+<span id="cb207-2"><a href="tsforeign.html#cb207-2"></a>dlm_model &lt;-<span class="st"> </span><span class="kw">tsconvert</span>(mod, <span class="dt">to =</span> <span class="st">&quot;dlm&quot;</span>, <span class="dt">draw =</span> <span class="st">&quot;mean&quot;</span>, <span class="dt">burn =</span> bsts<span class="op">::</span><span class="kw">SuggestBurn</span>(<span class="fl">0.1</span>, mod<span class="op">$</span>model))</span>
+<span id="cb207-3"><a href="tsforeign.html#cb207-3"></a><span class="kw">str</span>(dlm_model)</span></code></pre></div>
+<pre><code>## List of 6
+##  $ m0: num [1:17] 1.5639 0.01734 -0.00434 -0.04057 -0.03086 ...
+##  $ C0: num [1:17, 1:17] 1e+07 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 ...
+##  $ FF: num [1, 1:17] 1 0 0 1 0 0 0 0 0 0 ...
+##  $ V : num [1, 1] 0.0114
+##  $ GG: num [1:17, 1:17] 1 0 0 0 0 0 0 0 0 0 ...
+##  $ W : num [1:17, 1:17] 0.0044 0 0 0 0 ...
+##  - attr(*, &quot;class&quot;)= chr &quot;dlm&quot;</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="tsforeign.html#cb209-1"></a>filtered_dlm &lt;-<span class="st"> </span><span class="kw">dlmFilter</span>(<span class="kw">log</span>(priceunits[<span class="dv">1</span><span class="op">:</span><span class="dv">80</span>,<span class="dv">1</span>]), dlm_model)</span>
+<span id="cb209-2"><a href="tsforeign.html#cb209-2"></a>smoothed_dlm &lt;-<span class="st"> </span><span class="kw">dlmSmooth</span>(filtered_dlm)</span>
+<span id="cb209-3"><a href="tsforeign.html#cb209-3"></a>smoothed_series &lt;-<span class="st"> </span><span class="kw">xts</span>((dlm_model<span class="op">$</span>FF <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(smoothed_dlm<span class="op">$</span>s))[<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>], <span class="kw">index</span>(priceunits)[<span class="dv">1</span><span class="op">:</span><span class="dv">80</span>])</span>
+<span id="cb209-4"><a href="tsforeign.html#cb209-4"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb209-5"><a href="tsforeign.html#cb209-5"></a><span class="kw">plot</span>(<span class="kw">as.zoo</span>(filtered_dlm<span class="op">$</span>f), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Filtered Series&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb209-6"><a href="tsforeign.html#cb209-6"></a><span class="kw">lines</span>(<span class="kw">as.zoo</span>(<span class="kw">fitted</span>(mod, <span class="dt">raw =</span> <span class="ot">TRUE</span>)), <span class="dt">col =</span> <span class="dv">2</span>)</span>
+<span id="cb209-7"><a href="tsforeign.html#cb209-7"></a><span class="kw">grid</span>()</span>
+<span id="cb209-8"><a href="tsforeign.html#cb209-8"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;DLM&quot;</span>,<span class="st">&quot;BSTS&quot;</span>), <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb209-9"><a href="tsforeign.html#cb209-9"></a><span class="kw">plot</span>(<span class="kw">as.zoo</span>(smoothed_series), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Smoothed Series&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb209-10"><a href="tsforeign.html#cb209-10"></a><span class="kw">lines</span>(<span class="kw">as.zoo</span>(<span class="kw">fitted</span>(mod, <span class="dt">raw =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;smoothed&quot;</span>)), <span class="dt">col =</span> <span class="dv">2</span>)</span>
+<span id="cb209-11"><a href="tsforeign.html#cb209-11"></a><span class="kw">grid</span>()</span>
+<span id="cb209-12"><a href="tsforeign.html#cb209-12"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;DLM&quot;</span>,<span class="st">&quot;BSTS&quot;</span>), <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>We compare the predictive distribution of the predicted object from calling the predict method of the <strong>tsforeign</strong> package and that of the <strong>bsts package</strong>. Note that there are a lot more arguments which can be passed to the predict routine, including user overrides for the last state means and the posterior means of the parameters (see the documentation for more details).</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tsforeign.html#cb210-1"></a>p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">h =</span> <span class="dv">12</span>)</span>
+<span id="cb210-2"><a href="tsforeign.html#cb210-2"></a><span class="co"># BSTS method</span></span>
+<span id="cb210-3"><a href="tsforeign.html#cb210-3"></a>p2 &lt;-<span class="st"> </span>bsts<span class="op">::</span><span class="kw">predict.bsts</span>(mod<span class="op">$</span>model, <span class="dt">horizon =</span> <span class="dv">12</span>)</span>
+<span id="cb210-4"><a href="tsforeign.html#cb210-4"></a><span class="co"># convert predictive distribution to tsmodel.distribution for comparison</span></span>
+<span id="cb210-5"><a href="tsforeign.html#cb210-5"></a>p2d &lt;-<span class="st"> </span>p2<span class="op">$</span>distribution</span>
+<span id="cb210-6"><a href="tsforeign.html#cb210-6"></a><span class="kw">colnames</span>(p2d) &lt;-<span class="st"> </span><span class="kw">colnames</span>(p1<span class="op">$</span>distribution)</span>
+<span id="cb210-7"><a href="tsforeign.html#cb210-7"></a><span class="kw">class</span>(p2d) &lt;-<span class="st"> &quot;tsmodel.distribution&quot;</span></span>
+<span id="cb210-8"><a href="tsforeign.html#cb210-8"></a><span class="kw">plot</span>(<span class="kw">log</span>(p1<span class="op">$</span>distribution), <span class="dt">main =</span> <span class="st">&quot;tsforeign native predict c++ routine vs bsts routine&quot;</span>)</span>
+<span id="cb210-9"><a href="tsforeign.html#cb210-9"></a><span class="kw">plot</span>(p2d, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">median_color =</span> <span class="dv">2</span>, <span class="dt">interval_color =</span> <span class="dv">2</span>, <span class="dt">median_type =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>A predicted object can also be decomposed into it’s structural components, something we are able to do because of the custom predict routine since <em>bsts</em> does not return this information.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="tsforeign.html#cb211-1"></a>td &lt;-<span class="st"> </span><span class="kw">tsdecompose</span>(p1)</span>
+<span id="cb211-2"><a href="tsforeign.html#cb211-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb211-3"><a href="tsforeign.html#cb211-3"></a><span class="kw">plot</span>(td<span class="op">$</span>Level, <span class="dt">main =</span> <span class="st">&quot;Level&quot;</span>)</span>
+<span id="cb211-4"><a href="tsforeign.html#cb211-4"></a><span class="kw">plot</span>(td<span class="op">$</span>Slope, <span class="dt">main =</span> <span class="st">&quot;Slope&quot;</span>)</span>
+<span id="cb211-5"><a href="tsforeign.html#cb211-5"></a><span class="kw">plot</span>(td<span class="op">$</span>Seasonal12, <span class="dt">main =</span> <span class="st">&quot;Seasonal&quot;</span>)</span>
+<span id="cb211-6"><a href="tsforeign.html#cb211-6"></a><span class="kw">plot</span>(td<span class="op">$</span>AR, <span class="dt">main =</span> <span class="st">&quot;AR&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-47-1.png" width="768" /></p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-forecast">
+<p>Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2020. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.</p>
+</div>
+<div id="ref-R-bsts">
+<p>Scott, Steven L. 2020. <em>Bsts: Bayesian Structural Time Series</em>. <a href="https://CRAN.R-project.org/package=bsts">https://CRAN.R-project.org/package=bsts</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>Fitted and predicted distributions are always returned in their original state by inversing any differencing used.<a href="tsforeign.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>See the the <strong>dlm</strong> package of <span class="citation">(Petris <a href="#ref-R-dlm" role="doc-biblioref">2018</a>)</span><a href="tsforeign.html#fnref20" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tsvets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
