@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a><ul>
 <li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods-simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
+<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods:simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>3.3</b> Demonstration</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a><ul>
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     lambda = NULL, lambda_lower = 0, lambda_upper = 1, seasonal_harmonics = NULL, 
 ##     distribution = &quot;gaussian&quot;, ...) 
 ## NULL</code></pre>
-<p>which provides a rich set of options such as degree of differencing,<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> a sparse AR component, sparse regressors, regular or trigonometric seasonal components (including multiple seasonal), cyclical components and the Box Cox transformation. Once an object is estimated, and all required components have been generated, any additional methods on the estimated component are performed directly by custom written functions in the <strong>tsforeign</strong> package.</p>
+<p>which provides a rich set of options such as degree of differencing,<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> a sparse AR component, sparse regressors, regular or trigonometric seasonal components (including multiple seasonal), cyclical components and the Box Cox transformation. Once an object is estimated, and all required components have been generated, any additional methods on the estimated component are performed directly by custom written functions in the <strong>tsforeign</strong> package.</p>
 <p>For the demonstration we’ll use the <code>priceunits</code> dataset from the <strong>tsdatasets</strong> package. Once a series is estimated, the resulting MCMC draws are converted to an <code>mcmc</code> object from the <a href="https://cran.r-project.org/web/packages/coda/"><strong>coda</strong></a> package of <span class="citation">Plummer et al. (<a href="#ref-R-coda" role="doc-biblioref">2006</a>)</span> in order to provide a nice summary report.</p>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="tsforeign.html#cb199-1"></a><span class="kw">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
 <span id="cb199-2"><a href="tsforeign.html#cb199-2"></a>spec &lt;-<span class="st"> </span><span class="kw">bsts_modelspec</span>(<span class="dt">y =</span> priceunits[<span class="dv">1</span><span class="op">:</span><span class="dv">80</span>,<span class="dv">1</span>], <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">differences =</span> <span class="dv">0</span>, </span>
@@ -382,7 +382,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. ..$ : NULL
 ##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
 ##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;</code></pre>
-<p>Once bsts model is estimated, we can convert it to a <code>dlm</code> object<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> using either the mean values of the parameters and initial states, or a specific draw using the <code>tsconvert</code> method.</p>
+<p>Once bsts model is estimated, we can convert it to a <code>dlm</code> object<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> using either the mean values of the parameters and initial states, or a specific draw using the <code>tsconvert</code> method.</p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="tsforeign.html#cb206-1"></a><span class="kw">library</span>(dlm)</span>
 <span id="cb206-2"><a href="tsforeign.html#cb206-2"></a>dlm_model &lt;-<span class="st"> </span><span class="kw">tsconvert</span>(mod, <span class="dt">to =</span> <span class="st">&quot;dlm&quot;</span>, <span class="dt">draw =</span> <span class="st">&quot;mean&quot;</span>, </span>
 <span id="cb206-3"><a href="tsforeign.html#cb206-3"></a>                       <span class="dt">burn =</span> bsts<span class="op">::</span><span class="kw">SuggestBurn</span>(<span class="fl">0.1</span>, mod<span class="op">$</span>model))</span>
@@ -419,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb209-8"><a href="tsforeign.html#cb209-8"></a><span class="kw">plot</span>(<span class="kw">log</span>(p1<span class="op">$</span>distribution), <span class="dt">main =</span> <span class="st">&quot;tsforeign native predict c++ routine vs bsts routine&quot;</span>)</span>
 <span id="cb209-9"><a href="tsforeign.html#cb209-9"></a><span class="kw">plot</span>(p2d, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">median_color =</span> <span class="dv">2</span>, <span class="dt">interval_color =</span> <span class="dv">2</span>, <span class="dt">median_type =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
-<p>A predicted object can also be decomposed into it’s structural components, something we are able to do because of the custom predict routine since<code>*bst</code>* does not return this information.</p>
+<p>A predicted object can also be decomposed into it’s structural components, something we are able to do because of the custom predict routine since <code>bsts</code> does not return this information.</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tsforeign.html#cb210-1"></a>td &lt;-<span class="st"> </span><span class="kw">tsdecompose</span>(p1)</span>
 <span id="cb210-2"><a href="tsforeign.html#cb210-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
 <span id="cb210-3"><a href="tsforeign.html#cb210-3"></a><span class="kw">plot</span>(td<span class="op">$</span>Level, <span class="dt">main =</span> <span class="st">&quot;Level&quot;</span>)</span>
@@ -444,9 +444,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="footnotes">
 <hr />
-<ol start="18">
-<li id="fn18"><p>Fitted and predicted distributions are always returned in their original state by inverting any differencing used.<a href="tsforeign.html#fnref18" class="footnote-back">↩︎</a></p></li>
-<li id="fn19"><p>See the the <a href="https://cran.r-project.org/web/packages/dlm/"><strong>dlm</strong></a> package of <span class="citation">Petris (<a href="#ref-R-dlm" role="doc-biblioref">2018</a>)</span>.<a href="tsforeign.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<ol start="17">
+<li id="fn17"><p>Fitted and predicted distributions are always returned in their original state by inverting any differencing used.<a href="tsforeign.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>See the the <a href="https://cran.r-project.org/web/packages/dlm/"><strong>dlm</strong></a> package of <span class="citation">Petris (<a href="#ref-R-dlm" role="doc-biblioref">2018</a>)</span>.<a href="tsforeign.html#fnref18" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

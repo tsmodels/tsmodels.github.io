@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a><ul>
 <li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods-simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
+<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods:simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>3.3</b> Demonstration</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a><ul>
@@ -236,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \bf{\hat y}_t = \bf{l}_{t - 1} + \Phi\bf{b}_{t - 1} + \bf{s}_{t - m},
 \tag{6.1}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(\Phi\)</span> is the <span class="math inline">\(N\times N\)</span> matrix of dampening parameters. In its reduced form, the model without seasonality is equivalent to a VARIMA(1,2,2) model,<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> and <span class="math inline">\(\Phi\)</span> becomes the matrix of first order autoregressive coefficients.</p>
+<p>where <span class="math inline">\(\Phi\)</span> is the <span class="math inline">\(N\times N\)</span> matrix of dampening parameters. In its reduced form, the model without seasonality is equivalent to a VARIMA(1,2,2) model,<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> and <span class="math inline">\(\Phi\)</span> becomes the matrix of first order autoregressive coefficients.</p>
 <p>The 1 step ahead forecast errors, <span class="math inline">\(\boldsymbol{\varepsilon}_t\)</span> follow a multivariate normal distribution:</p>
 <p><span class="math display" id="eq:tsvets2">\[\begin{equation}
 {\boldsymbol{\varepsilon} _t} = {\bf{y}_t} - {{\bf{\hat y}}_t},\quad {\boldsymbol{\varepsilon} _t} \sim {\bf{N}}\left( {{\bf{0}},\Sigma } \right).
@@ -365,15 +365,15 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 {\lambda _s}\left( D \right) &lt; 1,D = F - GAH.
 \tag{6.15}
 \end{equation}\]</span></p>
-<p>This is added as a soft barrier constraint. The diagonal elements of the level, slope, dampening and seasonal matrices are bounded between 0 and 1, while the off diagonal elements are allowed to vary between -1 and 1.<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
+<p>This is added as a soft barrier constraint. The diagonal elements of the level, slope, dampening and seasonal matrices are bounded between 0 and 1, while the off diagonal elements are allowed to vary between -1 and 1.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
 <p>Finally, the initial seed values for each of the states are approximated using the heuristic approach from the univariate ETS model as described in Section <a href="tsets.html#tsets:implementation:initialization">4.5.2</a>.</p>
 </div>
 <div id="tsvets:dependence" class="section level2">
 <h2><span class="header-section-number">6.4</span> Dependence Structure</h2>
-<p>While Equation <a href="tsissm.html#eq:tsissm10">(5.10)</a> assumes a full covariance matrix, allowing contemporaneous associations among the residuals, we also offer 3 additional estimators for the dependence structure: diagonal covariance, equicorrelation and shrinkage covariance based on the estimator of <span class="citation">(Ledoit and Wolf <a href="#ref-ledoit2004well" role="doc-biblioref">2004</a>)</span>.</p>
+<p>While Equation <a href="tsissm.html#eq:tsissm10">(5.10)</a> assumes a full covariance matrix, allowing contemporaneous associations among the residuals, we also offer 3 additional estimators for the dependence structure: diagonal covariance, equicorrelation and shrinkage covariance based on the estimator of <span class="citation">Ledoit and Wolf (<a href="#ref-ledoit2004well" role="doc-biblioref">2004</a>)</span>.</p>
 <div id="tsvets:dependence:diagonal" class="section level3">
 <h3><span class="header-section-number">6.4.1</span> Diagonal Covariance</h3>
-<p>The diagonal covariance matrix is the one used by <span class="citation">(Athanasopoulos and Silva <a href="#ref-athanasopoulos2012" role="doc-biblioref">2012</a>)</span>, and leads to the fastest estimation. In this case, the log-likelihood is greatly simplified and equal to</p>
+<p>The diagonal covariance matrix is the one used by <span class="citation">Athanasopoulos and Silva (<a href="#ref-athanasopoulos2012" role="doc-biblioref">2012</a>)</span>, and leads to the fastest estimation. In this case, the log-likelihood is greatly simplified and equal to</p>
 <p><span class="math display" id="eq:tsvets16">\[\begin{equation}
 \frac{T}{2}\left( {N\log \left( {2\pi } \right) + N\log \left| \Sigma  \right|} \right) - \frac{1}{2}\sum\limits_{t = 1}^T {\sum\limits_{i = 1}^N {\varepsilon _{it}^2/\sigma _i^2} }.
 \tag{6.16}
@@ -426,7 +426,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ##     dependence = c(&quot;diagonal&quot;, &quot;full&quot;, &quot;equicorrelation&quot;, &quot;shrinkage&quot;), 
 ##     cores = 1) 
 ## NULL</code></pre>
-<p>The specification has options for how the components of level, slope, dampening, seasonality are structured as well as the type of dependence to use. We also allow multicore processing since we require the initial state vectors to be calculated through calls to the <strong>tsets</strong> package, which can be done in parallel. The <code>lambda</code> argument can be set either to <code>NA</code>, in which case the multivariate version of the Box Cox transformation is used which targets a transformation to multivariate normality based on <span class="citation">Velilla (<a href="#ref-velilla1993note" role="doc-biblioref">1993</a>)</span> using the <em>powerTransform</em> function from the <a href="https://cran.r-project.org/web/packages/car/"><strong>car</strong></a> package of <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>, a vector of length equal to the number of series of a single number to apply to all series, and NULL in which case no transformation is performed.</p>
+<p>The specification has options for how the components of level, slope, dampening, seasonality are structured as well as the type of dependence to use. We also allow multicore processing since we require the initial state vectors to be calculated through calls to the <strong>tsets</strong> package, which can be done in parallel. The <code>lambda</code> argument can be set either to <code>NA</code>, in which case the multivariate version of the Box Cox transformation is used which targets a transformation to multivariate normality based on <span class="citation">Velilla (<a href="#ref-velilla1993note" role="doc-biblioref">1993</a>)</span> using the <code>powerTransform</code> function from the <a href="https://cran.r-project.org/web/packages/car/"><strong>car</strong></a> package of <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>, a vector of length equal to the number of series of a single number to apply to all series, and <code>NULL</code> in which case no transformation is performed.</p>
 <p>The next sections provide fully worked examples with methods showcasing the functionality of the package under different assumptions.</p>
 </div>
 <div id="tsvets:demonstration:example1" class="section level3">
@@ -682,7 +682,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## T.NEWS   0.07277617 -0.000681685
 ## V.NEWS   1.00000000  0.031399075
 ## WA.NEWS  0.03139907  1.000000000</code></pre>
-<p>Note that, even though we impose a diagonal covariance matrix structure, we still return the full covariance matrix in <code>tscov</code>*`.</p>
+<p>Note that, even though we impose a diagonal covariance matrix structure, we still return the full covariance matrix in <code>tscov</code>.</p>
 <p>Fitted and residuals:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="tsvets.html#cb129-1"></a><span class="kw">head</span>(<span class="kw">fitted</span>(mod)[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            ACF.NEWS NSW.NEWS  NT.NEWS   Q.NEWS
@@ -702,7 +702,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 1988-05-31 -0.015177745  0.034948730  0.007813705  0.08723713
 ## 1988-06-30 -0.016728761  0.007759055  0.258018253  0.01256486
 ## 1988-07-31 -0.007742658 -0.082119842 -0.071413488  0.05817216</code></pre>
-<p>where argument <code>raw</code>**` denotes the non backtransformed residuals (if a Box Cox calculation was used).</p>
+<p>where argument <code>raw</code> denotes the non backtransformed residuals (if a Box Cox calculation was used).</p>
 <p>States decomposition:</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="tsvets.html#cb135-1"></a>tsx &lt;-<span class="st"> </span><span class="kw">tsdecompose</span>(mod)</span>
 <span id="cb135-2"><a href="tsvets.html#cb135-2"></a><span class="kw">head</span>(tsx<span class="op">$</span>Level[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
@@ -735,7 +735,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-13-2.png" width="768" /></p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="tsvets.html#cb143-1"></a><span class="kw">plot</span>(mod, <span class="dt">type =</span> <span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-13-3.png" width="768" /></p>
-<p>The<code>*predict</code> function will output a list which includes data.table of each series’ prediction object and state decomposition:</p>
+<p>The <code>predict</code> function will output a list which includes data.table of each series’ prediction object and state decomposition:</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="tsvets.html#cb144-1"></a>p &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">h =</span> <span class="dv">12</span>)</span>
 <span id="cb144-2"><a href="tsvets.html#cb144-2"></a>p<span class="op">$</span>prediction_table</span></code></pre></div>
 <pre><code>##      series             Level             Slope          Seasonal X
@@ -962,7 +962,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## T.NEWS   -0.001810489 -0.01417145 0.01158012 0.01585182 -0.01554217
 ## V.NEWS   -0.001810489 -0.01417145 0.01158012 0.01585182 -0.01554217
 ## WA.NEWS  -0.001810489 -0.01417145 0.01158012 0.01585182 -0.01554217</code></pre>
-<p>where we can observe that the coefficients for each regressor have been pooled, with the exception of x1 for the NSW.NEWS series.</p>
+<p>where we can observe that the coefficients for each regressor have been pooled, with the exception of <code>x1</code> for the NSW.NEWS series.</p>
 <p>We can now proceed to aggregate the model using the <code>tsaggregate</code> method on the estimated object:</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="tsvets.html#cb173-1"></a>mod_aggregate &lt;-<span class="st"> </span><span class="kw">tsaggregate</span>(mod, <span class="dt">weights =</span> weights, <span class="dt">return_model =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb173-2"><a href="tsvets.html#cb173-2"></a><span class="kw">summary</span>(mod_aggregate)</span></code></pre></div>
@@ -1177,9 +1177,9 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 </div>
 <div class="footnotes">
 <hr />
-<ol start="16">
-<li id="fn16"><p>See section 17.4.1 of <span class="citation">R. Hyndman et al. (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>.<a href="tsvets.html#fnref16" class="footnote-back">↩︎</a></p></li>
-<li id="fn17"><p>Which will almost surely lead to invertibility problems if they are all sampled at their extremes, but we prefer to catch that case with the barrier constraint rather than enforcing difficult to implement row-wise constraints on each matrix.<a href="tsvets.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<ol start="15">
+<li id="fn15"><p>See section 17.4.1 of <span class="citation">R. Hyndman et al. (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>.<a href="tsvets.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Which will almost surely lead to invertibility problems if they are all sampled at their extremes, but we prefer to catch that case with the barrier constraint rather than enforcing difficult to implement row-wise constraints on each matrix.<a href="tsvets.html#fnref16" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a><ul>
 <li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods-simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
+<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods:simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>3.3</b> Demonstration</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a><ul>
@@ -239,7 +239,7 @@ y_t^\lambda  = {\bf{w&#39;}}{{\bf{x}}_{t - 1}} + \bf{c&#39;}\bf{u}_{t - 1}  + {\
 \end{array}
 \tag{5.1}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(\lambda\)</span> represents the Box Cox parameter, <span class="math inline">\(\bf{w&#39;}\)</span> the observation coefficient vector, <span class="math inline">\(\bf{x}_t\)</span> the unobserved state vector, <span class="math inline">\(\bf{c}\)</span> a vector of coefficients on the external regressor set <span class="math inline">\(\bf{u}\)</span>.</p>
+<p>where <span class="math inline">\(\lambda\)</span> represents the Box Cox parameter, <span class="math inline">\(\bf{w}\)</span> the observation coefficient vector, <span class="math inline">\(\bf{x}_t\)</span> the unobserved state vector, <span class="math inline">\(\bf{c}\)</span> a vector of coefficients on the external regressor set <span class="math inline">\(\bf{u}\)</span>.</p>
 <p>Define the state vector<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> as:</p>
 <p><span class="math display" id="eq:tsissm2">\[\begin{equation}
 \bf{x}_t = {\left( {{l_t},{b_t},s_t^{(1)},\dots,s_t^{(T)},{d_t},{d_{t - 1}},\dots,{d_{t - p - 1}},{\varepsilon_t},{\varepsilon_{t - 1}},\dots,{\varepsilon _{t - q - 1}}} \right)^\prime },
@@ -356,7 +356,7 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 </div>
 <div id="tsissm:demonstration:estimation" class="section level3">
 <h3><span class="header-section-number">5.5.2</span> Estimation</h3>
-<p>We showcase the functionality of the package using the electricload dataset from the <strong>tsdatasets</strong> package which represents total hourly electricity load in Greece in MW as published on ENTSO-E Transparency Platform, for the period 2016-10-17/2019-04-30. The series appears to have multiple seasonality with periodicity 24, <span class="math inline">\(24\times 7\)</span> and <span class="math inline">\(24\times 7 \times 52\)</span>, which we model with trigonometric terms.</p>
+<p>We showcase the functionality of the package using the electricload dataset from the <strong>tsdatasets</strong> package which represents total hourly electricity load in Greece in MW as published on ENTSO-E Transparency Platform, for the period 2016-10-17 to 2019-04-30. The series appears to have multiple seasonality with periodicity 24, <span class="math inline">\(24\times 7\)</span> and <span class="math inline">\(24\times 7 \times 52\)</span>, which we model with trigonometric terms.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="tsissm.html#cb67-1"></a><span class="kw">library</span>(tsissm)</span>
 <span id="cb67-2"><a href="tsissm.html#cb67-2"></a><span class="kw">data</span>(<span class="st">&quot;electricload&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
 <span id="cb67-3"><a href="tsissm.html#cb67-3"></a><span class="co"># specification</span></span>
@@ -395,7 +395,7 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 ## MAPE	: 0.01827
 ## BIAS	: 3e-04
 ## MSLRE	: 0.00057</code></pre>
-<p>The plot method decomposes the estimated model into it’s components:</p>
+<p>The <code>plot</code> method decomposes the estimated model into it’s components:</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="tsissm.html#cb71-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_plot-1.png" width="768" /></p>
 <p>but we can also extract these directly and plot them using the <code>tsdecompose</code> method:</p>
@@ -444,7 +444,7 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="tsissm.html#cb81-1"></a>p &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">h =</span> <span class="dv">24</span><span class="op">*</span><span class="dv">10</span>)</span>
 <span id="cb81-2"><a href="tsissm.html#cb81-2"></a><span class="kw">plot</span>(p, <span class="dt">n_original =</span> <span class="dv">24</span><span class="op">*</span><span class="dv">20</span>, <span class="dt">main =</span> <span class="st">&quot;10-Day Hourly Forecast&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_predict-1.png" width="672" /></p>
-<p>The prediction object also has a decomposition method:</p>
+<p>The <code>predict</code> object also has a decomposition method:</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="tsissm.html#cb82-1"></a>td &lt;-<span class="st"> </span><span class="kw">tsdecompose</span>(p)</span>
 <span id="cb82-2"><a href="tsissm.html#cb82-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>),<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
 <span id="cb82-3"><a href="tsissm.html#cb82-3"></a><span class="kw">plot</span>(td<span class="op">$</span>Level, <span class="dt">n_original =</span> <span class="dv">24</span><span class="op">*</span><span class="dv">20</span>, <span class="dt">main =</span> <span class="st">&quot;Level[State] Predicted Distribution&quot;</span>)</span>
@@ -458,7 +458,7 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 </div>
 <div id="tsissm:demonstration:simulation" class="section level3">
 <h3><span class="header-section-number">5.5.4</span> Simulation</h3>
-<p>Simulation of an estimated object has options for changing the coefficients as well as the initial states, as well as the option for providing custom innovations<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> or bootstrapped innovations:</p>
+<p>Simulation of an estimated object has options for changing the coefficients as well as the initial states, as well as the option for providing custom innovations or bootstrapped innovations:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="tsissm.html#cb83-1"></a><span class="kw">args</span>(tsissm<span class="op">:::</span>simulate.tsissm.estimate)</span></code></pre></div>
 <pre><code>## function (object, nsim = 1, seed = NULL, h = NULL, newxreg = NULL, 
 ##     sim_dates = NULL, bootstrap = FALSE, innov = NULL, sigma_scale = 1, 
@@ -467,7 +467,7 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="tsissm.html#cb85-1"></a>sim &lt;-<span class="st"> </span><span class="kw">simulate</span>(mod, <span class="dt">nsim =</span> <span class="dv">100</span>, <span class="dt">h =</span> <span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">10</span>, <span class="dt">bootstrap =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb85-2"><a href="tsissm.html#cb85-2"></a><span class="kw">plot</span>(sim)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_simulation-1.png" width="768" /></p>
-<p>While the plot function on a simulated object provides a decomposition of the actual and state components distributions, it is useful to remind ourselves that the distribution bands represent the range of uncertainty of multiple paths. This is best illustrated by plotting these seperately:</p>
+<p>While the plot function on a simulated object provides a decomposition of the actual and state components distributions, it is useful to remind ourselves that the distribution bands represent the range of uncertainty of multiple paths. This is best illustrated by plotting these separately:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="tsissm.html#cb86-1"></a><span class="kw">matplot</span>(<span class="kw">as.POSIXct</span>(<span class="kw">colnames</span>(sim<span class="op">$</span>Simulated)), <span class="kw">t</span>(sim<span class="op">$</span>Simulated), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,</span>
 <span id="cb86-2"><a href="tsissm.html#cb86-2"></a>        <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simulated Paths&quot;</span>)</span>
 <span id="cb86-3"><a href="tsissm.html#cb86-3"></a><span class="kw">grid</span>()</span></code></pre></div>
@@ -620,10 +620,9 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 <ol start="10">
 <li id="fn10"><p>The following equations apply for the case when all components are present (level, slope, seasonal and ARMA).<a href="tsissm.html#fnref10" class="footnote-back">↩︎</a></p></li>
 <li id="fn11"><p>For <span class="math inline">\(j=1,\dots,k_i\)</span> and <span class="math inline">\(i=1,\dots,T\)</span>, representing the number of harmonics <span class="math inline">\(k\)</span> per seasonal period <span class="math inline">\(i\)</span>.<a href="tsissm.html#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>For simplicity of exposition, <span class="math inline">\(y_t\)</span> is equivalent to <span class="math inline">\(y_t^(\lambda)\)</span>.<a href="tsissm.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>For simplicity of exposition, <span class="math inline">\(y_t\)</span> is equivalent to <span class="math inline">\(y_t^{(\lambda)}\)</span>.<a href="tsissm.html#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p>So that the inverse of the characteristic roots are inside the unit circle.<a href="tsissm.html#fnref13" class="footnote-back">↩︎</a></p></li>
 <li id="fn14"><p>Currently, multiple seasonality is not implemented for the regular case, but will be added in due course.<a href="tsissm.html#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p>See Section @ref(#tsmethods-simulation) on why we use uniform variates.<a href="tsissm.html#fnref15" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
