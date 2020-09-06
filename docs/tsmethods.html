@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Time Series Forecasting Framework</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> The tsmodels team</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Installation</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a><ul>
 <li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other packages</a></li>
-<li class="chapter" data-level="9" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>9</b> Installation</a></li>
+<li class="chapter" data-level="9" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>9</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -654,57 +654,57 @@ tsequation
 <div id="demonstration" class="section level2">
 <h2><span class="header-section-number">3.3</span> Demonstration</h2>
 <p>Step 1: Estimation</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tsmethods.html#cb1-1"></a><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tsmethods))</span>
-<span id="cb1-2"><a href="tsmethods.html#cb1-2"></a><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(tsets)))</span>
-<span id="cb1-3"><a href="tsmethods.html#cb1-3"></a><span class="kw">suppressMessages</span>(<span class="kw">library</span>(xts))</span>
-<span id="cb1-4"><a href="tsmethods.html#cb1-4"></a><span class="kw">suppressMessages</span>(<span class="kw">library</span>(copula))</span>
-<span id="cb1-5"><a href="tsmethods.html#cb1-5"></a><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(viridis)))</span>
-<span id="cb1-6"><a href="tsmethods.html#cb1-6"></a><span class="kw">data</span>(austretail, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb1-7"><a href="tsmethods.html#cb1-7"></a>y1 &lt;-<span class="st"> </span>austretail[,<span class="st">&quot;SA.DS&quot;</span>]</span>
-<span id="cb1-8"><a href="tsmethods.html#cb1-8"></a>y2 &lt;-<span class="st"> </span>austretail[,<span class="st">&quot;ACF.DS&quot;</span>]</span>
-<span id="cb1-9"><a href="tsmethods.html#cb1-9"></a>spec1 &lt;-<span class="st"> </span><span class="kw">ets_modelspec</span>(y1, <span class="dt">model =</span> <span class="st">&quot;MMM&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb1-10"><a href="tsmethods.html#cb1-10"></a>spec2 &lt;-<span class="st"> </span><span class="kw">ets_modelspec</span>(y2, <span class="dt">model =</span> <span class="st">&quot;MMM&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb1-11"><a href="tsmethods.html#cb1-11"></a>mod1 &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec1)</span>
-<span id="cb1-12"><a href="tsmethods.html#cb1-12"></a>mod2 &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec2)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tsmethods.html#cb2-1"></a><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tsmethods))</span>
+<span id="cb2-2"><a href="tsmethods.html#cb2-2"></a><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(tsets)))</span>
+<span id="cb2-3"><a href="tsmethods.html#cb2-3"></a><span class="kw">suppressMessages</span>(<span class="kw">library</span>(xts))</span>
+<span id="cb2-4"><a href="tsmethods.html#cb2-4"></a><span class="kw">suppressMessages</span>(<span class="kw">library</span>(copula))</span>
+<span id="cb2-5"><a href="tsmethods.html#cb2-5"></a><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(viridis)))</span>
+<span id="cb2-6"><a href="tsmethods.html#cb2-6"></a><span class="kw">data</span>(austretail, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb2-7"><a href="tsmethods.html#cb2-7"></a>y1 &lt;-<span class="st"> </span>austretail[,<span class="st">&quot;SA.DS&quot;</span>]</span>
+<span id="cb2-8"><a href="tsmethods.html#cb2-8"></a>y2 &lt;-<span class="st"> </span>austretail[,<span class="st">&quot;ACF.DS&quot;</span>]</span>
+<span id="cb2-9"><a href="tsmethods.html#cb2-9"></a>spec1 &lt;-<span class="st"> </span><span class="kw">ets_modelspec</span>(y1, <span class="dt">model =</span> <span class="st">&quot;MMM&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb2-10"><a href="tsmethods.html#cb2-10"></a>spec2 &lt;-<span class="st"> </span><span class="kw">ets_modelspec</span>(y2, <span class="dt">model =</span> <span class="st">&quot;MMM&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb2-11"><a href="tsmethods.html#cb2-11"></a>mod1 &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec1)</span>
+<span id="cb2-12"><a href="tsmethods.html#cb2-12"></a>mod2 &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec2)</span></code></pre></div>
 <p>Step 2: Residual Correlation and Copula Construction/Sampling</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tsmethods.html#cb2-1"></a>C &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">residuals</span>(mod1), <span class="kw">residuals</span>(mod2))</span>
-<span id="cb2-2"><a href="tsmethods.html#cb2-2"></a>cop &lt;-<span class="st"> </span><span class="kw">normalCopula</span>(<span class="kw">as.numeric</span>(C), <span class="dt">dim =</span> <span class="dv">2</span>, <span class="dt">dispstr =</span> <span class="st">&quot;un&quot;</span>)</span>
-<span id="cb2-3"><a href="tsmethods.html#cb2-3"></a><span class="kw">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb2-4"><a href="tsmethods.html#cb2-4"></a>U &lt;-<span class="st"> </span><span class="kw">rCopula</span>(<span class="dv">5000</span> <span class="op">*</span><span class="st"> </span><span class="dv">12</span>, cop)</span>
-<span id="cb2-5"><a href="tsmethods.html#cb2-5"></a><span class="kw">cor</span>(U)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tsmethods.html#cb3-1"></a>C &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">residuals</span>(mod1), <span class="kw">residuals</span>(mod2))</span>
+<span id="cb3-2"><a href="tsmethods.html#cb3-2"></a>cop &lt;-<span class="st"> </span><span class="kw">normalCopula</span>(<span class="kw">as.numeric</span>(C), <span class="dt">dim =</span> <span class="dv">2</span>, <span class="dt">dispstr =</span> <span class="st">&quot;un&quot;</span>)</span>
+<span id="cb3-3"><a href="tsmethods.html#cb3-3"></a><span class="kw">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb3-4"><a href="tsmethods.html#cb3-4"></a>U &lt;-<span class="st"> </span><span class="kw">rCopula</span>(<span class="dv">5000</span> <span class="op">*</span><span class="st"> </span><span class="dv">12</span>, cop)</span>
+<span id="cb3-5"><a href="tsmethods.html#cb3-5"></a><span class="kw">cor</span>(U)</span></code></pre></div>
 <pre><code>##         [,1]    [,2]
 ## [1,] 1.00000 0.58779
 ## [2,] 0.58779 1.00000</code></pre>
 <p>Step 3: Prediction</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tsmethods.html#cb4-1"></a>p1.joint &lt;-<span class="st"> </span><span class="kw">predict</span>(mod1, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>, <span class="dt">innov =</span> U[,<span class="dv">1</span>])</span>
-<span id="cb4-2"><a href="tsmethods.html#cb4-2"></a>p2.joint &lt;-<span class="st"> </span><span class="kw">predict</span>(mod2, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>, <span class="dt">innov =</span> U[,<span class="dv">2</span>])</span>
-<span id="cb4-3"><a href="tsmethods.html#cb4-3"></a>p1.indep &lt;-<span class="st"> </span><span class="kw">predict</span>(mod1, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>)</span>
-<span id="cb4-4"><a href="tsmethods.html#cb4-4"></a>p2.indep &lt;-<span class="st"> </span><span class="kw">predict</span>(mod2, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>)</span>
-<span id="cb4-5"><a href="tsmethods.html#cb4-5"></a></span>
-<span id="cb4-6"><a href="tsmethods.html#cb4-6"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb4-7"><a href="tsmethods.html#cb4-7"></a><span class="kw">plot</span>(p1.joint, <span class="dt">main =</span> <span class="st">&quot;Correlated Predictions[y1]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span>
-<span id="cb4-8"><a href="tsmethods.html#cb4-8"></a><span class="kw">plot</span>(p2.joint, <span class="dt">main =</span> <span class="st">&quot;Correlated Predictions[y2]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span>
-<span id="cb4-9"><a href="tsmethods.html#cb4-9"></a><span class="kw">plot</span>(p1.indep, <span class="dt">main =</span> <span class="st">&quot;Independent Predictions[y1]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span>
-<span id="cb4-10"><a href="tsmethods.html#cb4-10"></a><span class="kw">plot</span>(p2.indep, <span class="dt">main =</span> <span class="st">&quot;Independent Predictions[y2]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tsmethods.html#cb5-1"></a>p1.joint &lt;-<span class="st"> </span><span class="kw">predict</span>(mod1, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>, <span class="dt">innov =</span> U[,<span class="dv">1</span>])</span>
+<span id="cb5-2"><a href="tsmethods.html#cb5-2"></a>p2.joint &lt;-<span class="st"> </span><span class="kw">predict</span>(mod2, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>, <span class="dt">innov =</span> U[,<span class="dv">2</span>])</span>
+<span id="cb5-3"><a href="tsmethods.html#cb5-3"></a>p1.indep &lt;-<span class="st"> </span><span class="kw">predict</span>(mod1, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>)</span>
+<span id="cb5-4"><a href="tsmethods.html#cb5-4"></a>p2.indep &lt;-<span class="st"> </span><span class="kw">predict</span>(mod2, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">nsim =</span> <span class="dv">5000</span>)</span>
+<span id="cb5-5"><a href="tsmethods.html#cb5-5"></a></span>
+<span id="cb5-6"><a href="tsmethods.html#cb5-6"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb5-7"><a href="tsmethods.html#cb5-7"></a><span class="kw">plot</span>(p1.joint, <span class="dt">main =</span> <span class="st">&quot;Correlated Predictions[y1]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span>
+<span id="cb5-8"><a href="tsmethods.html#cb5-8"></a><span class="kw">plot</span>(p2.joint, <span class="dt">main =</span> <span class="st">&quot;Correlated Predictions[y2]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span>
+<span id="cb5-9"><a href="tsmethods.html#cb5-9"></a><span class="kw">plot</span>(p1.indep, <span class="dt">main =</span> <span class="st">&quot;Independent Predictions[y1]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span>
+<span id="cb5-10"><a href="tsmethods.html#cb5-10"></a><span class="kw">plot</span>(p2.indep, <span class="dt">main =</span> <span class="st">&quot;Independent Predictions[y2]&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/ensemble3-1.png" width="672" /></p>
 <p>We can also plot the distributions directly, since there is a plot method for both <code>tsmodel.predict</code> and <code>tsmodel.distribution</code>, and we can also overlay one on top of another by using the <code>add = TRUE</code> argument.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tsmethods.html#cb5-1"></a><span class="kw">plot</span>(p1.joint<span class="op">$</span>distribution, <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">median_col =</span> <span class="st">&quot;grey&quot;</span>, </span>
-<span id="cb5-2"><a href="tsmethods.html#cb5-2"></a>     <span class="dt">median_width =</span> <span class="dv">4</span>, <span class="dt">interval_color =</span> <span class="dv">3</span>, <span class="dt">interval_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.99</span>), </span>
-<span id="cb5-3"><a href="tsmethods.html#cb5-3"></a>     <span class="dt">main =</span> <span class="st">&quot;SA.DS 12 Month Prediction&quot;</span>)</span>
-<span id="cb5-4"><a href="tsmethods.html#cb5-4"></a><span class="kw">plot</span>(p1.indep<span class="op">$</span>distribution, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">median_col =</span> <span class="dv">2</span>, <span class="dt">median_width =</span> <span class="dv">1</span>, </span>
-<span id="cb5-5"><a href="tsmethods.html#cb5-5"></a>     <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">interval_color =</span> <span class="dv">2</span>, </span>
-<span id="cb5-6"><a href="tsmethods.html#cb5-6"></a>     <span class="dt">interval_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.99</span>), <span class="dt">interval_width =</span> <span class="fl">0.5</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="tsmethods.html#cb6-1"></a><span class="kw">plot</span>(p1.joint<span class="op">$</span>distribution, <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">median_col =</span> <span class="st">&quot;grey&quot;</span>, </span>
+<span id="cb6-2"><a href="tsmethods.html#cb6-2"></a>     <span class="dt">median_width =</span> <span class="dv">4</span>, <span class="dt">interval_color =</span> <span class="dv">3</span>, <span class="dt">interval_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.99</span>), </span>
+<span id="cb6-3"><a href="tsmethods.html#cb6-3"></a>     <span class="dt">main =</span> <span class="st">&quot;SA.DS 12 Month Prediction&quot;</span>)</span>
+<span id="cb6-4"><a href="tsmethods.html#cb6-4"></a><span class="kw">plot</span>(p1.indep<span class="op">$</span>distribution, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">median_col =</span> <span class="dv">2</span>, <span class="dt">median_width =</span> <span class="dv">1</span>, </span>
+<span id="cb6-5"><a href="tsmethods.html#cb6-5"></a>     <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">interval_color =</span> <span class="dv">2</span>, </span>
+<span id="cb6-6"><a href="tsmethods.html#cb6-6"></a>     <span class="dt">interval_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.99</span>), <span class="dt">interval_width =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Evaluation of Predictive Distributions on Forecast Growth Rates</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="tsmethods.html#cb6-1"></a>p1.growth.joint &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p1.joint, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
-<span id="cb6-2"><a href="tsmethods.html#cb6-2"></a>p2.growth.joint &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p2.joint, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
-<span id="cb6-3"><a href="tsmethods.html#cb6-3"></a>p1.growth.indep &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p1.indep, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
-<span id="cb6-4"><a href="tsmethods.html#cb6-4"></a>p2.growth.indep &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p2.indep, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
-<span id="cb6-5"><a href="tsmethods.html#cb6-5"></a></span>
-<span id="cb6-6"><a href="tsmethods.html#cb6-6"></a>D.joint &lt;-<span class="st"> </span><span class="kw">cor</span>(p1.growth.joint<span class="op">$</span>distribution, p2.growth.joint<span class="op">$</span>distribution)</span>
-<span id="cb6-7"><a href="tsmethods.html#cb6-7"></a>D.indep &lt;-<span class="st"> </span><span class="kw">cor</span>(p1.growth.indep<span class="op">$</span>distribution, p2.growth.indep<span class="op">$</span>distribution)</span>
-<span id="cb6-8"><a href="tsmethods.html#cb6-8"></a><span class="kw">print</span>(<span class="kw">round</span>(<span class="kw">data.frame</span>(<span class="dt">Correlated =</span> <span class="kw">diag</span>(D.joint), </span>
-<span id="cb6-9"><a href="tsmethods.html#cb6-9"></a>                       <span class="dt">Independent =</span> <span class="kw">diag</span>(D.indep)), <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tsmethods.html#cb7-1"></a>p1.growth.joint &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p1.joint, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
+<span id="cb7-2"><a href="tsmethods.html#cb7-2"></a>p2.growth.joint &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p2.joint, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
+<span id="cb7-3"><a href="tsmethods.html#cb7-3"></a>p1.growth.indep &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p1.indep, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
+<span id="cb7-4"><a href="tsmethods.html#cb7-4"></a>p2.growth.indep &lt;-<span class="st"> </span><span class="kw">tsgrowth</span>(p2.indep, <span class="dt">d =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;diff&#39;</span>)</span>
+<span id="cb7-5"><a href="tsmethods.html#cb7-5"></a></span>
+<span id="cb7-6"><a href="tsmethods.html#cb7-6"></a>D.joint &lt;-<span class="st"> </span><span class="kw">cor</span>(p1.growth.joint<span class="op">$</span>distribution, p2.growth.joint<span class="op">$</span>distribution)</span>
+<span id="cb7-7"><a href="tsmethods.html#cb7-7"></a>D.indep &lt;-<span class="st"> </span><span class="kw">cor</span>(p1.growth.indep<span class="op">$</span>distribution, p2.growth.indep<span class="op">$</span>distribution)</span>
+<span id="cb7-8"><a href="tsmethods.html#cb7-8"></a><span class="kw">print</span>(<span class="kw">round</span>(<span class="kw">data.frame</span>(<span class="dt">Correlated =</span> <span class="kw">diag</span>(D.joint), </span>
+<span id="cb7-9"><a href="tsmethods.html#cb7-9"></a>                       <span class="dt">Independent =</span> <span class="kw">diag</span>(D.indep)), <span class="dv">3</span>))</span></code></pre></div>
 <pre><code>##            Correlated Independent
 ## 2019-01-31      0.600      -0.021
 ## 2019-02-28      0.600      -0.004
@@ -718,20 +718,20 @@ tsequation
 ## 2019-10-31      0.608      -0.003
 ## 2019-11-30      0.612      -0.009
 ## 2019-12-31      0.601      -0.017</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="tsmethods.html#cb8-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb8-2"><a href="tsmethods.html#cb8-2"></a><span class="kw">image</span>(<span class="kw">as.matrix</span>(D.joint), <span class="dt">col =</span> <span class="kw">rev</span>(<span class="kw">grey</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">25</span>))), </span>
-<span id="cb8-3"><a href="tsmethods.html#cb8-3"></a>      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">main =</span> <span class="st">&quot;Correlated&quot;</span>)</span>
-<span id="cb8-4"><a href="tsmethods.html#cb8-4"></a><span class="kw">contour</span>(<span class="kw">cor</span>(p1.joint<span class="op">$</span>distribution, p2.joint<span class="op">$</span>distribution), <span class="dt">add =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb8-5"><a href="tsmethods.html#cb8-5"></a>        <span class="dt">drawlabels =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb8-6"><a href="tsmethods.html#cb8-6"></a><span class="kw">image</span>(D.indep, <span class="dt">col =</span> <span class="kw">rev</span>(<span class="kw">grey</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">25</span>))), <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb8-7"><a href="tsmethods.html#cb8-7"></a>      <span class="dt">main =</span> <span class="st">&quot;Independent&quot;</span>)</span>
-<span id="cb8-8"><a href="tsmethods.html#cb8-8"></a><span class="kw">contour</span>(D.indep, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">drawlabels =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="tsmethods.html#cb9-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb9-2"><a href="tsmethods.html#cb9-2"></a><span class="kw">image</span>(<span class="kw">as.matrix</span>(D.joint), <span class="dt">col =</span> <span class="kw">rev</span>(<span class="kw">grey</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">25</span>))), </span>
+<span id="cb9-3"><a href="tsmethods.html#cb9-3"></a>      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">main =</span> <span class="st">&quot;Correlated&quot;</span>)</span>
+<span id="cb9-4"><a href="tsmethods.html#cb9-4"></a><span class="kw">contour</span>(<span class="kw">cor</span>(p1.joint<span class="op">$</span>distribution, p2.joint<span class="op">$</span>distribution), <span class="dt">add =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb9-5"><a href="tsmethods.html#cb9-5"></a>        <span class="dt">drawlabels =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb9-6"><a href="tsmethods.html#cb9-6"></a><span class="kw">image</span>(D.indep, <span class="dt">col =</span> <span class="kw">rev</span>(<span class="kw">grey</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">25</span>))), <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb9-7"><a href="tsmethods.html#cb9-7"></a>      <span class="dt">main =</span> <span class="st">&quot;Independent&quot;</span>)</span>
+<span id="cb9-8"><a href="tsmethods.html#cb9-8"></a><span class="kw">contour</span>(D.indep, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">drawlabels =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/ensemble3.1-1.png" width="672" /></p>
 <p>Step 4: Forecast Ensembling</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="tsmethods.html#cb9-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb9-2"><a href="tsmethods.html#cb9-2"></a>spec.joint &lt;-<span class="st"> </span><span class="kw">ensemble_modelspec</span>(p1.joint, p2.joint)</span>
-<span id="cb9-3"><a href="tsmethods.html#cb9-3"></a>ensemble.joint &lt;-<span class="st"> </span><span class="kw">tsensemble</span>(spec.joint, <span class="dt">weights =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
-<span id="cb9-4"><a href="tsmethods.html#cb9-4"></a><span class="kw">plot</span>(ensemble.joint, <span class="dt">main =</span> <span class="st">&quot;Ensemble Weighted Forecast&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="tsmethods.html#cb10-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb10-2"><a href="tsmethods.html#cb10-2"></a>spec.joint &lt;-<span class="st"> </span><span class="kw">ensemble_modelspec</span>(p1.joint, p2.joint)</span>
+<span id="cb10-3"><a href="tsmethods.html#cb10-3"></a>ensemble.joint &lt;-<span class="st"> </span><span class="kw">tsensemble</span>(spec.joint, <span class="dt">weights =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb10-4"><a href="tsmethods.html#cb10-4"></a><span class="kw">plot</span>(ensemble.joint, <span class="dt">main =</span> <span class="st">&quot;Ensemble Weighted Forecast&quot;</span>, <span class="dt">n_original =</span> <span class="dv">52</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/ensemble4-1.png" width="672" /></p>
 
 </div>
