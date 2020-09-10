@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2020-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,17 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag(){dataLayer.push(arguments);}
+  
+  gtag('js', new Date());
+  
+  gtag('config', 'UA-177357579-1');
+</script>
 
 
 <style type="text/css">
@@ -702,7 +713,7 @@ Seasonal[State]
 <pre><code>## [1] 12364.03</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tsets.html#cb21-1"></a><span class="kw">coef</span>(mod)</span></code></pre></div>
 <pre><code>##         alpha          beta         gamma            l0            b0 
-##    0.03453123    0.00010000    0.00000000 7107.77952533    2.76244932 
+##    0.03453123    0.00010000    0.00000000 7107.77952558    2.76244932 
 ##            s0            s1            s2            s3            s4 
 ## -506.79631332 -447.01230297 -476.68115042 -131.08931857  -75.93870995 
 ##            s5            s6            s7            s8            s9 
@@ -900,12 +911,12 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="tsets.html#cb61-1"></a>b &lt;-<span class="st"> </span><span class="kw">tsbacktest</span>(spec, <span class="dt">h =</span> <span class="dv">52</span>, <span class="dt">alpha =</span> <span class="kw">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="dt">trace =</span> <span class="dv">0</span>, <span class="dt">cores =</span> <span class="dv">4</span>)</span>
 <span id="cb61-2"><a href="tsets.html#cb61-2"></a><span class="kw">head</span>(b<span class="op">$</span>metrics)</span></code></pre></div>
 <pre><code>##    horizon variable       MAPE       MSLRE          BIAS   n MIS[0.02] MIS[0.1]
-## 1:       1        y 0.02719668 0.001168676 -0.0004431288 347  1736.042 1186.401
-## 2:       2        y 0.02696137 0.001160693 -0.0004983688 346  1712.665 1184.812
-## 3:       3        y 0.02705043 0.001154051 -0.0004796350 345  1721.348 1177.699
-## 4:       4        y 0.02705537 0.001164766 -0.0003712172 344  1635.731 1174.946
-## 5:       5        y 0.02702379 0.001162901 -0.0005289095 343  1680.330 1183.524
-## 6:       6        y 0.02677608 0.001138987 -0.0006895469 342  1683.768 1172.623</code></pre>
+## 1:       1        y 0.02710287 0.001165524 -0.0004851709 347  1750.719 1181.645
+## 2:       2        y 0.02695862 0.001155817 -0.0005105239 346  1694.395 1180.730
+## 3:       3        y 0.02698960 0.001148191 -0.0005009782 345  1689.606 1179.126
+## 4:       4        y 0.02712264 0.001161432 -0.0004446362 344  1709.448 1178.480
+## 5:       5        y 0.02704575 0.001164291 -0.0005618452 343  1720.270 1193.366
+## 6:       6        y 0.02686702 0.001139084 -0.0008830126 342  1643.976 1176.132</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="tsets.html#cb63-1"></a><span class="kw">plot</span>(b<span class="op">$</span>metrics<span class="op">$</span>horizon, b<span class="op">$</span>metrics<span class="op">$</span>MAPE<span class="op">*</span><span class="dv">100</span>, <span class="dt">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </span>
 <span id="cb63-2"><a href="tsets.html#cb63-2"></a>     <span class="dt">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
 <span id="cb63-3"><a href="tsets.html#cb63-3"></a><span class="kw">grid</span>()</span></code></pre></div>
@@ -919,9 +930,9 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <span id="cb64-3"><a href="tsets.html#cb64-3"></a>      <span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
 <span id="cb64-4"><a href="tsets.html#cb64-4"></a>bench</span></code></pre></div>
 <pre><code>##                  start                 end            spec            estimate
-## 1: 2020-09-06 13:44:20 2020-09-06 13:44:21 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
-## 2: 2020-09-06 13:44:21 2020-09-06 13:44:21 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
-## 3: 2020-09-06 13:44:21 2020-09-06 13:44:21 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
+## 1: 2020-09-10 14:47:19 2020-09-10 14:47:20 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
+## 2: 2020-09-10 14:47:20 2020-09-10 14:47:20 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
+## 3: 2020-09-10 14:47:20 2020-09-10 14:47:21 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
 ##    solver control    loglik
 ## 1:  optim       0 -6126.568
 ## 2: nlminb       0 -6125.014

@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-09-06" />
+<meta name="date" content="2020-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,17 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag(){dataLayer.push(arguments);}
+  
+  gtag('js', new Date());
+  
+  gtag('config', 'UA-177357579-1');
+</script>
 
 
 <style type="text/css">
@@ -369,30 +380,30 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <span id="cb68-10"><a href="tsissm.html#cb68-10"></a>mod &lt;-<span class="st"> </span><span class="kw">suppressMessages</span>(<span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, </span>
 <span id="cb68-11"><a href="tsissm.html#cb68-11"></a>                                 <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace =</span> <span class="dv">0</span>)))</span>
 <span id="cb68-12"><a href="tsissm.html#cb68-12"></a>mod<span class="op">$</span>opt<span class="op">$</span>timing</span></code></pre></div>
-<pre><code>## Time difference of 0.2571533 mins</code></pre>
+<pre><code>## NULL</code></pre>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="tsissm.html#cb70-1"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## -------------------------------------
 ## tsissm:      Summary                 
 ## -------------------------------------
 ##   parameters   optimal lower upper
-##        alpha  0.108059  0.00  0.99
-##    gamma24.1  0.016128 -0.01  1.00
-##    gamma24.2 -0.000418 -0.01  1.00
-##   gamma168.1 -0.000636 -0.01  1.00
-##   gamma168.2 -0.004133 -0.01  1.00
-##  gamma8736.1  0.012987 -0.01  1.00
+##        alpha  0.106703  0.00  0.99
+##    gamma24.1  0.016198 -0.01  1.00
+##    gamma24.2 -0.000405 -0.01  1.00
+##   gamma168.1 -0.000426 -0.01  1.00
+##   gamma168.2 -0.004138 -0.01  1.00
+##  gamma8736.1  0.012931 -0.01  1.00
 ##  gamma8736.2 -0.006961 -0.01  1.00
-##       theta1  0.438156 -0.99  0.99
-##       theta2  0.101045 -0.99  0.99
-##         psi1  0.577791 -0.99  0.99
-##         psi2  0.053188 -0.99  0.99
+##       theta1  0.438848 -0.99  0.99
+##       theta2  0.040952 -0.99  0.99
+##         psi1  0.518389 -0.99  0.99
+##         psi2  0.050841 -0.99  0.99
 ## 
 ## -------------------------------------
 ## tsissm: Performance Metrics
 ## ----------------------------------
-## AIC	: 441695.98 (n = 36)
-## MAPE	: 0.01826
+## AIC	: 441666.48 (n = 36)
+## MAPE	: 0.01827
 ## BIAS	: 3e-04
 ## MSLRE	: 0.00057</code></pre>
 <p>The <code>plot</code> method decomposes the estimated model into it’s components:</p>
@@ -407,36 +418,36 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <pre><code>## 
 ## ARMA roots
 ## ------------------------------------------
-## Inverse AR roots: 0.6051351 0.1669787
-## Inverse MA roots: 0.4628866 0.114904
+## Inverse AR roots: 0.5179186 0.07907106
+## Inverse MA roots: 0.3870275 0.1313619
 ## 
 ## Forecastability (D roots)
 ## ------------------------------------------
-## Real Eigenvalues (D): 0.995 0.995 0.99 0.99 0.998 0.998 1 1 1 1 1 1 0.491 0.491 0.959 0.959 0.699 0.699 0.858 0.858 0.858 0.463 0.115 0 0
+## Real Eigenvalues (D): 0.995 0.995 0.998 0.998 0.99 0.99 1 1 1 1 1 1 0.491 0.491 0.959 0.959 0.699 0.699 0.858 0.858 0.859 0.387 0.131 0 0
 ## 
 ## Weighted Ljung-Box Test [scaled residuals]
 ## ------------------------------------------
 ##      Lag statistic pvalue
-##   Lag[1]       509      0
-##  Lag[11]      1043      0
-##  Lag[11]      1043      0
-##  Lag[11]      1043      0
+##   Lag[1]       179      0
+##  Lag[11]       897      0
+##  Lag[11]       897      0
+##  Lag[11]       897      0
 ## 
 ## Outlier Diagnostics (based on Rosner Test)
 ## ------------------------------------------
-## Outliers: 2019-01-22 14:00:00 2017-05-10 19:00:00 2017-03-02 17:00:00 2019-01-22 09:00:00 2019-01-22 08:00:00 2019-01-22 05:00:00 2019-01-03 07:00:00 2018-08-22 11:00:00</code></pre>
+## Outliers: 2019-01-22 14:00:00 2017-05-10 19:00:00 2017-03-02 17:00:00 2019-01-22 09:00:00 2019-01-22 05:00:00 2019-01-03 07:00:00 2017-12-25 12:00:00 2019-01-22 08:00:00</code></pre>
 <p><img src="tsmodels_files/figure-html/issm_methods2-1.png" width="672" /></p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="tsissm.html#cb76-1"></a><span class="kw">coef</span>(mod)</span></code></pre></div>
 <pre><code>##         alpha     gamma24.1     gamma24.2    gamma168.1    gamma168.2 
-##  0.1080587701  0.0161279894 -0.0004177522 -0.0006361634 -0.0041329372 
+##  0.1067034287  0.0161975998 -0.0004051414 -0.0004258961 -0.0041378072 
 ##   gamma8736.1   gamma8736.2        theta1        theta2          psi1 
-##  0.0129867971 -0.0069609813  0.4381564658  0.1010446662  0.5777906555 
+##  0.0129313914 -0.0069613696  0.4388475839  0.0409523768  0.5183893890 
 ##          psi2 
-##  0.0531875344</code></pre>
+##  0.0508406536</code></pre>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="tsissm.html#cb78-1"></a><span class="kw">logLik</span>(mod)</span></code></pre></div>
-<pre><code>## &#39;log Lik.&#39; -333745.2 (df=37)</code></pre>
+<pre><code>## &#39;log Lik.&#39; -333718.6 (df=37)</code></pre>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="tsissm.html#cb80-1"></a><span class="kw">AIC</span>(mod)</span></code></pre></div>
-<pre><code>## [1] 441696</code></pre>
+<pre><code>## [1] 441666.5</code></pre>
 </div>
 <div id="tsissm:demonstration:prediction" class="section level3">
 <h3><span class="header-section-number">5.5.3</span> Prediction</h3>
@@ -490,50 +501,50 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <span id="cb88-12"><a href="tsissm.html#cb88-12"></a><span class="kw">tail</span>(<span class="kw">fitted</span>(mod))</span></code></pre></div>
 <pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
 <pre><code>##                         [,1]
-## 2019-04-21 10:00:00 5641.490
-## 2019-04-21 11:00:00 5528.366
-## 2019-04-21 12:00:00 5034.014
-## 2019-04-21 13:00:00 4886.477
-## 2019-04-21 14:00:00 4860.717
-## 2019-04-21 15:00:00 5100.316</code></pre>
+## 2019-04-21 10:00:00 5634.844
+## 2019-04-21 11:00:00 5526.292
+## 2019-04-21 12:00:00 5034.468
+## 2019-04-21 13:00:00 4890.952
+## 2019-04-21 14:00:00 4854.412
+## 2019-04-21 15:00:00 5099.741</code></pre>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="tsissm.html#cb91-1"></a><span class="kw">head</span>(<span class="kw">tail</span>(<span class="kw">fitted</span>(f1), <span class="dv">100</span>),<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
 <pre><code>##                         [,1]
-## 2019-04-21 16:00:00 5435.498
-## 2019-04-21 17:00:00 5752.917
-## 2019-04-21 18:00:00 6151.893
-## 2019-04-21 19:00:00 5917.591
-## 2019-04-21 20:00:00 5332.938
-## 2019-04-21 21:00:00 4922.656
-## 2019-04-21 22:00:00 4495.693
-## 2019-04-21 23:00:00 4217.107
-## 2019-04-22 00:00:00 4222.706
-## 2019-04-22 01:00:00 4155.449</code></pre>
+## 2019-04-21 16:00:00 5430.979
+## 2019-04-21 17:00:00 5754.287
+## 2019-04-21 18:00:00 6146.832
+## 2019-04-21 19:00:00 5907.693
+## 2019-04-21 20:00:00 5332.229
+## 2019-04-21 21:00:00 4920.201
+## 2019-04-21 22:00:00 4492.700
+## 2019-04-21 23:00:00 4218.722
+## 2019-04-22 00:00:00 4241.625
+## 2019-04-22 01:00:00 4150.824</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="tsissm.html#cb94-1"></a><span class="kw">plot</span>(f1)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_filtering-1.png" width="768" /></p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="tsissm.html#cb95-1"></a>f2 &lt;-<span class="st"> </span><span class="kw">tsfilter</span>(f1, <span class="dt">y =</span> electricload[<span class="dv">22100</span><span class="op">:</span><span class="dv">22200</span>], <span class="dt">newxreg =</span> weekends[<span class="dv">22100</span><span class="op">:</span><span class="dv">22200</span>])</span>
 <span id="cb95-2"><a href="tsissm.html#cb95-2"></a><span class="kw">tail</span>(<span class="kw">fitted</span>(f1))</span></code></pre></div>
 <pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
 <pre><code>##                         [,1]
-## 2019-04-25 14:00:00 5756.766
-## 2019-04-25 15:00:00 5828.755
-## 2019-04-25 16:00:00 6010.067
-## 2019-04-25 17:00:00 6044.581
-## 2019-04-25 18:00:00 6095.968
-## 2019-04-25 19:00:00 5723.754</code></pre>
+## 2019-04-25 14:00:00 5752.368
+## 2019-04-25 15:00:00 5831.491
+## 2019-04-25 16:00:00 6012.804
+## 2019-04-25 17:00:00 6051.963
+## 2019-04-25 18:00:00 6102.939
+## 2019-04-25 19:00:00 5724.208</code></pre>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="tsissm.html#cb98-1"></a><span class="kw">head</span>(<span class="kw">tail</span>(<span class="kw">fitted</span>(f2), <span class="dv">100</span>),<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
 <pre><code>##                         [,1]
-## 2019-04-25 20:00:00 5175.307
-## 2019-04-25 21:00:00 4823.019
-## 2019-04-25 22:00:00 4397.018
-## 2019-04-25 23:00:00 4181.696
-## 2019-04-26 00:00:00 4151.091
-## 2019-04-26 01:00:00 4094.942
-## 2019-04-26 02:00:00 4019.225
-## 2019-04-26 03:00:00 4230.471
-## 2019-04-26 04:00:00 4359.101
-## 2019-04-26 05:00:00 4636.959</code></pre>
+## 2019-04-25 20:00:00 5179.796
+## 2019-04-25 21:00:00 4822.841
+## 2019-04-25 22:00:00 4395.456
+## 2019-04-25 23:00:00 4184.391
+## 2019-04-26 00:00:00 4149.133
+## 2019-04-26 01:00:00 4094.189
+## 2019-04-26 02:00:00 4022.150
+## 2019-04-26 03:00:00 4235.648
+## 2019-04-26 04:00:00 4361.716
+## 2019-04-26 05:00:00 4646.646</code></pre>
 </div>
 <div id="tsissm:demonstration:profiling" class="section level3">
 <h3><span class="header-section-number">5.5.6</span> Profiling</h3>
@@ -561,12 +572,12 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 <span id="cb103-6"><a href="tsissm.html#cb103-6"></a>                <span class="dt">data_name =</span> <span class="st">&quot;electricity&quot;</span>, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="dt">trace =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb103-7"><a href="tsissm.html#cb103-7"></a><span class="kw">head</span>(b<span class="op">$</span>metrics)</span></code></pre></div>
 <pre><code>##    horizon    variable       MAPE       MSLRE       BIAS  n MIS[0.02]  MIS[0.1]
-## 1:       1 electricity 0.03100558 0.001872118 0.01370895 73  1490.794  844.7462
-## 2:       2 electricity 0.04435458 0.003379404 0.01675386 72  2716.825 1285.6933
-## 3:       3 electricity 0.05449105 0.004703856 0.01941937 71  3717.215 1543.7520
-## 4:       4 electricity 0.06197052 0.005754454 0.02034918 70  3989.389 1737.2188
-## 5:       5 electricity 0.06648701 0.006817448 0.02130044 69  4720.596 2048.6028
-## 6:       6 electricity 0.07200785 0.007704502 0.02292816 68  5168.548 2227.7398</code></pre>
+## 1:       1 electricity 0.03453686 0.002008403 0.01064633 73  1509.709  818.5592
+## 2:       2 electricity 0.04542751 0.003453705 0.01379530 72  2797.289 1293.8717
+## 3:       3 electricity 0.05722549 0.005171447 0.01764414 71  3740.733 1736.8172
+## 4:       4 electricity 0.06419392 0.006124358 0.01896112 70  4443.514 1930.2262
+## 5:       5 electricity 0.06987296 0.007363092 0.02024584 69  5247.636 2305.3943
+## 6:       6 electricity 0.07558653 0.008350822 0.02229894 68  5962.675 2528.8641</code></pre>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="tsissm.html#cb105-1"></a><span class="kw">plot</span>(b<span class="op">$</span>metrics<span class="op">$</span>horizon, b<span class="op">$</span>metrics<span class="op">$</span>MAPE<span class="op">*</span><span class="dv">100</span>, <span class="dt">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </span>
 <span id="cb105-2"><a href="tsissm.html#cb105-2"></a>     <span class="dt">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
 <span id="cb105-3"><a href="tsissm.html#cb105-3"></a><span class="kw">grid</span>()</span></code></pre></div>
@@ -585,13 +596,13 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 <span id="cb106-7"><a href="tsissm.html#cb106-7"></a>               <span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
 <span id="cb106-8"><a href="tsissm.html#cb106-8"></a><span class="kw">print</span>(bench)</span></code></pre></div>
 <pre><code>##                  start                 end              spec
-## 1: 2020-09-06 13:27:52 2020-09-06 13:29:51 &lt;tsissm.spec[10]&gt;
-## 2: 2020-09-06 13:29:51 2020-09-06 13:30:00 &lt;tsissm.spec[10]&gt;
-## 3: 2020-09-06 13:30:00 2020-09-06 13:30:15 &lt;tsissm.spec[10]&gt;
+## 1: 2020-09-10 13:31:13 2020-09-10 13:35:33 &lt;tsissm.spec[10]&gt;
+## 2: 2020-09-10 13:35:33 2020-09-10 13:35:58 &lt;tsissm.spec[10]&gt;
+## 3: 2020-09-10 13:35:58 2020-09-10 13:36:24 &lt;tsissm.spec[10]&gt;
 ##                estimate solver control    loglik
 ## 1: &lt;tsissm.estimate[4]&gt;  optim       0       NaN
-## 2: &lt;tsissm.estimate[4]&gt; nlminb       0 -342609.6
-## 3: &lt;tsissm.estimate[4]&gt;  solnp       0 -333745.2</code></pre>
+## 2: &lt;tsissm.estimate[4]&gt; nlminb       0 -342668.9
+## 3: &lt;tsissm.estimate[4]&gt;  solnp       0 -333718.6</code></pre>
 <p>In the current example, the <code>optim</code> solver did not converge, whilst the <code>solnp</code> solver achieved the highest log likelihood in about 14 seconds. Because of the constraint requirements for both the <span class="math inline">\(\bf{D}\)</span> matrix as well as the ARMA roots, the problem, while convex, is non-smooth as currently constructed and hence care should be taken in checking the solution.</p>
 
 </div>
