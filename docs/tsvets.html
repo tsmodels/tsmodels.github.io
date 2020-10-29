@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 tsvets package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 tsvets package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-09-19" />
+<meta name="date" content="2020-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -206,7 +208,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example2"><i class="fa fa-check"></i><b>6.7.3</b> Example: Australian Retail Sales Grouped Dynamics</a></li>
 <li class="chapter" data-level="6.7.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example3"><i class="fa fa-check"></i><b>6.7.4</b> Example: Australian Retail Sales Filtering</a></li>
 <li class="chapter" data-level="6.7.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example4"><i class="fa fa-check"></i><b>6.7.5</b> Example: Australian Retail Sales Aggregation</a></li>
-<li class="chapter" data-level="6.7.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>6.7.6</b> Example: Price Volume Aggregation</a></li>
+<li class="chapter" data-level="6.7.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example6"><i class="fa fa-check"></i><b>6.7.6</b> Example: Groupwise Pooling</a></li>
+<li class="chapter" data-level="6.7.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>6.7.7</b> Example: Price Volume Aggregation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>7</b> tsforeign package</a><ul>
@@ -346,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \end{array}
 \tag{6.10}
 \end{equation}\]</span></p>
-<p>where the <span class="math inline">\(W\)</span> is the matrix of coefficients which are time invariant. The <code>xreg_include</code> argument in the <code>vets_modelspec</code> function is a design matrix which allows one to define which coefficients should be set to zero, which should be estimated individually as well as which should be pooled (see the documentation for more details). The index on <span class="math inline">\(\bf{z}\)</span> is <span class="math inline">\(t\)</span> and not <span class="math inline">\(t-1\)</span> and it is left to the user to pre-lag any regressors passed to the function. At present, pooling is global and we do not allow group based pooling. However, this could be achieved by careful replication of the regressor, setting betas to zero for all groups minus the group where pooling is required. This may change in the future is we decide to allow group based pooling.</p>
+<p>where the <span class="math inline">\(W\)</span> is the matrix of coefficients which are time invariant. The <code>xreg_include</code> argument in the <code>vets_modelspec</code> function is a design matrix which allows one to define which coefficients should be set to zero, which should be estimated individually as well as which should be pooled (see the documentation for more details). The index on <span class="math inline">\(\bf{z}\)</span> is <span class="math inline">\(t\)</span> and not <span class="math inline">\(t-1\)</span> and it is left to the user to pre-lag any regressors passed to the function.</p>
 </div>
 <div id="tsvets:likelihood" class="section level2">
 <h2><span class="header-section-number">6.3</span> Log-Likelihood</h2>
@@ -1057,16 +1060,62 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <span id="cb180-9"><a href="tsvets.html#cb180-9"></a>     <span class="dt">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 </div>
+<div id="tsvets:demonstration:example6" class="section level3">
+<h3><span class="header-section-number">6.7.6</span> Example: Groupwise Pooling</h3>
+<p>It is also possible to have group wise pooling. We saw above that we could specify
+pooling using the number of series times number of regressors matrix,
+<code>xreg_include</code>, with values <code>0</code>, <code>1</code> or <code>2+</code> (0 = no beta, 1 = individual beta and
+2+ = grouped beta). Group pooling can be achieved by setting values of 2+.
+For instance 2 series sharing one pooled estimate, and 3 other
+series sharing another grouped estimate would have values of
+(2,2,3,3,3).</p>
+<p>In the following example we have 8 series and 2 regressors, with different
+combinations of pooling.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="tsvets.html#cb181-1"></a>xreg &lt;-<span class="st"> </span><span class="kw">xts</span>(<span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">nrow</span>(y)<span class="op">*</span><span class="dv">2</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">nrow =</span> <span class="kw">nrow</span>(y)), <span class="kw">index</span>(y))</span>
+<span id="cb181-2"><a href="tsvets.html#cb181-2"></a><span class="kw">colnames</span>(xreg) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>)</span>
+<span id="cb181-3"><a href="tsvets.html#cb181-3"></a>xreg_include &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">nrow =</span> <span class="kw">ncol</span>(y))</span>
+<span id="cb181-4"><a href="tsvets.html#cb181-4"></a><span class="kw">rownames</span>(xreg_include) &lt;-<span class="st"> </span><span class="kw">colnames</span>(y)</span>
+<span id="cb181-5"><a href="tsvets.html#cb181-5"></a><span class="kw">colnames</span>(xreg_include) &lt;-<span class="st"> </span><span class="kw">colnames</span>(xreg)</span>
+<span id="cb181-6"><a href="tsvets.html#cb181-6"></a><span class="co"># individual [1,1], grouped 2:3, 5:6 and 7:8</span></span>
+<span id="cb181-7"><a href="tsvets.html#cb181-7"></a>xreg_include[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>),<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb181-8"><a href="tsvets.html#cb181-8"></a>xreg_include[<span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>),<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb181-9"><a href="tsvets.html#cb181-9"></a>xreg_include[<span class="kw">c</span>(<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>),<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb181-10"><a href="tsvets.html#cb181-10"></a><span class="co"># individual 1, zero for 2:3, group for 4:8</span></span>
+<span id="cb181-11"><a href="tsvets.html#cb181-11"></a>xreg_include[<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>),<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb181-12"><a href="tsvets.html#cb181-12"></a>xreg_include[<span class="kw">c</span>(<span class="dv">4</span><span class="op">:</span><span class="dv">8</span>),<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb181-13"><a href="tsvets.html#cb181-13"></a>xreg_include</span></code></pre></div>
+<pre><code>##          B1 B2
+## ACF.NEWS  1  1
+## NSW.NEWS  2  0
+## NT.NEWS   2  0
+## Q.NEWS    1  3
+## SA.NEWS   3  3
+## T.NEWS    3  3
+## V.NEWS    4  3
+## WA.NEWS   4  3</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="tsvets.html#cb183-1"></a>spec &lt;-<span class="st"> </span><span class="kw">vets_modelspec</span>(y, <span class="dt">level =</span> <span class="st">&quot;grouped&quot;</span>, <span class="dt">slope =</span> <span class="st">&quot;grouped&quot;</span>, </span>
+<span id="cb183-2"><a href="tsvets.html#cb183-2"></a>                       <span class="dt">group =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>), <span class="dt">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb183-3"><a href="tsvets.html#cb183-3"></a>                       <span class="dt">seasonal =</span> <span class="st">&quot;grouped&quot;</span>, <span class="dt">xreg =</span> xreg, </span>
+<span id="cb183-4"><a href="tsvets.html#cb183-4"></a>                       <span class="dt">xreg_include =</span> xreg_include, <span class="dt">lambda =</span> <span class="dv">0</span>, </span>
+<span id="cb183-5"><a href="tsvets.html#cb183-5"></a>                       <span class="dt">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">cores =</span> <span class="dv">1</span>)</span>
+<span id="cb183-6"><a href="tsvets.html#cb183-6"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace=</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## 
+## Iter: 1 fn: -3271.4734    Pars:   0.5692498822857  0.7581471970313  0.7395568229416  0.7202628217574  0.0000000003531  0.0000000139420  0.0000000166027  0.0000000049353  0.2508654873774  0.0000000133883  0.0000000200549  0.1085075558381 -0.0002694220937  0.0005076727876 -0.0036440545749 -0.0035342324501 -0.0048241742999 -0.0005296077285 -0.0011640802922
+## Iter: 2 fn: -3271.4734    Pars:   5.693e-01  7.582e-01  7.396e-01  7.203e-01  6.347e-11  1.334e-08  1.586e-08  4.612e-09  2.509e-01  1.288e-08  1.942e-08  1.085e-01 -2.693e-04  5.076e-04 -3.644e-03 -3.534e-03 -4.824e-03 -5.291e-04 -1.164e-03
+## solnp--&gt; Completed in 2 iterations</code></pre>
+<p>Note that the Box Cox parameter <code>lambda</code> should be the same for the grouped
+series else the coefficients should not be pooled (as they have different scales).</p>
+</div>
 <div id="tsvets:demonstration:example5" class="section level3">
-<h3><span class="header-section-number">6.7.6</span> Example: Price Volume Aggregation</h3>
+<h3><span class="header-section-number">6.7.7</span> Example: Price Volume Aggregation</h3>
 <p>This final example shows how to jointly model a series based on price-volume relationship with a target of generating a model for Sales:
 <span class="math inline">\(Sales = Price\times Volume\)</span></p>
 <p>While this is a multiplicative model, if we were to model the series using a log transformation we would be able to aggregate the model in logs before exponentiating to recover the Sales as the example will demonstrate.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="tsvets.html#cb181-1"></a><span class="kw">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb181-2"><a href="tsvets.html#cb181-2"></a>spec &lt;-<span class="st"> </span><span class="kw">vets_modelspec</span>(priceunits, <span class="dt">level =</span> <span class="st">&quot;common&quot;</span>, <span class="dt">slope =</span> <span class="st">&quot;common&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, </span>
-<span id="cb181-3"><a href="tsvets.html#cb181-3"></a>                       <span class="dt">lambda =</span> <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="dt">dependence =</span> <span class="st">&quot;full&quot;</span>)</span>
-<span id="cb181-4"><a href="tsvets.html#cb181-4"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;optim&quot;</span>, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace =</span> <span class="dv">0</span>))</span>
-<span id="cb181-5"><a href="tsvets.html#cb181-5"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="tsvets.html#cb185-1"></a><span class="kw">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb185-2"><a href="tsvets.html#cb185-2"></a>spec &lt;-<span class="st"> </span><span class="kw">vets_modelspec</span>(priceunits, <span class="dt">level =</span> <span class="st">&quot;common&quot;</span>, <span class="dt">slope =</span> <span class="st">&quot;common&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, </span>
+<span id="cb185-3"><a href="tsvets.html#cb185-3"></a>                       <span class="dt">lambda =</span> <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="dt">dependence =</span> <span class="st">&quot;full&quot;</span>)</span>
+<span id="cb185-4"><a href="tsvets.html#cb185-4"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;optim&quot;</span>, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb185-5"><a href="tsvets.html#cb185-5"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ##            Vector ETS            
 ## -----------------------------------
@@ -1081,21 +1130,21 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 
 ## Level Matrix
 ## 2 x 2 diagonal matrix of class &quot;ddiMatrix&quot;
-##      [,1]     [,2]    
-## [1,] 0.401258        .
-## [2,]        . 0.401258
+##      [,1]      [,2]     
+## [1,] 0.4012655         .
+## [2,]         . 0.4012655
 ## 
 ## Slope Matrix
 ## 2 x 2 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]       [,2]      
-## [1,] 0.07645767          .
-## [2,]          . 0.07645767
+## [1,] 0.07645917          .
+## [2,]          . 0.07645917
 ## 
 ## Correlation Matrix
 ## 2 x 2 Matrix of class &quot;dsyMatrix&quot;
 ##            price      units
-## price  1.0000000 -0.6009328
-## units -0.6009328  1.0000000
+## price  1.0000000 -0.6009338
+## units -0.6009338  1.0000000
 ## 
 ## Information Criteria
 ##  AIC    BIC    AICc 
@@ -1105,13 +1154,13 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ##         Mean Weighted
 ## MAPE  0.0508   0.0508
 ## MSLRE 0.0042   0.0042</code></pre>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="tsvets.html#cb183-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-34-1.png" width="768" /></p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="tsvets.html#cb184-1"></a><span class="kw">plot</span>(mod, <span class="dt">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-34-2.png" width="768" /></p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="tsvets.html#cb185-1"></a>weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb185-2"><a href="tsvets.html#cb185-2"></a>mod_aggregate &lt;-<span class="st"> </span><span class="kw">tsaggregate</span>(mod, <span class="dt">weights =</span> weights, <span class="dt">return_model =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb185-3"><a href="tsvets.html#cb185-3"></a><span class="kw">summary</span>(mod_aggregate)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="tsvets.html#cb187-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-36-1.png" width="768" /></p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="tsvets.html#cb188-1"></a><span class="kw">plot</span>(mod, <span class="dt">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-36-2.png" width="768" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="tsvets.html#cb189-1"></a>weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb189-2"><a href="tsvets.html#cb189-2"></a>mod_aggregate &lt;-<span class="st"> </span><span class="kw">tsaggregate</span>(mod, <span class="dt">weights =</span> weights, <span class="dt">return_model =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb189-3"><a href="tsvets.html#cb189-3"></a><span class="kw">summary</span>(mod_aggregate)</span></code></pre></div>
 <pre><code>## 
 ##            Vector ETS            
 ## -----------------------------------
@@ -1126,31 +1175,31 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 
 ## Level Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
-##          [,1]
-## [1,] 0.401258
+##           [,1]
+## [1,] 0.4012655
 ## 
 ## Slope Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##            [,1]
-## [1,] 0.07645767
+## [1,] 0.07645917
 ## 
 ## Covariance Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##             aggregate
-## aggregate 0.003891905
+## aggregate 0.003891895
 ## 
 ## Accuracy Criteria
 ##         Mean Weighted
 ## MAPE  0.0496   0.0496
 ## MSLRE 0.0039   0.0039</code></pre>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="tsvets.html#cb187-1"></a>p &lt;-<span class="st"> </span><span class="kw">predict</span>(mod,  <span class="dt">h =</span> <span class="dv">24</span>)</span>
-<span id="cb187-2"><a href="tsvets.html#cb187-2"></a>p_agg_model &lt;-<span class="st"> </span><span class="kw">predict</span>(mod_aggregate, <span class="dt">h =</span> <span class="dv">24</span>)</span>
-<span id="cb187-3"><a href="tsvets.html#cb187-3"></a>p_agg_series &lt;-<span class="st"> </span><span class="kw">tsaggregate</span>(p, <span class="dt">weights =</span> weights)</span>
-<span id="cb187-4"><a href="tsvets.html#cb187-4"></a><span class="kw">plot</span>(p_agg_model<span class="op">$</span>prediction_table[<span class="dv">1</span>]<span class="op">$</span>Predicted[[<span class="dv">1</span>]]<span class="op">$</span>distribution, </span>
-<span id="cb187-5"><a href="tsvets.html#cb187-5"></a>     <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb187-6"><a href="tsvets.html#cb187-6"></a><span class="kw">plot</span>(p_agg_series<span class="op">$</span>distribution, <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb187-7"><a href="tsvets.html#cb187-7"></a>     <span class="dt">median_color =</span> <span class="dv">2</span>, <span class="dt">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="tsvets.html#cb191-1"></a>p &lt;-<span class="st"> </span><span class="kw">predict</span>(mod,  <span class="dt">h =</span> <span class="dv">24</span>)</span>
+<span id="cb191-2"><a href="tsvets.html#cb191-2"></a>p_agg_model &lt;-<span class="st"> </span><span class="kw">predict</span>(mod_aggregate, <span class="dt">h =</span> <span class="dv">24</span>)</span>
+<span id="cb191-3"><a href="tsvets.html#cb191-3"></a>p_agg_series &lt;-<span class="st"> </span><span class="kw">tsaggregate</span>(p, <span class="dt">weights =</span> weights)</span>
+<span id="cb191-4"><a href="tsvets.html#cb191-4"></a><span class="kw">plot</span>(p_agg_model<span class="op">$</span>prediction_table[<span class="dv">1</span>]<span class="op">$</span>Predicted[[<span class="dv">1</span>]]<span class="op">$</span>distribution, </span>
+<span id="cb191-5"><a href="tsvets.html#cb191-5"></a>     <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb191-6"><a href="tsvets.html#cb191-6"></a><span class="kw">plot</span>(p_agg_series<span class="op">$</span>distribution, <span class="dt">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb191-7"><a href="tsvets.html#cb191-7"></a>     <span class="dt">median_color =</span> <span class="dv">2</span>, <span class="dt">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>In the presence of a non-homogeneous model, or a homogeneous model with Box Cox parameter not equal to either 0 (log) or 1 (no transform), then the <code>tsaggregate</code> method will still work but the <code>return_model</code> arguments needs to be set to <code>FALSE</code> and the resulting output will just be the aggregated series.</p>
 
 </div>
@@ -1162,7 +1211,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <p>Athanasopoulos, George, and Ashton de Silva. 2012. “Multivariate Exponential Smoothing for Forecasting Tourist Arrivals.” <em>Journal of Travel Research</em> 51 (5): 640–52.</p>
 </div>
 <div id="ref-R-Matrix">
-<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://CRAN.R-project.org/package=Matrix">https://CRAN.R-project.org/package=Matrix</a>.</p>
+<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="http://Matrix.R-forge.R-project.org/">http://Matrix.R-forge.R-project.org/</a>.</p>
 </div>
 <div id="ref-clements2015benefits">
 <p>Clements, Adam, Ayesha Scott, and Annastiina Silvennoinen. 2015. “On the Benefits of Equicorrelation for Portfolio Allocation.” <em>Journal of Forecasting</em> 34 (6): 507–22.</p>
