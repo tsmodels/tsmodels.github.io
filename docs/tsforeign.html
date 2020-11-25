@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="tsvets.html"/>
-<link rel="next" href="other.html"/>
+<link rel="next" href="tscausal.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -217,8 +217,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other packages</a></li>
-<li class="chapter" data-level="9" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>9</b> The tsmodels team</a></li>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
+<li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
+<li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
+<li class="chapter" data-level="8.2.4" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:relativeeffect"><i class="fa fa-check"></i><b>8.2.4</b> Mean Relative Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:significance"><i class="fa fa-check"></i><b>8.3</b> Evaluation of Significance</a></li>
+<li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
+<li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
+<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -295,18 +307,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="tsforeign.html#cb200-1"></a>b &lt;-<span class="st"> </span><span class="kw">tsbacktest</span>(spec, <span class="dt">h =</span> <span class="dv">12</span>, <span class="dt">alpha =</span> <span class="kw">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="dt">cores =</span> <span class="dv">5</span>, <span class="dt">trace =</span> F)</span>
 <span id="cb200-2"><a href="tsforeign.html#cb200-2"></a>b<span class="op">$</span>metrics</span></code></pre></div>
 <pre><code>##     horizon variable       MAPE        MSLRE        BIAS  n MIS[0.02]  MIS[0.1]
-##  1:       1        y 0.02360639 0.0009540715 0.003575389 72  77.33794  58.29969
-##  2:       2        y 0.02841019 0.0013679751 0.006115174 71  78.93216  63.52667
-##  3:       3        y 0.03292009 0.0018302968 0.008294287 70  94.00607  75.56274
-##  4:       4        y 0.03723548 0.0023008820 0.009624260 69 117.06930  86.25187
-##  5:       5        y 0.03849679 0.0024650809 0.011548920 68 121.40149  90.67120
-##  6:       6        y 0.04179470 0.0027917000 0.013225996 67 130.73042  96.69803
-##  7:       7        y 0.04415812 0.0031168561 0.015763263 66 140.20947 101.03404
-##  8:       8        y 0.04552676 0.0032082037 0.018640612 65 143.08042 105.56979
-##  9:       9        y 0.04702747 0.0034102771 0.020720570 64 144.59635 112.34580
-## 10:      10        y 0.04910762 0.0037459150 0.023908958 63 151.21872 118.60027
-## 11:      11        y 0.05027115 0.0039222860 0.026035828 62 164.99230 124.75698
-## 12:      12        y 0.05283781 0.0042096114 0.027740267 61 175.68014 130.57722</code></pre>
+##  1:       1        y 0.02360385 0.0009533359 0.003785615 72  78.41635  58.69203
+##  2:       2        y 0.02839106 0.0013745218 0.006289101 71  81.04367  63.58773
+##  3:       3        y 0.03291334 0.0018343001 0.008269649 70  90.68075  76.69625
+##  4:       4        y 0.03711449 0.0023049672 0.009850124 69 118.61950  85.70537
+##  5:       5        y 0.03845121 0.0024694775 0.011728355 68 122.85929  90.60698
+##  6:       6        y 0.04167559 0.0027796977 0.013319183 67 128.91640  96.62624
+##  7:       7        y 0.04392658 0.0031049777 0.015847281 66 137.02053 100.76539
+##  8:       8        y 0.04528160 0.0031846159 0.018645970 65 139.75399 104.72680
+##  9:       9        y 0.04712511 0.0034113495 0.020768622 64 143.33627 113.65121
+## 10:      10        y 0.04918822 0.0037584883 0.023875140 63 156.72189 118.92712
+## 11:      11        y 0.05020241 0.0039117894 0.025995787 62 159.75816 124.28530
+## 12:      12        y 0.05267276 0.0041893485 0.027515159 61 165.09870 130.05268</code></pre>
 </div>
 <div id="tsforeign:bsts" class="section level2">
 <h2><span class="header-section-number">7.3</span> bsts model</h2>
@@ -336,38 +348,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1. Empirical mean and standard deviation for each variable,
 ##    plus standard error of the mean:
 ## 
-##                       Mean       SD  Naive SE Time-series SE Prob[Include]
-## obs.sigma         0.011903 0.007074 1.582e-04      0.0009229        1.0000
-## level.sigma       0.002567 0.002615 5.847e-05      0.0008459        1.0000
-## slope.sigma       0.032559 0.006015 1.345e-04      0.0003716        1.0000
-## slope.ar         -0.344280 0.249709 5.584e-03      0.0208361        1.0000
-## seasonal12.sigma  0.003536 0.002417 5.406e-05      0.0005651        1.0000
-## ar1               0.052963 0.264738 5.920e-03      0.0243442        0.7050
-## ar2               0.042145 0.137206 3.068e-03      0.0111412        0.4130
-## ar3               0.001784 0.052422 1.172e-03      0.0027041        0.2235
-## ar3.sigma         0.028941 0.007514 1.680e-04      0.0004122        1.0000
+##                        Mean       SD  Naive SE Time-series SE Prob[Include]
+## obs.sigma         0.0129731 0.007156 1.600e-04      0.0007500        1.0000
+## level.sigma       0.0011472 0.001113 2.490e-05      0.0002740        1.0000
+## slope.sigma       0.0323740 0.006308 1.411e-04      0.0004128        1.0000
+## slope.ar         -0.3137404 0.255569 5.715e-03      0.0222947        1.0000
+## seasonal12.sigma  0.0011768 0.001328 2.971e-05      0.0004085        1.0000
+## ar1               0.0212329 0.232955 5.209e-03      0.0183896        0.6910
+## ar2               0.0308908 0.129588 2.898e-03      0.0078955        0.4200
+## ar3               0.0006373 0.060811 1.360e-03      0.0035792        0.2255
+## ar3.sigma         0.0285765 0.007687 1.719e-04      0.0004087        1.0000
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##                        2.5%        25%       50%       75%    97.5%
-## obs.sigma         0.0050408  0.0078381  0.010473  0.014597 0.023692
-## level.sigma       0.0002324  0.0007809  0.001673  0.003381 0.010600
-## slope.sigma       0.0212699  0.0284784  0.032374  0.036300 0.044927
-## slope.ar         -0.7485836 -0.5243106 -0.377527 -0.186675 0.221050
-## seasonal12.sigma  0.0007215  0.0017083  0.002734  0.004942 0.009573
-## ar1              -0.4246558 -0.0678791  0.000000  0.170936 0.694972
-## ar2              -0.1624886  0.0000000  0.000000  0.036982 0.433815
-## ar3              -0.1167698  0.0000000  0.000000  0.000000 0.123909
-## ar3.sigma         0.0207477  0.0253989  0.028291  0.031557 0.039288
+##                        2.5%        25%        50%       75%    97.5%
+## obs.sigma         0.0048738  0.0085972  0.0120493  0.016270 0.024669
+## level.sigma       0.0001220  0.0003807  0.0008473  0.001479 0.004165
+## slope.sigma       0.0201495  0.0282565  0.0322385  0.036545 0.045230
+## slope.ar         -0.7271307 -0.4998229 -0.3502577 -0.150662 0.244531
+## seasonal12.sigma  0.0001169  0.0002908  0.0006969  0.001424 0.005177
+## ar1              -0.4138712 -0.0918108  0.0000000  0.107839 0.606721
+## ar2              -0.2301166  0.0000000  0.0000000  0.018487 0.407651
+## ar3              -0.1314878  0.0000000  0.0000000  0.000000 0.144196
+## ar3.sigma         0.0205895  0.0250998  0.0279774  0.031139 0.038172
 ## 
 ## 
-## Harvey&#39;s Goodness of Fit Statistic: 0.2121123 
+## Harvey&#39;s Goodness of Fit Statistic: 0.215728 
 ## 
 ##    MAPE   MASE  MSLRE   BIAS
-##  0.0372 0.4709 0.0023 -4e-04</code></pre>
+##  0.0371 0.4694 0.0023 -4e-04</code></pre>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="tsforeign.html#cb206-1"></a><span class="kw">tsmetrics</span>(mod)</span></code></pre></div>
 <pre><code>##    n no.pars       MAPE      MASE       MSLRE          BIAS
-## 1 80       9 0.03717513 0.4708893 0.002293538 -0.0004315992</code></pre>
+## 1 80       9 0.03707212 0.4693667 0.002282919 -0.0003928491</code></pre>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="tsforeign.html#cb208-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-45-1.png" width="768" /></p>
 <p>The decomposition of the model into it’s fitted components is done via the <code>tsdecompose</code> method. However, note that the bsts routine returns the smoothed component states, not the filtered ones.</p>
@@ -375,23 +387,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb209-2"><a href="tsforeign.html#cb209-2"></a><span class="co"># distribution objects of state components</span></span>
 <span id="cb209-3"><a href="tsforeign.html#cb209-3"></a><span class="kw">str</span>(tde)</span></code></pre></div>
 <pre><code>## List of 5
-##  $ Level     : &#39;tsmodel.distribution&#39; num [1:1980, 1:80] 1.49 1.55 1.64 1.66 1.74 ...
+##  $ Level     : &#39;tsmodel.distribution&#39; num [1:1981, 1:80] 1.52 1.64 1.41 1.55 1.47 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : NULL
 ##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
 ##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;
-##  $ Slope     : &#39;tsmodel.distribution&#39; num [1:1980, 1:80] 0.1074 0.0504 -0.0603 -0.0624 -0.1576 ...
+##  $ Slope     : &#39;tsmodel.distribution&#39; num [1:1981, 1:80] 0.1604 -0.037 0.235 0.0284 0.1642 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : NULL
 ##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
 ##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;
-##  $ AR        : &#39;tsmodel.distribution&#39; num [1:1980, 1:80] 0.1362 0.0717 -0.0306 -0.0477 -0.1201 ...
+##  $ AR        : &#39;tsmodel.distribution&#39; num [1:1981, 1:80] 0.1111 -0.0265 0.2111 0.0321 0.1452 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : NULL
 ##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
 ##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;
 ##  $ X         : NULL
-##  $ Seasonal12: &#39;tsmodel.distribution&#39; num [1:1980, 1:80] -0.0291 -0.0668 -0.0496 -0.0337 -0.0415 ...
+##  $ Seasonal12: &#39;tsmodel.distribution&#39; num [1:1981, 1:80] -0.0294 -0.0679 -0.0577 -0.0297 -0.039 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. ..$ : NULL
 ##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
@@ -402,12 +414,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb211-3"><a href="tsforeign.html#cb211-3"></a>                       <span class="dt">burn =</span> bsts<span class="op">::</span><span class="kw">SuggestBurn</span>(<span class="fl">0.1</span>, mod<span class="op">$</span>model))</span>
 <span id="cb211-4"><a href="tsforeign.html#cb211-4"></a><span class="kw">str</span>(dlm_model)</span></code></pre></div>
 <pre><code>## List of 6
-##  $ m0: num [1:17] 1.5697 0.01657 -0.00452 -0.04076 -0.02871 ...
+##  $ m0: num [1:17] 1.5702 0.01318 -0.00448 -0.04044 -0.0312 ...
 ##  $ C0: num [1:17, 1:17] 1e+07 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 ...
 ##  $ FF: num [1, 1:17] 1 0 0 1 0 0 0 0 0 0 ...
-##  $ V : num [1, 1] 0.0115
+##  $ V : num [1, 1] 0.0126
 ##  $ GG: num [1:17, 1:17] 1 0 0 0 0 0 0 0 0 0 ...
-##  $ W : num [1:17, 1:17] 0.00258 0 0 0 0 ...
+##  $ W : num [1:17, 1:17] 0.00115 0 0 0 0 ...
 ##  - attr(*, &quot;class&quot;)= chr &quot;dlm&quot;</code></pre>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="tsforeign.html#cb213-1"></a>filtered_dlm &lt;-<span class="st"> </span><span class="kw">dlmFilter</span>(<span class="kw">log</span>(priceunits[<span class="dv">1</span><span class="op">:</span><span class="dv">80</span>,<span class="dv">1</span>]), dlm_model)</span>
 <span id="cb213-2"><a href="tsforeign.html#cb213-2"></a>smoothed_dlm &lt;-<span class="st"> </span><span class="kw">dlmSmooth</span>(filtered_dlm)</span>
@@ -469,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="tsvets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="other.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tscausal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

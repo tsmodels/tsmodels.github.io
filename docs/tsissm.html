@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,8 +217,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other packages</a></li>
-<li class="chapter" data-level="9" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>9</b> The tsmodels team</a></li>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
+<li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
+<li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
+<li class="chapter" data-level="8.2.4" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:relativeeffect"><i class="fa fa-check"></i><b>8.2.4</b> Mean Relative Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:significance"><i class="fa fa-check"></i><b>8.3</b> Evaluation of Significance</a></li>
+<li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
+<li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
+<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -390,23 +402,23 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 ## tsissm:      Summary                 
 ## -------------------------------------
 ##   parameters   optimal lower upper
-##        alpha  0.106703  0.00  0.99
-##    gamma24.1  0.016198 -0.01  1.00
-##    gamma24.2 -0.000405 -0.01  1.00
-##   gamma168.1 -0.000426 -0.01  1.00
-##   gamma168.2 -0.004138 -0.01  1.00
-##  gamma8736.1  0.012931 -0.01  1.00
+##        alpha  0.108059  0.00  0.99
+##    gamma24.1  0.016128 -0.01  1.00
+##    gamma24.2 -0.000418 -0.01  1.00
+##   gamma168.1 -0.000636 -0.01  1.00
+##   gamma168.2 -0.004133 -0.01  1.00
+##  gamma8736.1  0.012987 -0.01  1.00
 ##  gamma8736.2 -0.006961 -0.01  1.00
-##       theta1  0.438848 -0.99  0.99
-##       theta2  0.040952 -0.99  0.99
-##         psi1  0.518389 -0.99  0.99
-##         psi2  0.050841 -0.99  0.99
+##       theta1  0.438156 -0.99  0.99
+##       theta2  0.101045 -0.99  0.99
+##         psi1  0.577791 -0.99  0.99
+##         psi2  0.053188 -0.99  0.99
 ## 
 ## -------------------------------------
 ## tsissm: Performance Metrics
 ## ----------------------------------
-## AIC  : 441666.48 (n = 36)
-## MAPE : 0.01827
+## AIC  : 441695.98 (n = 36)
+## MAPE : 0.01826
 ## BIAS : 3e-04
 ## MSLRE    : 0.00057</code></pre>
 <p>The <code>plot</code> method decomposes the estimated model into it’s components:</p>
@@ -421,36 +433,36 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <pre><code>## 
 ## ARMA roots
 ## ------------------------------------------
-## Inverse AR roots: 0.5179186 0.07907106
-## Inverse MA roots: 0.3870275 0.1313619
+## Inverse AR roots: 0.6051351 0.1669787
+## Inverse MA roots: 0.4628866 0.114904
 ## 
 ## Forecastability (D roots)
 ## ------------------------------------------
-## Real Eigenvalues (D): 0.995 0.995 0.998 0.998 0.99 0.99 1 1 1 1 1 1 0.491 0.491 0.959 0.959 0.699 0.699 0.858 0.858 0.859 0.387 0.131 0 0
+## Real Eigenvalues (D): 0.995 0.995 0.99 0.99 0.998 0.998 1 1 1 1 1 1 0.491 0.491 0.959 0.959 0.699 0.699 0.858 0.858 0.858 0.463 0.115 0 0
 ## 
 ## Weighted Ljung-Box Test [scaled residuals]
 ## ------------------------------------------
 ##      Lag statistic pvalue
-##   Lag[1]       179      0
-##  Lag[11]       897      0
-##  Lag[11]       897      0
-##  Lag[11]       897      0
+##   Lag[1]       509      0
+##  Lag[11]      1043      0
+##  Lag[11]      1043      0
+##  Lag[11]      1043      0
 ## 
 ## Outlier Diagnostics (based on Rosner Test)
 ## ------------------------------------------
-## Outliers: 2019-01-22 14:00:00 2017-05-10 19:00:00 2017-03-02 17:00:00 2019-01-22 09:00:00 2019-01-22 05:00:00 2019-01-03 07:00:00 2017-12-25 12:00:00 2019-01-22 08:00:00</code></pre>
+## Outliers: 2019-01-22 14:00:00 2017-05-10 19:00:00 2017-03-02 17:00:00 2019-01-22 09:00:00 2019-01-22 08:00:00 2019-01-22 05:00:00 2019-01-03 07:00:00 2018-08-22 11:00:00</code></pre>
 <p><img src="tsmodels_files/figure-html/issm_methods2-1.png" width="672" /></p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="tsissm.html#cb76-1"></a><span class="kw">coef</span>(mod)</span></code></pre></div>
 <pre><code>##         alpha     gamma24.1     gamma24.2    gamma168.1    gamma168.2 
-##  0.1067034287  0.0161975998 -0.0004051414 -0.0004258961 -0.0041378072 
+##  0.1080587701  0.0161279894 -0.0004177522 -0.0006361634 -0.0041329372 
 ##   gamma8736.1   gamma8736.2        theta1        theta2          psi1 
-##  0.0129313914 -0.0069613696  0.4388475839  0.0409523768  0.5183893890 
+##  0.0129867971 -0.0069609813  0.4381564658  0.1010446662  0.5777906555 
 ##          psi2 
-##  0.0508406536</code></pre>
+##  0.0531875344</code></pre>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="tsissm.html#cb78-1"></a><span class="kw">logLik</span>(mod)</span></code></pre></div>
-<pre><code>## &#39;log Lik.&#39; -333718.6 (df=37)</code></pre>
+<pre><code>## &#39;log Lik.&#39; -333745.2 (df=37)</code></pre>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="tsissm.html#cb80-1"></a><span class="kw">AIC</span>(mod)</span></code></pre></div>
-<pre><code>## [1] 441666.5</code></pre>
+<pre><code>## [1] 441696</code></pre>
 </div>
 <div id="tsissm:demonstration:prediction" class="section level3">
 <h3><span class="header-section-number">5.5.3</span> Prediction</h3>
@@ -575,12 +587,12 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 <span id="cb103-6"><a href="tsissm.html#cb103-6"></a>                <span class="dt">data_name =</span> <span class="st">&quot;electricity&quot;</span>, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="dt">trace =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb103-7"><a href="tsissm.html#cb103-7"></a><span class="kw">head</span>(b<span class="op">$</span>metrics)</span></code></pre></div>
 <pre><code>##    horizon    variable       MAPE       MSLRE       BIAS  n MIS[0.02]  MIS[0.1]
-## 1:       1 electricity 0.03453686 0.002008403 0.01064633 73  1509.709  818.5592
-## 2:       2 electricity 0.04542751 0.003453705 0.01379530 72  2797.289 1293.8717
-## 3:       3 electricity 0.05722549 0.005171447 0.01764414 71  3740.733 1736.8172
-## 4:       4 electricity 0.06419392 0.006124358 0.01896112 70  4443.514 1930.2262
-## 5:       5 electricity 0.06987296 0.007363092 0.02024584 69  5247.636 2305.3943
-## 6:       6 electricity 0.07558653 0.008350822 0.02229894 68  5962.675 2528.8641</code></pre>
+## 1:       1 electricity 0.03097919 0.001857272 0.01298334 73  1517.732  816.9248
+## 2:       2 electricity 0.04426517 0.003363510 0.01582285 72  2636.688 1272.3624
+## 3:       3 electricity 0.05437816 0.004671942 0.01850963 71  3573.041 1548.2363
+## 4:       4 electricity 0.06141766 0.005796931 0.01947642 70  3860.538 1764.9774
+## 5:       5 electricity 0.06684649 0.006877325 0.02043792 69  4526.687 2085.3741
+## 6:       6 electricity 0.07228097 0.007720791 0.02206841 68  5169.462 2208.6294</code></pre>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="tsissm.html#cb105-1"></a><span class="kw">plot</span>(b<span class="op">$</span>metrics<span class="op">$</span>horizon, b<span class="op">$</span>metrics<span class="op">$</span>MAPE<span class="op">*</span><span class="dv">100</span>, <span class="dt">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </span>
 <span id="cb105-2"><a href="tsissm.html#cb105-2"></a>     <span class="dt">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
 <span id="cb105-3"><a href="tsissm.html#cb105-3"></a><span class="kw">grid</span>()</span></code></pre></div>
@@ -594,18 +606,15 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 <span id="cb106-2"><a href="tsissm.html#cb106-2"></a>                       <span class="dt">seasonal_frequency =</span> <span class="kw">c</span>(<span class="dv">24</span>, <span class="dv">24</span><span class="op">*</span><span class="dv">7</span>, <span class="dv">24</span><span class="op">*</span><span class="dv">7</span><span class="op">*</span><span class="dv">52</span>),</span>
 <span id="cb106-3"><a href="tsissm.html#cb106-3"></a>                       <span class="dt">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, <span class="dt">seasonal_harmonics =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
 <span id="cb106-4"><a href="tsissm.html#cb106-4"></a>                       <span class="dt">ar =</span> <span class="dv">2</span>, <span class="dt">ma =</span> <span class="dv">2</span>, <span class="dt">lambda =</span> <span class="dv">0</span>)</span>
-<span id="cb106-5"><a href="tsissm.html#cb106-5"></a>bench &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;optim&quot;</span>),</span>
-<span id="cb106-6"><a href="tsissm.html#cb106-6"></a>               <span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;nlminb&quot;</span>),</span>
-<span id="cb106-7"><a href="tsissm.html#cb106-7"></a>               <span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
-<span id="cb106-8"><a href="tsissm.html#cb106-8"></a><span class="kw">print</span>(bench)</span></code></pre></div>
+<span id="cb106-5"><a href="tsissm.html#cb106-5"></a>bench &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;nlminb&quot;</span>),</span>
+<span id="cb106-6"><a href="tsissm.html#cb106-6"></a>               <span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
+<span id="cb106-7"><a href="tsissm.html#cb106-7"></a><span class="kw">print</span>(bench)</span></code></pre></div>
 <pre><code>##                  start                 end              spec
-## 1: 2020-09-10 13:31:13 2020-09-10 13:35:33 &lt;tsissm.spec[10]&gt;
-## 2: 2020-09-10 13:35:33 2020-09-10 13:35:58 &lt;tsissm.spec[10]&gt;
-## 3: 2020-09-10 13:35:58 2020-09-10 13:36:24 &lt;tsissm.spec[10]&gt;
+## 1: 2020-11-25 10:26:57 2020-11-25 10:27:10 &lt;tsissm.spec[10]&gt;
+## 2: 2020-11-25 10:27:10 2020-11-25 10:27:31 &lt;tsissm.spec[10]&gt;
 ##                estimate solver control    loglik
-## 1: &lt;tsissm.estimate[4]&gt;  optim       0       NaN
-## 2: &lt;tsissm.estimate[4]&gt; nlminb       0 -342668.9
-## 3: &lt;tsissm.estimate[4]&gt;  solnp       0 -333718.6</code></pre>
+## 1: &lt;tsissm.estimate[4]&gt; nlminb       0 -342132.4
+## 2: &lt;tsissm.estimate[4]&gt;  solnp       0 -333745.2</code></pre>
 <p>In the current example, the <code>optim</code> solver did not converge, whilst the <code>solnp</code> solver achieved the highest log likelihood in about 14 seconds. Because of the constraint requirements for both the <span class="math inline">\(\bf{D}\)</span> matrix as well as the ARMA roots, the problem, while convex, is non-smooth as currently constructed and hence care should be taken in checking the solution.</p>
 
 </div>

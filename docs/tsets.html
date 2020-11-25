@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,8 +217,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other packages</a></li>
-<li class="chapter" data-level="9" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>9</b> The tsmodels team</a></li>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
+<li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
+<li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
+<li class="chapter" data-level="8.2.4" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:relativeeffect"><i class="fa fa-check"></i><b>8.2.4</b> Mean Relative Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:significance"><i class="fa fa-check"></i><b>8.3</b> Evaluation of Significance</a></li>
+<li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
+<li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
+<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -914,12 +926,12 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="tsets.html#cb61-1"></a>b &lt;-<span class="st"> </span><span class="kw">tsbacktest</span>(spec, <span class="dt">h =</span> <span class="dv">52</span>, <span class="dt">alpha =</span> <span class="kw">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="dt">trace =</span> <span class="dv">0</span>, <span class="dt">cores =</span> <span class="dv">4</span>)</span>
 <span id="cb61-2"><a href="tsets.html#cb61-2"></a><span class="kw">head</span>(b<span class="op">$</span>metrics)</span></code></pre></div>
 <pre><code>##    horizon variable       MAPE       MSLRE          BIAS   n MIS[0.02] MIS[0.1]
-## 1:       1        y 0.02710287 0.001165524 -0.0004851709 347  1750.719 1181.645
-## 2:       2        y 0.02695862 0.001155817 -0.0005105239 346  1694.395 1180.730
-## 3:       3        y 0.02698960 0.001148191 -0.0005009782 345  1689.606 1179.126
-## 4:       4        y 0.02712264 0.001161432 -0.0004446362 344  1709.448 1178.480
-## 5:       5        y 0.02704575 0.001164291 -0.0005618452 343  1720.270 1193.366
-## 6:       6        y 0.02686702 0.001139084 -0.0008830126 342  1643.976 1176.132</code></pre>
+## 1:       1        y 0.02719118 0.001169433 -0.0004603201 347  1679.139 1188.918
+## 2:       2        y 0.02693041 0.001155618 -0.0004865995 346  1708.493 1188.310
+## 3:       3        y 0.02705806 0.001158089 -0.0003868899 345  1686.740 1175.872
+## 4:       4        y 0.02708764 0.001164290 -0.0004667140 344  1709.906 1183.159
+## 5:       5        y 0.02708754 0.001163591 -0.0004585236 343  1734.368 1186.050
+## 6:       6        y 0.02687278 0.001146714 -0.0006670401 342  1695.671 1183.411</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="tsets.html#cb63-1"></a><span class="kw">plot</span>(b<span class="op">$</span>metrics<span class="op">$</span>horizon, b<span class="op">$</span>metrics<span class="op">$</span>MAPE<span class="op">*</span><span class="dv">100</span>, <span class="dt">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </span>
 <span id="cb63-2"><a href="tsets.html#cb63-2"></a>     <span class="dt">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
 <span id="cb63-3"><a href="tsets.html#cb63-3"></a><span class="kw">grid</span>()</span></code></pre></div>
@@ -933,9 +945,9 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <span id="cb64-3"><a href="tsets.html#cb64-3"></a>      <span class="kw">tsbenchmark</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
 <span id="cb64-4"><a href="tsets.html#cb64-4"></a>bench</span></code></pre></div>
 <pre><code>##                  start                 end            spec            estimate
-## 1: 2020-10-29 15:46:45 2020-10-29 15:46:46 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
-## 2: 2020-10-29 15:46:46 2020-10-29 15:46:46 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
-## 3: 2020-10-29 15:46:46 2020-10-29 15:46:46 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
+## 1: 2020-11-25 14:11:28 2020-11-25 14:11:28 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
+## 2: 2020-11-25 14:11:28 2020-11-25 14:11:28 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
+## 3: 2020-11-25 14:11:28 2020-11-25 14:11:29 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[3]&gt;
 ##    solver control    loglik
 ## 1:  optim       0 -6126.568
 ## 2: nlminb       0 -6125.014

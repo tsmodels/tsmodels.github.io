@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Other packages | A Time Series Framework</title>
+  <title>Chapter 9 Other packages | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Other packages | A Time Series Framework" />
+  <meta property="og:title" content="Chapter 9 Other packages | A Time Series Framework" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Other packages | A Time Series Framework" />
+  <meta name="twitter:title" content="Chapter 9 Other packages | A Time Series Framework" />
   
   <meta name="twitter:description" content="Documentation for the tsmodels framework" />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tsforeign.html"/>
+<link rel="prev" href="tscausal.html"/>
 <link rel="next" href="team.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -217,8 +217,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other packages</a></li>
-<li class="chapter" data-level="9" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>9</b> The tsmodels team</a></li>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
+<li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
+<li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
+<li class="chapter" data-level="8.2.4" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:relativeeffect"><i class="fa fa-check"></i><b>8.2.4</b> Mean Relative Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:significance"><i class="fa fa-check"></i><b>8.3</b> Evaluation of Significance</a></li>
+<li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
+<li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
+<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -241,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="other" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Other packages</h1>
+<h1><span class="header-section-number">Chapter 9</span> Other packages</h1>
 <ul>
 <li>The <strong>tsaux</strong> package contains a set of functions used across all the packages of our framework.</li>
 <li>The <strong>tsdatasets</strong> packages contains some sample datasets we use for benchmarking and examples. This may be expanded in the future.</li>
@@ -253,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="tsforeign.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tscausal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="team.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,8 +217,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other packages</a></li>
-<li class="chapter" data-level="9" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>9</b> The tsmodels team</a></li>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
+<li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
+<li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
+<li class="chapter" data-level="8.2.4" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:relativeeffect"><i class="fa fa-check"></i><b>8.2.4</b> Mean Relative Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:significance"><i class="fa fa-check"></i><b>8.3</b> Evaluation of Significance</a></li>
+<li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
+<li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
+<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -456,7 +468,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <span id="cb110-8"><a href="tsvets.html#cb110-8"></a>                       <span class="dt">seasonal =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="dt">lambda =</span> <span class="ot">NA</span>, <span class="dt">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, </span>
 <span id="cb110-9"><a href="tsvets.html#cb110-9"></a>                       <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">cores =</span> <span class="dv">3</span>)</span>
 <span id="cb110-10"><a href="tsvets.html#cb110-10"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
-<p>The joint estimation of the 8 series takes about 17.25301 seconds. The summary object prints the full matrices for each component using the Matrix package of <span class="citation">Bates and Maechler (<a href="#ref-R-Matrix" role="doc-biblioref">2019</a>)</span>. The summary method also take an optional <code>weights</code> argument which is used to calculate the weighted Accuracy Criteria, and when this is <code>NULL</code>, an equal weight vector is used instead (and hence equivalent to the Mean Criteria).</p>
+<p>The joint estimation of the 8 series takes about 2.2813039 seconds. The summary object prints the full matrices for each component using the Matrix package of <span class="citation">Bates and Maechler (<a href="#ref-R-Matrix" role="doc-biblioref">2019</a>)</span>. The summary method also take an optional <code>weights</code> argument which is used to calculate the weighted Accuracy Criteria, and when this is <code>NULL</code>, an equal weight vector is used instead (and hence equivalent to the Mean Criteria).</p>
 <p>Similar to other packages, there is a diagnostics method <code>tsdiagnose</code> which prints the eiganvalues of the <span class="math inline">\(D\)</span> matrix as well as the output from a multivariate Normality Test and Multivariate Outliers based on the <code>mvn</code> function of the <a href="https://cran.r-project.org/web/packages/MVN/"><strong>MVN</strong></a> package of <span class="citation">Korkmaz, Goksuluk, and Zararsiz (<a href="#ref-R-MVN" role="doc-biblioref">2019</a>)</span>.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="tsvets.html#cb111-1"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
@@ -506,15 +518,15 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 
 ## Seasonal Matrix
 ## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
-##      [,1]      [,2]         [,3]         [,4]         [,5]         [,6]        
-## [1,] 0.2856528            .            .            .            .            .
-## [2,]         . 2.394974e-09            .            .            .            .
-## [3,]         .            . 3.846852e-09            .            .            .
-## [4,]         .            .            . 5.733621e-09            .            .
-## [5,]         .            .            .            . 3.585116e-09            .
-## [6,]         .            .            .            .            . 6.533005e-09
-## [7,]         .            .            .            .            .            .
-## [8,]         .            .            .            .            .            .
+##      [,1]      [,2]         [,3]         [,4]         [,5]         [,6]       
+## [1,] 0.2856528            .            .            .            .           .
+## [2,]         . 2.394893e-09            .            .            .           .
+## [3,]         .            . 3.847806e-09            .            .           .
+## [4,]         .            .            . 5.733773e-09            .           .
+## [5,]         .            .            .            . 3.585966e-09           .
+## [6,]         .            .            .            .            . 6.53269e-09
+## [7,]         .            .            .            .            .           .
+## [8,]         .            .            .            .            .           .
 ##      [,7]      [,8]        
 ## [1,]         .            .
 ## [2,]         .            .
@@ -522,29 +534,29 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## [4,]         .            .
 ## [5,]         .            .
 ## [6,]         .            .
-## [7,] 0.1511026            .
-## [8,]         . 2.545877e-09
+## [7,] 0.1511017            .
+## [8,]         . 2.546543e-09
 ## 
 ## Correlation Matrix
 ## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS       T.NEWS
-## ACF.NEWS  1.00000000 0.08053171 0.03288053 0.17037946 0.05281494  0.094956667
-## NSW.NEWS  0.08053171 1.00000000 0.20606452 0.15796191 0.11770804  0.172207588
-## NT.NEWS   0.03288053 0.20606452 1.00000000 0.11509632 0.09843775  0.127150095
-## Q.NEWS    0.17037946 0.15796191 0.11509632 1.00000000 0.13848200  0.059622612
-## SA.NEWS   0.05281494 0.11770804 0.09843775 0.13848200 1.00000000  0.058926740
-## T.NEWS    0.09495667 0.17220759 0.12715009 0.05962261 0.05892674  1.000000000
-## V.NEWS    0.20519203 0.23060264 0.11493382 0.10415261 0.14049607  0.072776172
-## WA.NEWS  -0.02841268 0.20572327 0.19391119 0.17141803 0.12027857 -0.000681685
-##              V.NEWS      WA.NEWS
-## ACF.NEWS 0.20519203 -0.028412685
-## NSW.NEWS 0.23060264  0.205723265
-## NT.NEWS  0.11493382  0.193911189
-## Q.NEWS   0.10415261  0.171418031
-## SA.NEWS  0.14049607  0.120278569
-## T.NEWS   0.07277617 -0.000681685
-## V.NEWS   1.00000000  0.031399075
-## WA.NEWS  0.03139907  1.000000000
+##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS        T.NEWS
+## ACF.NEWS  1.00000000 0.08053228 0.03288147 0.17038002 0.05281511  0.0949562036
+## NSW.NEWS  0.08053228 1.00000000 0.20606452 0.15796192 0.11770804  0.1722075892
+## NT.NEWS   0.03288147 0.20606452 1.00000000 0.11509632 0.09843775  0.1271500930
+## Q.NEWS    0.17038002 0.15796192 0.11509632 1.00000000 0.13848200  0.0596225947
+## SA.NEWS   0.05281511 0.11770804 0.09843775 0.13848200 1.00000000  0.0589267343
+## T.NEWS    0.09495620 0.17220759 0.12715009 0.05962259 0.05892673  1.0000000000
+## V.NEWS    0.20519206 0.23060284 0.11493411 0.10415289 0.14049629  0.0727757610
+## WA.NEWS  -0.02841206 0.20572327 0.19391118 0.17141803 0.12027858 -0.0006816997
+##              V.NEWS       WA.NEWS
+## ACF.NEWS 0.20519206 -0.0284120588
+## NSW.NEWS 0.23060284  0.2057232690
+## NT.NEWS  0.11493411  0.1939111809
+## Q.NEWS   0.10415289  0.1714180312
+## SA.NEWS  0.14049629  0.1202785772
+## T.NEWS   0.07277576 -0.0006816997
+## V.NEWS   1.00000000  0.0313987574
+## WA.NEWS  0.03139876  1.0000000000
 ## 
 ## Information Criteria
 ##  AIC     BIC     AICc   
@@ -560,7 +572,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <pre><code>## 
 ## Multivariate Normality Tests
 ##             Test        E df      p value MVN
-## 1 Doornik-Hansen 216.8132 16 3.099293e-37  NO
+## 1 Doornik-Hansen 216.8128 16 3.099929e-37  NO
 ## 
 ## Univariate Normality Tests
 ##              Test  Variable Statistic   p value Normality
@@ -575,15 +587,15 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 
 ## Multivariate Outliers (Mahalanobis Distance)
 ##     Observation Mahalanobis Distance Outlier
-## 21   1989-12-31               25.080    TRUE
+## 21   1989-12-31               25.081    TRUE
 ## 24   1990-03-31               24.942    TRUE
-## 33   1990-12-31               19.529    TRUE
-## 54   1992-09-30               23.035    TRUE
+## 33   1990-12-31               19.528    TRUE
+## 54   1992-09-30               23.034    TRUE
 ## 63   1993-06-30               21.246    TRUE
 ## 66   1993-09-30               20.317    TRUE
 ## 69   1993-12-31               58.753    TRUE
 ## 72   1994-03-31               31.115    TRUE
-## 105  1996-12-31               47.117    TRUE
+## 105  1996-12-31               47.116    TRUE
 ## 106  1997-01-31               24.857    TRUE
 ## 121  1998-04-30               37.653    TRUE
 ## 124  1998-07-31               19.277    TRUE
@@ -596,19 +608,19 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 226  2007-01-31               23.302    TRUE
 ## 235  2007-10-31               79.396    TRUE
 ## 238  2008-01-31               22.707    TRUE
-## 241  2008-04-30               31.688    TRUE
+## 241  2008-04-30               31.689    TRUE
 ## 251  2009-02-28               22.112    TRUE
 ## 256  2009-07-31               23.650    TRUE
 ## 259  2009-10-31               19.600    TRUE
 ## 261  2009-12-31               20.838    TRUE
 ## 262  2010-01-31               67.995    TRUE
-## 263  2010-02-28               48.986    TRUE
+## 263  2010-02-28               48.985    TRUE
 ## 265  2010-04-30               30.044    TRUE
 ## 268  2010-07-31               22.728    TRUE
-## 274  2011-01-31               90.180    TRUE
+## 274  2011-01-31               90.181    TRUE
 ## 285  2011-12-31               22.557    TRUE
-## 286  2012-01-31               49.671    TRUE
-## 287  2012-02-29               19.882    TRUE
+## 286  2012-01-31               49.672    TRUE
+## 287  2012-02-29               19.881    TRUE
 ## 295  2012-10-31               29.557    TRUE
 ## 301  2013-04-30               51.556    TRUE
 ## 302  2013-05-31               19.664    TRUE
@@ -619,11 +631,11 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <p>Coefficients:</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="tsvets.html#cb116-1"></a><span class="kw">coef</span>(mod)</span></code></pre></div>
 <pre><code>##      Level[Common] Seasonal[ACF.NEWS] Seasonal[NSW.NEWS]  Seasonal[NT.NEWS] 
-##       7.228698e-01       2.856528e-01       2.394974e-09       3.846852e-09 
+##       7.228698e-01       2.856528e-01       2.394893e-09       3.847806e-09 
 ##   Seasonal[Q.NEWS]  Seasonal[SA.NEWS]   Seasonal[T.NEWS]   Seasonal[V.NEWS] 
-##       5.733621e-09       3.585116e-09       6.533005e-09       1.511026e-01 
+##       5.733773e-09       3.585966e-09       6.532690e-09       1.511017e-01 
 ##  Seasonal[WA.NEWS] 
-##       2.545877e-09</code></pre>
+##       2.546543e-09</code></pre>
 <p>Loglikelihood and AIC:</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="tsvets.html#cb118-1"></a><span class="kw">logLik</span>(mod)</span></code></pre></div>
 <pre><code>## &#39;log Lik.&#39; 1036.628 (df=121)</code></pre>
@@ -631,117 +643,117 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <pre><code>## [1] 1278.628</code></pre>
 <p>Performance metrics with optional weights option:</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tsvets.html#cb122-1"></a><span class="kw">tsmetrics</span>(mod, <span class="dt">weights =</span> <span class="kw">runif</span>(<span class="dv">8</span>))</span></code></pre></div>
-<pre><code>##      N no_pars   LogLik      AIC      BIC     AICc       MAPE      MSLRE
-## 1 2952     121 1036.628 1278.628 2003.447 1289.061 0.06177398 0.00682494
-##        WAPE      WSLRE
-## 1 0.0626271 0.00706332</code></pre>
+<pre><code>##      N no_pars   LogLik      AIC      BIC     AICc       MAPE       MSLRE
+## 1 2952     121 1036.628 1278.628 2003.447 1289.061 0.06177398 0.006824942
+##         WAPE      WSLRE
+## 1 0.06240583 0.00688782</code></pre>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="tsvets.html#cb124-1"></a><span class="kw">tscor</span>(mod)</span></code></pre></div>
 <pre><code>## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS       T.NEWS
-## ACF.NEWS  1.00000000 0.08053171 0.03288053 0.17037946 0.05281494  0.094956667
-## NSW.NEWS  0.08053171 1.00000000 0.20606452 0.15796191 0.11770804  0.172207588
-## NT.NEWS   0.03288053 0.20606452 1.00000000 0.11509632 0.09843775  0.127150095
-## Q.NEWS    0.17037946 0.15796191 0.11509632 1.00000000 0.13848200  0.059622612
-## SA.NEWS   0.05281494 0.11770804 0.09843775 0.13848200 1.00000000  0.058926740
-## T.NEWS    0.09495667 0.17220759 0.12715009 0.05962261 0.05892674  1.000000000
-## V.NEWS    0.20519203 0.23060264 0.11493382 0.10415261 0.14049607  0.072776172
-## WA.NEWS  -0.02841268 0.20572327 0.19391119 0.17141803 0.12027857 -0.000681685
-##              V.NEWS      WA.NEWS
-## ACF.NEWS 0.20519203 -0.028412685
-## NSW.NEWS 0.23060264  0.205723265
-## NT.NEWS  0.11493382  0.193911189
-## Q.NEWS   0.10415261  0.171418031
-## SA.NEWS  0.14049607  0.120278569
-## T.NEWS   0.07277617 -0.000681685
-## V.NEWS   1.00000000  0.031399075
-## WA.NEWS  0.03139907  1.000000000</code></pre>
+##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS        T.NEWS
+## ACF.NEWS  1.00000000 0.08053228 0.03288147 0.17038002 0.05281511  0.0949562036
+## NSW.NEWS  0.08053228 1.00000000 0.20606452 0.15796192 0.11770804  0.1722075892
+## NT.NEWS   0.03288147 0.20606452 1.00000000 0.11509632 0.09843775  0.1271500930
+## Q.NEWS    0.17038002 0.15796192 0.11509632 1.00000000 0.13848200  0.0596225947
+## SA.NEWS   0.05281511 0.11770804 0.09843775 0.13848200 1.00000000  0.0589267343
+## T.NEWS    0.09495620 0.17220759 0.12715009 0.05962259 0.05892673  1.0000000000
+## V.NEWS    0.20519206 0.23060284 0.11493411 0.10415289 0.14049629  0.0727757610
+## WA.NEWS  -0.02841206 0.20572327 0.19391118 0.17141803 0.12027858 -0.0006816997
+##              V.NEWS       WA.NEWS
+## ACF.NEWS 0.20519206 -0.0284120588
+## NSW.NEWS 0.23060284  0.2057232690
+## NT.NEWS  0.11493411  0.1939111809
+## Q.NEWS   0.10415289  0.1714180312
+## SA.NEWS  0.14049629  0.1202785772
+## T.NEWS   0.07277576 -0.0006816997
+## V.NEWS   1.00000000  0.0313987574
+## WA.NEWS  0.03139876  1.0000000000</code></pre>
 <p>Correlation and covariance matrices:</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="tsvets.html#cb126-1"></a><span class="kw">tscov</span>(mod)</span></code></pre></div>
 <pre><code>## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
 ##               ACF.NEWS     NSW.NEWS      NT.NEWS       Q.NEWS      SA.NEWS
-## ACF.NEWS  0.0115176893 0.0005204026 0.0006261006 0.0011599528 0.0004533595
-## NSW.NEWS  0.0005204026 0.0036255980 0.0022014849 0.0006033684 0.0005668906
-## NT.NEWS   0.0006261006 0.0022014849 0.0314807680 0.0012954614 0.0013969719
-## Q.NEWS    0.0011599528 0.0006033684 0.0012954614 0.0040242112 0.0007026467
-## SA.NEWS   0.0004533595 0.0005668906 0.0013969719 0.0007026467 0.0063974462
-## T.NEWS    0.0026750756 0.0027218866 0.0059219846 0.0009928401 0.0012372107
-## V.NEWS    0.0016124595 0.0010167162 0.0014931937 0.0004837892 0.0008228357
-## WA.NEWS  -0.0012068439 0.0049026331 0.0136170079 0.0043038096 0.0038075686
+## ACF.NEWS  0.0115176906 0.0005204062 0.0006261186 0.0011599566 0.0004533611
+## NSW.NEWS  0.0005204062 0.0036255980 0.0022014849 0.0006033685 0.0005668906
+## NT.NEWS   0.0006261186 0.0022014849 0.0314807680 0.0012954614 0.0013969719
+## Q.NEWS    0.0011599566 0.0006033685 0.0012954614 0.0040242112 0.0007026467
+## SA.NEWS   0.0004533611 0.0005668906 0.0013969719 0.0007026467 0.0063974462
+## T.NEWS    0.0026750627 0.0027218866 0.0059219845 0.0009928398 0.0012372106
+## V.NEWS    0.0016124599 0.0010167171 0.0014931975 0.0004837905 0.0008228370
+## WA.NEWS  -0.0012068174 0.0049026332 0.0136170073 0.0043038095 0.0038075688
 ##                 T.NEWS       V.NEWS       WA.NEWS
-## ACF.NEWS  2.675076e-03 0.0016124595 -1.206844e-03
-## NSW.NEWS  2.721887e-03 0.0010167162  4.902633e-03
-## NT.NEWS   5.921985e-03 0.0014931937  1.361701e-02
-## Q.NEWS    9.928401e-04 0.0004837892  4.303810e-03
-## SA.NEWS   1.237211e-03 0.0008228357  3.807569e-03
-## T.NEWS    6.890581e-02 0.0013988231 -7.082194e-05
-## V.NEWS    1.398823e-03 0.0053615617  9.099524e-04
-## WA.NEWS  -7.082194e-05 0.0009099524  1.566435e-01</code></pre>
+## ACF.NEWS  2.675063e-03 0.0016124599 -1.206817e-03
+## NSW.NEWS  2.721887e-03 0.0010167171  4.902633e-03
+## NT.NEWS   5.921984e-03 0.0014931975  1.361701e-02
+## Q.NEWS    9.928398e-04 0.0004837905  4.303810e-03
+## SA.NEWS   1.237211e-03 0.0008228370  3.807569e-03
+## T.NEWS    6.890581e-02 0.0013988152 -7.082346e-05
+## V.NEWS    1.398815e-03 0.0053615617  9.099432e-04
+## WA.NEWS  -7.082346e-05 0.0009099432  1.566435e-01</code></pre>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tsvets.html#cb128-1"></a><span class="kw">tscor</span>(mod)</span></code></pre></div>
 <pre><code>## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS       T.NEWS
-## ACF.NEWS  1.00000000 0.08053171 0.03288053 0.17037946 0.05281494  0.094956667
-## NSW.NEWS  0.08053171 1.00000000 0.20606452 0.15796191 0.11770804  0.172207588
-## NT.NEWS   0.03288053 0.20606452 1.00000000 0.11509632 0.09843775  0.127150095
-## Q.NEWS    0.17037946 0.15796191 0.11509632 1.00000000 0.13848200  0.059622612
-## SA.NEWS   0.05281494 0.11770804 0.09843775 0.13848200 1.00000000  0.058926740
-## T.NEWS    0.09495667 0.17220759 0.12715009 0.05962261 0.05892674  1.000000000
-## V.NEWS    0.20519203 0.23060264 0.11493382 0.10415261 0.14049607  0.072776172
-## WA.NEWS  -0.02841268 0.20572327 0.19391119 0.17141803 0.12027857 -0.000681685
-##              V.NEWS      WA.NEWS
-## ACF.NEWS 0.20519203 -0.028412685
-## NSW.NEWS 0.23060264  0.205723265
-## NT.NEWS  0.11493382  0.193911189
-## Q.NEWS   0.10415261  0.171418031
-## SA.NEWS  0.14049607  0.120278569
-## T.NEWS   0.07277617 -0.000681685
-## V.NEWS   1.00000000  0.031399075
-## WA.NEWS  0.03139907  1.000000000</code></pre>
+##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS        T.NEWS
+## ACF.NEWS  1.00000000 0.08053228 0.03288147 0.17038002 0.05281511  0.0949562036
+## NSW.NEWS  0.08053228 1.00000000 0.20606452 0.15796192 0.11770804  0.1722075892
+## NT.NEWS   0.03288147 0.20606452 1.00000000 0.11509632 0.09843775  0.1271500930
+## Q.NEWS    0.17038002 0.15796192 0.11509632 1.00000000 0.13848200  0.0596225947
+## SA.NEWS   0.05281511 0.11770804 0.09843775 0.13848200 1.00000000  0.0589267343
+## T.NEWS    0.09495620 0.17220759 0.12715009 0.05962259 0.05892673  1.0000000000
+## V.NEWS    0.20519206 0.23060284 0.11493411 0.10415289 0.14049629  0.0727757610
+## WA.NEWS  -0.02841206 0.20572327 0.19391118 0.17141803 0.12027858 -0.0006816997
+##              V.NEWS       WA.NEWS
+## ACF.NEWS 0.20519206 -0.0284120588
+## NSW.NEWS 0.23060284  0.2057232690
+## NT.NEWS  0.11493411  0.1939111809
+## Q.NEWS   0.10415289  0.1714180312
+## SA.NEWS  0.14049629  0.1202785772
+## T.NEWS   0.07277576 -0.0006816997
+## V.NEWS   1.00000000  0.0313987574
+## WA.NEWS  0.03139876  1.0000000000</code></pre>
 <p>Note that, even though we impose a diagonal covariance matrix structure, we still return the full covariance matrix in <code>tscov</code>.</p>
 <p>Fitted and residuals:</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="tsvets.html#cb130-1"></a><span class="kw">head</span>(<span class="kw">fitted</span>(mod)[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            ACF.NEWS NSW.NEWS  NT.NEWS   Q.NEWS
-## 1988-04-30 5.083113 73.64487 1.826402 32.42629
-## 1988-05-31 5.676505 77.54209 1.989449 33.63407
-## 1988-06-30 5.075896 74.71800 2.035401 34.26673
-## 1988-07-31 4.934340 80.55047 2.505502 36.89036</code></pre>
+## 1988-04-30 5.083114 73.64484 1.826404 32.42632
+## 1988-05-31 5.676503 77.54206 1.989451 33.63409
+## 1988-06-30 5.075911 74.71801 2.035402 34.26673
+## 1988-07-31 4.934337 80.55046 2.505502 36.89036</code></pre>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="tsvets.html#cb132-1"></a><span class="kw">head</span>(<span class="kw">residuals</span>(mod)[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##               ACF.NEWS   NSW.NEWS     NT.NEWS     Q.NEWS
-## 1988-04-30  0.01688730 -0.6448678 -0.02640171 -0.6262864
-## 1988-05-31 -0.07650468  2.7579096  0.01055136  3.0659271
-## 1988-06-30 -0.07589608  0.5819960  0.36459863  0.4332729
-## 1988-07-31 -0.03433964 -6.3504739 -0.10550229  2.2096386</code></pre>
+## 1988-04-30  0.01688627 -0.6448413 -0.02640414 -0.6263172
+## 1988-05-31 -0.07650333  2.7579415  0.01054904  3.0659131
+## 1988-06-30 -0.07591079  0.5819950  0.36459759  0.4332681
+## 1988-07-31 -0.03433663 -6.3504562 -0.10550187  2.2096412</code></pre>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="tsvets.html#cb134-1"></a><span class="kw">head</span>(<span class="kw">residuals</span>(mod, <span class="dt">raw =</span> <span class="ot">TRUE</span>)[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                ACF.NEWS     NSW.NEWS      NT.NEWS      Q.NEWS
-## 1988-04-30  0.003685518 -0.008795015 -0.020380197 -0.01950311
-## 1988-05-31 -0.015177745  0.034948730  0.007813705  0.08723713
-## 1988-06-30 -0.016728761  0.007759055  0.258018253  0.01256486
-## 1988-07-31 -0.007742658 -0.082119842 -0.071413488  0.05817216</code></pre>
+<pre><code>##                ACF.NEWS     NSW.NEWS     NT.NEWS      Q.NEWS
+## 1988-04-30  0.003685292 -0.008794656 -0.02038207 -0.01950406
+## 1988-05-31 -0.015177478  0.034949141  0.00781199  0.08723671
+## 1988-06-30 -0.016731980  0.007759041  0.25801749  0.01256472
+## 1988-07-31 -0.007741982 -0.082119623 -0.07141321  0.05817223</code></pre>
 <p>where argument <code>raw</code> denotes the non backtransformed residuals (if a Box Cox calculation was used).</p>
 <p>States decomposition:</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="tsvets.html#cb136-1"></a>tsx &lt;-<span class="st"> </span><span class="kw">tsdecompose</span>(mod)</span>
 <span id="cb136-2"><a href="tsvets.html#cb136-2"></a><span class="kw">head</span>(tsx<span class="op">$</span>Level[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            Level[ACF.NEWS] Level[NSW.NEWS] Level[NT.NEWS] Level[Q.NEWS]
-## 1988-04-30        1.788054        4.364053      0.8567770      3.546527
-## 1988-05-31        1.776977        4.389549      0.8604635      3.610767
-## 1988-06-30        1.764779        4.395390      1.0450153      3.621029
-## 1988-07-31        1.759077        4.336260      0.9914309      3.664259</code></pre>
+## 1988-04-30        1.788055        4.364053      0.8567776      3.546527
+## 1988-05-31        1.776978        4.389549      0.8604629      3.610767
+## 1988-06-30        1.764778        4.395390      1.0450142      3.621028
+## 1988-07-31        1.759076        4.336260      0.9914300      3.664259</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="tsvets.html#cb138-1"></a><span class="kw">head</span>(tsx<span class="op">$</span>Slope[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            Slope[ACF.NEWS] Slope[NSW.NEWS] Slope[NT.NEWS] Slope[Q.NEWS]
-## 1988-04-30   -0.0001052891    0.0002321085   -0.001961778   0.001179101
-## 1988-05-31   -0.0001052891    0.0002321085   -0.001961778   0.001179101
-## 1988-06-30   -0.0001052891    0.0002321085   -0.001961778   0.001179101
-## 1988-07-31   -0.0001052891    0.0002321085   -0.001961778   0.001179101</code></pre>
+## 1988-04-30   -0.0001052366    0.0002321543   -0.001961735   0.001179104
+## 1988-05-31   -0.0001052366    0.0002321543   -0.001961735   0.001179104
+## 1988-06-30   -0.0001052366    0.0002321543   -0.001961735   0.001179104
+## 1988-07-31   -0.0001052366    0.0002321543   -0.001961735   0.001179104</code></pre>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="tsvets.html#cb140-1"></a><span class="kw">head</span>(tsx<span class="op">$</span>Seasonal[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            Seasonal[ACF.NEWS] Seasonal[NSW.NEWS] Seasonal[NT.NEWS]
-## 1988-04-30        0.049802193       -0.013464513       -0.01415806
-## 1988-05-31       -0.063814594       -0.076059814        0.01605518
-## 1988-06-30       -0.083010706       -0.006737797        0.16093509
-## 1988-07-31       -0.003458054        0.020157339        0.13897920
+## 1988-04-30        0.049800534       -0.013464584       -0.01415702
+## 1988-05-31       -0.063813013       -0.076059803        0.01605647
+## 1988-06-30       -0.083010746       -0.006738054        0.16093585
+## 1988-07-31       -0.003459199        0.020157292        0.13897908
 ##            Seasonal[Q.NEWS]
-## 1988-04-30     -0.032166012
-## 1988-05-31     -0.077770996
-## 1988-06-30     -0.014257373
-## 1988-07-31      0.009366054</code></pre>
+## 1988-04-30     -0.032165866
+## 1988-05-31     -0.077770829
+## 1988-06-30     -0.014257319
+## 1988-07-31      0.009366027</code></pre>
 <p>Plot methods exist outputting the fitted values, the states and the residuals, with an argument for the series to output, with a maximum number per call of 10 series:</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="tsvets.html#cb142-1"></a><span class="kw">plot</span>(mod)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-14-1.png" width="768" /></p>
@@ -805,20 +817,20 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <p>The returned object is a list of 2 data.tables with the predictions for each series by estimation date and horizon and the summary metrics table:</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="tsvets.html#cb152-1"></a><span class="kw">head</span>(b<span class="op">$</span>prediction)</span></code></pre></div>
 <pre><code>##      series estimation_date horizon size forecast_dates forecast actual
-## 1: ACF.NEWS      2003-07-31       1  184     2003-08-31 11.19785   11.2
-## 2: ACF.NEWS      2003-07-31       2  184     2003-09-30 10.62864   10.1
-## 3: ACF.NEWS      2003-07-31       3  184     2003-10-31 10.54963    9.7
-## 4: ACF.NEWS      2003-07-31       4  184     2003-11-30 11.16726    9.7
-## 5: ACF.NEWS      2003-07-31       5  184     2003-12-31 15.53520   14.2
-## 6: ACF.NEWS      2003-07-31       6  184     2004-01-31 10.11977    8.6</code></pre>
+## 1: ACF.NEWS      2003-07-31       1  184     2003-08-31 11.17443   11.2
+## 2: ACF.NEWS      2003-07-31       2  184     2003-09-30 10.58119   10.1
+## 3: ACF.NEWS      2003-07-31       3  184     2003-10-31 10.47016    9.7
+## 4: ACF.NEWS      2003-07-31       4  184     2003-11-30 11.17230    9.7
+## 5: ACF.NEWS      2003-07-31       5  184     2003-12-31 15.54501   14.2
+## 6: ACF.NEWS      2003-07-31       6  184     2004-01-31 10.15022    8.6</code></pre>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="tsvets.html#cb154-1"></a><span class="kw">head</span>(b<span class="op">$</span>metrics)</span></code></pre></div>
 <pre><code>##      series horizon       MAPE      MSLRE       BIAS   n
-## 1: ACF.NEWS       1 0.08370057 0.01153021 0.01604933 185
-## 2: ACF.NEWS       2 0.09818586 0.01473627 0.02540813 184
-## 3: ACF.NEWS       3 0.10826144 0.01744959 0.03383216 183
-## 4: ACF.NEWS       4 0.11925661 0.02091545 0.04322381 182
-## 5: ACF.NEWS       5 0.11687057 0.02065710 0.05132596 181
-## 6: ACF.NEWS       6 0.12608157 0.02290307 0.05894074 180</code></pre>
+## 1: ACF.NEWS       1 0.08381627 0.01159592 0.01639278 185
+## 2: ACF.NEWS       2 0.09781982 0.01471614 0.02551904 184
+## 3: ACF.NEWS       3 0.10781651 0.01737040 0.03427295 183
+## 4: ACF.NEWS       4 0.11836806 0.02071475 0.04326020 182
+## 5: ACF.NEWS       5 0.11690768 0.02066226 0.05178642 181
+## 6: ACF.NEWS       6 0.12621032 0.02295186 0.05947004 180</code></pre>
 </div>
 <div id="tsvets:demonstration:example2" class="section level3">
 <h3><span class="header-section-number">6.7.3</span> Example: Australian Retail Sales Grouped Dynamics</h3>
@@ -842,7 +854,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <span id="cb156-17"><a href="tsvets.html#cb156-17"></a>                       <span class="dt">group =</span> groups[<span class="dv">1</span><span class="op">:</span><span class="dv">99</span>],  <span class="dt">seasonal =</span> <span class="st">&quot;grouped&quot;</span>, <span class="dt">lambda =</span> <span class="fl">0.5</span>, </span>
 <span id="cb156-18"><a href="tsvets.html#cb156-18"></a>                       <span class="dt">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">cores =</span> <span class="dv">3</span>)</span>
 <span id="cb156-19"><a href="tsvets.html#cb156-19"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
-<p>The joint estimation of the 99 series takes about 21.2180385 minutes.</p>
+<p>The joint estimation of the 99 series takes about 3.1741724 minutes.</p>
 <p>We avoid the <code>summary</code> method for such a large object, and instead print out the coefficients and the performance metrics:</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="tsvets.html#cb157-1"></a>cf &lt;-<span class="st"> </span><span class="kw">coef</span>(mod)</span>
 <span id="cb157-2"><a href="tsvets.html#cb157-2"></a><span class="kw">print</span>(data.table<span class="op">::</span><span class="kw">data.table</span>(<span class="dt">Coefficient =</span> <span class="kw">names</span>(cf), <span class="dt">Value =</span> <span class="kw">round</span>(cf,<span class="dv">4</span>)))</span></code></pre></div>
@@ -889,9 +901,9 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ##              Coefficient  Value</code></pre>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="tsvets.html#cb159-1"></a><span class="kw">tsmetrics</span>(mod)</span></code></pre></div>
 <pre><code>##       N no_pars    LogLik       AIC      BIC      AICc       MAPE       MSLRE
-## 1 22572    1425 -7608.464 -4758.464 6676.399 -4566.272 0.04053744 0.003140806
+## 1 22572    1425 -7608.464 -4758.464 6676.399 -4566.272 0.04053744 0.003140805
 ##         WAPE       WSLRE
-## 1 0.04053744 0.003140806</code></pre>
+## 1 0.04053744 0.003140805</code></pre>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="tsvets.html#cb161-1"></a><span class="kw">plot</span>(mod, <span class="dt">series =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">99</span>)[groups <span class="op">==</span><span class="st"> </span><span class="dv">4</span>])</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-23-1.png" width="768" /></p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="tsvets.html#cb162-1"></a><span class="kw">plot</span>(mod, <span class="dt">series =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">99</span>)[groups <span class="op">==</span><span class="st"> </span><span class="dv">4</span>], <span class="dt">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
@@ -917,31 +929,31 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <span id="cb164-13"><a href="tsvets.html#cb164-13"></a>filt &lt;-<span class="st"> </span><span class="kw">tsfilter</span>(mod, <span class="dt">y =</span> y_test)</span>
 <span id="cb164-14"><a href="tsvets.html#cb164-14"></a><span class="kw">tail</span>(<span class="kw">fitted</span>(mod))</span></code></pre></div>
 <pre><code>##            ACF.NEWS  NSW.NEWS  NT.NEWS   Q.NEWS   SA.NEWS   T.NEWS   V.NEWS
-## 2016-07-31 6.274802  85.48932 1.563079 51.79396 12.263420 12.41307 47.63892
-## 2016-08-31 5.822149  87.91930 1.518185 54.59900 10.952638 12.97214 47.66849
-## 2016-09-30 4.902060  81.27387 1.394669 51.86889  9.940536 13.71905 45.84747
-## 2016-10-31 4.791340  83.27202 1.319689 55.07791  9.960856 12.42058 49.48286
-## 2016-11-30 5.547110  86.93624 1.357323 54.95785 10.368361 12.07245 50.89754
-## 2016-12-31 8.184714 116.27849 1.858933 72.01647 15.622337 14.69098 76.20899
+## 2016-07-31 6.274797  85.48924 1.563078 51.79401 12.263422 12.41307 47.63890
+## 2016-08-31 5.822142  87.91922 1.518186 54.59903 10.952638 12.97214 47.66847
+## 2016-09-30 4.902063  81.27384 1.394670 51.86893  9.940540 13.71905 45.84747
+## 2016-10-31 4.791340  83.27199 1.319689 55.07795  9.960862 12.42058 49.48284
+## 2016-11-30 5.547109  86.93623 1.357322 54.95787 10.368370 12.07245 50.89751
+## 2016-12-31 8.184713 116.27847 1.858932 72.01650 15.622348 14.69097 76.20897
 ##             WA.NEWS
-## 2016-07-31 40.75597
-## 2016-08-31 42.52752
-## 2016-09-30 39.24565
-## 2016-10-31 40.45785
-## 2016-11-30 41.79129
-## 2016-12-31 55.58457</code></pre>
+## 2016-07-31 40.75593
+## 2016-08-31 42.52748
+## 2016-09-30 39.24564
+## 2016-10-31 40.45787
+## 2016-11-30 41.79132
+## 2016-12-31 55.58460</code></pre>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="tsvets.html#cb166-1"></a><span class="kw">head</span>(<span class="kw">tail</span>(<span class="kw">fitted</span>(filt), <span class="dv">24</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##            ACF.NEWS  NSW.NEWS  NT.NEWS   Q.NEWS   SA.NEWS   T.NEWS   V.NEWS
-## 2016-12-31 8.184714 116.27849 1.858933 72.01647 15.622337 14.69098 76.20899
-## 2017-01-31 5.136206  92.07694 1.239746 57.96093  8.790409 12.48530 47.68475
-## 2017-02-28 7.150197  94.62242 1.098936 52.06098  9.564016 13.50578 47.71322
-## 2017-03-31 5.671754  98.44473 1.105181 54.21631 11.124735 11.63927 52.55806
-## 2017-04-30 4.718625  82.17765 1.158383 51.48419  8.319084 10.94583 47.45608
+## 2016-12-31 8.184713 116.27847 1.858932 72.01650 15.622348 14.69097 76.20897
+## 2017-01-31 5.136207  92.07693 1.239746 57.96096  8.790413 12.48529 47.68477
+## 2017-02-28 7.150196  94.62239 1.098937 52.06103  9.564020 13.50577 47.71323
+## 2017-03-31 5.671763  98.44472 1.105182 54.21635 11.124741 11.63927 52.55806
+## 2017-04-30 4.718633  82.17763 1.158383 51.48423  8.319094 10.94583 47.45608
 ##             WA.NEWS
-## 2016-12-31 55.58457
-## 2017-01-31 48.38623
-## 2017-02-28 40.52982
-## 2017-03-31 40.46546
+## 2016-12-31 55.58460
+## 2017-01-31 48.38625
+## 2017-02-28 40.52984
+## 2017-03-31 40.46547
 ## 2017-04-30 37.86586</code></pre>
 </div>
 <div id="tsvets:demonstration:example4" class="section level3">
@@ -967,15 +979,15 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 <p>We can extract specific matrices from the estimate object using the as yet unexported function <code>p_matrix</code>:</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="tsvets.html#cb172-1"></a>tsvets<span class="op">:::</span><span class="kw">p_matrix</span>(mod)<span class="op">$</span>X</span></code></pre></div>
 <pre><code>## 8 x 5 Matrix of class &quot;dgeMatrix&quot;
-##                   x1           x2         x3          x4          x5
-## ACF.NEWS -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615
-## NSW.NEWS -0.02314656 -0.007903383 0.01301432 -0.03547232 0.009989615
-## NT.NEWS  -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615
-## Q.NEWS   -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615
-## SA.NEWS  -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615
-## T.NEWS   -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615
-## V.NEWS   -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615
-## WA.NEWS  -0.00591057 -0.007903383 0.01301432 -0.03547232 0.009989615</code></pre>
+##                  x1           x2           x3           x4            x5
+## ACF.NEWS 0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## NSW.NEWS 0.23342504 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## NT.NEWS  0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## Q.NEWS   0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## SA.NEWS  0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## T.NEWS   0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## V.NEWS   0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692
+## WA.NEWS  0.02243889 -0.005243748 -0.003332248 -0.005445545 -0.0004104692</code></pre>
 <p>where we can observe that the coefficients for each regressor have been pooled, with the exception of <code>x1</code> for the NSW.NEWS series.</p>
 <p>We can now proceed to aggregate the model using the <code>tsaggregate</code> method on the estimated object:</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="tsvets.html#cb174-1"></a>mod_aggregate &lt;-<span class="st"> </span><span class="kw">tsaggregate</span>(mod, <span class="dt">weights =</span> weights, <span class="dt">return_model =</span> <span class="ot">TRUE</span>)</span>
@@ -995,31 +1007,31 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## Level Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##           [,1]
-## [1,] 0.6228533
+## [1,] 0.6218965
 ## 
 ## Slope Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##              [,1]
-## [1,] 5.993693e-09
+## [1,] 3.936971e-09
 ## 
 ## Seasonal Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##           [,1]
-## [1,] 0.1288974
+## [1,] 0.1285031
 ## 
 ## Regressor Matrix
 ## 1 x 5 Matrix of class &quot;dgeMatrix&quot;
-##                    x1          x2        x3         x4         x5
-## aggregate -0.06452055 -0.06322707 0.1041146 -0.2837786 0.07991692
+##                  x1          x2          x3          x4           x5
+## aggregate 0.3904973 -0.04194999 -0.02665798 -0.04356436 -0.003283753
 ## 
 ## Covariance Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##           aggregate
-## aggregate  222.4449
+## aggregate  222.2237
 ## 
 ## Accuracy Criteria
 ##         Mean Weighted
-## MAPE  0.0352   0.0352
+## MAPE  0.0354   0.0354
 ## MSLRE 0.0021   0.0021</code></pre>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="tsvets.html#cb176-1"></a><span class="kw">plot</span>(mod_aggregate)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-29-1.png" width="768" /></p>
@@ -1100,8 +1112,8 @@ combinations of pooling.</p>
 <span id="cb183-5"><a href="tsvets.html#cb183-5"></a>                       <span class="dt">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">cores =</span> <span class="dv">1</span>)</span>
 <span id="cb183-6"><a href="tsvets.html#cb183-6"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec, <span class="dt">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">trace=</span><span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## 
-## Iter: 1 fn: -3271.4734    Pars:   0.5692498822857  0.7581471970313  0.7395568229416  0.7202628217574  0.0000000003531  0.0000000139420  0.0000000166027  0.0000000049353  0.2508654873774  0.0000000133883  0.0000000200549  0.1085075558381 -0.0002694220937  0.0005076727876 -0.0036440545749 -0.0035342324501 -0.0048241742999 -0.0005296077285 -0.0011640802922
-## Iter: 2 fn: -3271.4734    Pars:   5.693e-01  7.582e-01  7.396e-01  7.203e-01  6.347e-11  1.334e-08  1.586e-08  4.612e-09  2.509e-01  1.288e-08  1.942e-08  1.085e-01 -2.693e-04  5.076e-04 -3.644e-03 -3.534e-03 -4.824e-03 -5.291e-04 -1.164e-03
+## Iter: 1 fn: -3269.1235    Pars:   0.569469298019  0.757461388223  0.742185208647  0.720971257344  0.000016274523  0.000000005278  0.000000000001  0.000000007446  0.253465676680  0.000000006883  0.000000013183  0.108348401326  0.002641893452 -0.000058285676 -0.002109958406  0.003947141509 -0.001055530002  0.000509766369 -0.000111248530
+## Iter: 2 fn: -3269.1235    Pars:   0.569469357624  0.757461441329  0.742184637748  0.720971292512  0.000016273583  0.000000005278  0.000000000001  0.000000007446  0.253465649463  0.000000006883  0.000000013183  0.108348366780  0.002641890209 -0.000058291136 -0.002109954545  0.003947147343 -0.001055527995  0.000509756247 -0.000111251497
 ## solnp--&gt; Completed in 2 iterations</code></pre>
 <p>Note that the Box Cox parameter <code>lambda</code> should be the same for the grouped
 series else the coefficients should not be pooled (as they have different scales).</p>
@@ -1131,20 +1143,20 @@ series else the coefficients should not be pooled (as they have different scales
 ## Level Matrix
 ## 2 x 2 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]      [,2]     
-## [1,] 0.4012655         .
-## [2,]         . 0.4012655
+## [1,] 0.4012564         .
+## [2,]         . 0.4012564
 ## 
 ## Slope Matrix
 ## 2 x 2 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]       [,2]      
-## [1,] 0.07645917          .
-## [2,]          . 0.07645917
+## [1,] 0.07645743          .
+## [2,]          . 0.07645743
 ## 
 ## Correlation Matrix
 ## 2 x 2 Matrix of class &quot;dsyMatrix&quot;
 ##            price      units
-## price  1.0000000 -0.6009338
-## units -0.6009338  1.0000000
+## price  1.0000000 -0.6009326
+## units -0.6009326  1.0000000
 ## 
 ## Information Criteria
 ##  AIC    BIC    AICc 
@@ -1176,17 +1188,17 @@ series else the coefficients should not be pooled (as they have different scales
 ## Level Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##           [,1]
-## [1,] 0.4012655
+## [1,] 0.4012564
 ## 
 ## Slope Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##            [,1]
-## [1,] 0.07645917
+## [1,] 0.07645743
 ## 
 ## Covariance Matrix
 ## 1 x 1 Matrix of class &quot;dsyMatrix&quot;
 ##             aggregate
-## aggregate 0.003891895
+## aggregate 0.003891907
 ## 
 ## Accuracy Criteria
 ##         Mean Weighted

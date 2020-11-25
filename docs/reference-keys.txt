@@ -102,5 +102,15 @@ tsforeign
 tsforeign:introduction
 tsforeign:arima
 tsforeign:bsts
+tscausal
+tscausal:introduction
+tscausal:evalmeasures
+tscausal:evalmeasures:pointwise
+tscausal:evalmeasures:cumulative
+tscausal:evalmeasures:meaneffect
+tscausal:evalmeasures:relativeeffect
+tscausal:significance
+tscausl:features
+tscausl:demo
 other
 team
