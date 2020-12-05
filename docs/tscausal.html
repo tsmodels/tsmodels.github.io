@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-11-25" />
+<meta name="date" content="2020-12-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -314,12 +314,12 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 <h2><span class="header-section-number">8.5</span> Package Demo</h2>
 <p>We use the <code>priceunits</code> dataset from the <strong>tsdatasets</strong> package, in particular the units series, and add an artificial structural break during 1999-03, which could represent for instance a large drop in prices, a large substitution effect or a successful marketing campaign.</p>
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="tscausal.html#cb217-1"></a><span class="kw">data</span>(priceunits, <span class="dt">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb217-2"><a href="tscausal.html#cb217-2"></a>priceunits &lt;-<span class="st"> </span>priceunits[,<span class="dv">2</span>]</span>
+<span id="cb217-2"><a href="tscausal.html#cb217-2"></a>priceunits &lt;-<span class="st"> </span>priceunits[, <span class="dv">2</span>]</span>
 <span id="cb217-3"><a href="tscausal.html#cb217-3"></a>priceunits[<span class="st">&quot;1999-03/&quot;</span>] &lt;-<span class="st"> </span>priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span></span>
 <span id="cb217-4"><a href="tscausal.html#cb217-4"></a>train &lt;-<span class="st"> &quot;/1999-02&quot;</span></span>
 <span id="cb217-5"><a href="tscausal.html#cb217-5"></a>test =<span class="st"> &quot;1999-03/1999-08&quot;</span></span>
 <span id="cb217-6"><a href="tscausal.html#cb217-6"></a>y_train =<span class="st"> </span>priceunits[train]</span>
-<span id="cb217-7"><a href="tscausal.html#cb217-7"></a>y_test  =<span class="st"> </span>priceunits[test]</span>
+<span id="cb217-7"><a href="tscausal.html#cb217-7"></a>y_test =<span class="st"> </span>priceunits[test]</span>
 <span id="cb217-8"><a href="tscausal.html#cb217-8"></a>spec &lt;-<span class="st"> </span><span class="kw">ets_modelspec</span>(y_train, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">lambda =</span> <span class="dv">0</span>, <span class="dt">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
 <span id="cb217-9"><a href="tscausal.html#cb217-9"></a>mod &lt;-<span class="st"> </span><span class="kw">estimate</span>(spec)</span></code></pre></div>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="tscausal.html#cb218-1"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
@@ -342,8 +342,8 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="tscausal.html#cb220-1"></a>prediction &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">h =</span> <span class="kw">nrow</span>(y_test), <span class="dt">nsim =</span> <span class="dv">5000</span>)</span></code></pre></div>
 <p>Note that the prediction object has a number of slots, one of which is called <strong>distribution</strong> and inherits the following classes: tsets.distribution, tsmodel.distribution. All our packages have a predictable and common set of slots in the returned prediction objects.</p>
 <p>The final step is to pass the forecast distribution to the <code>tscausal</code> method and generate a report with a narrative explaining the results and a decision on whether to reject or not the null of no intervention effect.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="tscausal.html#cb221-1"></a>cause &lt;-<span class="st"> </span><span class="kw">tscausal</span>(prediction<span class="op">$</span>distribution, <span class="dt">actual =</span> <span class="kw">rbind</span>(y_train, y_test), </span>
-<span id="cb221-2"><a href="tscausal.html#cb221-2"></a>                  <span class="dt">fitted =</span> <span class="kw">fitted</span>(mod))</span>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="tscausal.html#cb221-1"></a>cause &lt;-<span class="st"> </span><span class="kw">tscausal</span>(prediction<span class="op">$</span>distribution, <span class="dt">actual =</span> <span class="kw">rbind</span>(y_train, </span>
+<span id="cb221-2"><a href="tscausal.html#cb221-2"></a>    y_test), <span class="dt">fitted =</span> <span class="kw">fitted</span>(mod))</span>
 <span id="cb221-3"><a href="tscausal.html#cb221-3"></a><span class="kw">print</span>(cause)</span></code></pre></div>
 <pre><code>## Predictive inference {tscausal}
 ## 
@@ -367,13 +367,13 @@ The above results are given in terms of absolute numbers. In relative terms, the
 This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect ( 9.5699 ) to the original goal of the underlying intervention.<br />
 The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001 ). This means the causal effect can be considered statistically significant. NULL</p>
 <p>The <code>tsreport</code> method has options for printing to screen or generating a pdf, html or docx (with option to use a template as well). Example usage is provided below:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tscausal.html#cb224-1"></a><span class="kw">tsreport</span>(cause, <span class="dt">type =</span> <span class="st">&quot;pdf&quot;</span>, <span class="dt">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, </span>
-<span id="cb224-2"><a href="tscausal.html#cb224-2"></a>         <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
-<span id="cb224-3"><a href="tscausal.html#cb224-3"></a><span class="kw">tsreport</span>(cause, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, </span>
-<span id="cb224-4"><a href="tscausal.html#cb224-4"></a>         <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tscausal.html#cb224-1"></a><span class="kw">tsreport</span>(cause, <span class="dt">type =</span> <span class="st">&quot;pdf&quot;</span>, <span class="dt">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, </span>
+<span id="cb224-2"><a href="tscausal.html#cb224-2"></a>    <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
+<span id="cb224-3"><a href="tscausal.html#cb224-3"></a><span class="kw">tsreport</span>(cause, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, </span>
+<span id="cb224-4"><a href="tscausal.html#cb224-4"></a>    <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
 <span id="cb224-5"><a href="tscausal.html#cb224-5"></a><span class="kw">tsreport</span>(cause, <span class="dt">type =</span> <span class="st">&quot;doc&quot;</span>, <span class="dt">doc_template =</span> <span class="st">&quot;~/tmp/mytemplate.docx&quot;</span>, </span>
-<span id="cb224-6"><a href="tscausal.html#cb224-6"></a>         <span class="dt">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, </span>
-<span id="cb224-7"><a href="tscausal.html#cb224-7"></a>         <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&quot;Units&quot;</span>))</span></code></pre></div>
+<span id="cb224-6"><a href="tscausal.html#cb224-6"></a>    <span class="dt">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="dt">frequency =</span> <span class="dv">12</span>, </span>
+<span id="cb224-7"><a href="tscausal.html#cb224-7"></a>        <span class="dt">name =</span> <span class="st">&quot;Units&quot;</span>))</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 
 </div>
