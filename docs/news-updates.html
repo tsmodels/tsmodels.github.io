@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Time Series Framework</title>
+  <title>Chapter 10 News | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Time Series Framework" />
+  <meta property="og:title" content="Chapter 10 News | A Time Series Framework" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Time Series Framework" />
+  <meta name="twitter:title" content="Chapter 10 News | A Time Series Framework" />
   
   <meta name="twitter:description" content="Documentation for the tsmodels framework" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html"/>
+<link rel="prev" href="other.html"/>
+<link rel="next" href="team.html"/>
 <script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -262,23 +262,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">A Time Series Framework</h1>
-<p class="author"><em>The tsmodels team</em></p>
-<p class="date"><em>2021-05-22</em></p>
-</div>
-<div id="installation" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Installation</h1>
-<p>Until such time as the packages make it to CRAN, please use the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsmethods&quot;</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsdatasets&quot;</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsaux&quot;</span>)</span>
-<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsets&quot;</span>)</span>
-<span id="cb1-5"><a href="index.html#cb1-5" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsissm&quot;</span>)</span>
-<span id="cb1-6"><a href="index.html#cb1-6" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsvets&quot;</span>)</span>
-<span id="cb1-7"><a href="index.html#cb1-7" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsforeign&quot;</span>)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tscausal&quot;</span>)</span></code></pre></div>
-<p>The first 2 are required to be installed before any of the other packages. Also note, that additional dependencies may be required such as <strong>Rcpp</strong> and <strong>RcppArmadillo</strong>, and <strong>bsts</strong> for <strong>tsforeign</strong>.</p>
+<div id="news:updates" class="section level1" number="10">
+<h1><span class="header-section-number">Chapter 10</span> News</h1>
+<ul>
+<li>Date: 2020-05-17
+<ul>
+<li>The <a href="https://github.com/tsmodels/tsetsad">tsetad</a> package now implements
+automatic differentiation (AD) for all ETS models implemented in the <strong>tsets</strong>
+package. An argument <em>use_autofiff</em> is now available
+in the <code>estimate</code> method which will then dispatch to the <code>estimate_ad</code> method.
+Gradients and Hessian are implemented, and it is suggested that the <em>nlminb</em>
+solver be used which makes use of both. Speedups for highly parameterized
+or difficult (powerMAM) models has been observed to be upto 16x when using
+AD. Addition of AD to the <strong>tsissm</strong> and <strong>tsvets</strong> packages may be imlemented in due
+course.</li>
+<li>Missing values are now handled during model estimation using the predict
+step and only calculating the likelihood for non-missing values. Applies
+to the <strong>tests</strong> and <strong>tsissm</strong> packages. For the <strong>tsvets</strong> package we have
+not yet decided on the implementation. This may come at a future date.</li>
+</ul></li>
+</ul>
 
 </div>
             </section>
@@ -286,8 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="other.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="team.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

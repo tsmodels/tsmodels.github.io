@@ -113,4 +113,5 @@ tscausal:significance
 tscausl:features
 tscausl:demo
 other
+news:updates
 team

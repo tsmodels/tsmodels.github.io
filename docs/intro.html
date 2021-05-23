@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-12-05" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="tsmethods.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,9 +51,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -67,18 +65,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -98,7 +95,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,22 +146,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Installation</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a><ul>
+<li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods:simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>3.3</b> Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a><ul>
+<li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="tsets.html"><a href="tsets.html#tsets:intro"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="tsets.html"><a href="tsets.html#tsets:taxonomy"><i class="fa fa-check"></i><b>4.2</b> Taxonomy of Models</a></li>
 <li class="chapter" data-level="4.3" data-path="tsets.html"><a href="tsets.html#tsets:extensions"><i class="fa fa-check"></i><b>4.3</b> Extensions</a></li>
 <li class="chapter" data-level="4.4" data-path="tsets.html"><a href="tsets.html#some-encompasing-alternatives"><i class="fa fa-check"></i><b>4.4</b> Some Encompasing Alternatives</a></li>
-<li class="chapter" data-level="4.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>4.5</b> Package Implementation</a><ul>
+<li class="chapter" data-level="4.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>4.5</b> Package Implementation</a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="tsets.html"><a href="tsets.html#tsets:implementation:constraints"><i class="fa fa-check"></i><b>4.5.1</b> Constraints</a></li>
 <li class="chapter" data-level="4.5.2" data-path="tsets.html"><a href="tsets.html#tsets:implementation:initialization"><i class="fa fa-check"></i><b>4.5.2</b> Initialization</a></li>
 <li class="chapter" data-level="4.5.3" data-path="tsets.html"><a href="tsets.html#tsets:implementation:transformations"><i class="fa fa-check"></i><b>4.5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>4.6</b> Demonstration</a><ul>
+<li class="chapter" data-level="4.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>4.6</b> Demonstration</a>
+<ul>
 <li class="chapter" data-level="4.6.1" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:specification"><i class="fa fa-check"></i><b>4.6.1</b> The Specification Object</a></li>
 <li class="chapter" data-level="4.6.2" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:estimation"><i class="fa fa-check"></i><b>4.6.2</b> Estimation</a></li>
 <li class="chapter" data-level="4.6.3" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:prediction"><i class="fa fa-check"></i><b>4.6.3</b> Prediction</a></li>
@@ -175,12 +176,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6.8" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:benchmarking"><i class="fa fa-check"></i><b>4.6.8</b> Benchmarking</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>5</b> tsissm package</a><ul>
+<li class="chapter" data-level="5" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>5</b> tsissm package</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:initialization"><i class="fa fa-check"></i><b>5.2</b> State Initialization</a></li>
 <li class="chapter" data-level="5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:likelihood"><i class="fa fa-check"></i><b>5.3</b> Log-Likelihood</a></li>
 <li class="chapter" data-level="5.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:implementation"><i class="fa fa-check"></i><b>5.4</b> Package Implementation</a></li>
-<li class="chapter" data-level="5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>5.5</b> Demonstration</a><ul>
+<li class="chapter" data-level="5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>5.5</b> Demonstration</a>
+<ul>
 <li class="chapter" data-level="5.5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:specification"><i class="fa fa-check"></i><b>5.5.1</b> Specification</a></li>
 <li class="chapter" data-level="5.5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:estimation"><i class="fa fa-check"></i><b>5.5.2</b> Estimation</a></li>
 <li class="chapter" data-level="5.5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:prediction"><i class="fa fa-check"></i><b>5.5.3</b> Prediction</a></li>
@@ -191,18 +194,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.8" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:benchmarking"><i class="fa fa-check"></i><b>5.5.8</b> Benchmarking</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>6</b> tsvets package</a><ul>
+<li class="chapter" data-level="6" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>6</b> tsvets package</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
 <li class="chapter" data-level="6.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:regressors"><i class="fa fa-check"></i><b>6.2</b> Inclusion of External Regressors</a></li>
 <li class="chapter" data-level="6.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:likelihood"><i class="fa fa-check"></i><b>6.3</b> Log-Likelihood</a></li>
-<li class="chapter" data-level="6.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>6.4</b> Dependence Structure</a><ul>
+<li class="chapter" data-level="6.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>6.4</b> Dependence Structure</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:diagonal"><i class="fa fa-check"></i><b>6.4.1</b> Diagonal Covariance</a></li>
 <li class="chapter" data-level="6.4.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:equicorrelation"><i class="fa fa-check"></i><b>6.4.2</b> Equicorrelation</a></li>
 <li class="chapter" data-level="6.4.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:shrinkage"><i class="fa fa-check"></i><b>6.4.3</b> Shrinkage Covariance</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:grouping"><i class="fa fa-check"></i><b>6.5</b> Grouping and Pooling</a></li>
 <li class="chapter" data-level="6.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:homogeneous"><i class="fa fa-check"></i><b>6.6</b> Homogeneous Coefficients and Aggregation</a></li>
-<li class="chapter" data-level="6.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>6.7</b> Demonstration</a><ul>
+<li class="chapter" data-level="6.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>6.7</b> Demonstration</a>
+<ul>
 <li class="chapter" data-level="6.7.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:specification"><i class="fa fa-check"></i><b>6.7.1</b> Specification</a></li>
 <li class="chapter" data-level="6.7.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example1"><i class="fa fa-check"></i><b>6.7.2</b> Example: Australian Retail Sales</a></li>
 <li class="chapter" data-level="6.7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example2"><i class="fa fa-check"></i><b>6.7.3</b> Example: Australian Retail Sales Grouped Dynamics</a></li>
@@ -212,14 +218,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>6.7.7</b> Example: Price Volume Aggregation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>7</b> tsforeign package</a><ul>
+<li class="chapter" data-level="7" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>7</b> tsforeign package</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
-<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
 <li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
 <li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
@@ -230,7 +239,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="news-updates.html"><a href="news-updates.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
+<li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -252,11 +262,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1">
+<div id="intro" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
 <p>The <strong>tsmodels</strong> framework provides a set of probabilistic time series forecasting models with common calling conventions and methods.
-Our objective was to provide a set of models which offer fast estimation, explainable decomposition and probabilistic predictions which can also be ensembled. Many of the models we have so far released are based on <span class="citation">R. Hyndman et al. (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, some of which are already implemented in the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package, but we have chosen to re-write the models from scratch based on our own design choices. Some of these choices include exclusive use of <a href="https://cran.r-project.org/web/packages/xts/"><strong>xts</strong></a> objects to represent time series data, <a href="https://cran.r-project.org/web/packages/data.table/"><strong>data.table</strong></a> for certain outputs, probabilistic distributions for predictions via simulation as well as a feature rich set of methods to work with these models.</p>
-<p>We would be remiss if we were not to mention that alternative implementations exist within the single source of error (SEM) framework in R, including the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation">Hyndman et al. (<a href="#ref-R-forecast" role="doc-biblioref">2020</a>)</span> and <a href="https://cran.r-project.org/web/packages/smooth/"><strong>smooth</strong></a> package of <span class="citation">Svetunkov (<a href="#ref-R-smooth" role="doc-biblioref">2020</a>)</span>, with their own design decisions. We make no representation as to what is likely to be more useful for a particular user, simply that our representation and framework is the right one for us. The set of packages we have released and plan to release may include bugs, and we encourage users to submit bug reports through the github issues system.</p>
+Our objective was to provide a set of models which offer fast estimation, explainable decomposition and probabilistic predictions which can also be ensembled. Many of the models we have so far released are based on <span class="citation"><a href="references.html#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, some of which are already implemented in the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package, but we have chosen to re-write the models from scratch based on our own design choices. Some of these choices include exclusive use of <a href="https://cran.r-project.org/web/packages/xts/"><strong>xts</strong></a> objects to represent time series data, <a href="https://cran.r-project.org/web/packages/data.table/"><strong>data.table</strong></a> for certain outputs, probabilistic distributions for predictions via simulation as well as a feature rich set of methods to work with these models.</p>
+<p>We would be remiss if we were not to mention that alternative implementations exist within the single source of error (SEM) framework in R, including the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation"><a href="references.html#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-R-forecast" role="doc-biblioref">2020</a>)</span> and <a href="https://cran.r-project.org/web/packages/smooth/"><strong>smooth</strong></a> package of <span class="citation"><a href="references.html#ref-R-smooth" role="doc-biblioref">Svetunkov</a> (<a href="references.html#ref-R-smooth" role="doc-biblioref">2020</a>)</span>, with their own design decisions. We make no representation as to what is likely to be more useful for a particular user, simply that our representation and framework is the right one for us. The set of packages we have released and plan to release may include bugs, and we encourage users to submit bug reports through the github issues system.</p>
 <p>A summary of the currently available packages is given below:</p>
 <table>
 <thead>
@@ -383,19 +393,8 @@ Factor Models
 </tr>
 </tbody>
 </table>
+<p>See the <a href="news-updates.html#news:updates">News</a> section for updates.</p>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-R-forecast">
-<p>Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2020. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.</p>
-</div>
-<div id="ref-hyndman2008">
-<p>Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div id="ref-R-smooth">
-<p>Svetunkov, Ivan. 2020. <em>Smooth: Forecasting Using State Space Models</em>. <a href="https://CRAN.R-project.org/package=smooth">https://CRAN.R-project.org/package=smooth</a>.</p>
-</div>
 </div>
             </section>
 
