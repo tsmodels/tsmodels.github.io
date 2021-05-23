@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2020-12-05" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="team.html"/>
 
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,9 +51,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -67,18 +65,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -98,7 +95,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,22 +146,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Installation</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a><ul>
+<li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods:simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
 <li class="chapter" data-level="3.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>3.3</b> Demonstration</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a><ul>
+<li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="tsets.html"><a href="tsets.html#tsets:intro"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="tsets.html"><a href="tsets.html#tsets:taxonomy"><i class="fa fa-check"></i><b>4.2</b> Taxonomy of Models</a></li>
 <li class="chapter" data-level="4.3" data-path="tsets.html"><a href="tsets.html#tsets:extensions"><i class="fa fa-check"></i><b>4.3</b> Extensions</a></li>
 <li class="chapter" data-level="4.4" data-path="tsets.html"><a href="tsets.html#some-encompasing-alternatives"><i class="fa fa-check"></i><b>4.4</b> Some Encompasing Alternatives</a></li>
-<li class="chapter" data-level="4.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>4.5</b> Package Implementation</a><ul>
+<li class="chapter" data-level="4.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>4.5</b> Package Implementation</a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="tsets.html"><a href="tsets.html#tsets:implementation:constraints"><i class="fa fa-check"></i><b>4.5.1</b> Constraints</a></li>
 <li class="chapter" data-level="4.5.2" data-path="tsets.html"><a href="tsets.html#tsets:implementation:initialization"><i class="fa fa-check"></i><b>4.5.2</b> Initialization</a></li>
 <li class="chapter" data-level="4.5.3" data-path="tsets.html"><a href="tsets.html#tsets:implementation:transformations"><i class="fa fa-check"></i><b>4.5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>4.6</b> Demonstration</a><ul>
+<li class="chapter" data-level="4.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>4.6</b> Demonstration</a>
+<ul>
 <li class="chapter" data-level="4.6.1" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:specification"><i class="fa fa-check"></i><b>4.6.1</b> The Specification Object</a></li>
 <li class="chapter" data-level="4.6.2" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:estimation"><i class="fa fa-check"></i><b>4.6.2</b> Estimation</a></li>
 <li class="chapter" data-level="4.6.3" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:prediction"><i class="fa fa-check"></i><b>4.6.3</b> Prediction</a></li>
@@ -175,12 +176,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6.8" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:benchmarking"><i class="fa fa-check"></i><b>4.6.8</b> Benchmarking</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>5</b> tsissm package</a><ul>
+<li class="chapter" data-level="5" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>5</b> tsissm package</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:initialization"><i class="fa fa-check"></i><b>5.2</b> State Initialization</a></li>
 <li class="chapter" data-level="5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:likelihood"><i class="fa fa-check"></i><b>5.3</b> Log-Likelihood</a></li>
 <li class="chapter" data-level="5.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:implementation"><i class="fa fa-check"></i><b>5.4</b> Package Implementation</a></li>
-<li class="chapter" data-level="5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>5.5</b> Demonstration</a><ul>
+<li class="chapter" data-level="5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>5.5</b> Demonstration</a>
+<ul>
 <li class="chapter" data-level="5.5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:specification"><i class="fa fa-check"></i><b>5.5.1</b> Specification</a></li>
 <li class="chapter" data-level="5.5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:estimation"><i class="fa fa-check"></i><b>5.5.2</b> Estimation</a></li>
 <li class="chapter" data-level="5.5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:prediction"><i class="fa fa-check"></i><b>5.5.3</b> Prediction</a></li>
@@ -191,18 +194,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.8" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:benchmarking"><i class="fa fa-check"></i><b>5.5.8</b> Benchmarking</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>6</b> tsvets package</a><ul>
+<li class="chapter" data-level="6" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>6</b> tsvets package</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
 <li class="chapter" data-level="6.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:regressors"><i class="fa fa-check"></i><b>6.2</b> Inclusion of External Regressors</a></li>
 <li class="chapter" data-level="6.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:likelihood"><i class="fa fa-check"></i><b>6.3</b> Log-Likelihood</a></li>
-<li class="chapter" data-level="6.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>6.4</b> Dependence Structure</a><ul>
+<li class="chapter" data-level="6.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>6.4</b> Dependence Structure</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:diagonal"><i class="fa fa-check"></i><b>6.4.1</b> Diagonal Covariance</a></li>
 <li class="chapter" data-level="6.4.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:equicorrelation"><i class="fa fa-check"></i><b>6.4.2</b> Equicorrelation</a></li>
 <li class="chapter" data-level="6.4.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:shrinkage"><i class="fa fa-check"></i><b>6.4.3</b> Shrinkage Covariance</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:grouping"><i class="fa fa-check"></i><b>6.5</b> Grouping and Pooling</a></li>
 <li class="chapter" data-level="6.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:homogeneous"><i class="fa fa-check"></i><b>6.6</b> Homogeneous Coefficients and Aggregation</a></li>
-<li class="chapter" data-level="6.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>6.7</b> Demonstration</a><ul>
+<li class="chapter" data-level="6.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>6.7</b> Demonstration</a>
+<ul>
 <li class="chapter" data-level="6.7.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:specification"><i class="fa fa-check"></i><b>6.7.1</b> Specification</a></li>
 <li class="chapter" data-level="6.7.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example1"><i class="fa fa-check"></i><b>6.7.2</b> Example: Australian Retail Sales</a></li>
 <li class="chapter" data-level="6.7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example2"><i class="fa fa-check"></i><b>6.7.3</b> Example: Australian Retail Sales Grouped Dynamics</a></li>
@@ -212,14 +218,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>6.7.7</b> Example: Price Volume Aggregation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>7</b> tsforeign package</a><ul>
+<li class="chapter" data-level="7" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>7</b> tsforeign package</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
 <li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a><ul>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
-<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a><ul>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
 <li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
 <li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
@@ -230,7 +239,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>10</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="news-updates.html"><a href="news-updates.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
+<li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -255,117 +265,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
-<div id="refs" class="references">
-<div>
-<p>Anderson, Brian DO, and John B Moore. 2012. <em>Optimal Filtering</em>. Courier Corporation.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-anderson2012optimal" class="csl-entry">
+Anderson, Brian DO, and John B Moore. 2012. <em>Optimal Filtering</em>. Courier Corporation.
 </div>
-<div>
-<p>Athanasopoulos, George, and Ashton de Silva. 2012. “Multivariate Exponential Smoothing for Forecasting Tourist Arrivals.” <em>Journal of Travel Research</em> 51 (5): 640–52.</p>
+<div id="ref-athanasopoulos2012" class="csl-entry">
+Athanasopoulos, George, and Ashton de Silva. 2012. <span>“Multivariate Exponential Smoothing for Forecasting Tourist Arrivals.”</span> <em>Journal of Travel Research</em> 51 (5): 640–52.
 </div>
-<div>
-<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="http://Matrix.R-forge.R-project.org/">http://Matrix.R-forge.R-project.org/</a>.</p>
+<div id="ref-R-Matrix" class="csl-entry">
+Bates, Douglas, and Martin Maechler. 2021. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://R-Forge.R-project.org/projects/matrix/">https://R-Forge.R-project.org/projects/matrix/</a>.
 </div>
-<div>
-<p>Brodersen, Kay H, Fabian Gallusser, Jim Koehler, Nicolas Remy, Steven L Scott, and others. 2015. “Inferring Causal Impact Using Bayesian Structural Time-Series Models.” <em>The Annals of Applied Statistics</em> 9 (1): 247–74.</p>
+<div id="ref-brodersen2015" class="csl-entry">
+Brodersen, Kay H, Fabian Gallusser, Jim Koehler, Nicolas Remy, Steven L Scott, and others. 2015. <span>“Inferring Causal Impact Using Bayesian Structural Time-Series Models.”</span> <em>The Annals of Applied Statistics</em> 9 (1): 247–74.
 </div>
-<div>
-<p>Brown, Robert Goodell. 1959. <em>Statistical Forecasting for Inventory Control</em>. McGraw/Hill.</p>
+<div id="ref-brown1959" class="csl-entry">
+Brown, Robert Goodell. 1959. <em>Statistical Forecasting for Inventory Control</em>. McGraw/Hill.
 </div>
-<div>
-<p>———. 1962. “Smoothing, Forecasting and Prediction of Discrete Time Series.”</p>
+<div id="ref-brown1962" class="csl-entry">
+———. 1962. <span>“Smoothing, Forecasting and Prediction of Discrete Time Series.”</span>
 </div>
-<div>
-<p>Casals, José, Sonia Sotoca, and Miguel Jerez. 1999. “A Fast and Stable Method to Compute the Likelihood of Time Invariant State-Space Models.” <em>Economics Letters</em> 65 (3): 329–37.</p>
+<div id="ref-casals1999" class="csl-entry">
+Casals, José, Sonia Sotoca, and Miguel Jerez. 1999. <span>“A Fast and Stable Method to Compute the Likelihood of Time Invariant State-Space Models.”</span> <em>Economics Letters</em> 65 (3): 329–37.
 </div>
-<div>
-<p>Clements, Adam, Ayesha Scott, and Annastiina Silvennoinen. 2015. “On the Benefits of Equicorrelation for Portfolio Allocation.” <em>Journal of Forecasting</em> 34 (6): 507–22.</p>
+<div id="ref-clements2015benefits" class="csl-entry">
+Clements, Adam, Ayesha Scott, and Annastiina Silvennoinen. 2015. <span>“On the Benefits of Equicorrelation for Portfolio Allocation.”</span> <em>Journal of Forecasting</em> 34 (6): 507–22.
 </div>
-<div>
-<p>De Jong, Piet, and others. 1991. “The Diffuse Kalman Filter.” <em>The Annals of Statistics</em> 19 (2): 1073–83.</p>
+<div id="ref-de1991diffuse" class="csl-entry">
+De Jong, Piet, and others. 1991. <span>“The Diffuse Kalman Filter.”</span> <em>The Annals of Statistics</em> 19 (2): 1073–83.
 </div>
-<div>
-<p>De Livera, Alysha M, Rob J Hyndman, and Ralph D Snyder. 2011. “Forecasting Time Series with Complex Seasonal Patterns Using Exponential Smoothing.” <em>Journal of the American Statistical Association</em> 106 (496): 1513–27.</p>
+<div id="ref-de2011forecasting" class="csl-entry">
+De Livera, Alysha M, Rob J Hyndman, and Ralph D Snyder. 2011. <span>“Forecasting Time Series with Complex Seasonal Patterns Using Exponential Smoothing.”</span> <em>Journal of the American Statistical Association</em> 106 (496): 1513–27.
 </div>
-<div>
-<p>De Silva, Ashton, Rob J Hyndman, and Ralph Snyder. 2010. “The Vector Innovations Structural Time Series Framework: A Simple Approach to Multivariate Forecasting.” <em>Statistical Modelling</em> 10 (4): 353–74.</p>
+<div id="ref-desilva2010" class="csl-entry">
+De Silva, Ashton, Rob J Hyndman, and Ralph Snyder. 2010. <span>“The Vector Innovations Structural Time Series Framework: A Simple Approach to Multivariate Forecasting.”</span> <em>Statistical Modelling</em> 10 (4): 353–74.
 </div>
-<div>
-<p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
+<div id="ref-R-car" class="csl-entry">
+Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
 </div>
-<div>
-<p>Gardner Jr, ES. 1985. “Exponential Smoothing: The State of the Art.” <em>Journal of Forecasting</em> 4 (1): 1–28.</p>
+<div id="ref-gardner1985" class="csl-entry">
+Gardner Jr, ES. 1985. <span>“Exponential Smoothing: The State of the Art.”</span> <em>Journal of Forecasting</em> 4 (1): 1–28.
 </div>
-<div>
-<p>Gneiting, Tilmann, and Adrian E Raftery. 2007. “Strictly Proper Scoring Rules, Prediction, and Estimation.” <em>Journal of the American Statistical Association</em> 102 (477): 359–78.</p>
+<div id="ref-gneiting2007" class="csl-entry">
+Gneiting, Tilmann, and Adrian E Raftery. 2007. <span>“Strictly Proper Scoring Rules, Prediction, and Estimation.”</span> <em>Journal of the American Statistical Association</em> 102 (477): 359–78.
 </div>
-<div>
-<p>Guerrero, Victor M. 1993. “Time-Series Analysis Supported by Power Transformations.” <em>Journal of Forecasting</em> 12 (1): 37–48.</p>
+<div id="ref-guerrero1993time" class="csl-entry">
+Guerrero, Victor M. 1993. <span>“Time-Series Analysis Supported by Power Transformations.”</span> <em>Journal of Forecasting</em> 12 (1): 37–48.
 </div>
-<div>
-<p>Harvey, Andrew C. 1990. <em>Forecasting, Structural Time Series Models and the Kalman Filter</em>. Cambridge university press.</p>
+<div id="ref-harvey1990" class="csl-entry">
+Harvey, Andrew C. 1990. <em>Forecasting, Structural Time Series Models and the Kalman Filter</em>. Cambridge university press.
 </div>
-<div>
-<p>Holt, Charles. 1957. “Forecasting Trends and Seasonals by Exponential Weighted Averages.” <em>ONR Memorandum</em> 52: 1957.</p>
+<div id="ref-holt1957" class="csl-entry">
+Holt, Charles. 1957. <span>“Forecasting Trends and Seasonals by Exponential Weighted Averages.”</span> <em>ONR Memorandum</em> 52: 1957.
 </div>
-<div>
-<p>Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2020. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.</p>
+<div id="ref-hyndman2008a" class="csl-entry">
+Hyndman, Rob J, Muhammad Akram, and Blyth C Archibald. 2008. <span>“The Admissible Parameter Space for Exponential Smoothing Models.”</span> <em>Annals of the Institute of Statistical Mathematics</em> 60 (2): 407–26.
 </div>
-<div>
-<p>Hyndman, Rob J, Muhammad Akram, and Blyth C Archibald. 2008. “The Admissible Parameter Space for Exponential Smoothing Models.” <em>Annals of the Institute of Statistical Mathematics</em> 60 (2): 407–26.</p>
+<div id="ref-hyndman2002" class="csl-entry">
+Hyndman, Rob J, Anne B Koehler, Ralph D Snyder, and Simone Grose. 2002. <span>“A State Space Framework for Automatic Forecasting Using Exponential Smoothing Methods.”</span> <em>International Journal of Forecasting</em> 18 (3): 439–54.
 </div>
-<div>
-<p>Hyndman, Rob J, Anne B Koehler, Ralph D Snyder, and Simone Grose. 2002. “A State Space Framework for Automatic Forecasting Using Exponential Smoothing Methods.” <em>International Journal of Forecasting</em> 18 (3): 439–54.</p>
+<div id="ref-R-forecast" class="csl-entry">
+Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2020. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
 </div>
-<div>
-<p>Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.</p>
+<div id="ref-hyndman2008" class="csl-entry">
+Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.
 </div>
-<div>
-<p>Koehler, Anne B, Ralph D Snyder, and J Keith Ord. 2001. “Forecasting Models and Prediction Intervals for the Multiplicative Holt-Winters Method.” <em>International Journal of Forecasting</em> 17 (2): 269–86.</p>
+<div id="ref-koehler2001" class="csl-entry">
+Koehler, Anne B, Ralph D Snyder, and J Keith Ord. 2001. <span>“Forecasting Models and Prediction Intervals for the Multiplicative Holt-Winters Method.”</span> <em>International Journal of Forecasting</em> 17 (2): 269–86.
 </div>
-<div>
-<p>Korkmaz, Selcuk, Dincer Goksuluk, and Gokmen Zararsiz. 2019. <em>MVN: Multivariate Normality Tests</em>. <a href="https://CRAN.R-project.org/package=MVN">https://CRAN.R-project.org/package=MVN</a>.</p>
+<div id="ref-R-MVN" class="csl-entry">
+Korkmaz, Selcuk, Dincer Goksuluk, and Gokmen Zararsiz. 2019. <em>MVN: Multivariate Normality Tests</em>. <a href="https://CRAN.R-project.org/package=MVN">https://CRAN.R-project.org/package=MVN</a>.
 </div>
-<div>
-<p>Ledoit, Olivier, and Michael Wolf. 2004. “A Well-Conditioned Estimator for Large-Dimensional Covariance Matrices.” <em>Journal of Multivariate Analysis</em> 88 (2): 365–411.</p>
+<div id="ref-ledoit2004well" class="csl-entry">
+Ledoit, Olivier, and Michael Wolf. 2004. <span>“A Well-Conditioned Estimator for Large-Dimensional Covariance Matrices.”</span> <em>Journal of Multivariate Analysis</em> 88 (2): 365–411.
 </div>
-<div>
-<p>McKenzie, Ed. 1986. “Error Analysis for Winters’ Additive Seasonal Forecasting System.” <em>International Journal of Forecasting</em> 2 (3): 373–82.</p>
+<div id="ref-mckenzie1986" class="csl-entry">
+McKenzie, Ed. 1986. <span>“Error Analysis for Winters’ Additive Seasonal Forecasting System.”</span> <em>International Journal of Forecasting</em> 2 (3): 373–82.
 </div>
-<div>
-<p>Ord, John Keith, Anne B Koehler, and Ralph D Snyder. 1997. “Estimation and Prediction for a Class of Dynamic Nonlinear Statistical Models.” <em>Journal of the American Statistical Association</em> 92 (440): 1621–9.</p>
+<div id="ref-ord1997" class="csl-entry">
+Ord, John Keith, Anne B Koehler, and Ralph D Snyder. 1997. <span>“Estimation and Prediction for a Class of Dynamic Nonlinear Statistical Models.”</span> <em>Journal of the American Statistical Association</em> 92 (440): 1621–29.
 </div>
-<div>
-<p>Pegels, C. Carl. 1969. “Exponential Forecasting: Some New Variations.” <em>Management Science</em> 15 (5): 311–15.</p>
+<div id="ref-pegels" class="csl-entry">
+Pegels, C. Carl. 1969. <span>“Exponential Forecasting: Some New Variations.”</span> <em>Management Science</em> 15 (5): 311–15.
 </div>
-<div>
-<p>Petris, Giovanni. 2018. <em>Dlm: Bayesian and Likelihood Analysis of Dynamic Linear Models</em>. <a href="https://CRAN.R-project.org/package=dlm">https://CRAN.R-project.org/package=dlm</a>.</p>
+<div id="ref-R-dlm" class="csl-entry">
+Petris, Giovanni. 2018. <em>Dlm: Bayesian and Likelihood Analysis of Dynamic Linear Models</em>. <a href="https://CRAN.R-project.org/package=dlm">https://CRAN.R-project.org/package=dlm</a>.
 </div>
-<div>
-<p>Plummer, Martyn, Nicky Best, Kate Cowles, and Karen Vines. 2006. “CODA: Convergence Diagnosis and Output Analysis for Mcmc.” <em>R News</em> 6 (1): 7–11. <a href="https://journal.r-project.org/archive/">https://journal.r-project.org/archive/</a>.</p>
+<div id="ref-R-coda" class="csl-entry">
+Plummer, Martyn, Nicky Best, Kate Cowles, Karen Vines, Deepayan Sarkar, Douglas Bates, Russell Almond, and Arni Magnusson. 2020. <em>Coda: Output Analysis and Diagnostics for MCMC</em>. <a href="https://CRAN.R-project.org/package=coda">https://CRAN.R-project.org/package=coda</a>.
 </div>
-<div>
-<p>Roberts, SA. 1982. “A General Class of Holt-Winters Type Forecasting Models.” <em>Management Science</em> 28 (7): 808–20.</p>
+<div id="ref-R-coda" class="csl-entry">
+———. 2020. <em>Coda: Output Analysis and Diagnostics for MCMC</em>. <a href="https://CRAN.R-project.org/package=coda">https://CRAN.R-project.org/package=coda</a>.
 </div>
-<div>
-<p>Scott, Steven L. 2020. <em>Bsts: Bayesian Structural Time Series</em>. <a href="https://CRAN.R-project.org/package=bsts">https://CRAN.R-project.org/package=bsts</a>.</p>
+<div id="ref-roberts1982" class="csl-entry">
+Roberts, SA. 1982. <span>“A General Class of Holt-Winters Type Forecasting Models.”</span> <em>Management Science</em> 28 (7): 808–20.
 </div>
-<div>
-<p>Scott, Steven L, and Hal R Varian. 2015. “Bayesian Variable Selection for Nowcasting Economic Time Series.” <em>Economic Analysis of the Digital Economy</em>, 119–35.</p>
+<div id="ref-R-bsts" class="csl-entry">
+Scott, Steven L. 2020. <em>Bsts: Bayesian Structural Time Series</em>. <a href="https://CRAN.R-project.org/package=bsts">https://CRAN.R-project.org/package=bsts</a>.
 </div>
-<div>
-<p>Svetunkov, Ivan. 2020. <em>Smooth: Forecasting Using State Space Models</em>. <a href="https://CRAN.R-project.org/package=smooth">https://CRAN.R-project.org/package=smooth</a>.</p>
+<div id="ref-scott2015" class="csl-entry">
+Scott, Steven L, and Hal R Varian. 2015. <span>“Bayesian Variable Selection for Nowcasting Economic Time Series.”</span> <em>Economic Analysis of the Digital Economy</em>, 119–35.
 </div>
-<div>
-<p>Taylor, James W. 2003. “Exponential Smoothing with a Damped Multiplicative Trend.” <em>International Journal of Forecasting</em> 19 (4): 715–25.</p>
+<div id="ref-R-smooth" class="csl-entry">
+Svetunkov, Ivan. 2020. <em>Smooth: Forecasting Using State Space Models</em>. <a href="https://CRAN.R-project.org/package=smooth">https://CRAN.R-project.org/package=smooth</a>.
 </div>
-<div>
-<p>Velilla, Santiago. 1993. “A Note on the Multivariate Box—Cox Transformation to Normality.” <em>Statistics &amp; Probability Letters</em> 17 (4): 259–63.</p>
+<div id="ref-taylor2003" class="csl-entry">
+Taylor, James W. 2003. <span>“Exponential Smoothing with a Damped Multiplicative Trend.”</span> <em>International Journal of Forecasting</em> 19 (4): 715–25.
 </div>
-<div>
-<p>West, Mike, and Jeff Harrison. 2006. <em>Bayesian Forecasting and Dynamic Models</em>. Springer Science &amp; Business Media.</p>
+<div id="ref-velilla1993note" class="csl-entry">
+Velilla, Santiago. 1993. <span>“A Note on the Multivariate Box—Cox Transformation to Normality.”</span> <em>Statistics &amp; Probability Letters</em> 17 (4): 259–63.
 </div>
-<div>
-<p>Winters, Peter R. 1960. “Forecasting Sales by Exponentially Weighted Moving Averages.” <em>Management Science</em> 6 (3): 324–42.</p>
+<div id="ref-west2006" class="csl-entry">
+West, Mike, and Jeff Harrison. 2006. <em>Bayesian Forecasting and Dynamic Models</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-winters1960" class="csl-entry">
+Winters, Peter R. 1960. <span>“Forecasting Sales by Exponentially Weighted Moving Averages.”</span> <em>Management Science</em> 6 (3): 324–42.
 </div>
 </div>
 </div>
