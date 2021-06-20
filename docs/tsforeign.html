@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 tsforeign package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 tsforeign package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-05-22" />
+<meta name="date" content="2021-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -126,6 +128,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -266,29 +291,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 7</span> tsforeign package</h1>
 <div id="tsforeign:introduction" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Introduction</h2>
-<p>The <strong>tsforeign</strong> package provides custom wrappers for the <code>auto.arima</code> function from the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation"><a href="references.html#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-R-forecast" role="doc-biblioref">2020</a>)</span> package and the <code>bsts</code> method from <a href="https://cran.r-project.org/web/packages/bsts/"><strong>bsts</strong></a> package of <span class="citation"><a href="references.html#ref-R-bsts" role="doc-biblioref">Steven L. Scott</a> (<a href="references.html#ref-R-bsts" role="doc-biblioref">2020</a>)</span>, with methods for estimation, some diagnostics and prediction. This package may be extended in future to provide wrappers for other interesting models. For the <code>bsts</code> model, we have also made use of the <code>tsconvert</code> method from the <strong>tsmethods</strong> package to convert the output of the model to one conforming to the required inputs of the <a href="https://cran.r-project.org/web/packages/dlm/"><strong>dlm</strong></a> package, for which we provide an example in the demonstration section.</p>
+<p>The <strong>tsforeign</strong> package provides custom wrappers for the <code>auto.arima</code> function from the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation"><a href="#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-R-forecast" role="doc-biblioref">2021</a>)</span> package and the <code>bsts</code> method from <a href="https://cran.r-project.org/web/packages/bsts/"><strong>bsts</strong></a> package of <span class="citation"><a href="#ref-R-bsts" role="doc-biblioref">Steven L. Scott</a> (<a href="#ref-R-bsts" role="doc-biblioref">2021</a>)</span>, with methods for estimation, some diagnostics and prediction. This package may be extended in future to provide wrappers for other interesting models. For the <code>bsts</code> model, we have also made use of the <code>tsconvert</code> method from the <strong>tsmethods</strong> package to convert the output of the model to one conforming to the required inputs of the <a href="https://cran.r-project.org/web/packages/dlm/"><strong>dlm</strong></a> package, for which we provide an example in the demonstration section.</p>
 <p>Since both of those packages have their own vignettes and documentation, we proceed here directly into a demonstration of the functionality.</p>
 </div>
 <div id="tsforeign:arima" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> ARIMA model</h2>
 <p>The entry point for the ARIMA model is the <code>arima_modelspec</code> function</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="tsforeign.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsforeign))</span>
-<span id="cb192-2"><a href="tsforeign.html#cb192-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb192-3"><a href="tsforeign.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsaux)</span>
-<span id="cb192-4"><a href="tsforeign.html#cb192-4" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(arima_modelspec)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="tsforeign.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsforeign))</span>
+<span id="cb188-2"><a href="tsforeign.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb188-3"><a href="tsforeign.html#cb188-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsaux)</span>
+<span id="cb188-4"><a href="tsforeign.html#cb188-4" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(arima_modelspec)</span></code></pre></div>
 <pre><code>## function (y, xreg = NULL, frequency = NULL, seasonal = FALSE, 
 ##     seasonal_type = &quot;regular&quot;, lambda = NULL, seasonal_harmonics = NULL, 
 ##     lambda_lower = 0, lambda_upper = 1.5, ...) 
 ## NULL</code></pre>
 <p>which allows for both regular and trigonometric seasonality.</p>
 <p>For the demonstration example, we’ll use the <code>AirPassengers</code> dataset after first converting it into an <code>xts</code> object:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="tsforeign.html#cb194-1" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> AirPassengers</span>
-<span id="cb194-2"><a href="tsforeign.html#cb194-2" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">future_dates</span>(<span class="fu">as.Date</span>(<span class="st">&quot;1948-12-31&quot;</span>), <span class="st">&quot;months&quot;</span>, <span class="fu">length</span>(air))</span>
-<span id="cb194-3"><a href="tsforeign.html#cb194-3" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">as.numeric</span>(air), dt)</span>
-<span id="cb194-4"><a href="tsforeign.html#cb194-4" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">arima_modelspec</span>(<span class="at">y =</span> air, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">seasonal_type =</span> <span class="st">&quot;regular&quot;</span>, </span>
-<span id="cb194-5"><a href="tsforeign.html#cb194-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">seasonal =</span> <span class="cn">TRUE</span>, <span class="at">lambda =</span> <span class="cn">NA</span>)</span>
-<span id="cb194-6"><a href="tsforeign.html#cb194-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span>
-<span id="cb194-7"><a href="tsforeign.html#cb194-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="tsforeign.html#cb190-1" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> AirPassengers</span>
+<span id="cb190-2"><a href="tsforeign.html#cb190-2" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">future_dates</span>(<span class="fu">as.Date</span>(<span class="st">&quot;1948-12-31&quot;</span>), <span class="st">&quot;months&quot;</span>, <span class="fu">length</span>(air))</span>
+<span id="cb190-3"><a href="tsforeign.html#cb190-3" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">as.numeric</span>(air), dt)</span>
+<span id="cb190-4"><a href="tsforeign.html#cb190-4" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">arima_modelspec</span>(<span class="at">y =</span> air, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">seasonal_type =</span> <span class="st">&quot;regular&quot;</span>, </span>
+<span id="cb190-5"><a href="tsforeign.html#cb190-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">seasonal =</span> <span class="cn">TRUE</span>, <span class="at">lambda =</span> <span class="cn">NA</span>)</span>
+<span id="cb190-6"><a href="tsforeign.html#cb190-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span>
+<span id="cb190-7"><a href="tsforeign.html#cb190-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## ARIMA(0,1,1)(0,1,1)[12] 
 ## ------------------------ 
 ##      Estimate Std.Error t value  Pr(&gt;|t|)
@@ -302,20 +327,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##    MAPE   MASE  MSLRE BIAS
 ##  0.0262 0.2297 0.0012    0</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="tsforeign.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="tsforeign.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod)</span></code></pre></div>
 <pre><code>##     n no.pars   LogLik       AIC       BIC      AICc       MAPE      MASE
 ## 1 131       2 244.6574 -483.3147 -474.6891 -483.1258 0.02623633 0.2297063
 ##         MSLRE         BIAS
 ## 1 0.001228422 4.059721e-05</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="tsforeign.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="tsforeign.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>The predict function generates a predictive distribution via simulation and returns an object of class <code>tsmodel.predict</code>:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="tsforeign.html#cb199-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">12</span>)</span>
-<span id="cb199-2"><a href="tsforeign.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="tsforeign.html#cb195-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">12</span>)</span>
+<span id="cb195-2"><a href="tsforeign.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>Additionally, there is also a backtest method:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="tsforeign.html#cb200-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="at">cores =</span> <span class="dv">5</span>, <span class="at">trace =</span> F)</span>
-<span id="cb200-2"><a href="tsforeign.html#cb200-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>metrics</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="tsforeign.html#cb196-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="at">cores =</span> <span class="dv">5</span>, <span class="at">trace =</span> F)</span>
+<span id="cb196-2"><a href="tsforeign.html#cb196-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>metrics</span></code></pre></div>
 <pre><code>##     horizon variable       MAPE        MSLRE        BIAS  n MIS[0.02]  MIS[0.1]
 ##  1:       1        y 0.02360385 0.0009533359 0.003785615 72  78.41635  58.69203
 ##  2:       2        y 0.02839106 0.0013745218 0.006289101 71  81.04367  63.58773
@@ -332,8 +357,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="tsforeign:bsts" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> bsts model</h2>
-<p>The bsts package of <span class="citation">(<a href="references.html#ref-R-bsts" role="doc-biblioref">Steven L. Scott 2020</a>)</span> provides functions for fitting Bayesian structural time series models. The entry point in our wrapper is the <code>bsts_modelspec</code> function:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="tsforeign.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(bsts_modelspec)</span></code></pre></div>
+<p>The bsts package of <span class="citation">(<a href="#ref-R-bsts" role="doc-biblioref">Steven L. Scott 2021</a>)</span> provides functions for fitting Bayesian structural time series models. The entry point in our wrapper is the <code>bsts_modelspec</code> function:</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="tsforeign.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(bsts_modelspec)</span></code></pre></div>
 <pre><code>## function (y, xreg = NULL, frequency = NULL, differences = 0, 
 ##     level = TRUE, slope = TRUE, damped = FALSE, seasonal = FALSE, 
 ##     seasonal_frequency = 4, ar = FALSE, ar_max = 1, cycle = FALSE, 
@@ -342,13 +367,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     distribution = &quot;gaussian&quot;, ...) 
 ## NULL</code></pre>
 <p>which provides a rich set of options such as degree of differencing,<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> a sparse AR component, sparse regressors, regular or trigonometric seasonal components (including multiple seasonal), cyclical components and the Box Cox transformation. Once an object is estimated, and all required components have been generated, any additional methods on the estimated component are performed directly by custom written functions in the <strong>tsforeign</strong> package.</p>
-<p>For the demonstration we’ll use the <code>priceunits</code> dataset from the <strong>tsdatasets</strong> package. Once a series is estimated, the resulting MCMC draws are converted to an <code>mcmc</code> object from the <a href="https://cran.r-project.org/web/packages/coda/"><strong>coda</strong></a> package of <span class="citation"><a href="references.html#ref-R-coda" role="doc-biblioref">Plummer et al.</a> (<a href="references.html#ref-R-coda" role="doc-biblioref">2020</a>)</span> in order to provide a nice summary report.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="tsforeign.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb204-2"><a href="tsforeign.html#cb204-2" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">bsts_modelspec</span>(<span class="at">y =</span> priceunits[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,<span class="dv">1</span>], <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">differences =</span> <span class="dv">0</span>, </span>
-<span id="cb204-3"><a href="tsforeign.html#cb204-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">level =</span> T, <span class="at">slope =</span> T, <span class="at">damped =</span> T, <span class="at">seasonal =</span> T, </span>
-<span id="cb204-4"><a href="tsforeign.html#cb204-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="dv">12</span>, <span class="at">ar =</span> T, <span class="at">ar_max =</span> <span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">0</span>)</span>
-<span id="cb204-5"><a href="tsforeign.html#cb204-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">n_iter =</span> <span class="dv">2000</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb204-6"><a href="tsforeign.html#cb204-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<p>For the demonstration we’ll use the <code>priceunits</code> dataset from the <strong>tsdatasets</strong> package. Once a series is estimated, the resulting MCMC draws are converted to an <code>mcmc</code> object from the <a href="https://cran.r-project.org/web/packages/coda/"><strong>coda</strong></a> package of <span class="citation"><a href="#ref-R-coda" role="doc-biblioref">Plummer et al.</a> (<a href="#ref-R-coda" role="doc-biblioref">2020</a>)</span> in order to provide a nice summary report.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="tsforeign.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb200-2"><a href="tsforeign.html#cb200-2" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">bsts_modelspec</span>(<span class="at">y =</span> priceunits[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,<span class="dv">1</span>], <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">differences =</span> <span class="dv">0</span>, </span>
+<span id="cb200-3"><a href="tsforeign.html#cb200-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">level =</span> T, <span class="at">slope =</span> T, <span class="at">damped =</span> T, <span class="at">seasonal =</span> T, </span>
+<span id="cb200-4"><a href="tsforeign.html#cb200-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="dv">12</span>, <span class="at">ar =</span> T, <span class="at">ar_max =</span> <span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">0</span>)</span>
+<span id="cb200-5"><a href="tsforeign.html#cb200-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">n_iter =</span> <span class="dv">2000</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb200-6"><a href="tsforeign.html#cb200-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Iterations = 1:2000
 ## Thinning interval = 1 
@@ -387,15 +412,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##    MAPE   MASE  MSLRE   BIAS
 ##  0.0371 0.4694 0.0023 -4e-04</code></pre>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="tsforeign.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="tsforeign.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod)</span></code></pre></div>
 <pre><code>##    n no.pars       MAPE      MASE       MSLRE          BIAS
 ## 1 80       9 0.03707212 0.4693667 0.002282919 -0.0003928491</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="tsforeign.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="tsforeign.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-45-1.png" width="768" /></p>
 <p>The decomposition of the model into it’s fitted components is done via the <code>tsdecompose</code> method. However, note that the bsts routine returns the smoothed component states, not the filtered ones.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="tsforeign.html#cb209-1" aria-hidden="true" tabindex="-1"></a>tde <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(mod)</span>
-<span id="cb209-2"><a href="tsforeign.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution objects of state components</span></span>
-<span id="cb209-3"><a href="tsforeign.html#cb209-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tde)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="tsforeign.html#cb205-1" aria-hidden="true" tabindex="-1"></a>tde <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(mod)</span>
+<span id="cb205-2"><a href="tsforeign.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution objects of state components</span></span>
+<span id="cb205-3"><a href="tsforeign.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tde)</span></code></pre></div>
 <pre><code>## List of 5
 ##  $ Level     : &#39;tsmodel.distribution&#39; num [1:1981, 1:80] 1.52 1.64 1.41 1.55 1.47 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
@@ -419,10 +444,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. ..$ : chr [1:80] &quot;1992-08-31&quot; &quot;1992-09-30&quot; &quot;1992-10-31&quot; &quot;1992-11-30&quot; ...
 ##   ..- attr(*, &quot;date_class&quot;)= chr &quot;Date&quot;</code></pre>
 <p>Once bsts model is estimated, we can convert it to a <code>dlm</code> object<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> using either the mean values of the parameters and initial states, or a specific draw using the <code>tsconvert</code> method.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="tsforeign.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dlm)</span>
-<span id="cb211-2"><a href="tsforeign.html#cb211-2" aria-hidden="true" tabindex="-1"></a>dlm_model <span class="ot">&lt;-</span> <span class="fu">tsconvert</span>(mod, <span class="at">to =</span> <span class="st">&quot;dlm&quot;</span>, <span class="at">draw =</span> <span class="st">&quot;mean&quot;</span>, </span>
-<span id="cb211-3"><a href="tsforeign.html#cb211-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">burn =</span> bsts<span class="sc">::</span><span class="fu">SuggestBurn</span>(<span class="fl">0.1</span>, mod<span class="sc">$</span>model))</span>
-<span id="cb211-4"><a href="tsforeign.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dlm_model)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="tsforeign.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dlm)</span>
+<span id="cb207-2"><a href="tsforeign.html#cb207-2" aria-hidden="true" tabindex="-1"></a>dlm_model <span class="ot">&lt;-</span> <span class="fu">tsconvert</span>(mod, <span class="at">to =</span> <span class="st">&quot;dlm&quot;</span>, <span class="at">draw =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb207-3"><a href="tsforeign.html#cb207-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">burn =</span> bsts<span class="sc">::</span><span class="fu">SuggestBurn</span>(<span class="fl">0.1</span>, mod<span class="sc">$</span>model))</span>
+<span id="cb207-4"><a href="tsforeign.html#cb207-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dlm_model)</span></code></pre></div>
 <pre><code>## List of 6
 ##  $ m0: num [1:17] 1.5702 0.01318 -0.00448 -0.04044 -0.0312 ...
 ##  $ C0: num [1:17, 1:17] 1e+07 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 0e+00 ...
@@ -431,46 +456,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ GG: num [1:17, 1:17] 1 0 0 0 0 0 0 0 0 0 ...
 ##  $ W : num [1:17, 1:17] 0.00115 0 0 0 0 ...
 ##  - attr(*, &quot;class&quot;)= chr &quot;dlm&quot;</code></pre>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="tsforeign.html#cb213-1" aria-hidden="true" tabindex="-1"></a>filtered_dlm <span class="ot">&lt;-</span> <span class="fu">dlmFilter</span>(<span class="fu">log</span>(priceunits[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,<span class="dv">1</span>]), dlm_model)</span>
-<span id="cb213-2"><a href="tsforeign.html#cb213-2" aria-hidden="true" tabindex="-1"></a>smoothed_dlm <span class="ot">&lt;-</span> <span class="fu">dlmSmooth</span>(filtered_dlm)</span>
-<span id="cb213-3"><a href="tsforeign.html#cb213-3" aria-hidden="true" tabindex="-1"></a>smoothed_series <span class="ot">&lt;-</span> <span class="fu">xts</span>((dlm_model<span class="sc">$</span>FF <span class="sc">%*%</span> <span class="fu">t</span>(smoothed_dlm<span class="sc">$</span>s))[<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>], <span class="fu">index</span>(priceunits)[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>])</span>
-<span id="cb213-4"><a href="tsforeign.html#cb213-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb213-5"><a href="tsforeign.html#cb213-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(filtered_dlm<span class="sc">$</span>f), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Filtered Series&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb213-6"><a href="tsforeign.html#cb213-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">as.zoo</span>(<span class="fu">fitted</span>(mod, <span class="at">raw =</span> <span class="cn">TRUE</span>)), <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb213-7"><a href="tsforeign.html#cb213-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb213-8"><a href="tsforeign.html#cb213-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;DLM&quot;</span>,<span class="st">&quot;BSTS&quot;</span>), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb213-9"><a href="tsforeign.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(smoothed_series), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Smoothed Series&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb213-10"><a href="tsforeign.html#cb213-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">as.zoo</span>(<span class="fu">fitted</span>(mod, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;smoothed&quot;</span>)), <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb213-11"><a href="tsforeign.html#cb213-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb213-12"><a href="tsforeign.html#cb213-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;DLM&quot;</span>,<span class="st">&quot;BSTS&quot;</span>), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="tsforeign.html#cb209-1" aria-hidden="true" tabindex="-1"></a>filtered_dlm <span class="ot">&lt;-</span> <span class="fu">dlmFilter</span>(<span class="fu">log</span>(priceunits[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,<span class="dv">1</span>]), dlm_model)</span>
+<span id="cb209-2"><a href="tsforeign.html#cb209-2" aria-hidden="true" tabindex="-1"></a>smoothed_dlm <span class="ot">&lt;-</span> <span class="fu">dlmSmooth</span>(filtered_dlm)</span>
+<span id="cb209-3"><a href="tsforeign.html#cb209-3" aria-hidden="true" tabindex="-1"></a>smoothed_series <span class="ot">&lt;-</span> <span class="fu">xts</span>((dlm_model<span class="sc">$</span>FF <span class="sc">%*%</span> <span class="fu">t</span>(smoothed_dlm<span class="sc">$</span>s))[<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>], <span class="fu">index</span>(priceunits)[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>])</span>
+<span id="cb209-4"><a href="tsforeign.html#cb209-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb209-5"><a href="tsforeign.html#cb209-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(filtered_dlm<span class="sc">$</span>f), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Filtered Series&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb209-6"><a href="tsforeign.html#cb209-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">as.zoo</span>(<span class="fu">fitted</span>(mod, <span class="at">raw =</span> <span class="cn">TRUE</span>)), <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb209-7"><a href="tsforeign.html#cb209-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb209-8"><a href="tsforeign.html#cb209-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;DLM&quot;</span>,<span class="st">&quot;BSTS&quot;</span>), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb209-9"><a href="tsforeign.html#cb209-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(smoothed_series), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Smoothed Series&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb209-10"><a href="tsforeign.html#cb209-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">as.zoo</span>(<span class="fu">fitted</span>(mod, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;smoothed&quot;</span>)), <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb209-11"><a href="tsforeign.html#cb209-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb209-12"><a href="tsforeign.html#cb209-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;DLM&quot;</span>,<span class="st">&quot;BSTS&quot;</span>), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>We compare the predictive distribution of the predicted object from calling the predict method of the <strong>tsforeign</strong> package and that of the <a href="https://cran.r-project.org/web/packages/bsts/"><strong>bsts</strong></a> package. Note that there are a lot more arguments which can be passed to the <code>predict</code> routine, including user overrides for the last state means and the posterior means of the parameters (see the documentation for more details).</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="tsforeign.html#cb214-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">12</span>)</span>
-<span id="cb214-2"><a href="tsforeign.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="co"># BSTS method</span></span>
-<span id="cb214-3"><a href="tsforeign.html#cb214-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> bsts<span class="sc">::</span><span class="fu">predict.bsts</span>(mod<span class="sc">$</span>model, <span class="at">horizon =</span> <span class="dv">12</span>)</span>
-<span id="cb214-4"><a href="tsforeign.html#cb214-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert predictive distribution to tsmodel.distribution for comparison</span></span>
-<span id="cb214-5"><a href="tsforeign.html#cb214-5" aria-hidden="true" tabindex="-1"></a>p2d <span class="ot">&lt;-</span> p2<span class="sc">$</span>distribution</span>
-<span id="cb214-6"><a href="tsforeign.html#cb214-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(p2d) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(p1<span class="sc">$</span>distribution)</span>
-<span id="cb214-7"><a href="tsforeign.html#cb214-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(p2d) <span class="ot">&lt;-</span> <span class="st">&quot;tsmodel.distribution&quot;</span></span>
-<span id="cb214-8"><a href="tsforeign.html#cb214-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(p1<span class="sc">$</span>distribution), <span class="at">main =</span> <span class="st">&quot;tsforeign native predict c++ routine vs bsts routine&quot;</span>)</span>
-<span id="cb214-9"><a href="tsforeign.html#cb214-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p2d, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, <span class="at">interval_color =</span> <span class="dv">2</span>, <span class="at">median_type =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tsforeign.html#cb210-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">12</span>)</span>
+<span id="cb210-2"><a href="tsforeign.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="co"># BSTS method</span></span>
+<span id="cb210-3"><a href="tsforeign.html#cb210-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> bsts<span class="sc">::</span><span class="fu">predict.bsts</span>(mod<span class="sc">$</span>model, <span class="at">horizon =</span> <span class="dv">12</span>)</span>
+<span id="cb210-4"><a href="tsforeign.html#cb210-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert predictive distribution to tsmodel.distribution for comparison</span></span>
+<span id="cb210-5"><a href="tsforeign.html#cb210-5" aria-hidden="true" tabindex="-1"></a>p2d <span class="ot">&lt;-</span> p2<span class="sc">$</span>distribution</span>
+<span id="cb210-6"><a href="tsforeign.html#cb210-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(p2d) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(p1<span class="sc">$</span>distribution)</span>
+<span id="cb210-7"><a href="tsforeign.html#cb210-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(p2d) <span class="ot">&lt;-</span> <span class="st">&quot;tsmodel.distribution&quot;</span></span>
+<span id="cb210-8"><a href="tsforeign.html#cb210-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(p1<span class="sc">$</span>distribution), <span class="at">main =</span> <span class="st">&quot;tsforeign native predict c++ routine vs bsts routine&quot;</span>)</span>
+<span id="cb210-9"><a href="tsforeign.html#cb210-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p2d, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, <span class="at">interval_color =</span> <span class="dv">2</span>, <span class="at">median_type =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>A predicted object can also be decomposed into it’s structural components, something we are able to do because of the custom predict routine since <code>bsts</code> does not return this information.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="tsforeign.html#cb215-1" aria-hidden="true" tabindex="-1"></a>td <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(p1)</span>
-<span id="cb215-2"><a href="tsforeign.html#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb215-3"><a href="tsforeign.html#cb215-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>Level, <span class="at">main =</span> <span class="st">&quot;Level&quot;</span>)</span>
-<span id="cb215-4"><a href="tsforeign.html#cb215-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>Slope, <span class="at">main =</span> <span class="st">&quot;Slope&quot;</span>)</span>
-<span id="cb215-5"><a href="tsforeign.html#cb215-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>Seasonal12, <span class="at">main =</span> <span class="st">&quot;Seasonal&quot;</span>)</span>
-<span id="cb215-6"><a href="tsforeign.html#cb215-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>AR, <span class="at">main =</span> <span class="st">&quot;AR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="tsforeign.html#cb211-1" aria-hidden="true" tabindex="-1"></a>td <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(p1)</span>
+<span id="cb211-2"><a href="tsforeign.html#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb211-3"><a href="tsforeign.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>Level, <span class="at">main =</span> <span class="st">&quot;Level&quot;</span>)</span>
+<span id="cb211-4"><a href="tsforeign.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>Slope, <span class="at">main =</span> <span class="st">&quot;Slope&quot;</span>)</span>
+<span id="cb211-5"><a href="tsforeign.html#cb211-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>Seasonal12, <span class="at">main =</span> <span class="st">&quot;Seasonal&quot;</span>)</span>
+<span id="cb211-6"><a href="tsforeign.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(td<span class="sc">$</span>AR, <span class="at">main =</span> <span class="st">&quot;AR&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-forecast" class="csl-entry">
+Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2021. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
+</div>
+<div id="ref-R-dlm" class="csl-entry">
+Petris, Giovanni. 2018. <em>Dlm: Bayesian and Likelihood Analysis of Dynamic Linear Models</em>. <a href="https://CRAN.R-project.org/package=dlm">https://CRAN.R-project.org/package=dlm</a>.
+</div>
+<div id="ref-R-coda" class="csl-entry">
+Plummer, Martyn, Nicky Best, Kate Cowles, Karen Vines, Deepayan Sarkar, Douglas Bates, Russell Almond, and Arni Magnusson. 2020. <em>Coda: Output Analysis and Diagnostics for MCMC</em>. <a href="https://CRAN.R-project.org/package=coda">https://CRAN.R-project.org/package=coda</a>.
+</div>
+<div id="ref-R-bsts" class="csl-entry">
+Scott, Steven L. 2021. <em>Bsts: Bayesian Structural Time Series</em>. <a href="https://CRAN.R-project.org/package=bsts">https://CRAN.R-project.org/package=bsts</a>.
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="17">
 <li id="fn17"><p>Fitted and predicted distributions are always returned in their original state by inverting any differencing used.<a href="tsforeign.html#fnref17" class="footnote-back">↩︎</a></p></li>
-<li id="fn18"><p>See the the <a href="https://cran.r-project.org/web/packages/dlm/"><strong>dlm</strong></a> package of <span class="citation"><a href="references.html#ref-R-dlm" role="doc-biblioref">Petris</a> (<a href="references.html#ref-R-dlm" role="doc-biblioref">2018</a>)</span>.<a href="tsforeign.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>See the the <a href="https://cran.r-project.org/web/packages/dlm/"><strong>dlm</strong></a> package of <span class="citation"><a href="#ref-R-dlm" role="doc-biblioref">Petris</a> (<a href="#ref-R-dlm" role="doc-biblioref">2018</a>)</span>.<a href="tsforeign.html#fnref18" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -502,6 +542,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

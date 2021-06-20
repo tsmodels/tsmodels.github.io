@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 tsets package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 tsets package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-05-22" />
+<meta name="date" content="2021-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -126,6 +128,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -266,8 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> tsets package</h1>
 <div id="tsets:intro" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
-<p>Exponential smoothing was proposed by Robert G. Brown, originally in <span class="citation"><a href="references.html#ref-brown1959" role="doc-biblioref">Brown</a> (<a href="references.html#ref-brown1959" role="doc-biblioref">1959</a>)</span> and later in <span class="citation"><a href="references.html#ref-brown1962" role="doc-biblioref">Brown</a> (<a href="references.html#ref-brown1962" role="doc-biblioref">1962</a>)</span>, where he developed the general exponential smoothing methodology in the context of inventory management, production planning and control. Independently, Charles C. Holt developed a similar method for exponential smoothing of additive trends and an entirely different method for smoothing seasonal data in <span class="citation"><a href="references.html#ref-holt1957" role="doc-biblioref">Holt</a> (<a href="references.html#ref-holt1957" role="doc-biblioref">1957</a>)</span>. This approach gained popularity following <span class="citation"><a href="references.html#ref-winters1960" role="doc-biblioref">Winters</a> (<a href="references.html#ref-winters1960" role="doc-biblioref">1960</a>)</span>, which tested Holt’s methods with empirical data, from whence the now popular Holt-Winters forecasting system came to prominence. More recently, <span class="citation"><a href="references.html#ref-hyndman2002" role="doc-biblioref">R. J. Hyndman et al.</a> (<a href="references.html#ref-hyndman2002" role="doc-biblioref">2002</a>)</span> and <span class="citation"><a href="references.html#ref-taylor2003" role="doc-biblioref">Taylor</a> (<a href="references.html#ref-taylor2003" role="doc-biblioref">2003</a>)</span> formalized the framework and provided a taxonomy of the various models under different assumptions on the type of Error (E), Trend (T) and Seasonality (S) components.</p>
-<p>In their most basic form, exponential smoothing methods are weighted sums of past observations, with the weights decaying exponentially with older observations. They form a simpler alternative to the more complex structural time series models (see <span class="citation"><a href="references.html#ref-harvey1990" role="doc-biblioref">Harvey</a> (<a href="references.html#ref-harvey1990" role="doc-biblioref">1990</a>)</span> and <span class="citation"><a href="references.html#ref-west2006" role="doc-biblioref">West and Harrison</a> (<a href="references.html#ref-west2006" role="doc-biblioref">2006</a>)</span>), by adopting the innovations formulation of the state space representation with all sources of error perfectly correlated.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> The Single Source of Errors model is observationally equivalent to the Multiple Source of Errors model under non-restrictive assumptions, and the interested reader is referred to <span class="citation"><a href="references.html#ref-casals1999" role="doc-biblioref">Casals, Sotoca, and Jerez</a> (<a href="references.html#ref-casals1999" role="doc-biblioref">1999</a>)</span> for a proof of this.</p>
+<p>Exponential smoothing was proposed by Robert G. Brown, originally in <span class="citation"><a href="#ref-brown1959" role="doc-biblioref">Brown</a> (<a href="#ref-brown1959" role="doc-biblioref">1959</a>)</span> and later in <span class="citation"><a href="#ref-brown1962" role="doc-biblioref">Brown</a> (<a href="#ref-brown1962" role="doc-biblioref">1962</a>)</span>, where he developed the general exponential smoothing methodology in the context of inventory management, production planning and control. Independently, Charles C. Holt developed a similar method for exponential smoothing of additive trends and an entirely different method for smoothing seasonal data in <span class="citation"><a href="#ref-holt1957" role="doc-biblioref">Holt</a> (<a href="#ref-holt1957" role="doc-biblioref">1957</a>)</span>. This approach gained popularity following <span class="citation"><a href="#ref-winters1960" role="doc-biblioref">Winters</a> (<a href="#ref-winters1960" role="doc-biblioref">1960</a>)</span>, which tested Holt’s methods with empirical data, from whence the now popular Holt-Winters forecasting system came to prominence. More recently, <span class="citation"><a href="#ref-hyndman2002" role="doc-biblioref">R. J. Hyndman et al.</a> (<a href="#ref-hyndman2002" role="doc-biblioref">2002</a>)</span> and <span class="citation"><a href="#ref-taylor2003" role="doc-biblioref">Taylor</a> (<a href="#ref-taylor2003" role="doc-biblioref">2003</a>)</span> formalized the framework and provided a taxonomy of the various models under different assumptions on the type of Error (E), Trend (T) and Seasonality (S) components.</p>
+<p>In their most basic form, exponential smoothing methods are weighted sums of past observations, with the weights decaying exponentially with older observations. They form a simpler alternative to the more complex structural time series models (see <span class="citation"><a href="#ref-harvey1990" role="doc-biblioref">Harvey</a> (<a href="#ref-harvey1990" role="doc-biblioref">1990</a>)</span> and <span class="citation"><a href="#ref-west2006" role="doc-biblioref">West and Harrison</a> (<a href="#ref-west2006" role="doc-biblioref">2006</a>)</span>), by adopting the innovations formulation of the state space representation with all sources of error perfectly correlated.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> The Single Source of Errors model is observationally equivalent to the Multiple Source of Errors model under non-restrictive assumptions, and the interested reader is referred to <span class="citation"><a href="#ref-casals1999" role="doc-biblioref">Casals, Sotoca, and Jerez</a> (<a href="#ref-casals1999" role="doc-biblioref">1999</a>)</span> for a proof of this.</p>
 <p>Formally, the general linear innovations state space model can be written as:</p>
 <p><span class="math display" id="eq:tsets1">\[\begin{equation}
 \begin{array}{l}
@@ -301,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="tsets:taxonomy" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Taxonomy of Models</h2>
-<p>Table <a href="tsets.html#tab:taxonomy">4.1</a> presents the taxonomy proposed by <span class="citation"><a href="references.html#ref-pegels" role="doc-biblioref">Pegels</a> (<a href="references.html#ref-pegels" role="doc-biblioref">1969</a>)</span> and <span class="citation"><a href="references.html#ref-gardner1985" role="doc-biblioref">Gardner Jr</a> (<a href="references.html#ref-gardner1985" role="doc-biblioref">1985</a>)</span> for exponential smoothing models. In addition, for each of the 12 model combinations presented, it is possible to have either additive or multiplicative errors, giving rise to the <strong>ETS</strong> formulation of <strong>E</strong>rror, <strong>T</strong>rend and <strong>S</strong>easonal. For instance, the <strong>MAM</strong> model corresponds to Multiplicative Error, Additive Trend and Multiplicative Seasonality.</p>
+<p>Table <a href="tsets.html#tab:taxonomy">4.1</a> presents the taxonomy proposed by <span class="citation"><a href="#ref-pegels" role="doc-biblioref">Pegels</a> (<a href="#ref-pegels" role="doc-biblioref">1969</a>)</span> and <span class="citation"><a href="#ref-gardner1985" role="doc-biblioref">Gardner Jr</a> (<a href="#ref-gardner1985" role="doc-biblioref">1985</a>)</span> for exponential smoothing models. In addition, for each of the 12 model combinations presented, it is possible to have either additive or multiplicative errors, giving rise to the <strong>ETS</strong> formulation of <strong>E</strong>rror, <strong>T</strong>rend and <strong>S</strong>easonal. For instance, the <strong>MAM</strong> model corresponds to Multiplicative Error, Additive Trend and Multiplicative Seasonality.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:taxonomy">TABLE 4.1: </span>Exponential Smoothing Model Taxonomy
@@ -393,7 +418,7 @@ DM
 </tr>
 </tbody>
 </table>
-<p>Following <span class="citation"><a href="references.html#ref-ord1997" role="doc-biblioref">Ord, Koehler, and Snyder</a> (<a href="references.html#ref-ord1997" role="doc-biblioref">1997</a>)</span> and <span class="citation"><a href="references.html#ref-hyndman2002" role="doc-biblioref">R. J. Hyndman et al.</a> (<a href="references.html#ref-hyndman2002" role="doc-biblioref">2002</a>)</span>, we present a state space formulation the ETS modelling system.</p>
+<p>Following <span class="citation"><a href="#ref-ord1997" role="doc-biblioref">Ord, Koehler, and Snyder</a> (<a href="#ref-ord1997" role="doc-biblioref">1997</a>)</span> and <span class="citation"><a href="#ref-hyndman2002" role="doc-biblioref">R. J. Hyndman et al.</a> (<a href="#ref-hyndman2002" role="doc-biblioref">2002</a>)</span>, we present a state space formulation the ETS modelling system.</p>
 <p><span class="math display" id="eq:tsets6">\[\begin{equation}
 \begin{array}{l}
 {y_t} = h\left( {{\mathbf{x}_{t - 1}}} \right) + k\left( {{\mathbf{x}_{t - 1}}} \right){\varepsilon _t},\\
@@ -424,7 +449,7 @@ DM
 </div>
 <div id="tsets:extensions" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Extensions</h2>
-<p>A number of extensions have been suggested and too numerous to outline here. One interesting model proposed by <span class="citation"><a href="references.html#ref-koehler2001" role="doc-biblioref">Koehler, Snyder, and Ord</a> (<a href="references.html#ref-koehler2001" role="doc-biblioref">2001</a>)</span> is the decomposition of the MAM model to include power terms as follows:</p>
+<p>A number of extensions have been suggested and too numerous to outline here. One interesting model proposed by <span class="citation"><a href="#ref-koehler2001" role="doc-biblioref">Koehler, Snyder, and Ord</a> (<a href="#ref-koehler2001" role="doc-biblioref">2001</a>)</span> is the decomposition of the MAM model to include power terms as follows:</p>
 <p><span class="math display" id="eq:tsets9">\[\begin{equation}
 \begin{array}{l}
 {y_t} = \left( {{l_{t - 1}} + \phi {b_{t - 1}}} \right){s_{t - m}} + {\left( {{l_{t - 1}} + \phi {b_{t - 1}}} \right)^\theta }{s^\delta }_{t - m}{\varepsilon _t},\\
@@ -439,13 +464,13 @@ DM
 {\epsilon_t} = {y_t} - \left( {{l_{t - 1}} + \phi {b_{t - 1}}} \right){s_{t - m}},\quad {\epsilon_t} | \mathcal{F}_{t-1} \sim N\left( {0,{{\left( {{l_{t - 1}} + \phi {b_{t - 1}}} \right)}^{2\theta} }{s_{t-m}^{2\delta}} \sigma^2 } \right),
 \tag{4.10}
 \end{equation}\]</span></p>
-<p>which is an appealing alternative to Box Cox and related transformations. For instance, as <span class="citation"><a href="references.html#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-hyndman2008" role="doc-biblioref">2008</a>)</span> 4.4.5 notes, a value of <span class="math inline">\(\theta=1/3\)</span> would produce a variance proportional to the <span class="math inline">\(2/3\)</span> power of the mean, similar to the cube root transformation.</p>
-<p>Normalized seasonality, discussed in <span class="citation"><a href="references.html#ref-roberts1982" role="doc-biblioref">Roberts</a> (<a href="references.html#ref-roberts1982" role="doc-biblioref">1982</a>)</span> and <span class="citation"><a href="references.html#ref-mckenzie1986" role="doc-biblioref">McKenzie</a> (<a href="references.html#ref-mckenzie1986" role="doc-biblioref">1986</a>)</span>, can be used to de-seasonalize the data, by acting as a filter, and is required for implementing the Wiener-Kolmogorov (WK) filter (smoother). This is discussed in more detail in Chapter 8 of <span class="citation"><a href="references.html#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, and is implemented as an option in the <strong>tsets</strong> package.</p>
-<p>Another avenue of interest is in the multivariate generalization of the model presented in <span class="citation"><a href="references.html#ref-desilva2010" role="doc-biblioref">De Silva, Hyndman, and Snyder</a> (<a href="references.html#ref-desilva2010" role="doc-biblioref">2010</a>)</span>. It has the ability to incorporate common levels, trends or seasonality and is implemented in the <strong>tsvets</strong> package.</p>
+<p>which is an appealing alternative to Box Cox and related transformations. For instance, as <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span> 4.4.5 notes, a value of <span class="math inline">\(\theta=1/3\)</span> would produce a variance proportional to the <span class="math inline">\(2/3\)</span> power of the mean, similar to the cube root transformation.</p>
+<p>Normalized seasonality, discussed in <span class="citation"><a href="#ref-roberts1982" role="doc-biblioref">Roberts</a> (<a href="#ref-roberts1982" role="doc-biblioref">1982</a>)</span> and <span class="citation"><a href="#ref-mckenzie1986" role="doc-biblioref">McKenzie</a> (<a href="#ref-mckenzie1986" role="doc-biblioref">1986</a>)</span>, can be used to de-seasonalize the data, by acting as a filter, and is required for implementing the Wiener-Kolmogorov (WK) filter (smoother). This is discussed in more detail in Chapter 8 of <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, and is implemented as an option in the <strong>tsets</strong> package.</p>
+<p>Another avenue of interest is in the multivariate generalization of the model presented in <span class="citation"><a href="#ref-desilva2010" role="doc-biblioref">De Silva, Hyndman, and Snyder</a> (<a href="#ref-desilva2010" role="doc-biblioref">2010</a>)</span>. It has the ability to incorporate common levels, trends or seasonality and is implemented in the <strong>tsvets</strong> package.</p>
 </div>
 <div id="some-encompasing-alternatives" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Some Encompasing Alternatives</h2>
-<p>The general state space representation (see <span class="citation"><a href="references.html#ref-harvey1990" role="doc-biblioref">Harvey</a> (<a href="references.html#ref-harvey1990" role="doc-biblioref">1990</a>)</span>), based on the multiple sources of error (MSOE) state space model, provides a more general implementation of the unobserved components model, albeit requiring the use of the Kalman filter for estimation. The model is flexible enough to incorporate many types of additive models, including cyclical behavior and regressors, although the nonlinear (multiplicative) variations require the extended Kalman filter for estimation. The <a href="https://cran.r-project.org/web/packages/bsts/"><strong>bsts</strong></a> package of <span class="citation"><a href="references.html#ref-scott2015" role="doc-biblioref">Steven L. Scott and Varian</a> (<a href="references.html#ref-scott2015" role="doc-biblioref">2015</a>)</span> provides fast and efficient computation of Bayesian Unobserved Components, with the option of a spike and slab prior for regressor regularization, for which we provide a wrapper in the <strong>tsforeign</strong> package.</p>
+<p>The general state space representation (see <span class="citation"><a href="#ref-harvey1990" role="doc-biblioref">Harvey</a> (<a href="#ref-harvey1990" role="doc-biblioref">1990</a>)</span>), based on the multiple sources of error (MSOE) state space model, provides a more general implementation of the unobserved components model, albeit requiring the use of the Kalman filter for estimation. The model is flexible enough to incorporate many types of additive models, including cyclical behavior and regressors, although the nonlinear (multiplicative) variations require the extended Kalman filter for estimation. The <a href="https://cran.r-project.org/web/packages/bsts/"><strong>bsts</strong></a> package of <span class="citation"><a href="#ref-scott2015" role="doc-biblioref">Steven L. Scott and Varian</a> (<a href="#ref-scott2015" role="doc-biblioref">2015</a>)</span> provides fast and efficient computation of Bayesian Unobserved Components, with the option of a spike and slab prior for regressor regularization, for which we provide a wrapper in the <strong>tsforeign</strong> package.</p>
 </div>
 <div id="tsets:implementation" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> Package Implementation</h2>
@@ -646,7 +671,7 @@ Seasonal[State]
 </table>
 <div id="tsets:implementation:constraints" class="section level3" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> Constraints</h3>
-<p>Variables in the additive ETS type models need to be constrained in order to achieve stability and forecastability, and the interested reader should consult Section 10.2 of <span class="citation"><a href="references.html#ref-hyndman2008a" role="doc-biblioref">R. J. Hyndman, Akram, and Archibald</a> (<a href="references.html#ref-hyndman2008a" role="doc-biblioref">2008</a>)</span> for more details. These conditions become increasingly complex depending on the components included in the model. In our implementation we have opted for the following simple conditions:</p>
+<p>Variables in the additive ETS type models need to be constrained in order to achieve stability and forecastability, and the interested reader should consult Section 10.2 of <span class="citation"><a href="#ref-hyndman2008a" role="doc-biblioref">R. J. Hyndman, Akram, and Archibald</a> (<a href="#ref-hyndman2008a" role="doc-biblioref">2008</a>)</span> for more details. These conditions become increasingly complex depending on the components included in the model. In our implementation we have opted for the following simple conditions:</p>
 <ul>
 <li><span class="math inline">\(\alpha \in \left[ {0,1} \right]\)</span>,</li>
 <li><span class="math inline">\(\beta \in \left[ {0,\alpha } \right]\)</span>,</li>
@@ -660,11 +685,11 @@ Seasonal[State]
 </div>
 <div id="tsets:implementation:initialization" class="section level3" number="4.5.2">
 <h3><span class="header-section-number">4.5.2</span> Initialization</h3>
-<p>To obtain a reasonable set of parameters for the initialization conditions of the states as well as the parameters, we obtain values for <span class="math inline">\(l_0\)</span>, <span class="math inline">\(b_0\)</span> and <span class="math inline">\(s_0\)</span> using the heuristic approach described in Section 5.2 of <span class="citation"><a href="references.html#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>. There is also an option for estimating the initial states for the seasonal component.</p>
+<p>To obtain a reasonable set of parameters for the initialization conditions of the states as well as the parameters, we obtain values for <span class="math inline">\(l_0\)</span>, <span class="math inline">\(b_0\)</span> and <span class="math inline">\(s_0\)</span> using the heuristic approach described in Section 5.2 of <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>. There is also an option for estimating the initial states for the seasonal component.</p>
 </div>
 <div id="tsets:implementation:transformations" class="section level3" number="4.5.3">
 <h3><span class="header-section-number">4.5.3</span> Transformations</h3>
-<p>Variance stabilizing transformations form an important part of the pre-processing of the outcome variable in order to achieve certain statistical properties which help reduce misspecification of the model. At present, we implement the Box-Cox transformation with an option for automatic tuning of the parameter <span class="math inline">\(\lambda\)</span> using the method of <span class="citation"><a href="references.html#ref-guerrero1993time" role="doc-biblioref">Guerrero</a> (<a href="references.html#ref-guerrero1993time" role="doc-biblioref">1993</a>)</span>, from the <strong>tsaux</strong> package.</p>
+<p>Variance stabilizing transformations form an important part of the pre-processing of the outcome variable in order to achieve certain statistical properties which help reduce misspecification of the model. At present, we implement the Box-Cox transformation with an option for automatic tuning of the parameter <span class="math inline">\(\lambda\)</span> using the method of <span class="citation"><a href="#ref-guerrero1993time" role="doc-biblioref">Guerrero</a> (<a href="#ref-guerrero1993time" role="doc-biblioref">1993</a>)</span>, from the <strong>tsaux</strong> package.</p>
 </div>
 </div>
 <div id="tsets:demonstration" class="section level2" number="4.6">
@@ -687,7 +712,7 @@ Seasonal[State]
 <li><code>xreg</code>: An <code>xts</code> matrix of regressors.</li>
 <li><code>frequency</code>: The seasonal frequency of <code>y</code>, only needed if using a seasonal model.</li>
 <li><code>lambda</code>: The Box Box transformation parameter. If <code>NA</code>, will estimate it.</li>
-<li><code>normalized_seasonality</code>: Whether to impose the normalized approach of <span class="citation"><a href="references.html#ref-mckenzie1986" role="doc-biblioref">McKenzie</a> (<a href="references.html#ref-mckenzie1986" role="doc-biblioref">1986</a>)</span>.</li>
+<li><code>normalized_seasonality</code>: Whether to impose the normalized approach of <span class="citation"><a href="#ref-mckenzie1986" role="doc-biblioref">McKenzie</a> (<a href="#ref-mckenzie1986" role="doc-biblioref">1986</a>)</span>.</li>
 <li><code>fixed_pars</code>: An optional named vector of fixed parameters.</li>
 <li><code>scale</code>: Whether to pre-scale the data prior to estimation (will rescale back after estimation).</li>
 <li><code>seasonal_init</code>: Whether to “estimate” or use the heuristic (“fixed”) values for the initial states.</li>
@@ -741,7 +766,7 @@ Seasonal[State]
 <pre><code>## [1] 12360.86</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tsets.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div>
 <pre><code>##         alpha          beta         gamma            l0            b0 
-##    0.03476941    0.00010000    0.00000000 7108.56039380    2.76189971 
+##    0.03476941    0.00010000    0.00000000 7108.56039378    2.76189969 
 ##            s0            s1            s2            s3            s4 
 ## -511.18996952 -456.41526245 -461.98649919 -139.91350053  -54.69925501 
 ##            s5            s6            s7            s8            s9 
@@ -861,7 +886,7 @@ Seasonal[State]
 <span id="cb41-5"><a href="tsets.html#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_decomp<span class="sc">$</span>Seasonal, <span class="at">main =</span> <span class="st">&quot;Seasonal[State] Predicted Distribution&quot;</span>)</span>
 <span id="cb41-6"><a href="tsets.html#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_decomp<span class="sc">$</span>Error, <span class="at">main =</span> <span class="st">&quot;Simulated Error Distribution&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/prediction_decomp-1.png" width="768" /></p>
-<p>Since we left 52 points for out-of-sample testing, we are able to evaluate the prediction using the <code>tsmetrics</code> method on a predicted object. This method also takes the original series as an input in order to calculate MASE in the presence of seasonality. The alpha parameter is the coverage rate for calculation of the Mean Interval Score of <span class="citation"><a href="references.html#ref-gneiting2007" role="doc-biblioref">Gneiting and Raftery</a> (<a href="references.html#ref-gneiting2007" role="doc-biblioref">2007</a>)</span>.</p>
+<p>Since we left 52 points for out-of-sample testing, we are able to evaluate the prediction using the <code>tsmetrics</code> method on a predicted object. This method also takes the original series as an input in order to calculate MASE in the presence of seasonality. The alpha parameter is the coverage rate for calculation of the Mean Interval Score of <span class="citation"><a href="#ref-gneiting2007" role="doc-biblioref">Gneiting and Raftery</a> (<a href="#ref-gneiting2007" role="doc-biblioref">2007</a>)</span>.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="tsets.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(p, <span class="fu">tail</span>(gas, <span class="dv">52</span>), <span class="at">original_series =</span> spec<span class="sc">$</span>target<span class="sc">$</span>y_orig, <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>##    h       MAPE      MASE        MSLRE        BIAS      MIS     CRPS
 ## 1 52 0.01447461 0.4016107 0.0003889429 0.003547331 1074.333 104.6745</code></pre>
@@ -958,9 +983,9 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <span id="cb64-3"><a href="tsets.html#cb64-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tsbenchmark</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
 <span id="cb64-4"><a href="tsets.html#cb64-4" aria-hidden="true" tabindex="-1"></a>bench</span></code></pre></div>
 <pre><code>##                  start                 end            spec            estimate
-## 1: 2021-05-22 17:40:53 2021-05-22 17:40:53 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
-## 2: 2021-05-22 17:40:53 2021-05-22 17:40:53 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
-## 3: 2021-05-22 17:40:53 2021-05-22 17:40:54 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
+## 1: 2021-06-20 11:41:00 2021-06-20 11:41:01 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
+## 2: 2021-06-20 11:41:01 2021-06-20 11:41:01 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
+## 3: 2021-06-20 11:41:01 2021-06-20 11:41:01 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
 ##    solver control    loglik
 ## 1:  optim       0 -6125.443
 ## 2: nlminb       0 -6123.430
@@ -969,11 +994,77 @@ Innovations for the simulation can either be parametric (normal for additive or 
 </div>
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-brown1959" class="csl-entry">
+Brown, Robert Goodell. 1959. <em>Statistical Forecasting for Inventory Control</em>. McGraw/Hill.
+</div>
+<div id="ref-brown1962" class="csl-entry">
+———. 1962. <span>“Smoothing, Forecasting and Prediction of Discrete Time Series.”</span>
+</div>
+<div id="ref-casals1999" class="csl-entry">
+Casals, José, Sonia Sotoca, and Miguel Jerez. 1999. <span>“A Fast and Stable Method to Compute the Likelihood of Time Invariant State-Space Models.”</span> <em>Economics Letters</em> 65 (3): 329–37.
+</div>
+<div id="ref-desilva2010" class="csl-entry">
+De Silva, Ashton, Rob J Hyndman, and Ralph Snyder. 2010. <span>“The Vector Innovations Structural Time Series Framework: A Simple Approach to Multivariate Forecasting.”</span> <em>Statistical Modelling</em> 10 (4): 353–74.
+</div>
+<div id="ref-gardner1985" class="csl-entry">
+Gardner Jr, ES. 1985. <span>“Exponential Smoothing: The State of the Art.”</span> <em>Journal of Forecasting</em> 4 (1): 1–28.
+</div>
+<div id="ref-gneiting2007" class="csl-entry">
+Gneiting, Tilmann, and Adrian E Raftery. 2007. <span>“Strictly Proper Scoring Rules, Prediction, and Estimation.”</span> <em>Journal of the American Statistical Association</em> 102 (477): 359–78.
+</div>
+<div id="ref-guerrero1993time" class="csl-entry">
+Guerrero, Victor M. 1993. <span>“Time-Series Analysis Supported by Power Transformations.”</span> <em>Journal of Forecasting</em> 12 (1): 37–48.
+</div>
+<div id="ref-harvey1990" class="csl-entry">
+Harvey, Andrew C. 1990. <em>Forecasting, Structural Time Series Models and the Kalman Filter</em>. Cambridge university press.
+</div>
+<div id="ref-holt1957" class="csl-entry">
+Holt, Charles. 1957. <span>“Forecasting Trends and Seasonals by Exponential Weighted Averages.”</span> <em>ONR Memorandum</em> 52: 1957.
+</div>
+<div id="ref-hyndman2008a" class="csl-entry">
+Hyndman, Rob J, Muhammad Akram, and Blyth C Archibald. 2008. <span>“The Admissible Parameter Space for Exponential Smoothing Models.”</span> <em>Annals of the Institute of Statistical Mathematics</em> 60 (2): 407–26.
+</div>
+<div id="ref-hyndman2002" class="csl-entry">
+Hyndman, Rob J, Anne B Koehler, Ralph D Snyder, and Simone Grose. 2002. <span>“A State Space Framework for Automatic Forecasting Using Exponential Smoothing Methods.”</span> <em>International Journal of Forecasting</em> 18 (3): 439–54.
+</div>
+<div id="ref-hyndman2008" class="csl-entry">
+Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-koehler2001" class="csl-entry">
+Koehler, Anne B, Ralph D Snyder, and J Keith Ord. 2001. <span>“Forecasting Models and Prediction Intervals for the Multiplicative Holt-Winters Method.”</span> <em>International Journal of Forecasting</em> 17 (2): 269–86.
+</div>
+<div id="ref-mckenzie1986" class="csl-entry">
+McKenzie, Ed. 1986. <span>“Error Analysis for Winters’ Additive Seasonal Forecasting System.”</span> <em>International Journal of Forecasting</em> 2 (3): 373–82.
+</div>
+<div id="ref-ord1997" class="csl-entry">
+Ord, John Keith, Anne B Koehler, and Ralph D Snyder. 1997. <span>“Estimation and Prediction for a Class of Dynamic Nonlinear Statistical Models.”</span> <em>Journal of the American Statistical Association</em> 92 (440): 1621–29.
+</div>
+<div id="ref-pegels" class="csl-entry">
+Pegels, C. Carl. 1969. <span>“Exponential Forecasting: Some New Variations.”</span> <em>Management Science</em> 15 (5): 311–15.
+</div>
+<div id="ref-roberts1982" class="csl-entry">
+Roberts, SA. 1982. <span>“A General Class of Holt-Winters Type Forecasting Models.”</span> <em>Management Science</em> 28 (7): 808–20.
+</div>
+<div id="ref-scott2015" class="csl-entry">
+Scott, Steven L, and Hal R Varian. 2015. <span>“Bayesian Variable Selection for Nowcasting Economic Time Series.”</span> <em>Economic Analysis of the Digital Economy</em>, 119–35.
+</div>
+<div id="ref-taylor2003" class="csl-entry">
+Taylor, James W. 2003. <span>“Exponential Smoothing with a Damped Multiplicative Trend.”</span> <em>International Journal of Forecasting</em> 19 (4): 715–25.
+</div>
+<div id="ref-west2006" class="csl-entry">
+West, Mike, and Jeff Harrison. 2006. <em>Bayesian Forecasting and Dynamic Models</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-winters1960" class="csl-entry">
+Winters, Peter R. 1960. <span>“Forecasting Sales by Exponentially Weighted Moving Averages.”</span> <em>Management Science</em> 6 (3): 324–42.
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="5">
 <li id="fn5"><p>Also called Single Source of Error (SSOE) models.<a href="tsets.html#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>See <span class="citation"><a href="references.html#ref-hyndman2002" role="doc-biblioref">R. J. Hyndman et al.</a> (<a href="references.html#ref-hyndman2002" role="doc-biblioref">2002</a>)</span> chapter 11.<a href="tsets.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>See <span class="citation"><a href="#ref-hyndman2002" role="doc-biblioref">R. J. Hyndman et al.</a> (<a href="#ref-hyndman2002" role="doc-biblioref">2002</a>)</span> chapter 11.<a href="tsets.html#fnref6" class="footnote-back">↩︎</a></p></li>
 <li id="fn7"><p>The adjugate of a matrix <span class="math inline">\(\mathbf{A}\)</span> is the transpose of the cofactor matrix <span class="math inline">\(\mathbf{C}\)</span> of <span class="math inline">\(\mathbf{A}\)</span>: <span class="math inline">\(adj\left(\mathbf{A}\right)=\mathbf{C}^\mathbf{T}\)</span>.<a href="tsets.html#fnref7" class="footnote-back">↩︎</a></p></li>
 <li id="fn8"><p>After the elimination of any common factors between the polynomials.<a href="tsets.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>In the terminology of the ETS models this is (A,Ad,N).<a href="tsets.html#fnref9" class="footnote-back">↩︎</a></p></li>
@@ -1008,6 +1099,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

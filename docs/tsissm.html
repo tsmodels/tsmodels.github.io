@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 tsissm package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 tsissm package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-05-22" />
+<meta name="date" content="2021-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -126,6 +128,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -266,8 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> tsissm package</h1>
 <div id="tsissm:introduction" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Introduction</h2>
-<p>The <strong>tsissm</strong> package implements the linear (and homoscedastic) innovations state space model described in <span class="citation"><a href="references.html#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="references.html#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span> and originally proposed by <span class="citation"><a href="references.html#ref-anderson2012optimal" role="doc-biblioref">Anderson and Moore</a> (<a href="references.html#ref-anderson2012optimal" role="doc-biblioref">2012</a>)</span>. It is in some ways similar to the ETS based models described in <span class="citation"><a href="references.html#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, but with the flexibility of incorporating multiple seasonality, ARMA terms and joint maximization of the Box Cox variance stabilizing lambda parameter.</p>
-<p>The following is taken from <span class="citation"><a href="references.html#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="references.html#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span>. Consider the following SEM model:</p>
+<p>The <strong>tsissm</strong> package implements the linear (and homoscedastic) innovations state space model described in <span class="citation"><a href="#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span> and originally proposed by <span class="citation"><a href="#ref-anderson2012optimal" role="doc-biblioref">Anderson and Moore</a> (<a href="#ref-anderson2012optimal" role="doc-biblioref">2012</a>)</span>. It is in some ways similar to the ETS based models described in <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, but with the flexibility of incorporating multiple seasonality, ARMA terms and joint maximization of the Box Cox variance stabilizing lambda parameter.</p>
+<p>The following is taken from <span class="citation"><a href="#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span>. Consider the following SEM model:</p>
 <p><span class="math display" id="eq:tsissm1">\[\begin{equation}
 \begin{array}{l}
 y_t^\lambda  = {\bf{w&#39;}}{{\bf{x}}_{t - 1}} + \bf{c&#39;}\bf{u}_{t - 1}  + {\varepsilon _t}, \quad \varepsilon_t\sim N\left(0,\sigma^2\right),\\
@@ -315,7 +340,7 @@ Define the observation transition vector <span class="math inline">\({\bf{w}} = 
 </div>
 <div id="tsissm:initialization" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> State Initialization</h2>
-<p>A key innovation of the <span class="citation"><a href="references.html#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="references.html#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span> paper is providing the exact initialization of the non-stationary component’s seed states, the exponential smoothing analogue of the <span class="citation"><a href="references.html#ref-de1991diffuse" role="doc-biblioref">De Jong and others</a> (<a href="references.html#ref-de1991diffuse" role="doc-biblioref">1991</a>)</span> method for augmenting the Kalman filter to handle seed states with infinite variances. The proof, based on <span class="citation"><a href="references.html#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="references.html#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span> and expanded here is as follows:</p>
+<p>A key innovation of the <span class="citation"><a href="#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span> paper is providing the exact initialization of the non-stationary component’s seed states, the exponential smoothing analogue of the <span class="citation"><a href="#ref-de1991diffuse" role="doc-biblioref">De Jong and others</a> (<a href="#ref-de1991diffuse" role="doc-biblioref">1991</a>)</span> method for augmenting the Kalman filter to handle seed states with infinite variances. The proof, based on <span class="citation"><a href="#ref-de2011forecasting" role="doc-biblioref">De Livera, Hyndman, and Snyder</a> (<a href="#ref-de2011forecasting" role="doc-biblioref">2011</a>)</span> and expanded here is as follows:</p>
 <p>Let:</p>
 <p><span class="math display" id="eq:tsissm6">\[\begin{equation}
 {\bf{D}} = {\bf{F}} - {\bf{gw&#39;}}.
@@ -373,7 +398,7 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 </div>
 <div id="tsissm:implementation" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Package Implementation</h2>
-<p>The implementation of the model in the <strong>tsissm</strong> package differs significantly from the one provided by <span class="citation"><a href="references.html#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-R-forecast" role="doc-biblioref">2020</a>)</span> in the <code>tbats</code> and <code>bats</code> functions, mainly in terms of a more flexible specification object and more complete methods for working with the model, but currently lacks the automatic model selection functionality.</p>
+<p>The implementation of the model in the <strong>tsissm</strong> package differs significantly from the one provided by <span class="citation"><a href="#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-R-forecast" role="doc-biblioref">2021</a>)</span> in the <code>tbats</code> and <code>bats</code> functions, mainly in terms of a more flexible specification object and more complete methods for working with the model, but currently lacks the automatic model selection functionality.</p>
 <p>Additionally, in order to ensure that the parameters are within the forecastability region, we constrain the characteristics roots of the matrix <span class="math inline">\(\bf{D}\)</span> in <a href="tsissm.html#eq:tsissm2">(5.2)</a>, representing the non-stationary components to be inside the unit circle, and also constrain the ARMA roots for stationarity.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
 </div>
 <div id="tsissm:demonstration" class="section level2" number="5.5">
@@ -521,80 +546,76 @@ L\left( \theta  \right) = T\log \sum\limits_{t = 1}^T {\varepsilon _t^2}  - 2\le
 <span id="cb88-11"><a href="tsissm.html#cb88-11" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
 <span id="cb88-12"><a href="tsissm.html#cb88-12" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">tsfilter</span>(mod, <span class="at">y =</span> electricload[<span class="dv">22001</span><span class="sc">:</span><span class="dv">22100</span>], <span class="at">newxreg =</span> weekends[<span class="dv">22001</span><span class="sc">:</span><span class="dv">22100</span>])</span>
 <span id="cb88-13"><a href="tsissm.html#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">fitted</span>(mod))</span></code></pre></div>
-<pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
 <pre><code>##                         [,1]
-## 2019-04-21 10:00:00 5612.811
-## 2019-04-21 11:00:00 5507.059
-## 2019-04-21 12:00:00 5105.318
-## 2019-04-21 13:00:00 4926.656
-## 2019-04-21 14:00:00 4831.406
-## 2019-04-21 15:00:00 5046.127</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="tsissm.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">tail</span>(<span class="fu">fitted</span>(f1), <span class="dv">100</span>),<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
+## 2019-04-21 10:00:00 5603.237
+## 2019-04-21 11:00:00 5507.236
+## 2019-04-21 12:00:00 5089.185
+## 2019-04-21 13:00:00 4914.440
+## 2019-04-21 14:00:00 4832.111
+## 2019-04-21 15:00:00 5045.866</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="tsissm.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">tail</span>(<span class="fu">fitted</span>(f1), <span class="dv">100</span>),<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                         [,1]
-## 2019-04-21 16:00:00 5435.689
-## 2019-04-21 17:00:00 5821.173
-## 2019-04-21 18:00:00 6156.010
-## 2019-04-21 19:00:00 5908.890
-## 2019-04-21 20:00:00 5289.203
-## 2019-04-21 21:00:00 4885.959
-## 2019-04-21 22:00:00 4507.740
-## 2019-04-21 23:00:00 4226.770
-## 2019-04-22 00:00:00 4232.416
-## 2019-04-22 01:00:00 4112.089</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="tsissm.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f1)</span></code></pre></div>
+## 2019-04-21 16:00:00 5446.676
+## 2019-04-21 17:00:00 5795.231
+## 2019-04-21 18:00:00 6160.462
+## 2019-04-21 19:00:00 5907.228
+## 2019-04-21 20:00:00 5284.130
+## 2019-04-21 21:00:00 4887.613
+## 2019-04-21 22:00:00 4495.786
+## 2019-04-21 23:00:00 4216.449
+## 2019-04-22 00:00:00 4220.968
+## 2019-04-22 01:00:00 4099.671</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="tsissm.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f1)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_filtering-1.png" width="768" /></p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="tsissm.html#cb95-1" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">tsfilter</span>(f1, <span class="at">y =</span> electricload[<span class="dv">22100</span><span class="sc">:</span><span class="dv">22200</span>], <span class="at">newxreg =</span> weekends[<span class="dv">22100</span><span class="sc">:</span><span class="dv">22200</span>])</span>
-<span id="cb95-2"><a href="tsissm.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">fitted</span>(f1))</span></code></pre></div>
-<pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="tsissm.html#cb93-1" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">tsfilter</span>(f1, <span class="at">y =</span> electricload[<span class="dv">22100</span><span class="sc">:</span><span class="dv">22200</span>], <span class="at">newxreg =</span> weekends[<span class="dv">22100</span><span class="sc">:</span><span class="dv">22200</span>])</span>
+<span id="cb93-2"><a href="tsissm.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">fitted</span>(f1))</span></code></pre></div>
 <pre><code>##                         [,1]
-## 2019-04-25 14:00:00 5734.835
-## 2019-04-25 15:00:00 5753.658
-## 2019-04-25 16:00:00 5956.945
-## 2019-04-25 17:00:00 6076.382
-## 2019-04-25 18:00:00 6092.518
-## 2019-04-25 19:00:00 5670.018</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="tsissm.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">tail</span>(<span class="fu">fitted</span>(f2), <span class="dv">100</span>),<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## Warning: timezone of object (UTC) is different than current timezone ().</code></pre>
+## 2019-04-25 14:00:00 5740.874
+## 2019-04-25 15:00:00 5759.819
+## 2019-04-25 16:00:00 5968.466
+## 2019-04-25 17:00:00 6052.751
+## 2019-04-25 18:00:00 6085.724
+## 2019-04-25 19:00:00 5675.171</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="tsissm.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">tail</span>(<span class="fu">fitted</span>(f2), <span class="dv">100</span>),<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                         [,1]
-## 2019-04-25 20:00:00 5076.040
-## 2019-04-25 21:00:00 4738.149
-## 2019-04-25 22:00:00 4389.506
-## 2019-04-25 23:00:00 4184.523
-## 2019-04-26 00:00:00 4134.794
-## 2019-04-26 01:00:00 4068.247
-## 2019-04-26 02:00:00 3984.113
-## 2019-04-26 03:00:00 4220.778
-## 2019-04-26 04:00:00 4403.661
-## 2019-04-26 05:00:00 4628.052</code></pre>
+## 2019-04-25 20:00:00 5083.078
+## 2019-04-25 21:00:00 4760.420
+## 2019-04-25 22:00:00 4393.773
+## 2019-04-25 23:00:00 4188.600
+## 2019-04-26 00:00:00 4145.501
+## 2019-04-26 01:00:00 4058.967
+## 2019-04-26 02:00:00 3974.263
+## 2019-04-26 03:00:00 4224.661
+## 2019-04-26 04:00:00 4393.636
+## 2019-04-26 05:00:00 4603.391</code></pre>
 </div>
 <div id="tsissm:demonstration:profiling" class="section level3" number="5.5.6">
 <h3><span class="header-section-number">5.5.6</span> Profiling</h3>
 <p>The <code>tsprofile</code> function profiles an estimated model by simulating and then estimating multiple paths from the assumed DGP while leaving <code>h</code> values out for prediction evaluation. Each simulated path is equal to the size of the original dataset plus <code>h</code> additional values, and initialized with the initial state vector from the model. The resulting output contains the distribution of the MAPE, percent bias (BIAS) and mean squared log relative error (MSLRE) per horizon <code>h</code>. Since these matrices are of class <code>tsmodel.distribution</code> they can be readily plotted with the special purpose <code>plot</code> function for this class from the <strong>tsmethods</strong> package. Additionally, a data.table matrix is also return with the distribution of the coefficients from each path estimation.
 As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</code> object does not support <code>newxreg</code>.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="tsissm.html#cb101-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(electricload, <span class="at">slope =</span> T, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb101-2"><a href="tsissm.html#cb101-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">4500</span>),</span>
-<span id="cb101-3"><a href="tsissm.html#cb101-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
-<span id="cb101-4"><a href="tsissm.html#cb101-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>), <span class="at">ar =</span> <span class="dv">2</span>, <span class="at">ma =</span> <span class="dv">2</span>, </span>
-<span id="cb101-5"><a href="tsissm.html#cb101-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fl">0.25</span>)</span>
-<span id="cb101-6"><a href="tsissm.html#cb101-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
-<span id="cb101-7"><a href="tsissm.html#cb101-7" aria-hidden="true" tabindex="-1"></a>prof <span class="ot">&lt;-</span> <span class="fu">tsprofile</span>(mod, <span class="at">h =</span> <span class="dv">24</span><span class="sc">*</span><span class="dv">7</span>, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
-<span id="cb101-8"><a href="tsissm.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prof)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="tsissm.html#cb97-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(electricload, <span class="at">slope =</span> T, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb97-2"><a href="tsissm.html#cb97-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">4500</span>),</span>
+<span id="cb97-3"><a href="tsissm.html#cb97-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
+<span id="cb97-4"><a href="tsissm.html#cb97-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>), <span class="at">ar =</span> <span class="dv">2</span>, <span class="at">ma =</span> <span class="dv">2</span>, </span>
+<span id="cb97-5"><a href="tsissm.html#cb97-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fl">0.25</span>)</span>
+<span id="cb97-6"><a href="tsissm.html#cb97-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
+<span id="cb97-7"><a href="tsissm.html#cb97-7" aria-hidden="true" tabindex="-1"></a>prof <span class="ot">&lt;-</span> <span class="fu">tsprofile</span>(mod, <span class="at">h =</span> <span class="dv">24</span><span class="sc">*</span><span class="dv">7</span>, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
+<span id="cb97-8"><a href="tsissm.html#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prof)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_profile-1.png" width="768" /></p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="tsissm.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prof, <span class="at">type =</span> <span class="st">&quot;coef&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="tsissm.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prof, <span class="at">type =</span> <span class="st">&quot;coef&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_profile-2.png" width="768" /></p>
 </div>
 <div id="tsissm:demonstration:backtesting" class="section level3" number="5.5.7">
 <h3><span class="header-section-number">5.5.7</span> Backtesting</h3>
 <p>The <code>tsbacktest</code> method generates an expanding window walk forward backtest, returning a list with the estimation/horizon predictions against actuals as well as a table of average performance metrics by horizon.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="tsissm.html#cb103-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(electricload, <span class="at">slope =</span> T, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb103-2"><a href="tsissm.html#cb103-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">4500</span>),</span>
-<span id="cb103-3"><a href="tsissm.html#cb103-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
-<span id="cb103-4"><a href="tsissm.html#cb103-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>), <span class="at">ar =</span> <span class="dv">2</span>, <span class="at">ma =</span> <span class="dv">2</span>, </span>
-<span id="cb103-5"><a href="tsissm.html#cb103-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fl">0.25</span>)</span>
-<span id="cb103-6"><a href="tsissm.html#cb103-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">start =</span> <span class="dv">22150</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="at">cores =</span> <span class="dv">5</span>, </span>
-<span id="cb103-7"><a href="tsissm.html#cb103-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">data_name =</span> <span class="st">&quot;electricity&quot;</span>, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb103-8"><a href="tsissm.html#cb103-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>metrics)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="tsissm.html#cb99-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(electricload, <span class="at">slope =</span> T, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb99-2"><a href="tsissm.html#cb99-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">4500</span>),</span>
+<span id="cb99-3"><a href="tsissm.html#cb99-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
+<span id="cb99-4"><a href="tsissm.html#cb99-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>), <span class="at">ar =</span> <span class="dv">2</span>, <span class="at">ma =</span> <span class="dv">2</span>, </span>
+<span id="cb99-5"><a href="tsissm.html#cb99-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fl">0.25</span>)</span>
+<span id="cb99-6"><a href="tsissm.html#cb99-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">start =</span> <span class="dv">22150</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="at">cores =</span> <span class="dv">5</span>, </span>
+<span id="cb99-7"><a href="tsissm.html#cb99-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">data_name =</span> <span class="st">&quot;electricity&quot;</span>, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb99-8"><a href="tsissm.html#cb99-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>metrics)</span></code></pre></div>
 <pre><code>##    horizon    variable       MAPE        MSLRE        BIAS  n MIS[0.02]
 ## 1:       1 electricity 0.02261820 0.0008835602 0.002747156 73  907.8133
 ## 2:       2 electricity 0.04031744 0.0029330549 0.003061655 72 2300.7697
@@ -609,23 +630,23 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 ## 4: 1761.5137
 ## 5: 2151.8446
 ## 6: 2447.4152</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="tsissm.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(b<span class="sc">$</span>metrics<span class="sc">$</span>horizon, b<span class="sc">$</span>metrics<span class="sc">$</span>MAPE<span class="sc">*</span><span class="dv">100</span>, <span class="at">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
-<span id="cb105-2"><a href="tsissm.html#cb105-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
-<span id="cb105-3"><a href="tsissm.html#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="tsissm.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(b<span class="sc">$</span>metrics<span class="sc">$</span>horizon, b<span class="sc">$</span>metrics<span class="sc">$</span>MAPE<span class="sc">*</span><span class="dv">100</span>, <span class="at">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb101-2"><a href="tsissm.html#cb101-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
+<span id="cb101-3"><a href="tsissm.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/issm_backtest-1.png" width="768" /></p>
 <p>The variable <code>n</code> in the table reports the number of h-step ahead predictions made on which the average metrics were calculated.</p>
 </div>
 <div id="tsissm:demonstration:benchmarking" class="section level3" number="5.5.8">
 <h3><span class="header-section-number">5.5.8</span> Benchmarking</h3>
 <p>The <code>tsbenchmark*</code> method is used to benchmark a model for timing and accuracy and can be used as a unit testing function.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="tsissm.html#cb106-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(electricload, <span class="at">slope =</span> T, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb106-2"><a href="tsissm.html#cb106-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">4500</span>),</span>
-<span id="cb106-3"><a href="tsissm.html#cb106-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
-<span id="cb106-4"><a href="tsissm.html#cb106-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>), <span class="at">ar =</span> <span class="dv">2</span>, <span class="at">ma =</span> <span class="dv">2</span>, </span>
-<span id="cb106-5"><a href="tsissm.html#cb106-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fl">0.25</span>)</span>
-<span id="cb106-6"><a href="tsissm.html#cb106-6" aria-hidden="true" tabindex="-1"></a>bench <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">tsbenchmark</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>),</span>
-<span id="cb106-7"><a href="tsissm.html#cb106-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tsbenchmark</span>(spec, <span class="at">solver =</span> <span class="st">&quot;optim&quot;</span>))</span>
-<span id="cb106-8"><a href="tsissm.html#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bench)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="tsissm.html#cb102-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(electricload, <span class="at">slope =</span> T, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb102-2"><a href="tsissm.html#cb102-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">4500</span>),</span>
+<span id="cb102-3"><a href="tsissm.html#cb102-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
+<span id="cb102-4"><a href="tsissm.html#cb102-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">6</span>), <span class="at">ar =</span> <span class="dv">2</span>, <span class="at">ma =</span> <span class="dv">2</span>, </span>
+<span id="cb102-5"><a href="tsissm.html#cb102-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fl">0.25</span>)</span>
+<span id="cb102-6"><a href="tsissm.html#cb102-6" aria-hidden="true" tabindex="-1"></a>bench <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">tsbenchmark</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>),</span>
+<span id="cb102-7"><a href="tsissm.html#cb102-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tsbenchmark</span>(spec, <span class="at">solver =</span> <span class="st">&quot;optim&quot;</span>))</span>
+<span id="cb102-8"><a href="tsissm.html#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bench)</span></code></pre></div>
 <pre><code>##                  start                 end              spec
 ## 1: 2020-11-29 02:53:11 2020-11-29 02:55:41 &lt;tsissm.spec[10]&gt;
 ## 2: 2020-11-29 02:55:41 2020-11-29 02:56:12 &lt;tsissm.spec[10]&gt;
@@ -635,6 +656,24 @@ As of version , the <code>tsprofile</code> method on a <code>tsissm.estimate</co
 <p>The implementation of the constraints for both the <span class="math inline">\(\bf{D}\)</span> matrix as well as the ARMA roots are non-smooth and hence care should be taken in checking the solution.</p>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-anderson2012optimal" class="csl-entry">
+Anderson, Brian DO, and John B Moore. 2012. <em>Optimal Filtering</em>. Courier Corporation.
+</div>
+<div id="ref-de1991diffuse" class="csl-entry">
+De Jong, Piet, and others. 1991. <span>“The Diffuse Kalman Filter.”</span> <em>The Annals of Statistics</em> 19 (2): 1073–83.
+</div>
+<div id="ref-de2011forecasting" class="csl-entry">
+De Livera, Alysha M, Rob J Hyndman, and Ralph D Snyder. 2011. <span>“Forecasting Time Series with Complex Seasonal Patterns Using Exponential Smoothing.”</span> <em>Journal of the American Statistical Association</em> 106 (496): 1513–27.
+</div>
+<div id="ref-R-forecast" class="csl-entry">
+Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2021. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
+</div>
+<div id="ref-hyndman2008" class="csl-entry">
+Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.
 </div>
 </div>
 <div class="footnotes">
@@ -676,6 +715,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

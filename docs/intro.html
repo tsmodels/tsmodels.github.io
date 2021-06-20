@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Introduction | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Introduction | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-05-22" />
+<meta name="date" content="2021-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -126,6 +128,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -265,8 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="intro" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
 <p>The <strong>tsmodels</strong> framework provides a set of probabilistic time series forecasting models with common calling conventions and methods.
-Our objective was to provide a set of models which offer fast estimation, explainable decomposition and probabilistic predictions which can also be ensembled. Many of the models we have so far released are based on <span class="citation"><a href="references.html#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, some of which are already implemented in the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package, but we have chosen to re-write the models from scratch based on our own design choices. Some of these choices include exclusive use of <a href="https://cran.r-project.org/web/packages/xts/"><strong>xts</strong></a> objects to represent time series data, <a href="https://cran.r-project.org/web/packages/data.table/"><strong>data.table</strong></a> for certain outputs, probabilistic distributions for predictions via simulation as well as a feature rich set of methods to work with these models.</p>
-<p>We would be remiss if we were not to mention that alternative implementations exist within the single source of error (SEM) framework in R, including the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation"><a href="references.html#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="references.html#ref-R-forecast" role="doc-biblioref">2020</a>)</span> and <a href="https://cran.r-project.org/web/packages/smooth/"><strong>smooth</strong></a> package of <span class="citation"><a href="references.html#ref-R-smooth" role="doc-biblioref">Svetunkov</a> (<a href="references.html#ref-R-smooth" role="doc-biblioref">2020</a>)</span>, with their own design decisions. We make no representation as to what is likely to be more useful for a particular user, simply that our representation and framework is the right one for us. The set of packages we have released and plan to release may include bugs, and we encourage users to submit bug reports through the github issues system.</p>
+Our objective was to provide a set of models which offer fast estimation, explainable decomposition and probabilistic predictions which can also be ensembled. Many of the models we have so far released are based on <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, some of which are already implemented in the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package, but we have chosen to re-write the models from scratch based on our own design choices. Some of these choices include exclusive use of <a href="https://cran.r-project.org/web/packages/xts/"><strong>xts</strong></a> objects to represent time series data, <a href="https://cran.r-project.org/web/packages/data.table/"><strong>data.table</strong></a> for certain outputs, probabilistic distributions for predictions via simulation as well as a feature rich set of methods to work with these models.</p>
+<p>We would be remiss if we were not to mention that alternative implementations exist within the single source of error (SEM) framework in R, including the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation"><a href="#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-R-forecast" role="doc-biblioref">2021</a>)</span> and <a href="https://cran.r-project.org/web/packages/smooth/"><strong>smooth</strong></a> package of <span class="citation"><a href="#ref-R-smooth" role="doc-biblioref">Svetunkov</a> (<a href="#ref-R-smooth" role="doc-biblioref">2020</a>)</span>, with their own design decisions. We make no representation as to what is likely to be more useful for a particular user, simply that our representation and framework is the right one for us. The set of packages we have released and plan to release may include bugs, and we encourage users to submit bug reports through the github issues system.</p>
 <p>A summary of the currently available packages is given below:</p>
 <table>
 <thead>
@@ -396,6 +421,18 @@ Factor Models
 <p>See the <a href="news-updates.html#news:updates">News</a> section for updates.</p>
 
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-forecast" class="csl-entry">
+Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2021. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
+</div>
+<div id="ref-hyndman2008" class="csl-entry">
+Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-R-smooth" class="csl-entry">
+Svetunkov, Ivan. 2020. <em>Smooth: Forecasting Using State Space Models</em>. <a href="https://CRAN.R-project.org/package=smooth">https://CRAN.R-project.org/package=smooth</a>.
+</div>
+</div>
             </section>
 
           </div>
@@ -425,6 +462,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
