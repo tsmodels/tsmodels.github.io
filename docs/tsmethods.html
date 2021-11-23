@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 tsmethods package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 tsmethods package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-06-20" />
+<meta name="date" content="2021-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="intro.html"/>
 <link rel="next" href="tsets.html"/>
-<script src="libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +43,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -70,6 +70,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -264,7 +265,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="news-updates.html"><a href="news-updates.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
+<li class="chapter" data-level="10" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
 <li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -291,7 +292,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 3</span> tsmethods package</h1>
 <div id="introduction" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
-<p>The <strong>tsmethods</strong> package provides a set of common methods for use in other packages in our framework. Additionally, it also exports <code>plot</code> methods for objects of class <code>tsmodel.predict</code>, which is the output class from all calls to the <code>predict</code> method, as well as for objects of class <code>tsmodel.distribution</code>, which is a subclass within <code>tsmodel.predict</code> providing the simulated or MCMC based forecast distribution.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Finally, the package also includes the methods for ensembling distributions. Table <a href="tsmethods.html#tab:methods">3.1</a> below provides the currently exported methods for each of the packages which have been released. We have tried to work with existing S3 methods in the <strong>stats</strong> package where possible including: <code>summary</code>, <code>coef</code>, <code>logLik</code>, <code>AIC</code>, <code>fitted</code>, <code>residuals</code>, <code>predict</code> and <code>simulate</code>. However, we have also created custom methods such as <code>estimate</code> (for model estimation from a specification object), <code>tsdecompose</code> (for time series decomposition of structural time series type models), <code>tsfilter</code> for online filtering,<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <code>tsbacktest</code> (for automated backtesting) as well as a number of other methods documented in their individual packages.</p>
+<p>The <strong>tsmethods</strong> package provides a set of common methods for use in other packages in our framework. Additionally, it also exports <code>plot</code> methods for objects of class <code>tsmodel.predict</code>, which is the output class from all calls to the <code>predict</code> method, as well as for objects of class <code>tsmodel.distribution</code>, which is a subclass within <code>tsmodel.predict</code> providing the simulated or MCMC based forecast distribution.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Finally, the package also includes the methods for ensembling distributions. Table <a href="tsmethods.html#tab:methods">3.1</a> below provides the currently exported methods for each of the packages which have been released. We have tried to work with existing S3 methods in the <strong>stats</strong> package where possible including: <code>summary</code>, <code>coef</code>, <code>logLik</code>, <code>AIC</code>, <code>fitted</code>, <code>residuals</code>, <code>predict</code> and <code>simulate</code>. However, we have also created custom methods such as <code>estimate</code> (for model estimation from a specification object), <code>tsdecompose</code> (for time series decomposition of structural time series type models), <code>tsfilter</code> for online filtering,<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <code>tsbacktest</code> (for automatic backtesting) as well as a number of other methods documented in their individual packages.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:methods">TABLE 3.1: </span>Implemented Methods
@@ -816,7 +817,6 @@ tsequation
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -856,6 +856,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

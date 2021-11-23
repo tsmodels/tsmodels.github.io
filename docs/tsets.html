@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 tsets package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 tsets package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-06-20" />
+<meta name="date" content="2021-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="tsmethods.html"/>
 <link rel="next" href="tsissm.html"/>
-<script src="libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +43,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -70,6 +70,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -264,7 +265,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="news-updates.html"><a href="news-updates.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
+<li class="chapter" data-level="10" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
 <li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -501,7 +502,7 @@ Observation
 <span class="math inline">\({y_t} = {l_{t - 1}} + \phi{b_{t - 1}} + {s_{t - m}} + \bf{x}_{t - 1}\bf{w} + \varepsilon_t\)</span>
 </td>
 <td style="text-align:center;">
-<span class="math inline">\({y_t} = {l_{t - 1}}{b_{t-1}^\phi}\left(\bf{x}_{t-1}\bf{w}\right){s_{t - m}}\left(1 + \varepsilon _t\right)\)</span>
+<span class="math inline">\({y_t} = {l_{t - 1}}{b_{t-1}^\phi}\left(1.0 + \bf{x}_{t-1}\bf{w}\right){s_{t - m}}\left(1 + \varepsilon _t\right)\)</span>
 </td>
 </tr>
 <tr>
@@ -512,7 +513,7 @@ Mean
 <span class="math inline">\({\mu _t} = {l_{t - 1}} + \phi{b_{t - 1}} + {s_{t - m}} + {{\bf{x}}_{t - 1}}{\bf{w}}\)</span>
 </td>
 <td style="text-align:center;">
-<span class="math inline">\({\mu_t} = {l_{t - 1}}{b^\phi_{t - 1}}\left( {{{\bf{x}}_{t-1}}{\bf{w}}} \right){s_{t - m}}\)</span>
+<span class="math inline">\({\mu_t} = {l_{t - 1}}{b^\phi_{t - 1}}\left( {{{1.0 + \bf{x}}_{t-1}}{\bf{w}}} \right){s_{t - m}}\)</span>
 </td>
 </tr>
 <tr>
@@ -534,7 +535,7 @@ Error
 <span class="math inline">\({\varepsilon _t} = {y_t} - {\mu _t}\)</span>
 </td>
 <td style="text-align:center;">
-<span class="math inline">\({\varepsilon _t} = \frac{{{y_t} - {\mu _t}}}{{{l_{t - 1}}{b}_{t - 1}^\phi \left( {{{\bf{x}}_{t-1}}{\bf{w}}} \right){s_{t - m}}}}\)</span>
+<span class="math inline">\({\varepsilon _t} = \frac{{{y_t} - {\mu _t}}}{{{l_{t - 1}}{b}_{t - 1}^\phi \left( {{{1.0 + \bf{x}}_{t-1}}{\bf{w}}} \right){s_{t - m}}}}\)</span>
 </td>
 </tr>
 <tr>
@@ -702,7 +703,8 @@ Seasonal[State]
 <pre><code>## function (y, model = &quot;AAN&quot;, damped = FALSE, power = FALSE, xreg = NULL, 
 ##     frequency = NULL, lambda = NULL, normalized_seasonality = TRUE, 
 ##     fixed_pars = NULL, scale = FALSE, seasonal_init = &quot;fixed&quot;, 
-##     lambda_lower = 0, lambda_upper = 1, sampling = NULL, ...) 
+##     lambda_lower = 0, lambda_upper = 1, sampling = NULL, xreg_init = TRUE, 
+##     ...) 
 ## NULL</code></pre>
 <p>This requires passing in an <code>xts</code> vector <code>y</code>, followed by a number of options described below:</p>
 <ul>
@@ -766,7 +768,7 @@ Seasonal[State]
 <pre><code>## [1] 12360.86</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tsets.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div>
 <pre><code>##         alpha          beta         gamma            l0            b0 
-##    0.03476941    0.00010000    0.00000000 7108.56039378    2.76189969 
+##    0.03476941    0.00010000    0.00000000 7108.56039379    2.76189969 
 ##            s0            s1            s2            s3            s4 
 ## -511.18996952 -456.41526245 -461.98649919 -139.91350053  -54.69925501 
 ##            s5            s6            s7            s8            s9 
@@ -964,12 +966,12 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="tsets.html#cb61-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">h =</span> <span class="dv">52</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.1</span>), <span class="at">trace =</span> <span class="dv">0</span>, <span class="at">cores =</span> <span class="dv">4</span>)</span>
 <span id="cb61-2"><a href="tsets.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>metrics)</span></code></pre></div>
 <pre><code>##    horizon variable       MAPE       MSLRE          BIAS   n MIS[0.02] MIS[0.1]
-## 1:       1        y 0.02719118 0.001169433 -0.0004603201 347  1679.139 1188.918
-## 2:       2        y 0.02693041 0.001155618 -0.0004865995 346  1708.493 1188.310
-## 3:       3        y 0.02705806 0.001158089 -0.0003868899 345  1686.740 1175.872
-## 4:       4        y 0.02708764 0.001164290 -0.0004667140 344  1709.906 1183.159
-## 5:       5        y 0.02708754 0.001163591 -0.0004585236 343  1734.368 1186.050
-## 6:       6        y 0.02687278 0.001146714 -0.0006670401 342  1695.671 1183.411</code></pre>
+## 1:       1        y 0.02704803 0.001167260 -1.268449e-04 347  1697.782 1189.753
+## 2:       2        y 0.02673161 0.001145531 -9.142468e-05 346  1689.133 1173.465
+## 3:       3        y 0.02686768 0.001147393 -2.440922e-04 345  1683.990 1179.160
+## 4:       4        y 0.02700485 0.001165606 -1.765628e-04 344  1721.288 1184.287
+## 5:       5        y 0.02699399 0.001158325 -2.007896e-04 343  1691.327 1173.748
+## 6:       6        y 0.02677531 0.001147042 -4.639481e-04 342  1664.977 1189.225</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="tsets.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(b<span class="sc">$</span>metrics<span class="sc">$</span>horizon, b<span class="sc">$</span>metrics<span class="sc">$</span>MAPE<span class="sc">*</span><span class="dv">100</span>, <span class="at">main =</span> <span class="st">&quot;Horizon MAPE&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
 <span id="cb63-2"><a href="tsets.html#cb63-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;MAPE[%]&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;horizon&quot;</span>)</span>
 <span id="cb63-3"><a href="tsets.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
@@ -983,9 +985,9 @@ Innovations for the simulation can either be parametric (normal for additive or 
 <span id="cb64-3"><a href="tsets.html#cb64-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tsbenchmark</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>))</span>
 <span id="cb64-4"><a href="tsets.html#cb64-4" aria-hidden="true" tabindex="-1"></a>bench</span></code></pre></div>
 <pre><code>##                  start                 end            spec            estimate
-## 1: 2021-06-20 11:41:00 2021-06-20 11:41:01 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
-## 2: 2021-06-20 11:41:01 2021-06-20 11:41:01 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
-## 3: 2021-06-20 11:41:01 2021-06-20 11:41:01 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
+## 1: 2021-11-21 07:03:40 2021-11-21 07:03:40 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
+## 2: 2021-11-21 07:03:40 2021-11-21 07:03:40 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
+## 3: 2021-11-21 07:03:40 2021-11-21 07:03:40 &lt;tsets.spec[5]&gt; &lt;tsets.estimate[4]&gt;
 ##    solver control    loglik
 ## 1:  optim       0 -6125.443
 ## 2: nlminb       0 -6123.430
@@ -1080,7 +1082,6 @@ Winters, Peter R. 1960. <span>“Forecasting Sales by Exponentially Weighted Mov
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1120,6 +1121,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }
