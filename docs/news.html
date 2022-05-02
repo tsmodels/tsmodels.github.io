@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 News | A Time Series Framework</title>
+  <title>Chapter 11 News | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 News | A Time Series Framework" />
+  <meta property="og:title" content="Chapter 11 News | A Time Series Framework" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 News | A Time Series Framework" />
+  <meta name="twitter:title" content="Chapter 11 News | A Time Series Framework" />
   
   <meta name="twitter:description" content="Documentation for the tsmodels framework" />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-11-21" />
+<meta name="date" content="2022-05-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="other.html"/>
+<link rel="prev" href="experimental.html"/>
 <link rel="next" href="team.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -265,8 +265,16 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
-<li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>10</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>10.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>10.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>10.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>11</b> News</a></li>
+<li class="chapter" data-level="12" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>12</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -288,9 +296,39 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="news" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> News</h1>
+<div id="news" class="section level1" number="11">
+<h1><span class="header-section-number">Chapter 11</span> News</h1>
 <ul>
+<li>Date: 2022-04-30
+<ul>
+<li>Missing value handling now available in the <strong>tsvets</strong> package for both
+estimation and filtering.</li>
+</ul></li>
+<li>Date: 2022-04-13
+<ul>
+<li>Most of the packages have replaced the use of snow and foreach with the
+functionality of the <a href="https://cran.r-project.org/web/packages/future/index.html">future</a>
+package. This eliminates the cores argument in many functions (such as <code>tsbacktest</code>)
+and hence may break some backwards compatibility. However, the user can now
+provide a future <code>plan</code> (including using remote servers) and is generally
+much more flexible. Additionally, tracing is now handled by the <a href="https://cran.r-project.org/web/packages/progressr/index.html">progressr</a>
+package which requires the user to provide handlers for the type of output
+they wish (including beeps).</li>
+<li>A lot of additional functionality has been added, some of it experimental
+such as the <code>tscalibrate</code> method for empirical distribution calibration via
+backtesting with support in the <code>predict</code> function for the output of this
+calibration. In other places we have added extra features such as in the
+<code>tsdecompose</code> method to return a simplifed state space set of components
+(Trend, Seasonal, ARMA if available, Irregular). Additionally, we have
+changed the indexing of the decomposed states so that summing them up
+will return the exact predictive distribution.</li>
+<li>The logit transformation is part of the <code>tstransform</code> method, from the <strong>tsaux</strong>
+package, which also includes the Box-Cox. Unifying the transformations under
+this auxiliary function will allow us to expand to potentially other methods
+going forward. The logit was chosen in order to model certain series which
+are bounded in the [0,1] domain, and makes an assumption that they follow
+a Logit-Normal distribution.</li>
+</ul></li>
 <li>Date: 2021-11-19
 <ul>
 <li>The <a href="https://github.com/tsmodels/tsvetsad">tsvetsad</a> package now implements
@@ -337,7 +375,7 @@ not yet decided on the implementation. This may come at a future date.</li>
           </div>
         </div>
       </div>
-<a href="other.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="experimental.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="team.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

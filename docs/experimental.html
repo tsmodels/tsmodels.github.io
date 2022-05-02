@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Time Series Framework</title>
+  <title>Chapter 10 Experimental Functionality | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Time Series Framework" />
+  <meta property="og:title" content="Chapter 10 Experimental Functionality | A Time Series Framework" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Time Series Framework" />
+  <meta name="twitter:title" content="Chapter 10 Experimental Functionality | A Time Series Framework" />
   
   <meta name="twitter:description" content="Documentation for the tsmodels framework" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html"/>
+<link rel="prev" href="other.html"/>
+<link rel="next" href="news.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -296,37 +296,53 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">A Time Series Framework</h1>
-<p class="author"><em>The tsmodels team</em></p>
-<p class="date"><em>2022-05-02</em></p>
+<div id="experimental" class="section level1" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Experimental Functionality</h1>
+<p>We have included some experimental functionality which we provide details of here.</p>
+<div id="calibration-of-predictive-distributions" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Calibration of Predictive Distributions</h2>
+<p>Many time series models due to their parametric nature make strong assumptions
+about both the shape of the predictive distribution (shape) as well as the
+multi-step ahead evolution of the variance (scale). In practice we find that both
+the shape and form of the variance curve results in under or over sizing as
+measured by the % of exceedances falling within each quantile. In the additive
+ETS model without seasonality (AAN), the shape of the standardized error
+distribution is N(0,1) while the variance evolves based on the following formula:</p>
+<p><span class="math display">\[
+v_{t+h|t} = \sigma^2\left[1 + \left(h-1\right)\left\{\alpha^2 + \alpha\beta h + \frac{1}{6}\beta^2 h \left(2h - 1\right)\right\}\right]
+\]</span>
+which is linear in h when the coefficient on the slope is zero and cubic otherwise.
+The issue of well calibrated distributions has been discussed in many papers, particularly
+in the ML domain for both regression and classification.</p>
+<p>The purpose of the calibration function is to empirically adjust the multi-step
+variance based on the observed variance from a rolling prediction (backtest)
+as well as provide an alternative empirical sampling for the shape of the
+distribution.</p>
+<div id="example-coming-soon" class="section level3" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Example [Coming Soon]</h3>
 </div>
-<div id="installation" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Installation</h1>
-<p>Until such time as the packages make it to CRAN, please use the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsmethods&quot;</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsdatasets&quot;</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsaux&quot;</span>)</span>
-<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsetsad&quot;</span>)</span>
-<span id="cb1-5"><a href="index.html#cb1-5" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsets&quot;</span>)</span>
-<span id="cb1-6"><a href="index.html#cb1-6" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsissmad&quot;</span>)</span>
-<span id="cb1-7"><a href="index.html#cb1-7" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsissm&quot;</span>)</span>
-<span id="cb1-8"><a href="index.html#cb1-8" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsvetsad&quot;</span>)</span>
-<span id="cb1-9"><a href="index.html#cb1-9" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsvets&quot;</span>)</span>
-<span id="cb1-10"><a href="index.html#cb1-10" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tsforeign&quot;</span>)</span>
-<span id="cb1-11"><a href="index.html#cb1-11" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;tsmodels/tscausal&quot;</span>)</span></code></pre></div>
-<p>The first 2 are required to be installed before any of the other packages. Also note,
-that additional dependencies may be required such as <strong>Rcpp</strong> and <strong>RcppArmadillo</strong>,
-and <strong>bsts</strong> for <strong>tsforeign</strong>.</p>
+</div>
+<div id="beyond-box-cox-the-logit-normal-assumption-for-ratios" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</h2>
+<p>For series which are strongly bounded, for instance ratios or probabilities,
+a simple approach is to assume that the log transformed odd ratios are normal,
+leading to a <a href="https://en.wikipedia.org/wiki/Logit-normal_distribution"><strong>logit-normal distributional</strong></a>
+assumption, which is a simpler alternative to using the Beta distribution.
+The <em>tstransform</em> function provides the option for using either the “box-cox”
+or “logit” transforms, returning both the transform and inverse functions which
+are used by a number of packages in our framework. The <code>transformation</code> argument
+in the model specification across most of the internally developed packages will
+now accept either “box-cox” or “logit” as valid options.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="other.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="news.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

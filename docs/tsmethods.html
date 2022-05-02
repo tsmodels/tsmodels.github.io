@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-11-21" />
+<meta name="date" content="2022-05-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -265,8 +265,16 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
-<li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>10</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>10.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>10.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>10.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>11</b> News</a></li>
+<li class="chapter" data-level="12" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>12</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -292,7 +300,22 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 3</span> tsmethods package</h1>
 <div id="introduction" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
-<p>The <strong>tsmethods</strong> package provides a set of common methods for use in other packages in our framework. Additionally, it also exports <code>plot</code> methods for objects of class <code>tsmodel.predict</code>, which is the output class from all calls to the <code>predict</code> method, as well as for objects of class <code>tsmodel.distribution</code>, which is a subclass within <code>tsmodel.predict</code> providing the simulated or MCMC based forecast distribution.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Finally, the package also includes the methods for ensembling distributions. Table <a href="tsmethods.html#tab:methods">3.1</a> below provides the currently exported methods for each of the packages which have been released. We have tried to work with existing S3 methods in the <strong>stats</strong> package where possible including: <code>summary</code>, <code>coef</code>, <code>logLik</code>, <code>AIC</code>, <code>fitted</code>, <code>residuals</code>, <code>predict</code> and <code>simulate</code>. However, we have also created custom methods such as <code>estimate</code> (for model estimation from a specification object), <code>tsdecompose</code> (for time series decomposition of structural time series type models), <code>tsfilter</code> for online filtering,<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <code>tsbacktest</code> (for automatic backtesting) as well as a number of other methods documented in their individual packages.</p>
+<p>The <strong>tsmethods</strong> package provides a set of common methods for use in other packages
+in our framework. Additionally, it also exports <code>plot</code> methods for objects of
+class <code>tsmodel.predict</code>, which is the output class from all calls to the <code>predict</code> method,
+as well as for objects of class <code>tsmodel.distribution</code>, which is a subclass
+within <code>tsmodel.predict</code> providing the simulated or MCMC based forecast
+distribution.<a href="references.html#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Finally, the
+package also includes the methods for ensembling distributions.
+Table <a href="tsmethods.html#tab:methods">3.1</a> below provides the currently exported methods for each
+of the packages which have been released. We have tried to work with existing
+S3 methods in the <strong>stats</strong> package where possible
+including: <code>summary</code>, <code>coef</code>, <code>logLik</code>, <code>AIC</code>, <code>fitted</code>, <code>residuals</code>, <code>predict</code>
+and <code>simulate</code>. However, we have also created custom methods such as <code>estimate</code>
+(for model estimation from a specification object), <code>tsdecompose</code> (for time
+series decomposition of structural time series type models), <code>tsfilter</code> for
+online filtering,<a href="references.html#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <code>tsbacktest</code> (for automatic backtesting) as well
+as a number of other methods documented in their individual packages.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:methods">TABLE 3.1: </span>Implemented Methods
@@ -629,6 +652,36 @@ tsreport
 </tr>
 <tr>
 <td style="text-align:left;">
+tsmoments
+</td>
+<td style="text-align:center;">
+✓
+</td>
+<td style="text-align:center;">
+✓
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tscalibrate
+</td>
+<td style="text-align:center;">
+✓
+</td>
+<td style="text-align:center;">
+✓
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 tscor
 </td>
 <td style="text-align:center;">
@@ -704,12 +757,29 @@ tsequation
 <p>Ensembling in the tsmodels framework proceeds as follows:</p>
 <ul>
 <li>(Separate) models are estimated for either the same series or a set of different series.</li>
-<li>The residuals of the estimated series are collected and the residual correlation is calculated. For very large-dimensional systems (where <span class="math inline">\(N\)</span> &gt; <span class="math inline">\(T\)</span>) it is possible instead to use a factor model to extract the correlations, but we leave this for a separate discussion.</li>
-<li>The estimated correlations are then used to generate correlated samples on the unit hypercube (using for instance a copula).</li>
-<li>These samples are then passed to the <code>innov</code> argument in the <code>predict</code> method of each model, at which time they are transformed to normal random variables with variance equal to the estimated model variance.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> A key reason for using uniform variates and transforming them back into normal variates within the predict method is the possible presence of the Box Cox transformation, which requires that the variance be on the transformed scale rather than the final series scale. It was therefore decided that this approach was more general and less prone to user error.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
-<li>The predictive distribution, which is generated by simulation, will then be infused with the cross-sectional correlation of the residuals passed to the predict method.
+<li>The residuals of the estimated series are collected and the residual correlation
+is calculated. For very large-dimensional systems (where <span class="math inline">\(N\)</span> &gt; <span class="math inline">\(T\)</span>) it is possible
+instead to use a factor model to extract the correlations, but we leave this for a
+separate discussion.</li>
+<li>The estimated correlations are then used to generate correlated samples on the
+unit hypercube (using for instance a copula).</li>
+<li>These samples are then passed to the <code>innov</code> argument in the <code>predict</code> method of
+each model, at which time they are transformed to normal random variables with
+variance equal to the estimated model variance.<a href="references.html#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+A key reason for using uniform variates and transforming them back into normal variates
+within the predict method is the possible presence of the Box Cox transformation,
+which requires that the variance be on the transformed scale rather than the
+final series scale. It was therefore decided that this approach was more general
+and less prone to user error.<a href="references.html#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Note that the predict function is no limited
+to taking innovations as quantiles but can also directly take in standardized
+variates and an argument is available to denote the type which is passed.</li>
+<li>The predictive distribution, which is generated by simulation, will then be
+infused with the cross-sectional correlation of the residuals passed to the
+predict method.
 <strong>Note: This approach works well for models with a single source of error such as ARIMA and ETS, but NOT for multiple source of error models such as BSTS.</strong></li>
-<li>The predictive distributions are then passed to the <code>ensemble_modelspec</code> function for validation, followed by calling the <code>tsensemble</code> method on the resulting object with a vector of user specified weights.</li>
+<li>The predictive distributions are then passed to the <code>ensemble_modelspec</code> function for validation,
+followed by calling the <code>tsensemble</code> method on the resulting object with a vector of
+user specified weights.</li>
 </ul>
 <p>The next section provides a demonstration of this approach.</p>
 </div>
@@ -738,7 +808,7 @@ tsequation
 ## [1,] 1.0000000 0.5958815
 ## [2,] 0.5958815 1.0000000</code></pre>
 <p>Step 3: Prediction</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tsmethods.html#cb5-1" aria-hidden="true" tabindex="-1"></a>p1.joint <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">nsim =</span> <span class="dv">5000</span>, <span class="at">innov =</span> U[,<span class="dv">1</span>])</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tsmethods.html#cb5-1" aria-hidden="true" tabindex="-1"></a>p1.joint <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">nsim =</span> <span class="dv">5000</span>, <span class="at">innov =</span> U[,<span class="dv">1</span>], <span class="at">innov_type =</span> <span class="st">&quot;q&quot;</span>)</span>
 <span id="cb5-2"><a href="tsmethods.html#cb5-2" aria-hidden="true" tabindex="-1"></a>p2.joint <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">nsim =</span> <span class="dv">5000</span>, <span class="at">innov =</span> U[,<span class="dv">2</span>])</span>
 <span id="cb5-3"><a href="tsmethods.html#cb5-3" aria-hidden="true" tabindex="-1"></a>p1.indep <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">nsim =</span> <span class="dv">5000</span>)</span>
 <span id="cb5-4"><a href="tsmethods.html#cb5-4" aria-hidden="true" tabindex="-1"></a>p2.indep <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">nsim =</span> <span class="dv">5000</span>)</span>
@@ -797,15 +867,6 @@ tsequation
 <p><img src="tsmodels_files/figure-html/ensemble4-1.png" width="672" /></p>
 
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>The current choice of using base R plotting may change in the future to use either <a href="https://cran.r-project.org/web/packages/ggplot2/"><strong>ggplot2</strong></a> or <a href="https://cran.r-project.org/web/packages/plotly/"><strong>plotly</strong></a>.<a href="tsmethods.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Unlike some, we have avoided using <code>stats::filter</code> as this is a function rather than a method.<a href="tsmethods.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>The samples can be transformed to any other distribution using the quantile method of the distribution.<a href="tsmethods.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Additionally the marginal distributions of the individual series may not all be the same, so this approach provides some greater degree of flexibility.<a href="tsmethods.html#fnref4" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 

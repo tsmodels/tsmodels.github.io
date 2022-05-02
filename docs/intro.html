@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-11-21" />
+<meta name="date" content="2022-05-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -265,8 +265,16 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
-<li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>10</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>10.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>10.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>10.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>11</b> News</a></li>
+<li class="chapter" data-level="12" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>12</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -290,12 +298,33 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="intro" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
-<p>The <strong>tsmodels</strong> framework provides a set of probabilistic time series forecasting models with common calling conventions and methods.
-Our objective was to provide a set of models which offer fast estimation, explainable decomposition and probabilistic predictions which can also be ensembled. Many of the models we have so far released are based on <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, some of which are already implemented in the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package, but we have chosen to re-write the models from scratch based on our own design choices. Some of these choices include exclusive use of <a href="https://cran.r-project.org/web/packages/xts/"><strong>xts</strong></a> objects to represent time series data, <a href="https://cran.r-project.org/web/packages/data.table/"><strong>data.table</strong></a> for certain outputs, probabilistic distributions for predictions via simulation as well as a feature rich set of methods to work with these models.</p>
-<p>Most of our models benefit from automatic handling of missing data via the prediction step, and all models currently implement
-automatic differentiation during model estimation, making use of the <a href="https://cran.r-project.org/web/packages/TMB/"><strong>TMB</strong></a>
-package.</p>
-<p>We would be remiss if we were not to mention that alternative implementations exist within the single source of error (SEM) framework in R, including the <a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of <span class="citation"><a href="#ref-R-forecast" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-R-forecast" role="doc-biblioref">2021</a>)</span> and <a href="https://cran.r-project.org/web/packages/smooth/"><strong>smooth</strong></a> package of <span class="citation"><a href="#ref-R-smooth" role="doc-biblioref">Svetunkov</a> (<a href="#ref-R-smooth" role="doc-biblioref">2020</a>)</span>, with their own design decisions. We make no representation as to what is likely to be more useful for a particular user, simply that our representation and framework is the right one for us. The set of packages we have released and plan to release may include bugs, and we encourage users to submit bug reports through the github issues system.</p>
+<p>The <strong>tsmodels</strong> framework provides a set of probabilistic time series forecasting
+models with common calling conventions and methods. Our objective was to provide a set
+of models which offer fast estimation, explainable decomposition and probabilistic
+predictions which can also be ensembled. Many of the models we have so far released are
+based on <span class="citation">R. Hyndman et al. (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>, some of which are already implemented in the
+<a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package, but we
+have chosen to re-write the models from scratch based on our own design choices.
+Some of these choices include exclusive use of <a href="https://cran.r-project.org/web/packages/xts/"><strong>xts</strong></a>
+objects to represent time series data, <a href="https://cran.r-project.org/web/packages/data.table/"><strong>data.table</strong></a> for
+certain outputs, probabilistic distributions for predictions via simulation as well as a
+feature rich set of methods to work with these models. Additionally, all of the our models
+benefit from automatic handling of missing data via the prediction step, and all
+models implement automatic differentiation during model estimation, making use of
+the <a href="https://cran.r-project.org/web/packages/TMB/"><strong>TMB</strong></a> package. Some methods and
+features are still experimental and may change over time. Examples include the
+arguments and outputs as we work to unify and clean the codebase to be as consistent
+as possible across packages, and methods such as the empirical calibration of
+the predictive distribution.</p>
+<p>We would be remiss if we were not to mention that alternative implementations exist
+within the single source of error (SEM) framework in R, including the
+<a href="https://cran.r-project.org/web/packages/forecast/"><strong>forecast</strong></a> package of
+<span class="citation">R. Hyndman et al. (<a href="#ref-R-forecast" role="doc-biblioref">2022</a>)</span> and <a href="https://cran.r-project.org/web/packages/smooth/"><strong>smooth</strong></a>
+package of <span class="citation">Svetunkov (<a href="#ref-R-smooth" role="doc-biblioref">2020</a>)</span>, with their own design decisions. We make no representation
+as to what is likely to be more useful for a particular user, simply that our
+representation and framework is the right one for us. The set of packages we have
+released and plan to release may include bugs, and we encourage users to submit
+bug reports through the github issues system.</p>
 <p>A summary of the currently available packages is given below:</p>
 <table>
 <thead>
@@ -354,7 +383,7 @@ Linear Innovations State Space Models with Multiple Seasonality
 tsvets
 </td>
 <td style="text-align:left;">
-Vector Innovation Linear State Space Models
+Vector Innovations Linear State Space Models
 </td>
 </tr>
 <tr>
@@ -375,7 +404,7 @@ Time Series Casual Inference
 </tr>
 </tbody>
 </table>
-<p>The following packages will be released in the future as time allows:</p>
+<p>The following packages may be released in the future as time allows:</p>
 <table>
 <thead>
 <tr>
@@ -420,6 +449,14 @@ tsfactor
 Factor Models
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+tsgarch
+</td>
+<td style="text-align:left;">
+GARCH models (reimplementation of rugarch and rmgarch
+</td>
+</tr>
 </tbody>
 </table>
 <p>See the <a href="news.html#news">News</a> section for updates.</p>
@@ -428,7 +465,7 @@ Factor Models
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-R-forecast" class="csl-entry">
-Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2021. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
+Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2022. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
 </div>
 <div id="ref-hyndman2008" class="csl-entry">
 Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.

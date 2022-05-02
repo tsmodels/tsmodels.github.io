@@ -24,7 +24,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2021-11-21" />
+<meta name="date" content="2022-05-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -265,8 +265,16 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>10</b> News</a></li>
-<li class="chapter" data-level="11" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>11</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>10</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>10.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>10.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>10.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>11</b> News</a></li>
+<li class="chapter" data-level="12" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>12</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -292,13 +300,25 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 6</span> tsvets package</h1>
 <div id="tsvets:introduction" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Introduction</h2>
-<p>The vector exponential additive smoothing model (Vector ETS), introduced in <span class="citation"><a href="#ref-desilva2010" role="doc-biblioref">De Silva, Hyndman, and Snyder</a> (<a href="#ref-desilva2010" role="doc-biblioref">2010</a>)</span> naturally generalizes the univariate framework with a great deal of flexibility with the dynamics of the unobserved components. The dynamics of the states can be common, diagonal, grouped or fully parameterized, allowing for a rich set of patterns to be captured. The <strong>tsvets</strong> package implements a more general and flexible version based on <span class="citation"><a href="#ref-athanasopoulos2012" role="doc-biblioref">Athanasopoulos and Silva</a> (<a href="#ref-athanasopoulos2012" role="doc-biblioref">2012</a>)</span>, with methods for estimation, inference, visualization, forecasting as well as aggregation.</p>
-<p>Let the vector of <span class="math inline">\(N\)</span> series at time <span class="math inline">\(t\)</span>, <span class="math inline">\(\bf{y}_t\)</span> be represented as a linear additive combination of their unobserved level, slope and seasonal (with frequency <span class="math inline">\(m\)</span>) components, <span class="math inline">\(\bf{l}_{t-1}\)</span>, <span class="math inline">\(\bf{b}_{t-1}\)</span> and <span class="math inline">\(\bf{s}_{t-m}\)</span> respectively. Formally, the conditional mean of <span class="math inline">\(\bf{\hat y}_t\)</span> is given by:</p>
+<p>The vector exponential additive smoothing model (Vector ETS), introduced in <span class="citation">De Silva, Hyndman, and Snyder (<a href="#ref-desilva2010" role="doc-biblioref">2010</a>)</span>
+naturally generalizes the univariate framework with a great deal of flexibility with
+the dynamics of the unobserved components. The dynamics of the states can be common,
+diagonal, grouped or fully parameterized, allowing for a rich set of patterns to be captured.
+The <strong>tsvets</strong> package implements a more general and flexible version based on <span class="citation">Athanasopoulos and Silva (<a href="#ref-athanasopoulos2012" role="doc-biblioref">2012</a>)</span>,
+with methods for estimation, inference, visualization, forecasting as well as aggregation.
+As of version 0.4.3, missing values are allowed in the series. This works by zeroing our
+the errors (i.e. taking the expectation) during the step update step for those series
+with missingness at time t, whilst the covariance and likelihood is calculated on
+the joint non-missingness data.</p>
+<p>Let the vector of <span class="math inline">\(N\)</span> series at time <span class="math inline">\(t\)</span>, <span class="math inline">\(\bf{y}_t\)</span> be represented as a linear additive
+combination of their unobserved level, slope and seasonal (with frequency <span class="math inline">\(m\)</span>)
+components, <span class="math inline">\(\bf{l}_{t-1}\)</span>, <span class="math inline">\(\bf{b}_{t-1}\)</span> and <span class="math inline">\(\bf{s}_{t-m}\)</span> respectively.
+Formally, the conditional mean of <span class="math inline">\(\bf{\hat y}_t\)</span> is given by:</p>
 <p><span class="math display" id="eq:tsvets1">\[\begin{equation}
 \bf{\hat y}_t = \bf{l}_{t - 1} + \Phi\bf{b}_{t - 1} + \bf{s}_{t - m},
 \tag{6.1}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(\Phi\)</span> is the <span class="math inline">\(N\times N\)</span> matrix of dampening parameters. In its reduced form, the model without seasonality is equivalent to a VARIMA(1,2,2) model,<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> and <span class="math inline">\(\Phi\)</span> becomes the matrix of first order autoregressive coefficients.</p>
+<p>where <span class="math inline">\(\Phi\)</span> is the <span class="math inline">\(N\times N\)</span> matrix of dampening parameters. In its reduced form, the model without seasonality is equivalent to a VARIMA(1,2,2) model,<a href="references.html#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> and <span class="math inline">\(\Phi\)</span> becomes the matrix of first order autoregressive coefficients.</p>
 <p>The 1 step ahead forecast errors, <span class="math inline">\(\boldsymbol{\varepsilon}_t\)</span> follow a multivariate normal distribution:</p>
 <p><span class="math display" id="eq:tsvets2">\[\begin{equation}
 {\boldsymbol{\varepsilon} _t} = {\bf{y}_t} - {{\bf{\hat y}}_t},\quad {\boldsymbol{\varepsilon} _t} \sim {\bf{N}}\left( {{\bf{0}},\Sigma } \right).
@@ -329,15 +349,15 @@ div.csl-indent {
 {{I_N}}\\
 {{I_N}}\\
 {{0_{N \times N}}}\\
- \vdots \\
+\vdots \\
 {{0_{N \times N}}}\\
 {{I_N}}
 \end{array}} \right],\quad \mathop A\limits_{\left( {m + 2} \right)N \times N}  = \left[ {\begin{array}{*{20}{c}}
 {\bf{A}}\\
 {\bf{B}}\\
 {\bf{K}}\\
- \vdots \\
- \vdots \\
+\vdots \\
+\vdots \\
 {\bf{K}}
 \end{array}} \right],
 \tag{6.5}
@@ -351,7 +371,7 @@ div.csl-indent {
 0&amp;0&amp;0&amp; \cdots &amp;0&amp;1\\
 1&amp;0&amp;0&amp; \cdots &amp;0&amp;0\\
 0&amp;1&amp;0&amp; \cdots &amp;0&amp;0\\
- \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
 0&amp;0&amp;0&amp; \cdots &amp;1&amp;0
 \end{array}} \right],
 \tag{6.6}
@@ -365,11 +385,11 @@ div.csl-indent {
 \tag{6.7}
 \end{equation}\]</span></p>
 <p><span class="math display" id="eq:tsvets0">\[\begin{equation}
- \mathop {\tilde{G}}\limits_{m \times m}  = \left[ {\begin{array}{*{20}{c}}
+\mathop {\tilde{G}}\limits_{m \times m}  = \left[ {\begin{array}{*{20}{c}}
 {\frac{{m - 1}}{m}}&amp;0&amp; \cdots &amp;0&amp;0\\
 0&amp;{ - \frac{1}{m}}&amp; \cdots &amp;0&amp;0\\
 0&amp;0&amp;{ - \frac{1}{m}}&amp;0&amp;0\\
- \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 0&amp;0&amp;0&amp; \cdots &amp;{ - \frac{1}{m}}
 \end{array}} \right],
 \tag{6.8}
@@ -379,13 +399,15 @@ div.csl-indent {
 {{\bf{l}_t}}\\
 {{\bf{b}_t}}\\
 {{\bf{s}_t}}\\
- \vdots \\
+\vdots \\
 {{\bf{s}_{t - m + 2}}}\\
 {{\bf{s}_{t - m + 1}}}
 \end{array}} \right].
 \tag{6.9}
 \end{equation}\]</span></p>
-<p>The values in the seasonal matrix <span class="math inline">\(\tilde{G}\)</span> represent normalization terms which ensure that the seasonal component adds to zero throughout the updating process without becoming contaminated by the level component.</p>
+<p>The values in the seasonal matrix <span class="math inline">\(\tilde{G}\)</span> represent normalization terms which
+ensure that the seasonal component adds to zero throughout the updating process
+without becoming contaminated by the level component.</p>
 </div>
 <div id="tsvets:regressors" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Inclusion of External Regressors</h2>
@@ -427,15 +449,15 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 {\lambda _s}\left( D \right) &lt; 1,D = F - GAH.
 \tag{6.15}
 \end{equation}\]</span></p>
-<p>This is added as a soft barrier constraint. The diagonal elements of the level, slope, dampening and seasonal matrices are bounded between 0 and 1, while the off diagonal elements are allowed to vary between -1 and 1.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
+<p>This is added as a soft barrier constraint. The diagonal elements of the level, slope, dampening and seasonal matrices are bounded between 0 and 1, while the off diagonal elements are allowed to vary between -1 and 1.<a href="references.html#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
 <p>Finally, the initial seed values for each of the states are approximated using the heuristic approach from the univariate ETS model as described in Section <a href="tsets.html#tsets:implementation:initialization">4.5.2</a>.</p>
 </div>
 <div id="tsvets:dependence" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Dependence Structure</h2>
-<p>While Equation <a href="tsissm.html#eq:tsissm10">(5.10)</a> assumes a full covariance matrix, allowing contemporaneous associations among the residuals, we also offer 3 additional estimators for the dependence structure: diagonal covariance, equicorrelation and shrinkage covariance based on the estimator of <span class="citation"><a href="#ref-ledoit2004well" role="doc-biblioref">Ledoit and Wolf</a> (<a href="#ref-ledoit2004well" role="doc-biblioref">2004</a>)</span>.</p>
+<p>While Equation <a href="tsissm.html#eq:tsissm10">(5.10)</a> assumes a full covariance matrix, allowing contemporaneous associations among the residuals, we also offer 3 additional estimators for the dependence structure: diagonal covariance, equicorrelation and shrinkage covariance based on the estimator of <span class="citation">Ledoit and Wolf (<a href="#ref-ledoit2004well" role="doc-biblioref">2004</a>)</span>.</p>
 <div id="tsvets:dependence:diagonal" class="section level3" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> Diagonal Covariance</h3>
-<p>The diagonal covariance matrix is the one used by <span class="citation"><a href="#ref-athanasopoulos2012" role="doc-biblioref">Athanasopoulos and Silva</a> (<a href="#ref-athanasopoulos2012" role="doc-biblioref">2012</a>)</span>, and leads to the fastest estimation. In this case, the log-likelihood is greatly simplified and equal to</p>
+<p>The diagonal covariance matrix is the one used by <span class="citation">Athanasopoulos and Silva (<a href="#ref-athanasopoulos2012" role="doc-biblioref">2012</a>)</span>, and leads to the fastest estimation. In this case, the log-likelihood is greatly simplified and equal to</p>
 <p><span class="math display" id="eq:tsvets16">\[\begin{equation}
 \frac{T}{2}\left( {N\log \left( {2\pi } \right) + N\log \left| \Sigma  \right|} \right) - \frac{1}{2}\sum\limits_{t = 1}^T {\sum\limits_{i = 1}^N {\varepsilon _{it}^2/\sigma _i^2} }.
 \tag{6.16}
@@ -453,11 +475,11 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 {\Sigma} = {\bf{DRD&#39;}},
 \tag{6.18}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\({\bf{D}} = diag\left( {{\hat \sigma _1},\dots,{\hat \sigma _n}} \right)\)</span>. Some of the advantages of assuming equicorrelation are discussed in <span class="citation"><a href="#ref-clements2015benefits" role="doc-biblioref">Clements, Scott, and Silvennoinen</a> (<a href="#ref-clements2015benefits" role="doc-biblioref">2015</a>)</span>.</p>
+<p>where <span class="math inline">\({\bf{D}} = diag\left( {{\hat \sigma _1},\dots,{\hat \sigma _n}} \right)\)</span>. Some of the advantages of assuming equicorrelation are discussed in <span class="citation">Clements, Scott, and Silvennoinen (<a href="#ref-clements2015benefits" role="doc-biblioref">2015</a>)</span>.</p>
 </div>
 <div id="tsvets:dependence:shrinkage" class="section level3" number="6.4.3">
 <h3><span class="header-section-number">6.4.3</span> Shrinkage Covariance</h3>
-<p>The shrinkage estimator of <span class="citation"><a href="#ref-ledoit2004well" role="doc-biblioref">Ledoit and Wolf</a> (<a href="#ref-ledoit2004well" role="doc-biblioref">2004</a>)</span> follows from the observation that the eigenvalues of the estimated correlations tend to be more dispersed than the eigenvalues of the true data generating process. The shrinkage estimator of the covariance is based on a convex combination of the sample covariance <span class="math inline">\(\hat\Sigma\)</span> and a target covariance set to a multiple of the identity matrix. It is this combination weight <span class="math inline">\(\rho\)</span> which we estimate in the case of the shrinkage estimator</p>
+<p>The shrinkage estimator of <span class="citation">Ledoit and Wolf (<a href="#ref-ledoit2004well" role="doc-biblioref">2004</a>)</span> follows from the observation that the eigenvalues of the estimated correlations tend to be more dispersed than the eigenvalues of the true data generating process. The shrinkage estimator of the covariance is based on a convex combination of the sample covariance <span class="math inline">\(\hat\Sigma\)</span> and a target covariance set to a multiple of the identity matrix. It is this combination weight <span class="math inline">\(\rho\)</span> which we estimate in the case of the shrinkage estimator</p>
 <p><span class="math display" id="eq:tsvets18">\[\begin{equation}
 {\Sigma} = \left( {1 - \rho } \right)\Sigma  + \frac{\rho }{n}tr\left( \Sigma  \right){\bf{I}}.
 \tag{6.18}
@@ -470,43 +492,43 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 </div>
 <div id="tsvets:homogeneous" class="section level2" number="6.6">
 <h2><span class="header-section-number">6.6</span> Homogeneous Coefficients and Aggregation</h2>
-<p>When a model is estimated with all components pooled (i.e. common coefficients), then we can aggregate the model to obtain an aggregated representation in closed form, following Section 17.1.2 of <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>. When this is not the case, we can still obtain an aggregated series from the estimation and prediction objects. This functionality is implemented via the <code>tsaggregate</code> method and we provide an example in the demonstration section.</p>
+<p>When a model is estimated with all components pooled (i.e. common coefficients), then we can aggregate the model to obtain an aggregated representation in closed form, following Section 17.1.2 of <span class="citation">R. Hyndman et al. (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>. When this is not the case, we can still obtain an aggregated series from the estimation and prediction objects. This functionality is implemented via the <code>tsaggregate</code> method and we provide an example in the demonstration section.</p>
 </div>
 <div id="tsvets:demonstration" class="section level2" number="6.7">
 <h2><span class="header-section-number">6.7</span> Demonstration</h2>
 <div id="tsvets:demonstration:specification" class="section level3" number="6.7.1">
 <h3><span class="header-section-number">6.7.1</span> Specification</h3>
 <p>The specification function defines the entry point for setting up a vets model:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="tsvets.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
-<span id="cb110-2"><a href="tsvets.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(vets_modelspec)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="tsvets.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
+<span id="cb120-2"><a href="tsvets.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(vets_modelspec)</span></code></pre></div>
 <pre><code>## function (y, level = c(&quot;constant&quot;, &quot;diagonal&quot;, &quot;common&quot;, &quot;full&quot;, 
 ##     &quot;grouped&quot;), slope = c(&quot;none&quot;, &quot;constant&quot;, &quot;common&quot;, &quot;diagonal&quot;, 
 ##     &quot;full&quot;, &quot;grouped&quot;), damped = c(&quot;none&quot;, &quot;common&quot;, &quot;diagonal&quot;, 
 ##     &quot;full&quot;, &quot;grouped&quot;), seasonal = c(&quot;none&quot;, &quot;common&quot;, &quot;diagonal&quot;, 
 ##     &quot;full&quot;, &quot;grouped&quot;), group = NULL, xreg = NULL, xreg_include = NULL, 
-##     frequency = 1, lambda = NULL, lambda_lower = 0, lambda_upper = 1.5, 
-##     dependence = c(&quot;diagonal&quot;, &quot;full&quot;, &quot;equicorrelation&quot;, &quot;shrinkage&quot;), 
-##     cores = 1) 
+##     frequency = 1, transformation = &quot;box-cox&quot;, lambda = NULL, 
+##     lower = 0, upper = 1, dependence = c(&quot;diagonal&quot;, &quot;full&quot;, 
+##         &quot;equicorrelation&quot;, &quot;shrinkage&quot;)) 
 ## NULL</code></pre>
-<p>The specification has options for how the components of level, slope, dampening, seasonality are structured as well as the type of dependence to use. We also allow multicore processing since we require the initial state vectors to be calculated through calls to the <strong>tsets</strong> package, which can be done in parallel. The <code>lambda</code> argument can be set either to <code>NA</code>, in which case the multivariate version of the Box Cox transformation is used which targets a transformation to multivariate normality based on <span class="citation"><a href="#ref-velilla1993note" role="doc-biblioref">Velilla</a> (<a href="#ref-velilla1993note" role="doc-biblioref">1993</a>)</span> using the <code>powerTransform</code> function from the <a href="https://cran.r-project.org/web/packages/car/"><strong>car</strong></a> package of <span class="citation"><a href="#ref-R-car" role="doc-biblioref">Fox, Weisberg, and Price</a> (<a href="#ref-R-car" role="doc-biblioref">2021</a>)</span>, a vector of length equal to the number of series of a single number to apply to all series, and <code>NULL</code> in which case no transformation is performed.</p>
+<p>The specification has options for how the components of level, slope, dampening, seasonality are structured as well as the type of dependence to use. We also allow multicore processing since we require the initial state vectors to be calculated through calls to the <strong>tsets</strong> package, which can be done in parallel. The <code>lambda</code> argument can be set either to <code>NA</code>, in which case the multivariate version of the Box Cox transformation is used which targets a transformation to multivariate normality based on <span class="citation">Velilla (<a href="#ref-velilla1993note" role="doc-biblioref">1993</a>)</span> using the <code>powerTransform</code> function from the <a href="https://cran.r-project.org/web/packages/car/"><strong>car</strong></a> package of <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2021</a>)</span>, a vector of length equal to the number of series of a single number to apply to all series, and <code>NULL</code> in which case no transformation is performed.</p>
 <p>The next sections provide fully worked examples with methods showcasing the functionality of the package under different assumptions.</p>
 </div>
 <div id="tsvets:demonstration:example1" class="section level3" number="6.7.2">
 <h3><span class="header-section-number">6.7.2</span> Example: Australian Retail Sales</h3>
 <p>We use a subset of the Australian retail dataset from package <strong>tsdatasets</strong> representing the monthly retail turnover in $Million AUD across different regions for the news vendor category, with common level, constant slope and diagonal seasonal and dependence structure.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="tsvets.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
-<span id="cb112-2"><a href="tsvets.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
-<span id="cb112-3"><a href="tsvets.html#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
-<span id="cb112-4"><a href="tsvets.html#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
-<span id="cb112-5"><a href="tsvets.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb112-6"><a href="tsvets.html#cb112-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(austretail[,<span class="fu">grepl</span>(<span class="st">&quot;NEWS&quot;</span>, <span class="fu">colnames</span>(austretail))]) </span>
-<span id="cb112-7"><a href="tsvets.html#cb112-7" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;constant&quot;</span>, <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb112-8"><a href="tsvets.html#cb112-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">lambda =</span> <span class="cn">NA</span>, <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, </span>
-<span id="cb112-9"><a href="tsvets.html#cb112-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">cores =</span> <span class="dv">3</span>)</span>
-<span id="cb112-10"><a href="tsvets.html#cb112-10" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
-<p>The joint estimation of the 8 series takes about 0.280345 seconds. The summary object prints the full matrices for each component using the Matrix package of <span class="citation"><a href="#ref-R-Matrix" role="doc-biblioref">Bates and Maechler</a> (<a href="#ref-R-Matrix" role="doc-biblioref">2021</a>)</span>. The summary method also take an optional <code>weights</code> argument which is used to calculate the weighted Accuracy Criteria, and when this is <code>NULL</code>, an equal weight vector is used instead (and hence equivalent to the Mean Criteria).</p>
-<p>Similar to other packages, there is a diagnostics method <code>tsdiagnose</code> which prints the eiganvalues of the <span class="math inline">\(D\)</span> matrix as well as the output from a multivariate Normality Test and Multivariate Outliers based on the <code>mvn</code> function of the <a href="https://cran.r-project.org/web/packages/MVN/"><strong>MVN</strong></a> package of <span class="citation"><a href="#ref-R-MVN" role="doc-biblioref">Korkmaz, Goksuluk, and Zararsiz</a> (<a href="#ref-R-MVN" role="doc-biblioref">2021</a>)</span>.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="tsvets.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tsvets.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
+<span id="cb122-2"><a href="tsvets.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
+<span id="cb122-3"><a href="tsvets.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
+<span id="cb122-4"><a href="tsvets.html#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
+<span id="cb122-5"><a href="tsvets.html#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb122-6"><a href="tsvets.html#cb122-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(austretail[,<span class="fu">grepl</span>(<span class="st">&quot;NEWS&quot;</span>, <span class="fu">colnames</span>(austretail))]) </span>
+<span id="cb122-7"><a href="tsvets.html#cb122-7" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;constant&quot;</span>, <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb122-8"><a href="tsvets.html#cb122-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">lambda =</span> <span class="cn">NA</span>, <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, </span>
+<span id="cb122-9"><a href="tsvets.html#cb122-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb122-10"><a href="tsvets.html#cb122-10" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
+<p>The joint estimation of the 8 series takes about 0.6463919 seconds. The summary object prints the full matrices for each component using the Matrix package of <span class="citation">Bates and Maechler (<a href="#ref-R-Matrix" role="doc-biblioref">2021</a>)</span>. The summary method also take an optional <code>weights</code> argument which is used to calculate the weighted Accuracy Criteria, and when this is <code>NULL</code>, an equal weight vector is used instead (and hence equivalent to the Mean Criteria).</p>
+<p>Similar to other packages, there is a diagnostics method <code>tsdiagnose</code> which prints the eiganvalues of the <span class="math inline">\(D\)</span> matrix as well as the output from a multivariate Normality Test and Multivariate Outliers based on the <code>mvn</code> function of the <a href="https://cran.r-project.org/web/packages/MVN/"><strong>MVN</strong></a> package of <span class="citation">Korkmaz, Goksuluk, and Zararsiz (<a href="#ref-R-MVN" role="doc-biblioref">2021</a>)</span>.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="tsvets.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ##            Vector ETS            
 ## -----------------------------------
@@ -522,13 +544,13 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## Level Matrix
 ## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]     
-## [1,] 0.7228622         .         .         .         .         .         .
-## [2,]         . 0.7228622         .         .         .         .         .
-## [3,]         .         . 0.7228622         .         .         .         .
-## [4,]         .         .         . 0.7228622         .         .         .
-## [5,]         .         .         .         . 0.7228622         .         .
-## [6,]         .         .         .         .         . 0.7228622         .
-## [7,]         .         .         .         .         .         . 0.7228622
+## [1,] 0.7237793         .         .         .         .         .         .
+## [2,]         . 0.7237793         .         .         .         .         .
+## [3,]         .         . 0.7237793         .         .         .         .
+## [4,]         .         .         . 0.7237793         .         .         .
+## [5,]         .         .         .         . 0.7237793         .         .
+## [6,]         .         .         .         .         . 0.7237793         .
+## [7,]         .         .         .         .         .         . 0.7237793
 ## [8,]         .         .         .         .         .         .         .
 ##      [,8]     
 ## [1,]         .
@@ -538,7 +560,7 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## [5,]         .
 ## [6,]         .
 ## [7,]         .
-## [8,] 0.7228622
+## [8,] 0.7237793
 ## 
 ## Slope Matrix
 ## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
@@ -555,12 +577,12 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## Seasonal Matrix
 ## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]      [,2]         [,3]         [,4]         [,5]         [,6]        
-## [1,] 0.2856892            .            .            .            .            .
-## [2,]         . 2.394973e-09            .            .            .            .
-## [3,]         .            . 3.846394e-09            .            .            .
-## [4,]         .            .            . 5.731333e-09            .            .
-## [5,]         .            .            .            . 3.579614e-09            .
-## [6,]         .            .            .            .            . 6.533816e-09
+## [1,] 0.2884931            .            .            .            .            .
+## [2,]         . 2.396104e-09            .            .            .            .
+## [3,]         .            . 3.553894e-09            .            .            .
+## [4,]         .            .            . 6.317263e-09            .            .
+## [5,]         .            .            .            . 4.995968e-09            .
+## [6,]         .            .            .            .            . 6.078841e-09
 ## [7,]         .            .            .            .            .            .
 ## [8,]         .            .            .            .            .            .
 ##      [,7]      [,8]        
@@ -570,253 +592,148 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## [4,]         .            .
 ## [5,]         .            .
 ## [6,]         .            .
-## [7,] 0.1510414            .
-## [8,]         . 2.543775e-09
+## [7,] 0.1520137            .
+## [8,]         . 3.009261e-09
 ## 
 ## Correlation Matrix
-## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS        T.NEWS
-## ACF.NEWS  1.00000000 0.08057297 0.03290566 0.17033180 0.05277473  0.0949446131
-## NSW.NEWS  0.08057297 1.00000000 0.20605978 0.15796179 0.11770664  0.1722585272
-## NT.NEWS   0.03290566 0.20605978 1.00000000 0.11508855 0.09843727  0.1272152787
-## Q.NEWS    0.17033180 0.15796179 0.11508855 1.00000000 0.13848105  0.0596666377
-## SA.NEWS   0.05277473 0.11770664 0.09843727 0.13848105 1.00000000  0.0589546630
-## T.NEWS    0.09494461 0.17225853 0.12721528 0.05966664 0.05895466  1.0000000000
-## V.NEWS    0.20518539 0.23059292 0.11487366 0.10417249 0.14053366  0.0728362365
-## WA.NEWS  -0.02846502 0.20588546 0.19406784 0.17145175 0.12032267 -0.0006090754
-##              V.NEWS       WA.NEWS
-## ACF.NEWS 0.20518539 -0.0284650215
-## NSW.NEWS 0.23059292  0.2058854559
-## NT.NEWS  0.11487366  0.1940678390
-## Q.NEWS   0.10417249  0.1714517524
-## SA.NEWS  0.14053366  0.1203226677
-## T.NEWS   0.07283624 -0.0006090754
-## V.NEWS   1.00000000  0.0313059007
-## WA.NEWS  0.03130590  1.0000000000
+## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
+##          ACF.NEWS NSW.NEWS NT.NEWS Q.NEWS SA.NEWS T.NEWS V.NEWS WA.NEWS
+## ACF.NEWS        1        .       .      .       .      .      .       .
+## NSW.NEWS        .        1       .      .       .      .      .       .
+## NT.NEWS         .        .       1      .       .      .      .       .
+## Q.NEWS          .        .       .      1       .      .      .       .
+## SA.NEWS         .        .       .      .       1      .      .       .
+## T.NEWS          .        .       .      .       .      1      .       .
+## V.NEWS          .        .       .      .       .      .      1       .
+## WA.NEWS         .        .       .      .       .      .      .       1
 ## 
 ## Information Criteria
-##  AIC     BIC     AICc  
-##  1276.07 2000.89 1286.5
+##  AIC     BIC     AICc   
+##  1536.99 2261.81 1547.42
 ## 
 ## Accuracy Criteria
 ##         Mean Weighted
-## MAPE  0.0618   0.0618
-## MSLRE 0.0068   0.0068</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="tsvets.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsdiagnose</span>(mod)</span></code></pre></div>
-<pre><code>## Real Eigenvalues (D): 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0.866 0.866 0.866 0.866 0.866 0.866 0.866 0.866 0.866 0.866 0.866 0.866 0.5 0.5 0.5 0.5 0 0 0.5 0.5 0 0 0.5 0.5 0.5 0.5 0.5 0.5 0.866 0.866 1 0.866 0.866 1 0 0 0 0 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.866 0.866 1 0.866 0.866 1 0 0 0 0 0.5 0.5 0.866 0.866 1 0.5 0.5 0.866 0.866 1 0.867 0.867 0.869 0.869 0.505 0.505 0.01 0.01 0.511 0.511 0.484 0.484 0.846 0.846 0.978 0.023 0.023 0.465 0.465 0.822 0.822 0.952 0.277 0.277 0.277 0.277 0.277 0.277 0.163 0.021</code></pre>
-<p><img src="tsmodels_files/figure-html/vets_example1_2-1.png" width="672" /></p>
-<pre><code>## 
-## Multivariate Normality Tests
-##             Test        E df      p value MVN
-## 1 Doornik-Hansen 216.9969 16 2.844037e-37  NO
-## 
-## Univariate Normality Tests
-##              Test  Variable Statistic   p value Normality
-## 1 Shapiro-Francia ACF.NEWS     0.9849  0.0011      NO    
-## 2 Shapiro-Francia NSW.NEWS     0.9943  0.1602      YES   
-## 3 Shapiro-Francia  NT.NEWS     0.9720  &lt;0.001      NO    
-## 4 Shapiro-Francia  Q.NEWS      0.9860  0.0018      NO    
-## 5 Shapiro-Francia  SA.NEWS     0.9845   9e-04      NO    
-## 6 Shapiro-Francia  T.NEWS      0.9867  0.0026      NO    
-## 7 Shapiro-Francia  V.NEWS      0.9688  &lt;0.001      NO    
-## 8 Shapiro-Francia  WA.NEWS     0.9737  &lt;0.001      NO    
-## 
-## Multivariate Outliers (Mahalanobis Distance)
-##     Observation Mahalanobis Distance Outlier
-## 9    1988-12-31               21.264    TRUE
-## 21   1989-12-31               27.756    TRUE
-## 24   1990-03-31               28.731    TRUE
-## 33   1990-12-31               21.301    TRUE
-## 54   1992-09-30               26.701    TRUE
-## 57   1992-12-31               19.622    TRUE
-## 59   1993-02-28               19.611    TRUE
-## 60   1993-03-31               20.677    TRUE
-## 63   1993-06-30               24.081    TRUE
-## 64   1993-07-31               20.255    TRUE
-## 66   1993-09-30               24.531    TRUE
-## 69   1993-12-31               72.481    TRUE
-## 72   1994-03-31               35.717    TRUE
-## 79   1994-10-31               19.122    TRUE
-## 94   1996-01-31               21.925    TRUE
-## 105  1996-12-31               53.707    TRUE
-## 106  1997-01-31               28.626    TRUE
-## 109  1997-04-30               20.485    TRUE
-## 121  1998-04-30               45.002    TRUE
-## 124  1998-07-31               21.235    TRUE
-## 136  1999-07-31               19.706    TRUE
-## 142  2000-01-31               47.132    TRUE
-## 143  2000-02-29               22.048    TRUE
-## 148  2000-07-31               23.980    TRUE
-## 157  2001-04-30               31.793    TRUE
-## 166  2002-01-31               28.374    TRUE
-## 169  2002-04-30               19.785    TRUE
-## 172  2002-07-31               56.104    TRUE
-## 184  2003-07-31               31.963    TRUE
-## 223  2006-10-31               19.369    TRUE
-## 226  2007-01-31               26.189    TRUE
-## 235  2007-10-31               93.086    TRUE
-## 238  2008-01-31               26.753    TRUE
-## 241  2008-04-30               35.413    TRUE
-## 251  2009-02-28               25.327    TRUE
-## 256  2009-07-31               27.555    TRUE
-## 259  2009-10-31               22.694    TRUE
-## 261  2009-12-31               24.791    TRUE
-## 262  2010-01-31               78.543    TRUE
-## 263  2010-02-28               57.752    TRUE
-## 265  2010-04-30               34.002    TRUE
-## 268  2010-07-31               28.282    TRUE
-## 274  2011-01-31              107.805    TRUE
-## 285  2011-12-31               27.791    TRUE
-## 286  2012-01-31               58.481    TRUE
-## 287  2012-02-29               23.743    TRUE
-## 293  2012-08-31               18.883    TRUE
-## 295  2012-10-31               31.069    TRUE
-## 301  2013-04-30               58.107    TRUE
-## 302  2013-05-31               23.596    TRUE
-## 307  2013-10-31               22.618    TRUE
-## 309  2013-12-31               32.214    TRUE
-## 310  2014-01-31               42.566    TRUE
-## 316  2014-07-31               21.128    TRUE
-## 322  2015-01-31               20.692    TRUE
-## 364  2018-07-31               19.370    TRUE
-## 365  2018-08-31               21.088    TRUE</code></pre>
+## MAPE  0.0613   0.0613
+## MSLRE 0.0067   0.0067</code></pre>
 <p>Additional methods are similar to what is available in other packages.</p>
 <p>Coefficients:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="tsvets.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="tsvets.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div>
 <pre><code>##      Level[Common] Seasonal[ACF.NEWS] Seasonal[NSW.NEWS]  Seasonal[NT.NEWS] 
-##       7.228622e-01       2.856892e-01       2.394973e-09       3.846394e-09 
+##       7.237793e-01       2.884931e-01       2.396104e-09       3.553894e-09 
 ##   Seasonal[Q.NEWS]  Seasonal[SA.NEWS]   Seasonal[T.NEWS]   Seasonal[V.NEWS] 
-##       5.731333e-09       3.579614e-09       6.533816e-09       1.510414e-01 
+##       6.317263e-09       4.995968e-09       6.078841e-09       1.520137e-01 
 ##  Seasonal[WA.NEWS] 
-##       2.543775e-09</code></pre>
+##       3.009261e-09</code></pre>
 <p>Loglikelihood and AIC:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="tsvets.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(mod)</span></code></pre></div>
-<pre><code>## &#39;log Lik.&#39; 1034.07 (df=121)</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tsvets.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod)</span></code></pre></div>
-<pre><code>## [1] 1276.07</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="tsvets.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(mod)</span></code></pre></div>
+<pre><code>## &#39;log Lik.&#39; 1294.991 (df=121)</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="tsvets.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod)</span></code></pre></div>
+<pre><code>## [1] 1536.991</code></pre>
 <p>Performance metrics with optional weights option:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="tsvets.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod, <span class="at">weights =</span> <span class="fu">runif</span>(<span class="dv">8</span>))</span></code></pre></div>
-<pre><code>##      N no_pars  LogLik     AIC      BIC     AICc       MAPE       MSLRE
-## 1 2952     121 1034.07 1276.07 2000.889 1286.502 0.06177683 0.006825589
-##        WAPE       WSLRE
-## 1 0.0619873 0.006859379</code></pre>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="tsvets.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tscor</span>(mod)</span></code></pre></div>
-<pre><code>## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS        T.NEWS
-## ACF.NEWS  1.00000000 0.08057297 0.03290566 0.17033180 0.05277473  0.0949446131
-## NSW.NEWS  0.08057297 1.00000000 0.20605978 0.15796179 0.11770664  0.1722585272
-## NT.NEWS   0.03290566 0.20605978 1.00000000 0.11508855 0.09843727  0.1272152787
-## Q.NEWS    0.17033180 0.15796179 0.11508855 1.00000000 0.13848105  0.0596666377
-## SA.NEWS   0.05277473 0.11770664 0.09843727 0.13848105 1.00000000  0.0589546630
-## T.NEWS    0.09494461 0.17225853 0.12721528 0.05966664 0.05895466  1.0000000000
-## V.NEWS    0.20518539 0.23059292 0.11487366 0.10417249 0.14053366  0.0728362365
-## WA.NEWS  -0.02846502 0.20588546 0.19406784 0.17145175 0.12032267 -0.0006090754
-##              V.NEWS       WA.NEWS
-## ACF.NEWS 0.20518539 -0.0284650215
-## NSW.NEWS 0.23059292  0.2058854559
-## NT.NEWS  0.11487366  0.1940678390
-## Q.NEWS   0.10417249  0.1714517524
-## SA.NEWS  0.14053366  0.1203226677
-## T.NEWS   0.07283624 -0.0006090754
-## V.NEWS   1.00000000  0.0313059007
-## WA.NEWS  0.03130590  1.0000000000</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="tsvets.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod, <span class="at">weights =</span> <span class="fu">runif</span>(<span class="dv">8</span>))</span></code></pre></div>
+<pre><code>##      N no_pars   LogLik      AIC     BIC     AICc       MAPE      MSLRE
+## 1 2952     121 1294.991 1536.991 2261.81 1547.424 0.06131029 0.00673102
+##         WAPE       WSLRE
+## 1 0.06051585 0.006598354</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="tsvets.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tscor</span>(mod)</span></code></pre></div>
+<pre><code>## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
+##          ACF.NEWS NSW.NEWS NT.NEWS Q.NEWS SA.NEWS T.NEWS V.NEWS WA.NEWS
+## ACF.NEWS        1        .       .      .       .      .      .       .
+## NSW.NEWS        .        1       .      .       .      .      .       .
+## NT.NEWS         .        .       1      .       .      .      .       .
+## Q.NEWS          .        .       .      1       .      .      .       .
+## SA.NEWS         .        .       .      .       1      .      .       .
+## T.NEWS          .        .       .      .       .      1      .       .
+## V.NEWS          .        .       .      .       .      .      1       .
+## WA.NEWS         .        .       .      .       .      .      .       1</code></pre>
 <p>Correlation and covariance matrices:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tsvets.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tscov</span>(mod)</span></code></pre></div>
-<pre><code>## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##               ACF.NEWS     NSW.NEWS      NT.NEWS       Q.NEWS      SA.NEWS
-## ACF.NEWS  0.0114807146 0.0005198327 0.0006257583 0.0011577660 0.0004522868
-## NSW.NEWS  0.0005198327 0.0036255973 0.0022020876 0.0006033682 0.0005668839
-## NT.NEWS   0.0006257583 0.0022020876 0.0314994638 0.0012957591 0.0013973801
-## Q.NEWS    0.0011577660 0.0006033682 0.0012957591 0.0040242151 0.0007026424
-## SA.NEWS   0.0004522868 0.0005668839 0.0013973801 0.0007026424 0.0063974488
-## T.NEWS    0.0026772075 0.0027295921 0.0059418008 0.0009960919 0.0012409344
-## V.NEWS    0.0016234402 0.0010252769 0.0015054886 0.0004879767 0.0008300212
-## WA.NEWS  -0.0012121833 0.0049270593 0.0136891817 0.0043226977 0.0038249274
-##                 T.NEWS       V.NEWS       WA.NEWS
-## ACF.NEWS  2.677207e-03 0.0016234402 -1.212183e-03
-## NSW.NEWS  2.729592e-03 0.0010252769  4.927059e-03
-## NT.NEWS   5.941801e-03 0.0015054886  1.368918e-02
-## Q.NEWS    9.960919e-04 0.0004879767  4.322698e-03
-## SA.NEWS   1.240934e-03 0.0008300212  3.824927e-03
-## T.NEWS    6.925553e-02 0.0014154031 -6.370458e-05
-## V.NEWS    1.415403e-03 0.0054526903  9.187640e-04
-## WA.NEWS  -6.370458e-05 0.0009187640  1.579591e-01</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="tsvets.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tscor</span>(mod)</span></code></pre></div>
-<pre><code>## 8 x 8 Matrix of class &quot;dsyMatrix&quot;
-##             ACF.NEWS   NSW.NEWS    NT.NEWS     Q.NEWS    SA.NEWS        T.NEWS
-## ACF.NEWS  1.00000000 0.08057297 0.03290566 0.17033180 0.05277473  0.0949446131
-## NSW.NEWS  0.08057297 1.00000000 0.20605978 0.15796179 0.11770664  0.1722585272
-## NT.NEWS   0.03290566 0.20605978 1.00000000 0.11508855 0.09843727  0.1272152787
-## Q.NEWS    0.17033180 0.15796179 0.11508855 1.00000000 0.13848105  0.0596666377
-## SA.NEWS   0.05277473 0.11770664 0.09843727 0.13848105 1.00000000  0.0589546630
-## T.NEWS    0.09494461 0.17225853 0.12721528 0.05966664 0.05895466  1.0000000000
-## V.NEWS    0.20518539 0.23059292 0.11487366 0.10417249 0.14053366  0.0728362365
-## WA.NEWS  -0.02846502 0.20588546 0.19406784 0.17145175 0.12032267 -0.0006090754
-##              V.NEWS       WA.NEWS
-## ACF.NEWS 0.20518539 -0.0284650215
-## NSW.NEWS 0.23059292  0.2058854559
-## NT.NEWS  0.11487366  0.1940678390
-## Q.NEWS   0.10417249  0.1714517524
-## SA.NEWS  0.14053366  0.1203226677
-## T.NEWS   0.07283624 -0.0006090754
-## V.NEWS   1.00000000  0.0313059007
-## WA.NEWS  0.03130590  1.0000000000</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="tsvets.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tscov</span>(mod)</span></code></pre></div>
+<pre><code>## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
+##           ACF.NEWS    NSW.NEWS    NT.NEWS      Q.NEWS     SA.NEWS     T.NEWS
+## ACF.NEWS 0.0089999           .          .           .           .          .
+## NSW.NEWS         . 0.003625678          .           .           .          .
+## NT.NEWS          .           . 0.03950474           .           .          .
+## Q.NEWS           .           .          . 0.004023731           .          .
+## SA.NEWS          .           .          .           . 0.006397141          .
+## T.NEWS           .           .          .           .           . 0.03014232
+## V.NEWS           .           .          .           .           .          .
+## WA.NEWS          .           .          .           .           .          .
+##               V.NEWS    WA.NEWS
+## ACF.NEWS           .          .
+## NSW.NEWS           .          .
+## NT.NEWS            .          .
+## Q.NEWS             .          .
+## SA.NEWS            .          .
+## T.NEWS             .          .
+## V.NEWS   0.004275613          .
+## WA.NEWS            . 0.02804386</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="tsvets.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tscor</span>(mod)</span></code></pre></div>
+<pre><code>## 8 x 8 diagonal matrix of class &quot;ddiMatrix&quot;
+##          ACF.NEWS NSW.NEWS NT.NEWS Q.NEWS SA.NEWS T.NEWS V.NEWS WA.NEWS
+## ACF.NEWS        1        .       .      .       .      .      .       .
+## NSW.NEWS        .        1       .      .       .      .      .       .
+## NT.NEWS         .        .       1      .       .      .      .       .
+## Q.NEWS          .        .       .      1       .      .      .       .
+## SA.NEWS         .        .       .      .       1      .      .       .
+## T.NEWS          .        .       .      .       .      1      .       .
+## V.NEWS          .        .       .      .       .      .      1       .
+## WA.NEWS         .        .       .      .       .      .      .       1</code></pre>
 <p>Note that, even though we impose a diagonal covariance matrix structure, we still return the full covariance matrix in <code>tscov</code>.</p>
 <p>Fitted and residuals:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="tsvets.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fitted</span>(mod)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="tsvets.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fitted</span>(mod)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            ACF.NEWS NSW.NEWS  NT.NEWS   Q.NEWS
-## 1988-04-30 5.083103 73.64493 1.826401 32.42638
-## 1988-05-31 5.676515 77.54210 1.989457 33.63410
-## 1988-06-30 5.075795 74.71801 2.035407 34.26671
-## 1988-07-31 4.934308 80.55045 2.505494 36.89035</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="tsvets.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">residuals</span>(mod)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##               ACF.NEWS   NSW.NEWS     NT.NEWS     Q.NEWS
-## 1988-04-30  0.01689726 -0.6449279 -0.02640146 -0.6263813
-## 1988-05-31 -0.07651455  2.7578955  0.01054259  3.0658951
-## 1988-06-30 -0.07579501  0.5819926  0.36459305  0.4332870
-## 1988-07-31 -0.03430793 -6.3504510 -0.10549408  2.2096475</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="tsvets.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">residuals</span>(mod, <span class="at">raw =</span> <span class="cn">TRUE</span>)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
+## 1988-04-30 5.083160 73.64485 1.826273 32.42631
+## 1988-05-31 5.678305 77.54145 1.992810 33.63348
+## 1988-06-30 5.068541 74.72022 2.038204 34.26928
+## 1988-07-31 4.932006 80.55169 2.504371 36.89154</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="tsvets.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">residuals</span>(mod)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##               ACF.NEWS   NSW.NEWS      NT.NEWS     Q.NEWS
+## 1988-04-30  0.01683990 -0.6448491 -0.026272664 -0.6263074
+## 1988-05-31 -0.07830457  2.7585476  0.007190382  3.0665182
+## 1988-06-30 -0.06854076  0.5797782  0.361795877  0.4307202
+## 1988-07-31 -0.03200619 -6.3516878 -0.104371326  2.2084582</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="tsvets.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">residuals</span>(mod, <span class="at">raw =</span> <span class="cn">TRUE</span>)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##                ACF.NEWS     NSW.NEWS      NT.NEWS      Q.NEWS
-## 1988-04-30  0.003682669 -0.008795832 -0.020383862 -0.01950604
-## 1988-05-31 -0.015157705  0.034948548  0.007808924  0.08723617
-## 1988-06-30 -0.016684017  0.007759009  0.258079365  0.01256527
-## 1988-07-31 -0.007725214 -0.082119558 -0.071428367  0.05817240</code></pre>
+## 1988-04-30  0.003307404 -0.008794762 -0.021775194 -0.01950376
+## 1988-05-31 -0.013886100  0.034956958  0.005781138  0.08725470
+## 1988-06-30 -0.013615046  0.007729372  0.281470559  0.01249037
+## 1988-07-31 -0.006510636 -0.082134913 -0.078646140  0.05814016</code></pre>
 <p>where argument <code>raw</code> denotes the non backtransformed residuals (if a Box Cox calculation was used).</p>
 <p>States decomposition:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="tsvets.html#cb138-1" aria-hidden="true" tabindex="-1"></a>tsx <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(mod)</span>
-<span id="cb138-2"><a href="tsvets.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsx<span class="sc">$</span>Level[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="tsvets.html#cb145-1" aria-hidden="true" tabindex="-1"></a>tsx <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(mod)</span>
+<span id="cb145-2"><a href="tsvets.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsx<span class="sc">$</span>Level[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            Level[ACF.NEWS] Level[NSW.NEWS] Level[NT.NEWS] Level[Q.NEWS]
-## 1988-04-30        1.786760        4.364053      0.8568871      3.546528
-## 1988-05-31        1.775698        4.389549      0.8605698      3.610766
-## 1988-06-30        1.763532        4.395390      1.0451636      3.621028
-## 1988-07-31        1.757843        4.336261      0.9915687      3.664258</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="tsvets.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsx<span class="sc">$</span>Slope[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
+## 1988-04-30        1.691734        4.364045      0.9000652      3.546509
+## 1988-05-31        1.681585        4.389578      0.9021136      3.610841
+## 1988-06-30        1.671633        4.395405      1.1037003      3.621061
+## 1988-07-31        1.666822        4.336189      1.0446420      3.664320</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="tsvets.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsx<span class="sc">$</span>Slope[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            Slope[ACF.NEWS] Slope[NSW.NEWS] Slope[NT.NEWS] Slope[Q.NEWS]
-## 1988-04-30   -0.0001052268    0.0002321876   -0.001962038   0.001179098
-## 1988-05-31   -0.0001052268    0.0002321876   -0.001962038   0.001179098
-## 1988-06-30   -0.0001052268    0.0002321876   -0.001962038   0.001179098
-## 1988-07-31   -0.0001052268    0.0002321876   -0.001962038   0.001179098</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="tsvets.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsx<span class="sc">$</span>Seasonal[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
+## 1988-04-30   -9.831044e-05    0.0002321412   -0.002135869   0.001179101
+## 1988-05-31   -9.831044e-05    0.0002321412   -0.002135869   0.001179101
+## 1988-06-30   -9.831044e-05    0.0002321412   -0.002135869   0.001179101
+## 1988-07-31   -9.831044e-05    0.0002321412   -0.002135869   0.001179101</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="tsvets.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsx<span class="sc">$</span>Seasonal[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##            Seasonal[ACF.NEWS] Seasonal[NSW.NEWS] Seasonal[NT.NEWS]
-## 1988-04-30        0.049736578       -0.013464613       -0.01416351
-## 1988-05-31       -0.063743434       -0.076059732        0.01605865
-## 1988-06-30       -0.082914767       -0.006738031        0.16097260
-## 1988-07-31       -0.003446856        0.020157472        0.13901380
+## 1988-04-30        0.045016743       -0.013464562       -0.01673148
+## 1988-05-31       -0.058434214       -0.076059727        0.01760856
+## 1988-06-30       -0.075788732       -0.006737928        0.17613856
+## 1988-07-31       -0.002813842        0.020157397        0.15300637
 ##            Seasonal[Q.NEWS]
-## 1988-04-30     -0.032166073
-## 1988-05-31     -0.077771070
-## 1988-06-30     -0.014257476
-## 1988-07-31      0.009366023</code></pre>
+## 1988-04-30     -0.032166030
+## 1988-05-31     -0.077771015
+## 1988-06-30     -0.014257399
+## 1988-07-31      0.009366033</code></pre>
 <p>Plot methods exist outputting the fitted values, the states and the residuals, with an argument for the series to output, with a maximum number per call of 10 series:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="tsvets.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="tsvets.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-14-1.png" width="768" /></p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="tsvets.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="tsvets.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-14-2.png" width="768" /></p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="tsvets.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">type =</span> <span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="tsvets.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">type =</span> <span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-14-3.png" width="768" /></p>
 <p>The <code>predict</code> function will output a list which includes data.table of each series’ prediction object and state decomposition:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="tsvets.html#cb147-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">12</span>)</span>
-<span id="cb147-2"><a href="tsvets.html#cb147-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>prediction_table</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="tsvets.html#cb154-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">12</span>)</span>
+<span id="cb154-2"><a href="tsvets.html#cb154-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>prediction_table</span></code></pre></div>
 <pre><code>##      series                Level                Slope             Seasonal X
 ## 1: ACF.NEWS &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt;  
 ## 2: NSW.NEWS &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt;  
@@ -836,11 +753,11 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 7: &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt;
 ## 8: &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt;</code></pre>
 <p>The plot method on the predicted object can output 1 series at a time using the <code>series</code> argument:</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="tsvets.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p, <span class="at">series =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="tsvets.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p, <span class="at">series =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-16-1.png" width="768" /></p>
 <p>The simulation method also returns a list with a data.table object with each series’ simulation object and state decomposition. Additionally, there are optional arguments for the initial state to use (<code>init_states</code>) and parameter vector (<code>pars</code>).</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="tsvets.html#cb150-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod, <span class="at">h =</span> <span class="dv">12</span><span class="sc">*</span><span class="dv">8</span>, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">init_states =</span> mod<span class="sc">$</span>spec<span class="sc">$</span>vets_env<span class="sc">$</span>States[,<span class="dv">1</span>])</span>
-<span id="cb150-2"><a href="tsvets.html#cb150-2" aria-hidden="true" tabindex="-1"></a>s<span class="sc">$</span>simulation_table</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="tsvets.html#cb157-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod, <span class="at">h =</span> <span class="dv">12</span><span class="sc">*</span><span class="dv">8</span>, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">init_states =</span> mod<span class="sc">$</span>spec<span class="sc">$</span>vets_env<span class="sc">$</span>States[,<span class="dv">1</span>])</span>
+<span id="cb157-2"><a href="tsvets.html#cb157-2" aria-hidden="true" tabindex="-1"></a>s<span class="sc">$</span>simulation_table</span></code></pre></div>
 <pre><code>##      series                Level                Slope             Seasonal
 ## 1: ACF.NEWS &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt;
 ## 2: NSW.NEWS &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt; &lt;tsmodel.predict[2]&gt;
@@ -859,77 +776,89 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 6: &lt;tsmodel.predict[2]&gt;
 ## 7: &lt;tsmodel.predict[2]&gt;
 ## 8: &lt;tsmodel.predict[2]&gt;</code></pre>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="tsvets.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>),<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb152-2"><a href="tsvets.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Simulated[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Series&quot;</span>)</span>
-<span id="cb152-3"><a href="tsvets.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Level[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Level&quot;</span>)</span>
-<span id="cb152-4"><a href="tsvets.html#cb152-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Slope[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Slope&quot;</span>)</span>
-<span id="cb152-5"><a href="tsvets.html#cb152-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Seasonal[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Seasonal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="tsvets.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>),<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb159-2"><a href="tsvets.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Simulated[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Series&quot;</span>)</span>
+<span id="cb159-3"><a href="tsvets.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Level[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Level&quot;</span>)</span>
+<span id="cb159-4"><a href="tsvets.html#cb159-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Slope[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Slope&quot;</span>)</span>
+<span id="cb159-5"><a href="tsvets.html#cb159-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s<span class="sc">$</span>simulation_table[series <span class="sc">==</span> <span class="st">&quot;ACF.NEWS&quot;</span>]<span class="sc">$</span>Seasonal[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;Simulated Seasonal&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-17-1.png" width="768" /></p>
 <p>The <code>tsbacktest</code> method has similar arguments to other backtest implementations in the <strong>tsmodels</strong> framework:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="tsvets.html#cb153-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">cores =</span> <span class="dv">5</span>, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>, <span class="at">trace =</span> <span class="dv">0</span>, <span class="at">autodiff =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="tsvets.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(future))</span>
+<span id="cb160-2"><a href="tsvets.html#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">list</span>(</span>
+<span id="cb160-3"><a href="tsvets.html#cb160-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tweak</span>(sequential),</span>
+<span id="cb160-4"><a href="tsvets.html#cb160-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tweak</span>(multisession, <span class="at">workers =</span> <span class="dv">5</span>)</span>
+<span id="cb160-5"><a href="tsvets.html#cb160-5" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb160-6"><a href="tsvets.html#cb160-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">tsbacktest</span>(spec, <span class="at">h =</span> <span class="dv">12</span>, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>, <span class="at">autodiff =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb160-7"><a href="tsvets.html#cb160-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code></pre></div>
 <p>The returned object is a list of 2 data.tables with the predictions for each series by estimation date and horizon and the summary metrics table:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="tsvets.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>prediction)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="tsvets.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>prediction)</span></code></pre></div>
 <pre><code>##      series estimation_date horizon size forecast_dates forecast actual
-## 1: ACF.NEWS      2003-07-31       1  184     2003-08-31 11.15297   11.2
-## 2: ACF.NEWS      2003-07-31       2  184     2003-09-30 10.61685   10.1
-## 3: ACF.NEWS      2003-07-31       3  184     2003-10-31 10.51334    9.7
-## 4: ACF.NEWS      2003-07-31       4  184     2003-11-30 11.18095    9.7
-## 5: ACF.NEWS      2003-07-31       5  184     2003-12-31 15.55127   14.2
-## 6: ACF.NEWS      2003-07-31       6  184     2004-01-31 10.19090    8.6</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="tsvets.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>metrics)</span></code></pre></div>
+## 1: ACF.NEWS      2003-07-31       1  184     2003-08-31 11.18291   11.2
+## 2: ACF.NEWS      2003-07-31       2  184     2003-09-30 10.66307   10.1
+## 3: ACF.NEWS      2003-07-31       3  184     2003-10-31 10.55431    9.7
+## 4: ACF.NEWS      2003-07-31       4  184     2003-11-30 11.22193    9.7
+## 5: ACF.NEWS      2003-07-31       5  184     2003-12-31 15.59007   14.2
+## 6: ACF.NEWS      2003-07-31       6  184     2004-01-31 10.15719    8.6</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="tsvets.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(b<span class="sc">$</span>metrics)</span></code></pre></div>
 <pre><code>##      series horizon       MAPE      MSLRE       BIAS   n
-## 1: ACF.NEWS       1 0.08344100 0.01147017 0.01528171 185
-## 2: ACF.NEWS       2 0.09773936 0.01462113 0.02457635 184
-## 3: ACF.NEWS       3 0.10865025 0.01753223 0.03328862 183
-## 4: ACF.NEWS       4 0.11919299 0.02081765 0.04233478 182
-## 5: ACF.NEWS       5 0.11657522 0.02062666 0.05092162 181
-## 6: ACF.NEWS       6 0.12625000 0.02294433 0.05890854 180</code></pre>
+## 1: ACF.NEWS       1 0.08307516 0.01150112 0.01629241 185
+## 2: ACF.NEWS       2 0.09825451 0.01488685 0.02527725 184
+## 3: ACF.NEWS       3 0.10889905 0.01772031 0.03532323 183
+## 4: ACF.NEWS       4 0.11878938 0.02140087 0.04404405 182
+## 5: ACF.NEWS       5 0.11953792 0.02149229 0.05283345 181
+## 6: ACF.NEWS       6 0.12702469 0.02316764 0.06097004 180</code></pre>
 </div>
 <div id="tsvets:demonstration:example2" class="section level3" number="6.7.3">
 <h3><span class="header-section-number">6.7.3</span> Example: Australian Retail Sales Grouped Dynamics</h3>
 <p>In this example, we show how grouping works on 99 series, where grouping is by sector.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="tsvets.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
-<span id="cb158-2"><a href="tsvets.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
-<span id="cb158-3"><a href="tsvets.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
-<span id="cb158-4"><a href="tsvets.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
-<span id="cb158-5"><a href="tsvets.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(data.table))</span>
-<span id="cb158-6"><a href="tsvets.html#cb158-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb158-7"><a href="tsvets.html#cb158-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> austretail[<span class="st">&quot;2000/&quot;</span>]</span>
-<span id="cb158-8"><a href="tsvets.html#cb158-8" aria-hidden="true" tabindex="-1"></a>include <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(y), <span class="cf">function</span>(i) <span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(y[,i])))</span>
-<span id="cb158-9"><a href="tsvets.html#cb158-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y[,include]</span>
-<span id="cb158-10"><a href="tsvets.html#cb158-10" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(y), <span class="cf">function</span>(i) <span class="fu">strsplit</span>(<span class="fu">colnames</span>(y[,i]), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])</span>
-<span id="cb158-11"><a href="tsvets.html#cb158-11" aria-hidden="true" tabindex="-1"></a>groups_index <span class="ot">&lt;-</span> <span class="fu">sort.int</span>(groups, <span class="at">index.return =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb158-12"><a href="tsvets.html#cb158-12" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y[,groups_index<span class="sc">$</span>ix]</span>
-<span id="cb158-13"><a href="tsvets.html#cb158-13" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> groups[groups_index<span class="sc">$</span>ix]</span>
-<span id="cb158-14"><a href="tsvets.html#cb158-14" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">rle</span>(groups)<span class="sc">$</span>lengths</span>
-<span id="cb158-15"><a href="tsvets.html#cb158-15" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(groups), <span class="cf">function</span>(i) <span class="fu">rep</span>(i, groups[i])))</span>
-<span id="cb158-16"><a href="tsvets.html#cb158-16" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y[,<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>], <span class="at">level =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb158-17"><a href="tsvets.html#cb158-17" aria-hidden="true" tabindex="-1"></a>                       <span class="at">group =</span> groups[<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>],  <span class="at">seasonal =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">lambda =</span> <span class="fl">0.5</span>, </span>
-<span id="cb158-18"><a href="tsvets.html#cb158-18" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">cores =</span> <span class="dv">3</span>)</span>
-<span id="cb158-19"><a href="tsvets.html#cb158-19" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
-<p>The joint estimation of the 99 series takes about 3.366302 minutes.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="tsvets.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
+<span id="cb165-2"><a href="tsvets.html#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
+<span id="cb165-3"><a href="tsvets.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
+<span id="cb165-4"><a href="tsvets.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
+<span id="cb165-5"><a href="tsvets.html#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(data.table))</span>
+<span id="cb165-6"><a href="tsvets.html#cb165-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(future))</span>
+<span id="cb165-7"><a href="tsvets.html#cb165-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">list</span>(</span>
+<span id="cb165-8"><a href="tsvets.html#cb165-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tweak</span>(sequential),</span>
+<span id="cb165-9"><a href="tsvets.html#cb165-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tweak</span>(multisession, <span class="at">workers =</span> <span class="dv">5</span>)</span>
+<span id="cb165-10"><a href="tsvets.html#cb165-10" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb165-11"><a href="tsvets.html#cb165-11" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb165-12"><a href="tsvets.html#cb165-12" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> austretail[<span class="st">&quot;2000/&quot;</span>]</span>
+<span id="cb165-13"><a href="tsvets.html#cb165-13" aria-hidden="true" tabindex="-1"></a>include <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(y), <span class="cf">function</span>(i) <span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(y[,i])))</span>
+<span id="cb165-14"><a href="tsvets.html#cb165-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y[,include]</span>
+<span id="cb165-15"><a href="tsvets.html#cb165-15" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(y), <span class="cf">function</span>(i) <span class="fu">strsplit</span>(<span class="fu">colnames</span>(y[,i]), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])</span>
+<span id="cb165-16"><a href="tsvets.html#cb165-16" aria-hidden="true" tabindex="-1"></a>groups_index <span class="ot">&lt;-</span> <span class="fu">sort.int</span>(groups, <span class="at">index.return =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb165-17"><a href="tsvets.html#cb165-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y[,groups_index<span class="sc">$</span>ix]</span>
+<span id="cb165-18"><a href="tsvets.html#cb165-18" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> groups[groups_index<span class="sc">$</span>ix]</span>
+<span id="cb165-19"><a href="tsvets.html#cb165-19" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">rle</span>(groups)<span class="sc">$</span>lengths</span>
+<span id="cb165-20"><a href="tsvets.html#cb165-20" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(groups), <span class="cf">function</span>(i) <span class="fu">rep</span>(i, groups[i])))</span>
+<span id="cb165-21"><a href="tsvets.html#cb165-21" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y[,<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>], <span class="at">level =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb165-22"><a href="tsvets.html#cb165-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">group =</span> groups[<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>],  <span class="at">seasonal =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">lambda =</span> <span class="fl">0.5</span>, </span>
+<span id="cb165-23"><a href="tsvets.html#cb165-23" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb165-24"><a href="tsvets.html#cb165-24" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
+<span id="cb165-25"><a href="tsvets.html#cb165-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code></pre></div>
+<p>The joint estimation of the 99 series takes about 38.1052721 minutes.</p>
 <p>We avoid the <code>summary</code> method for such a large object, and instead print out the coefficients and the performance metrics:</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="tsvets.html#cb159-1" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)</span>
-<span id="cb159-2"><a href="tsvets.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">Coefficient =</span> <span class="fu">names</span>(cf), <span class="at">Value =</span> <span class="fu">round</span>(cf,<span class="dv">4</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="tsvets.html#cb166-1" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)</span>
+<span id="cb166-2"><a href="tsvets.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">Coefficient =</span> <span class="fu">names</span>(cf), <span class="at">Value =</span> <span class="fu">round</span>(cf,<span class="dv">4</span>)))</span></code></pre></div>
 <pre><code>##              Coefficient  Value
-##  1:     Level[Group = 1] 0.4458
-##  2:     Level[Group = 2] 0.5108
-##  3:     Level[Group = 3] 0.7151
+##  1:     Level[Group = 1] 0.4452
+##  2:     Level[Group = 2] 0.5126
+##  3:     Level[Group = 3] 0.7164
 ##  4:     Level[Group = 4] 0.6882
-##  5:     Level[Group = 5] 0.1675
-##  6:     Level[Group = 6] 0.5208
+##  5:     Level[Group = 5] 0.1651
+##  6:     Level[Group = 6] 0.5261
 ##  7:     Level[Group = 7] 0.5494
-##  8:     Level[Group = 8] 0.4183
+##  8:     Level[Group = 8] 0.4238
 ##  9:     Level[Group = 9] 0.5011
-## 10:    Level[Group = 10] 0.5771
-## 11:    Level[Group = 11] 0.7378
+## 10:    Level[Group = 10] 0.5850
+## 11:    Level[Group = 11] 0.7356
 ## 12:    Level[Group = 12] 0.4934
-## 13:    Level[Group = 13] 0.7206
+## 13:    Level[Group = 13] 0.7173
 ## 14:     Slope[Group = 1] 0.0000
 ## 15:     Slope[Group = 2] 0.0000
 ## 16:     Slope[Group = 3] 0.0000
 ## 17:     Slope[Group = 4] 0.0000
-## 18:     Slope[Group = 5] 0.0074
+## 18:     Slope[Group = 5] 0.0067
 ## 19:     Slope[Group = 6] 0.0000
 ## 20:     Slope[Group = 7] 0.0000
 ## 21:     Slope[Group = 8] 0.0000
@@ -938,113 +867,115 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## 24:    Slope[Group = 11] 0.0000
 ## 25:    Slope[Group = 12] 0.0000
 ## 26:    Slope[Group = 13] 0.0000
-## 27:  Seasonal[Group = 1] 0.3440
-## 28:  Seasonal[Group = 2] 0.1879
+## 27:  Seasonal[Group = 1] 0.3373
+## 28:  Seasonal[Group = 2] 0.2047
 ## 29:  Seasonal[Group = 3] 0.0000
 ## 30:  Seasonal[Group = 4] 0.0000
-## 31:  Seasonal[Group = 5] 0.1335
-## 32:  Seasonal[Group = 6] 0.2645
+## 31:  Seasonal[Group = 5] 0.1315
+## 32:  Seasonal[Group = 6] 0.2795
 ## 33:  Seasonal[Group = 7] 0.0000
-## 34:  Seasonal[Group = 8] 0.3150
+## 34:  Seasonal[Group = 8] 0.3143
 ## 35:  Seasonal[Group = 9] 0.3885
 ## 36: Seasonal[Group = 10] 0.0000
 ## 37: Seasonal[Group = 11] 0.0000
 ## 38: Seasonal[Group = 12] 0.2692
-## 39: Seasonal[Group = 13] 0.0000
+## 39: Seasonal[Group = 13] 0.0013
 ##              Coefficient  Value</code></pre>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="tsvets.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod)</span></code></pre></div>
-<pre><code>##       N no_pars    LogLik       AIC      BIC      AICc       MAPE       MSLRE
-## 1 22572    1425 -7562.715 -4712.715 6722.149 -4520.522 0.04042485 0.003137474
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="tsvets.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsmetrics</span>(mod)</span></code></pre></div>
+<pre><code>##       N no_pars    LogLik       AIC      BIC     AICc       MAPE       MSLRE
+## 1 22572    1425 -7613.512 -4763.512 6671.351 -4571.32 0.04063859 0.003203836
 ##         WAPE       WSLRE
-## 1 0.04042485 0.003137474</code></pre>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="tsvets.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">series =</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>)[groups <span class="sc">==</span> <span class="dv">4</span>])</span></code></pre></div>
+## 1 0.04063859 0.003203836</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="tsvets.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">series =</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>)[groups <span class="sc">==</span> <span class="dv">4</span>])</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-23-1.png" width="768" /></p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="tsvets.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">series =</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>)[groups <span class="sc">==</span> <span class="dv">4</span>], <span class="at">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="tsvets.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">series =</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>)[groups <span class="sc">==</span> <span class="dv">4</span>], <span class="at">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-23-2.png" width="768" /></p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="tsvets.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">series =</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>)[groups <span class="sc">==</span> <span class="dv">4</span>], <span class="at">type =</span> <span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="tsvets.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">series =</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">99</span>)[groups <span class="sc">==</span> <span class="dv">4</span>], <span class="at">type =</span> <span class="st">&quot;residuals&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-23-3.png" width="768" /></p>
 </div>
 <div id="tsvets:demonstration:example3" class="section level3" number="6.7.4">
 <h3><span class="header-section-number">6.7.4</span> Example: Australian Retail Sales Filtering</h3>
-<p>This example highlights the use of the <code>tsfilter</code> method for online filtering as already discussed in Sections <a href="tsets.html#tsets:demonstration:filtering">4.6.4</a> and <a href="tsissm.html#tsissm:demonstration:filtering">5.5.5</a>.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="tsvets.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
-<span id="cb166-2"><a href="tsvets.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
-<span id="cb166-3"><a href="tsvets.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
-<span id="cb166-4"><a href="tsvets.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
-<span id="cb166-5"><a href="tsvets.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb166-6"><a href="tsvets.html#cb166-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(austretail[,<span class="fu">grepl</span>(<span class="st">&quot;NEWS&quot;</span>, <span class="fu">colnames</span>(austretail))])</span>
-<span id="cb166-7"><a href="tsvets.html#cb166-7" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> y[<span class="dv">1</span><span class="sc">:</span>(<span class="dv">369</span> <span class="sc">-</span> <span class="dv">24</span>)]</span>
-<span id="cb166-8"><a href="tsvets.html#cb166-8" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">&lt;-</span> y[(<span class="dv">369</span> <span class="sc">-</span> <span class="dv">24</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="dv">369</span>]</span>
-<span id="cb166-9"><a href="tsvets.html#cb166-9" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y_train, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb166-10"><a href="tsvets.html#cb166-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal =</span> <span class="st">&quot;common&quot;</span>, <span class="at">lambda =</span> <span class="fl">0.5</span>, <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, </span>
-<span id="cb166-11"><a href="tsvets.html#cb166-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">cores =</span> <span class="dv">3</span>)</span>
-<span id="cb166-12"><a href="tsvets.html#cb166-12" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace=</span><span class="dv">0</span>))</span>
-<span id="cb166-13"><a href="tsvets.html#cb166-13" aria-hidden="true" tabindex="-1"></a>filt <span class="ot">&lt;-</span> <span class="fu">tsfilter</span>(mod, <span class="at">y =</span> y_test)</span>
-<span id="cb166-14"><a href="tsvets.html#cb166-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">fitted</span>(mod))</span></code></pre></div>
+<p>This example highlights the use of the <code>tsfilter</code> method for online filtering
+as already discussed in Sections <a href="tsets.html#tsets:demonstration:filtering">4.6.4</a> and <a href="tsissm.html#tsissm:demonstration:filtering">5.5.5</a>.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="tsvets.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
+<span id="cb173-2"><a href="tsvets.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
+<span id="cb173-3"><a href="tsvets.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
+<span id="cb173-4"><a href="tsvets.html#cb173-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
+<span id="cb173-5"><a href="tsvets.html#cb173-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb173-6"><a href="tsvets.html#cb173-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(austretail[,<span class="fu">grepl</span>(<span class="st">&quot;NEWS&quot;</span>, <span class="fu">colnames</span>(austretail))])</span>
+<span id="cb173-7"><a href="tsvets.html#cb173-7" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> y[<span class="dv">1</span><span class="sc">:</span>(<span class="dv">369</span> <span class="sc">-</span> <span class="dv">24</span>)]</span>
+<span id="cb173-8"><a href="tsvets.html#cb173-8" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">&lt;-</span> y[(<span class="dv">369</span> <span class="sc">-</span> <span class="dv">24</span> <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="dv">369</span>]</span>
+<span id="cb173-9"><a href="tsvets.html#cb173-9" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y_train, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb173-10"><a href="tsvets.html#cb173-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal =</span> <span class="st">&quot;common&quot;</span>, <span class="at">lambda =</span> <span class="fl">0.5</span>, <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, </span>
+<span id="cb173-11"><a href="tsvets.html#cb173-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb173-12"><a href="tsvets.html#cb173-12" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span>
+<span id="cb173-13"><a href="tsvets.html#cb173-13" aria-hidden="true" tabindex="-1"></a>filt <span class="ot">&lt;-</span> <span class="fu">tsfilter</span>(mod, <span class="at">y =</span> y_test)</span>
+<span id="cb173-14"><a href="tsvets.html#cb173-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">fitted</span>(mod))</span></code></pre></div>
 <pre><code>##            ACF.NEWS  NSW.NEWS  NT.NEWS   Q.NEWS   SA.NEWS   T.NEWS   V.NEWS
-## 2016-07-31 5.876297  83.52440 1.512683 51.51574 11.945775 12.23984 46.78722
-## 2016-08-31 5.522048  86.27697 1.560434 54.08378 10.737312 13.03752 46.71343
-## 2016-09-30 5.206287  82.17841 1.414184 52.44660  9.951203 13.82086 45.70285
-## 2016-10-31 4.996807  83.30330 1.327481 55.07050  9.966181 12.29451 48.87455
-## 2016-11-30 5.570064  87.80605 1.311445 54.84109 10.453560 12.09789 50.22824
-## 2016-12-31 8.063519 115.33473 1.798219 71.62148 15.714844 14.80842 76.59479
+## 2016-07-31 6.274802  85.48929 1.563078 51.79401 12.263423 12.41307 47.63892
+## 2016-08-31 5.822149  87.91927 1.518185 54.59904 10.952639 12.97214 47.66849
+## 2016-09-30 4.902062  81.27385 1.394669 51.86892  9.940538 13.71905 45.84748
+## 2016-10-31 4.791341  83.27201 1.319689 55.07794  9.960859 12.42058 49.48286
+## 2016-11-30 5.547111  86.93625 1.357322 54.95787 10.368365 12.07245 50.89754
+## 2016-12-31 8.184714 116.27851 1.858932 72.01650 15.622342 14.69097 76.20901
 ##             WA.NEWS
-## 2016-07-31 40.08457
-## 2016-08-31 41.81813
-## 2016-09-30 39.66528
-## 2016-10-31 40.57748
-## 2016-11-30 42.00032
-## 2016-12-31 55.08142</code></pre>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="tsvets.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">tail</span>(<span class="fu">fitted</span>(filt), <span class="dv">24</span> <span class="sc">+</span> <span class="dv">1</span>), <span class="dv">5</span>)</span></code></pre></div>
+## 2016-07-31 40.75596
+## 2016-08-31 42.52751
+## 2016-09-30 39.24565
+## 2016-10-31 40.45786
+## 2016-11-30 41.79131
+## 2016-12-31 55.58459</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="tsvets.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">tail</span>(<span class="fu">fitted</span>(filt), <span class="dv">24</span> <span class="sc">+</span> <span class="dv">1</span>), <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##            ACF.NEWS  NSW.NEWS  NT.NEWS   Q.NEWS   SA.NEWS   T.NEWS   V.NEWS
-## 2016-12-31 8.063519 115.33473 1.798219 71.62148 15.714844 14.80842 76.59479
-## 2017-01-31 5.113393  92.95258 1.275950 58.22844  8.766206 12.32122 50.85179
-## 2017-02-28 6.785631  94.95922 1.141774 53.31780  9.525980 13.28888 48.24517
-## 2017-03-31 6.037202  99.96287 1.128547 54.11226 11.156456 11.88752 52.25142
-## 2017-04-30 4.924493  83.00795 1.157302 51.71266  8.581191 11.20606 47.70697
+## 2016-12-31 8.184714 116.27851 1.858932 72.01650 15.622342 14.69097 76.20901
+## 2017-01-31 5.136207  92.07696 1.239745 57.96096  8.790413 12.48530 47.68477
+## 2017-02-28 7.150196  94.62244 1.098936 52.06101  9.564020 13.50578 47.71324
+## 2017-03-31 5.671755  98.44475 1.105181 54.21634 11.124740 11.63927 52.55807
+## 2017-04-30 4.718627  82.17766 1.158383 51.48423  8.319089 10.94583 47.45609
 ##             WA.NEWS
-## 2016-12-31 55.08142
-## 2017-01-31 48.57365
-## 2017-02-28 41.41009
-## 2017-03-31 40.95814
-## 2017-04-30 38.37743</code></pre>
+## 2016-12-31 55.58459
+## 2017-01-31 48.38624
+## 2017-02-28 40.52982
+## 2017-03-31 40.46546
+## 2017-04-30 37.86586</code></pre>
 </div>
 <div id="tsvets:demonstration:example4" class="section level3" number="6.7.5">
 <h3><span class="header-section-number">6.7.5</span> Example: Australian Retail Sales Aggregation</h3>
-<p>This demonstrates the ability to aggregate a model estimated with homogeneous coefficients. We continue with the retail sales data, which being a set of flow variables, can be aggregated.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="tsvets.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
-<span id="cb170-2"><a href="tsvets.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
-<span id="cb170-3"><a href="tsvets.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
-<span id="cb170-4"><a href="tsvets.html#cb170-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
-<span id="cb170-5"><a href="tsvets.html#cb170-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb170-6"><a href="tsvets.html#cb170-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(austretail[,<span class="fu">grepl</span>(<span class="st">&quot;NEWS&quot;</span>, <span class="fu">colnames</span>(austretail))])</span></code></pre></div>
+<p>This demonstrates the ability to aggregate a model estimated with homogeneous coefficients.
+We continue with the retail sales data, which being a set of flow variables, can be aggregated.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="tsvets.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tsvets)))</span>
+<span id="cb177-2"><a href="tsvets.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsmethods))</span>
+<span id="cb177-3"><a href="tsvets.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tsaux))</span>
+<span id="cb177-4"><a href="tsvets.html#cb177-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(xts))</span>
+<span id="cb177-5"><a href="tsvets.html#cb177-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;austretail&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb177-6"><a href="tsvets.html#cb177-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(austretail[,<span class="fu">grepl</span>(<span class="st">&quot;NEWS&quot;</span>, <span class="fu">colnames</span>(austretail))])</span></code></pre></div>
 <p>We use a vector of ones as weights, to denote summation to the total for the News category.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="tsvets.html#cb171-1" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="tsvets.html#cb178-1" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">8</span>)</span></code></pre></div>
 <p>Additionally, we also include, purely for expositional purposes, a matrix of 5 randomly generated regressors:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="tsvets.html#cb172-1" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fu">nrow</span>(y) <span class="sc">*</span> <span class="dv">5</span>), <span class="at">nrow =</span> <span class="fu">nrow</span>(y), <span class="at">ncol =</span> <span class="dv">5</span>), <span class="fu">index</span>(y))</span>
-<span id="cb172-2"><a href="tsvets.html#cb172-2" aria-hidden="true" tabindex="-1"></a>xreg_include <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">nrow =</span> <span class="fu">ncol</span>(y))</span>
-<span id="cb172-3"><a href="tsvets.html#cb172-3" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="dv">2</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="tsvets.html#cb179-1" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fu">nrow</span>(y) <span class="sc">*</span> <span class="dv">5</span>), <span class="at">nrow =</span> <span class="fu">nrow</span>(y), <span class="at">ncol =</span> <span class="dv">5</span>), <span class="fu">index</span>(y))</span>
+<span id="cb179-2"><a href="tsvets.html#cb179-2" aria-hidden="true" tabindex="-1"></a>xreg_include <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">nrow =</span> <span class="fu">ncol</span>(y))</span>
+<span id="cb179-3"><a href="tsvets.html#cb179-3" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="dv">2</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
 <p>Setting the include matrix to the value of 2 means pooling, and we also set regressor 1 for series 2 to a value of 1 in order to denote that we want this to be estimated seperately (non-pooled).</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="tsvets.html#cb173-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>,  <span class="at">slope =</span> <span class="st">&quot;common&quot;</span>, <span class="at">seasonal =</span> <span class="st">&quot;common&quot;</span>, </span>
-<span id="cb173-2"><a href="tsvets.html#cb173-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">cores =</span> <span class="dv">2</span>, <span class="at">xreg =</span> xreg,</span>
-<span id="cb173-3"><a href="tsvets.html#cb173-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">xreg_include =</span> xreg_include)</span>
-<span id="cb173-4"><a href="tsvets.html#cb173-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="tsvets.html#cb180-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>,  <span class="at">slope =</span> <span class="st">&quot;common&quot;</span>, <span class="at">seasonal =</span> <span class="st">&quot;common&quot;</span>, </span>
+<span id="cb180-2"><a href="tsvets.html#cb180-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">xreg =</span> xreg,</span>
+<span id="cb180-3"><a href="tsvets.html#cb180-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">xreg_include =</span> xreg_include)</span>
+<span id="cb180-4"><a href="tsvets.html#cb180-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
 <p>We can extract specific matrices from the estimate object using the as yet unexported function <code>p_matrix</code>:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="tsvets.html#cb174-1" aria-hidden="true" tabindex="-1"></a>tsvets<span class="sc">:::</span><span class="fu">p_matrix</span>(mod)<span class="sc">$</span>X</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="tsvets.html#cb181-1" aria-hidden="true" tabindex="-1"></a>tsvets<span class="sc">:::</span><span class="fu">p_matrix</span>(mod)<span class="sc">$</span>X</span></code></pre></div>
 <pre><code>## 8 x 5 Matrix of class &quot;dgeMatrix&quot;
-##                     x1          x2           x3           x4          x5
-## ACF.NEWS -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848
-## NSW.NEWS -0.2329853731 0.003462852 -0.005961621 -0.005416136 0.007784848
-## NT.NEWS  -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848
-## Q.NEWS   -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848
-## SA.NEWS  -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848
-## T.NEWS   -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848
-## V.NEWS   -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848
-## WA.NEWS  -0.0006278521 0.003462852 -0.005961621 -0.005416136 0.007784848</code></pre>
+##                     x1           x2           x3         x4           x5
+## ACF.NEWS -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## NSW.NEWS -0.1078780262 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## NT.NEWS  -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## Q.NEWS   -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## SA.NEWS  -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## T.NEWS   -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## V.NEWS   -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157
+## WA.NEWS  -0.0006453784 -0.007107209 -0.007540862 0.01789096 -0.001942157</code></pre>
 <p>where we can observe that the coefficients for each regressor have been pooled, with the exception of <code>x1</code> for the NSW.NEWS series.</p>
 <p>We can now proceed to aggregate the model using the <code>tsaggregate</code> method on the estimated object:</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="tsvets.html#cb176-1" aria-hidden="true" tabindex="-1"></a>mod_aggregate <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(mod, <span class="at">weights =</span> weights, <span class="at">return_model =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb176-2"><a href="tsvets.html#cb176-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_aggregate)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="tsvets.html#cb183-1" aria-hidden="true" tabindex="-1"></a>mod_aggregate <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(mod, <span class="at">weights =</span> weights, <span class="at">return_model =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb183-2"><a href="tsvets.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_aggregate)</span></code></pre></div>
 <pre><code>## 
 ##            Vector ETS            
 ## -----------------------------------
@@ -1060,70 +991,59 @@ L\left( \boldsymbol{\theta}  \right) = \frac{1}{2}T\left( {N\log 2\pi  - \log \l
 ## Level Matrix
 ## 1 x 1 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]     
-## [1,] 0.6346078
+## [1,] 0.6236387
 ## 
 ## Slope Matrix
 ## 1 x 1 diagonal matrix of class &quot;ddiMatrix&quot;
-##      [,1]        
-## [1,] 1.687443e-09
+##      [,1] 
+## [1,] 1e-12
 ## 
 ## Seasonal Matrix
 ## 1 x 1 diagonal matrix of class &quot;ddiMatrix&quot;
-##      [,1]      
-## [1,] 0.06527485
+##      [,1]   
+## [1,] 0.12473
 ## 
 ## Regressor Matrix
 ## 1 x 5 Matrix of class &quot;dgeMatrix&quot;
-##                   x1         x2          x3          x4         x5
-## aggregate -0.2373803 0.02770281 -0.04769297 -0.04332909 0.06227878
+##                   x1          x2         x3        x4          x5
+## aggregate -0.1123957 -0.05685767 -0.0603269 0.1431277 -0.01553725
 ## 
 ## Covariance Matrix
 ## 1 x 1 diagonal matrix of class &quot;ddiMatrix&quot;
 ##           aggregate
-## aggregate  234.2035
+## aggregate  223.1582
 ## 
 ## Accuracy Criteria
 ##         Mean Weighted
-## MAPE  0.0363   0.0363
-## MSLRE 0.0022   0.0022</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="tsvets.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod_aggregate)</span></code></pre></div>
+## MAPE  0.0353   0.0353
+## MSLRE 0.0021   0.0021</code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="tsvets.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod_aggregate)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-29-1.png" width="768" /></p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="tsvets.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">plot</span>(mod_aggregate, <span class="at">type =</span> <span class="st">&quot;states&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="tsvets.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(<span class="fu">plot</span>(mod_aggregate, <span class="at">type =</span> <span class="st">&quot;states&quot;</span>))</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-29-2.png" width="768" /></p>
 <p>We can then proceed with prediction as well as simulation, both of which allow for the outputs to be aggregated. Alternatively, since we now have an aggregated model object, we can also predict or simulate directly from that object.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="tsvets.html#cb180-1" aria-hidden="true" tabindex="-1"></a>newxreg <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">24</span> <span class="sc">*</span> <span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">24</span>, <span class="at">ncol =</span> <span class="dv">5</span>), </span>
-<span id="cb180-2"><a href="tsvets.html#cb180-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">future_dates</span>(<span class="fu">tail</span>(<span class="fu">index</span>(y),<span class="dv">1</span>),<span class="st">&quot;months&quot;</span>,<span class="dv">24</span>))</span>
-<span id="cb180-3"><a href="tsvets.html#cb180-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">newxreg =</span> newxreg)</span>
-<span id="cb180-4"><a href="tsvets.html#cb180-4" aria-hidden="true" tabindex="-1"></a>p_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(p, <span class="at">weights =</span> weights)</span>
-<span id="cb180-5"><a href="tsvets.html#cb180-5" aria-hidden="true" tabindex="-1"></a>p_agg_model <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_aggregate, <span class="at">newxreg =</span> newxreg)</span>
-<span id="cb180-6"><a href="tsvets.html#cb180-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>, </span>
-<span id="cb180-7"><a href="tsvets.html#cb180-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Agggregated Model&quot;</span>)</span>
-<span id="cb180-8"><a href="tsvets.html#cb180-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_model<span class="sc">$</span>prediction_table[<span class="dv">1</span>]<span class="sc">$</span>Predicted[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
-<span id="cb180-9"><a href="tsvets.html#cb180-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, </span>
-<span id="cb180-10"><a href="tsvets.html#cb180-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="tsvets.html#cb187-1" aria-hidden="true" tabindex="-1"></a>newxreg <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">24</span> <span class="sc">*</span> <span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">24</span>, <span class="at">ncol =</span> <span class="dv">5</span>), </span>
+<span id="cb187-2"><a href="tsvets.html#cb187-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">future_dates</span>(<span class="fu">tail</span>(<span class="fu">index</span>(y),<span class="dv">1</span>),<span class="st">&quot;months&quot;</span>,<span class="dv">24</span>))</span>
+<span id="cb187-3"><a href="tsvets.html#cb187-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">newxreg =</span> newxreg)</span>
+<span id="cb187-4"><a href="tsvets.html#cb187-4" aria-hidden="true" tabindex="-1"></a>p_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(p, <span class="at">weights =</span> weights)</span>
+<span id="cb187-5"><a href="tsvets.html#cb187-5" aria-hidden="true" tabindex="-1"></a>p_agg_model <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_aggregate, <span class="at">newxreg =</span> newxreg)</span>
+<span id="cb187-6"><a href="tsvets.html#cb187-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>, </span>
+<span id="cb187-7"><a href="tsvets.html#cb187-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Agggregated Model&quot;</span>)</span>
+<span id="cb187-8"><a href="tsvets.html#cb187-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_model<span class="sc">$</span>prediction_table[<span class="dv">1</span>]<span class="sc">$</span>Predicted[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
+<span id="cb187-9"><a href="tsvets.html#cb187-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, </span>
+<span id="cb187-10"><a href="tsvets.html#cb187-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>As we can observe, the output of the 2 predictions is identical (subject to some randomness from the simulation of the predictive distribution). We do the same for the simulation method:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="tsvets.html#cb181-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">newxreg =</span> newxreg, <span class="at">seed =</span> <span class="dv">700</span>)</span>
-<span id="cb181-2"><a href="tsvets.html#cb181-2" aria-hidden="true" tabindex="-1"></a>s_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(s, <span class="at">weights =</span> weights)</span>
-<span id="cb181-3"><a href="tsvets.html#cb181-3" aria-hidden="true" tabindex="-1"></a>s_agg_model <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod_aggregate, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">newxreg =</span> newxreg,</span>
-<span id="cb181-4"><a href="tsvets.html#cb181-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">seed =</span> <span class="dv">700</span>)</span>
-<span id="cb181-5"><a href="tsvets.html#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, </span>
-<span id="cb181-6"><a href="tsvets.html#cb181-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb181-7"><a href="tsvets.html#cb181-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s_agg_model<span class="sc">$</span>simulation_table[<span class="dv">1</span>]<span class="sc">$</span>Simulated[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
-<span id="cb181-8"><a href="tsvets.html#cb181-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, </span>
-<span id="cb181-9"><a href="tsvets.html#cb181-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="tsvets.html#cb188-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">newxreg =</span> newxreg, <span class="at">seed =</span> <span class="dv">700</span>)</span>
+<span id="cb188-2"><a href="tsvets.html#cb188-2" aria-hidden="true" tabindex="-1"></a>s_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(s, <span class="at">weights =</span> weights)</span>
+<span id="cb188-3"><a href="tsvets.html#cb188-3" aria-hidden="true" tabindex="-1"></a>s_agg_model <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod_aggregate, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">newxreg =</span> newxreg,</span>
+<span id="cb188-4"><a href="tsvets.html#cb188-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">seed =</span> <span class="dv">700</span>)</span>
+<span id="cb188-5"><a href="tsvets.html#cb188-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, </span>
+<span id="cb188-6"><a href="tsvets.html#cb188-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb188-7"><a href="tsvets.html#cb188-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s_agg_model<span class="sc">$</span>simulation_table[<span class="dv">1</span>]<span class="sc">$</span>Simulated[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
+<span id="cb188-8"><a href="tsvets.html#cb188-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, </span>
+<span id="cb188-9"><a href="tsvets.html#cb188-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
-<p>which is again almost identical, but we can achieve exact replication is we use the bootstrap residuals method:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="tsvets.html#cb182-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">newxreg =</span> newxreg, <span class="at">seed =</span> <span class="dv">700</span>, <span class="at">bootstrap =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb182-2"><a href="tsvets.html#cb182-2" aria-hidden="true" tabindex="-1"></a>s_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(s, <span class="at">weights =</span> weights)</span>
-<span id="cb182-3"><a href="tsvets.html#cb182-3" aria-hidden="true" tabindex="-1"></a>s_agg_model <span class="ot">&lt;-</span> <span class="fu">simulate</span>(mod_aggregate, <span class="at">nsim =</span> <span class="dv">100</span>, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">newxreg =</span> newxreg, <span class="at">seed =</span> <span class="dv">700</span>, </span>
-<span id="cb182-4"><a href="tsvets.html#cb182-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">bootstrap =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb182-5"><a href="tsvets.html#cb182-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb182-6"><a href="tsvets.html#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb182-7"><a href="tsvets.html#cb182-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s_agg_model<span class="sc">$</span>simulation_table[<span class="dv">1</span>]<span class="sc">$</span>Simulated[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
-<span id="cb182-8"><a href="tsvets.html#cb182-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">median_color =</span> <span class="dv">2</span>, </span>
-<span id="cb182-9"><a href="tsvets.html#cb182-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 </div>
 <div id="tsvets:demonstration:example6" class="section level3" number="6.7.6">
 <h3><span class="header-section-number">6.7.6</span> Example: Groupwise Pooling</h3>
@@ -1136,19 +1056,19 @@ series sharing another grouped estimate would have values of
 (2,2,3,3,3).</p>
 <p>In the following example we have 8 series and 2 regressors, with different
 combinations of pooling.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="tsvets.html#cb183-1" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fu">nrow</span>(y)<span class="sc">*</span><span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(y)), <span class="fu">index</span>(y))</span>
-<span id="cb183-2"><a href="tsvets.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xreg) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>)</span>
-<span id="cb183-3"><a href="tsvets.html#cb183-3" aria-hidden="true" tabindex="-1"></a>xreg_include <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="fu">ncol</span>(y))</span>
-<span id="cb183-4"><a href="tsvets.html#cb183-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(xreg_include) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(y)</span>
-<span id="cb183-5"><a href="tsvets.html#cb183-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xreg_include) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(xreg)</span>
-<span id="cb183-6"><a href="tsvets.html#cb183-6" aria-hidden="true" tabindex="-1"></a><span class="co"># individual [1,1], grouped 2:3, 5:6 and 7:8</span></span>
-<span id="cb183-7"><a href="tsvets.html#cb183-7" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>),<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb183-8"><a href="tsvets.html#cb183-8" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>),<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb183-9"><a href="tsvets.html#cb183-9" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>),<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb183-10"><a href="tsvets.html#cb183-10" aria-hidden="true" tabindex="-1"></a><span class="co"># individual 1, zero for 2:3, group for 4:8</span></span>
-<span id="cb183-11"><a href="tsvets.html#cb183-11" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>),<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb183-12"><a href="tsvets.html#cb183-12" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>),<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb183-13"><a href="tsvets.html#cb183-13" aria-hidden="true" tabindex="-1"></a>xreg_include</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="tsvets.html#cb189-1" aria-hidden="true" tabindex="-1"></a>xreg <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fu">nrow</span>(y)<span class="sc">*</span><span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(y)), <span class="fu">index</span>(y))</span>
+<span id="cb189-2"><a href="tsvets.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xreg) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>)</span>
+<span id="cb189-3"><a href="tsvets.html#cb189-3" aria-hidden="true" tabindex="-1"></a>xreg_include <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="fu">ncol</span>(y))</span>
+<span id="cb189-4"><a href="tsvets.html#cb189-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(xreg_include) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(y)</span>
+<span id="cb189-5"><a href="tsvets.html#cb189-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xreg_include) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(xreg)</span>
+<span id="cb189-6"><a href="tsvets.html#cb189-6" aria-hidden="true" tabindex="-1"></a><span class="co"># individual [1,1], grouped 2:3, 5:6 and 7:8</span></span>
+<span id="cb189-7"><a href="tsvets.html#cb189-7" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>),<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb189-8"><a href="tsvets.html#cb189-8" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>),<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb189-9"><a href="tsvets.html#cb189-9" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>),<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb189-10"><a href="tsvets.html#cb189-10" aria-hidden="true" tabindex="-1"></a><span class="co"># individual 1, zero for 2:3, group for 4:8</span></span>
+<span id="cb189-11"><a href="tsvets.html#cb189-11" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>),<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb189-12"><a href="tsvets.html#cb189-12" aria-hidden="true" tabindex="-1"></a>xreg_include[<span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>),<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb189-13"><a href="tsvets.html#cb189-13" aria-hidden="true" tabindex="-1"></a>xreg_include</span></code></pre></div>
 <pre><code>##          B1 B2
 ## ACF.NEWS  1  1
 ## NSW.NEWS  2  0
@@ -1158,16 +1078,12 @@ combinations of pooling.</p>
 ## T.NEWS    3  3
 ## V.NEWS    4  3
 ## WA.NEWS   4  3</code></pre>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="tsvets.html#cb185-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y, <span class="at">level =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;grouped&quot;</span>, </span>
-<span id="cb185-2"><a href="tsvets.html#cb185-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">group =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>), <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb185-3"><a href="tsvets.html#cb185-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">xreg =</span> xreg, </span>
-<span id="cb185-4"><a href="tsvets.html#cb185-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">xreg_include =</span> xreg_include, <span class="at">lambda =</span> <span class="dv">0</span>, </span>
-<span id="cb185-5"><a href="tsvets.html#cb185-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">cores =</span> <span class="dv">1</span>)</span>
-<span id="cb185-6"><a href="tsvets.html#cb185-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;solnp&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace=</span><span class="dv">1</span>))</span></code></pre></div>
-<pre><code>## 
-## Iter: 1 fn: -3268.7348    Pars:   0.568520542590  0.757063662858  0.739300626307  0.721241104486  0.000000001321  0.000000012253  0.000000014204  0.000000011224  0.252008270229  0.000000019280  0.000000026531  0.108783931664 -0.005679503277  0.001396122981  0.000772620213  0.002019528332 -0.000196995561 -0.000744253725 -0.000323345837
-## Iter: 2 fn: -3268.7348    Pars:   0.5685181872452  0.7570639668783  0.7393013865909  0.7212409676968  0.0000000008501  0.0000000114833  0.0000000132992  0.0000000104188  0.2520102598516  0.0000000182205  0.0000000252465  0.1087843044123 -0.0056795436508  0.0013961043508  0.0007726513884  0.0020195645415 -0.0001969902036 -0.0007443168563 -0.0003233704645
-## solnp--&gt; Completed in 2 iterations</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="tsvets.html#cb191-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(y, <span class="at">level =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;grouped&quot;</span>, </span>
+<span id="cb191-2"><a href="tsvets.html#cb191-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">group =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>), <span class="at">damped =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb191-3"><a href="tsvets.html#cb191-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal =</span> <span class="st">&quot;grouped&quot;</span>, <span class="at">xreg =</span> xreg, </span>
+<span id="cb191-4"><a href="tsvets.html#cb191-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">xreg_include =</span> xreg_include, <span class="at">lambda =</span> <span class="dv">0</span>, </span>
+<span id="cb191-5"><a href="tsvets.html#cb191-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">dependence =</span> <span class="st">&quot;diagonal&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb191-6"><a href="tsvets.html#cb191-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;nlminb&quot;</span>)</span></code></pre></div>
 <p>Note that the Box Cox parameter <code>lambda</code> should be the same for the grouped
 series else the coefficients should not be pooled (as they have different scales).</p>
 </div>
@@ -1176,11 +1092,11 @@ series else the coefficients should not be pooled (as they have different scales
 <p>This final example shows how to jointly model a series based on price-volume relationship with a target of generating a model for Sales:
 <span class="math inline">\(Sales = Price\times Volume\)</span></p>
 <p>While this is a multiplicative model, if we were to model the series using a log transformation we would be able to aggregate the model in logs before exponentiating to recover the Sales as the example will demonstrate.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="tsvets.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb187-2"><a href="tsvets.html#cb187-2" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(priceunits, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;common&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>, </span>
-<span id="cb187-3"><a href="tsvets.html#cb187-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="at">dependence =</span> <span class="st">&quot;full&quot;</span>)</span>
-<span id="cb187-4"><a href="tsvets.html#cb187-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;optim&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
-<span id="cb187-5"><a href="tsvets.html#cb187-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="tsvets.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;priceunits&quot;</span>, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb192-2"><a href="tsvets.html#cb192-2" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">vets_modelspec</span>(priceunits, <span class="at">level =</span> <span class="st">&quot;common&quot;</span>, <span class="at">slope =</span> <span class="st">&quot;common&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>, </span>
+<span id="cb192-3"><a href="tsvets.html#cb192-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lambda =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>), <span class="at">dependence =</span> <span class="st">&quot;full&quot;</span>)</span>
+<span id="cb192-4"><a href="tsvets.html#cb192-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">solver =</span> <span class="st">&quot;optim&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb192-5"><a href="tsvets.html#cb192-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ##            Vector ETS            
 ## -----------------------------------
@@ -1202,14 +1118,14 @@ series else the coefficients should not be pooled (as they have different scales
 ## Slope Matrix
 ## 2 x 2 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]       [,2]      
-## [1,] 0.09196958          .
-## [2,]          . 0.09196958
+## [1,] 0.09196964          .
+## [2,]          . 0.09196964
 ## 
 ## Correlation Matrix
 ## 2 x 2 Matrix of class &quot;dsyMatrix&quot;
 ##            price      units
-## price  1.0000000 -0.5939793
-## units -0.5939793  1.0000000
+## price  1.0000000 -0.5939792
+## units -0.5939792  1.0000000
 ## 
 ## Information Criteria
 ##  AIC    BIC    AICc  
@@ -1219,13 +1135,13 @@ series else the coefficients should not be pooled (as they have different scales
 ##         Mean Weighted
 ## MAPE  0.0508   0.0508
 ## MSLRE 0.0042   0.0042</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="tsvets.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-36-1.png" width="768" /></p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="tsvets.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-36-2.png" width="768" /></p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="tsvets.html#cb191-1" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb191-2"><a href="tsvets.html#cb191-2" aria-hidden="true" tabindex="-1"></a>mod_aggregate <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(mod, <span class="at">weights =</span> weights, <span class="at">return_model =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb191-3"><a href="tsvets.html#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_aggregate)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="tsvets.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-35-1.png" width="768" /></p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="tsvets.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">type =</span> <span class="st">&quot;states&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-35-2.png" width="768" /></p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="tsvets.html#cb196-1" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb196-2"><a href="tsvets.html#cb196-2" aria-hidden="true" tabindex="-1"></a>mod_aggregate <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(mod, <span class="at">weights =</span> weights, <span class="at">return_model =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb196-3"><a href="tsvets.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_aggregate)</span></code></pre></div>
 <pre><code>## 
 ##            Vector ETS            
 ## -----------------------------------
@@ -1246,25 +1162,25 @@ series else the coefficients should not be pooled (as they have different scales
 ## Slope Matrix
 ## 1 x 1 diagonal matrix of class &quot;ddiMatrix&quot;
 ##      [,1]      
-## [1,] 0.09196958
+## [1,] 0.09196964
 ## 
 ## Covariance Matrix
 ## 1 x 1 diagonal matrix of class &quot;ddiMatrix&quot;
 ##             aggregate
-## aggregate 0.003901451
+## aggregate 0.003901452
 ## 
 ## Accuracy Criteria
 ##         Mean Weighted
 ## MAPE  0.0496   0.0496
 ## MSLRE 0.0039   0.0039</code></pre>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="tsvets.html#cb193-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod,  <span class="at">h =</span> <span class="dv">24</span>)</span>
-<span id="cb193-2"><a href="tsvets.html#cb193-2" aria-hidden="true" tabindex="-1"></a>p_agg_model <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_aggregate, <span class="at">h =</span> <span class="dv">24</span>)</span>
-<span id="cb193-3"><a href="tsvets.html#cb193-3" aria-hidden="true" tabindex="-1"></a>p_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(p, <span class="at">weights =</span> weights)</span>
-<span id="cb193-4"><a href="tsvets.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_model<span class="sc">$</span>prediction_table[<span class="dv">1</span>]<span class="sc">$</span>Predicted[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
-<span id="cb193-5"><a href="tsvets.html#cb193-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb193-6"><a href="tsvets.html#cb193-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb193-7"><a href="tsvets.html#cb193-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">median_color =</span> <span class="dv">2</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="tsvets.html#cb198-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod,  <span class="at">h =</span> <span class="dv">24</span>, <span class="at">nsim =</span> <span class="dv">5000</span>)</span>
+<span id="cb198-2"><a href="tsvets.html#cb198-2" aria-hidden="true" tabindex="-1"></a>p_agg_model <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_aggregate, <span class="at">h =</span> <span class="dv">24</span>, <span class="at">nsim =</span> <span class="dv">5000</span>)</span>
+<span id="cb198-3"><a href="tsvets.html#cb198-3" aria-hidden="true" tabindex="-1"></a>p_agg_series <span class="ot">&lt;-</span> <span class="fu">tsaggregate</span>(p, <span class="at">weights =</span> weights)</span>
+<span id="cb198-4"><a href="tsvets.html#cb198-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_model<span class="sc">$</span>prediction_table[<span class="dv">1</span>]<span class="sc">$</span>Predicted[[<span class="dv">1</span>]]<span class="sc">$</span>distribution, </span>
+<span id="cb198-5"><a href="tsvets.html#cb198-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb198-6"><a href="tsvets.html#cb198-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_agg_series<span class="sc">$</span>distribution, <span class="at">gradient_color =</span> <span class="st">&quot;whitesmoke&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb198-7"><a href="tsvets.html#cb198-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">median_color =</span> <span class="dv">2</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey10&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>In the presence of a non-homogeneous model, or a homogeneous model with Box Cox parameter not equal to either 0 (log) or 1 (no transform), then the <code>tsaggregate</code> method will still work but the <code>return_model</code> arguments needs to be set to <code>FALSE</code> and the resulting output will just be the aggregated series.</p>
 
 </div>
@@ -1299,13 +1215,6 @@ Ledoit, Olivier, and Michael Wolf. 2004. <span>“A Well-Conditioned Estimator f
 <div id="ref-velilla1993note" class="csl-entry">
 Velilla, Santiago. 1993. <span>“A Note on the Multivariate Box—Cox Transformation to Normality.”</span> <em>Statistics &amp; Probability Letters</em> 17 (4): 259–63.
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="15">
-<li id="fn15"><p>See section 17.4.1 of <span class="citation"><a href="#ref-hyndman2008" role="doc-biblioref">R. Hyndman et al.</a> (<a href="#ref-hyndman2008" role="doc-biblioref">2008</a>)</span>.<a href="tsvets.html#fnref15" class="footnote-back">↩︎</a></p></li>
-<li id="fn16"><p>Which will almost surely lead to invertibility problems if they are all sampled at their extremes, but we prefer to catch that case with the barrier constraint rather than enforcing difficult to implement row-wise constraints on each matrix.<a href="tsvets.html#fnref16" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
