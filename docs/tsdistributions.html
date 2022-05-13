@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 tsdistributions package | A Time Series Framework</title>
+  <meta name="description" content="Documentation for the tsmodels framework" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 tsdistributions package | A Time Series Framework" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Documentation for the tsmodels framework" />
+  <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 tsdistributions package | A Time Series Framework" />
+  
+  <meta name="twitter:description" content="Documentation for the tsmodels framework" />
+  
+
+<meta name="author" content="The tsmodels team" />
+
+
+<meta name="date" content="2022-05-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tscausal.html"/>
+<link rel="next" href="other.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag(){dataLayer.push(arguments);}
+  
+  gtag('js', new Date());
+  
+  gtag('config', 'UA-177357579-1');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series Forecasting Framework</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Installation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="tsmethods.html"><a href="tsmethods.html"><i class="fa fa-check"></i><b>3</b> tsmethods package</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tsmethods.html"><a href="tsmethods.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="tsmethods.html"><a href="tsmethods.html#tsmethods:simulation"><i class="fa fa-check"></i><b>3.2</b> Ensembling Forecast Distributions</a></li>
+<li class="chapter" data-level="3.3" data-path="tsmethods.html"><a href="tsmethods.html#demonstration"><i class="fa fa-check"></i><b>3.3</b> Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tsets.html"><a href="tsets.html"><i class="fa fa-check"></i><b>4</b> tsets package</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="tsets.html"><a href="tsets.html#tsets:intro"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="tsets.html"><a href="tsets.html#tsets:taxonomy"><i class="fa fa-check"></i><b>4.2</b> Taxonomy of Models</a></li>
+<li class="chapter" data-level="4.3" data-path="tsets.html"><a href="tsets.html#tsets:extensions"><i class="fa fa-check"></i><b>4.3</b> Extensions</a></li>
+<li class="chapter" data-level="4.4" data-path="tsets.html"><a href="tsets.html#some-encompasing-alternatives"><i class="fa fa-check"></i><b>4.4</b> Some Encompasing Alternatives</a></li>
+<li class="chapter" data-level="4.5" data-path="tsets.html"><a href="tsets.html#tsets:implementation"><i class="fa fa-check"></i><b>4.5</b> Package Implementation</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="tsets.html"><a href="tsets.html#tsets:implementation:constraints"><i class="fa fa-check"></i><b>4.5.1</b> Constraints</a></li>
+<li class="chapter" data-level="4.5.2" data-path="tsets.html"><a href="tsets.html#tsets:implementation:initialization"><i class="fa fa-check"></i><b>4.5.2</b> Initialization</a></li>
+<li class="chapter" data-level="4.5.3" data-path="tsets.html"><a href="tsets.html#tsets:implementation:transformations"><i class="fa fa-check"></i><b>4.5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration"><i class="fa fa-check"></i><b>4.6</b> Demonstration</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:specification"><i class="fa fa-check"></i><b>4.6.1</b> The Specification Object</a></li>
+<li class="chapter" data-level="4.6.2" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:estimation"><i class="fa fa-check"></i><b>4.6.2</b> Estimation</a></li>
+<li class="chapter" data-level="4.6.3" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:prediction"><i class="fa fa-check"></i><b>4.6.3</b> Prediction</a></li>
+<li class="chapter" data-level="4.6.4" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:filtering"><i class="fa fa-check"></i><b>4.6.4</b> Filtering</a></li>
+<li class="chapter" data-level="4.6.5" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:simulation"><i class="fa fa-check"></i><b>4.6.5</b> Simulation</a></li>
+<li class="chapter" data-level="4.6.6" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:profiling"><i class="fa fa-check"></i><b>4.6.6</b> Profiling</a></li>
+<li class="chapter" data-level="4.6.7" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:backtesting"><i class="fa fa-check"></i><b>4.6.7</b> Backtesting</a></li>
+<li class="chapter" data-level="4.6.8" data-path="tsets.html"><a href="tsets.html#tsets:demonstration:benchmarking"><i class="fa fa-check"></i><b>4.6.8</b> Benchmarking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tsissm.html"><a href="tsissm.html"><i class="fa fa-check"></i><b>5</b> tsissm package</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:initialization"><i class="fa fa-check"></i><b>5.2</b> State Initialization</a></li>
+<li class="chapter" data-level="5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:likelihood"><i class="fa fa-check"></i><b>5.3</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="5.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:implementation"><i class="fa fa-check"></i><b>5.4</b> Package Implementation</a></li>
+<li class="chapter" data-level="5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration"><i class="fa fa-check"></i><b>5.5</b> Demonstration</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:specification"><i class="fa fa-check"></i><b>5.5.1</b> Specification</a></li>
+<li class="chapter" data-level="5.5.2" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:estimation"><i class="fa fa-check"></i><b>5.5.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.5.3" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:prediction"><i class="fa fa-check"></i><b>5.5.3</b> Prediction</a></li>
+<li class="chapter" data-level="5.5.4" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:simulation"><i class="fa fa-check"></i><b>5.5.4</b> Simulation</a></li>
+<li class="chapter" data-level="5.5.5" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:filtering"><i class="fa fa-check"></i><b>5.5.5</b> Filtering</a></li>
+<li class="chapter" data-level="5.5.6" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:profiling"><i class="fa fa-check"></i><b>5.5.6</b> Profiling</a></li>
+<li class="chapter" data-level="5.5.7" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:backtesting"><i class="fa fa-check"></i><b>5.5.7</b> Backtesting</a></li>
+<li class="chapter" data-level="5.5.8" data-path="tsissm.html"><a href="tsissm.html#tsissm:demonstration:benchmarking"><i class="fa fa-check"></i><b>5.5.8</b> Benchmarking</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="tsvets.html"><a href="tsvets.html"><i class="fa fa-check"></i><b>6</b> tsvets package</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:regressors"><i class="fa fa-check"></i><b>6.2</b> Inclusion of External Regressors</a></li>
+<li class="chapter" data-level="6.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:likelihood"><i class="fa fa-check"></i><b>6.3</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="6.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence"><i class="fa fa-check"></i><b>6.4</b> Dependence Structure</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:diagonal"><i class="fa fa-check"></i><b>6.4.1</b> Diagonal Covariance</a></li>
+<li class="chapter" data-level="6.4.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:equicorrelation"><i class="fa fa-check"></i><b>6.4.2</b> Equicorrelation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:dependence:shrinkage"><i class="fa fa-check"></i><b>6.4.3</b> Shrinkage Covariance</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:grouping"><i class="fa fa-check"></i><b>6.5</b> Grouping and Pooling</a></li>
+<li class="chapter" data-level="6.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:homogeneous"><i class="fa fa-check"></i><b>6.6</b> Homogeneous Coefficients and Aggregation</a></li>
+<li class="chapter" data-level="6.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration"><i class="fa fa-check"></i><b>6.7</b> Demonstration</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:specification"><i class="fa fa-check"></i><b>6.7.1</b> Specification</a></li>
+<li class="chapter" data-level="6.7.2" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example1"><i class="fa fa-check"></i><b>6.7.2</b> Example: Australian Retail Sales</a></li>
+<li class="chapter" data-level="6.7.3" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example2"><i class="fa fa-check"></i><b>6.7.3</b> Example: Australian Retail Sales Grouped Dynamics</a></li>
+<li class="chapter" data-level="6.7.4" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example3"><i class="fa fa-check"></i><b>6.7.4</b> Example: Australian Retail Sales Filtering</a></li>
+<li class="chapter" data-level="6.7.5" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example4"><i class="fa fa-check"></i><b>6.7.5</b> Example: Australian Retail Sales Aggregation</a></li>
+<li class="chapter" data-level="6.7.6" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example6"><i class="fa fa-check"></i><b>6.7.6</b> Example: Groupwise Pooling</a></li>
+<li class="chapter" data-level="6.7.7" data-path="tsvets.html"><a href="tsvets.html#tsvets:demonstration:example5"><i class="fa fa-check"></i><b>6.7.7</b> Example: Price Volume Aggregation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tsforeign.html"><a href="tsforeign.html"><i class="fa fa-check"></i><b>7</b> tsforeign package</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:arima"><i class="fa fa-check"></i><b>7.2</b> ARIMA model</a></li>
+<li class="chapter" data-level="7.3" data-path="tsforeign.html"><a href="tsforeign.html#tsforeign:bsts"><i class="fa fa-check"></i><b>7.3</b> bsts model</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="tscausal.html"><a href="tscausal.html"><i class="fa fa-check"></i><b>8</b> tscausal package</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures"><i class="fa fa-check"></i><b>8.2</b> Measures of Evaluation</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:pointwise"><i class="fa fa-check"></i><b>8.2.1</b> Pointwise Impact</a></li>
+<li class="chapter" data-level="8.2.2" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:cumulative"><i class="fa fa-check"></i><b>8.2.2</b> Cumulative Impact</a></li>
+<li class="chapter" data-level="8.2.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:meaneffect"><i class="fa fa-check"></i><b>8.2.3</b> Mean Effect</a></li>
+<li class="chapter" data-level="8.2.4" data-path="tscausal.html"><a href="tscausal.html#tscausal:evalmeasures:relativeeffect"><i class="fa fa-check"></i><b>8.2.4</b> Mean Relative Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tscausal.html"><a href="tscausal.html#tscausal:significance"><i class="fa fa-check"></i><b>8.3</b> Evaluation of Significance</a></li>
+<li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
+<li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tsdistributions.html"><a href="tsdistributions.html"><i class="fa fa-check"></i><b>9</b> tsdistributions package</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions"><i class="fa fa-check"></i><b>9.2</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:norm"><i class="fa fa-check"></i><b>9.2.1</b> The Normal Distribution</a></li>
+<li class="chapter" data-level="9.2.2" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:std"><i class="fa fa-check"></i><b>9.2.2</b> The Student Distribution</a></li>
+<li class="chapter" data-level="9.2.3" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:ged"><i class="fa fa-check"></i><b>9.2.3</b> The Generalized Error Distribution</a></li>
+<li class="chapter" data-level="9.2.4" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:skewed"><i class="fa fa-check"></i><b>9.2.4</b> Skewed Distributions by Inverse Scale Factors</a></li>
+<li class="chapter" data-level="9.2.5" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:ghyp"><i class="fa fa-check"></i><b>9.2.5</b> The Generalized Hyperbolic Distribution and Sub-Families</a></li>
+<li class="chapter" data-level="9.2.6" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:ghst"><i class="fa fa-check"></i><b>9.2.6</b> The Generalized Hyperbolic Skew Student Distribution</a></li>
+<li class="chapter" data-level="9.2.7" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:jsu"><i class="fa fa-check"></i><b>9.2.7</b> Johnson’s reparameterized SU Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:moments"><i class="fa fa-check"></i><b>9.3</b> A note on analytic higher moments</a></li>
+<li class="chapter" data-level="9.4" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:code"><i class="fa fa-check"></i><b>9.4</b> Implementation and Code Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>10</b> Other packages</a></li>
+<li class="chapter" data-level="11" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>11</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>11.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>11.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>11.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>12</b> News</a></li>
+<li class="chapter" data-level="13" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>13</b> The tsmodels team</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Time Series Framework</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tsdistributions" class="section level1" number="9">
+<h1><span class="header-section-number">Chapter 9</span> tsdistributions package</h1>
+<div id="tsdistributions:introduction" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<p>The objective of the <strong>tsdistributions</strong> package is to provide a set of location-scale
+invariant distributions re-parameterized in mean-variance space. The distributions
+in the package are based on those of the <a href="https://github.com/alexiosg/rugarch">rugarch</a>
+package and re-written to more closely follow the convention used by the distributions
+in stats. Maximum likelihood estimation is included and makes use of automatic
+differentiation via the functionality of the <a href="https://cran.r-project.org/web/packages/TMB/index.html">TMB</a> package.
+It is part of a longer term plan for a full re-write of rugarch, with this
+package forming a foundational set piece.</p>
+</div>
+<div id="tsdistributions:distributions" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Distributions</h2>
+<div id="tsdistributions:distributions:norm" class="section level3" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> The Normal Distribution</h3>
+<p>The Normal Distribution is a spherical distribution described completely by it
+first two moments, the mean and variance. Formally, the random variable <span class="math inline">\(x\)</span> is
+said to be normally distributed with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>
+(both of which may be time varying), with density given by,
+<span class="math display">\[
+f\left( x \right) = \frac{{{e^{\frac{{ - 0.5{{\left( {x - \mu } \right)}^2}}}
+{{{\sigma ^2}}}}}}}
+{{\sigma \sqrt {2\pi } }}.
+\]</span></p>
+<p>Following some mean filtration or whitening process, the residuals <span class="math inline">\(\varepsilon\)</span>,
+standardized by <span class="math inline">\(\sigma\)</span> yield the standard normal density given by,
+<span class="math display">\[
+f\left( {\frac{{x - \mu }}{\sigma }} \right) = \frac{1}
+{\sigma }f\left( z \right) = \frac{1}
+{\sigma }\left( {\frac{{{e^{ - 0.5{z^2}}}}}
+{{\sqrt {2\pi } }}} \right).
+\]</span></p>
+<p>To obtain the conditional likelihood of some generating process at each point in time
+(<span class="math inline">\(LL_t\)</span>), the conditional standard deviation <span class="math inline">\(\sigma_t\)</span> (this could also be constant),
+acts as a scaling factor on the density, so that:
+<span class="math display">\[
+L{L_t}\left( {{z_t};{\sigma _t}} \right) = \frac{1}
+{{{\sigma _t}}}f\left( {{z_t}} \right)
+\]</span></p>
+<p>which illustrates the importance of the scaling property. Finally, the normal
+distribution has zero skewness and zero excess kurtosis.</p>
+</div>
+<div id="tsdistributions:distributions:std" class="section level3" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> The Student Distribution</h3>
+<p>It Student distribution is described completely by a shape parameter <span class="math inline">\(\nu\)</span>, but
+for standardization we proceed by using its 3 parameter representation as follows:</p>
+<p><span class="math display">\[
+f\left( x \right) = \frac{{\Gamma \left( {\frac{{\nu  + 1}}
+{2}} \right)}}
+{{\sqrt {\beta \nu \pi } \Gamma \left( {\frac{\nu }
+{2}} \right)}}{\left( {1 + \frac{{{{\left( {x - \alpha } \right)}^2}}}
+{{\beta \nu }}} \right)^{ - \left( {\frac{{\nu  + 1}}
+{2}} \right)}}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\nu\)</span> are the location, scale<a href="references.html#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>
+and shape parameters respectively, and <span class="math inline">\(\Gamma\)</span> is the Gamma function. Similar to
+the GED distribution described later, this is a unimodal and symmetric distribution
+where the location parameter <span class="math inline">\(\alpha\)</span> is the mean (and mode) of the distribution
+while the variance is:</p>
+<p><span class="math display">\[
+Var\left( x \right) = \frac{{\beta \nu }}{{\left( {\nu  - 2} \right)}}.
+\]</span></p>
+<p>For the purposes of standardization we require that:
+<span class="math display">\[
+\begin{gathered}
+  Var(x) = \frac{{\beta \nu }}
+{{\left( {\nu  - 2} \right)}} = 1 \hfill \\
+  \therefore \beta  = \frac{{\nu  - 2}}
+{\nu } \hfill \\
+\end{gathered}
+\]</span></p>
+<p>Substituting <span class="math inline">\(\frac{(\nu- 2)}{\nu }\)</span> we obtain the standardized Student’s distribution:</p>
+<p><span class="math display">\[
+f\left( {\frac{{x - \mu }}{\sigma }} \right) = \frac{1}
+{\sigma }f\left( z \right) = \frac{1}
+{\sigma }\frac{{\Gamma \left( {\frac{{\nu  + 1}}
+{2}} \right)}}{{\sqrt {\left( {\nu  - 2} \right)\pi } \Gamma \left( {\frac{\nu }
+{2}} \right)}}{\left( {1 + \frac{{{z^2}}}
+{{\left( {\nu  - 2} \right)}}} \right)^{ - \left( {\frac{{\nu  + 1}}
+{2}} \right)}}.
+\]</span></p>
+<p>In terms of R’s standard implementation of the Student density (<code>dt</code>),
+and including a scaling by the standard deviation, this can be represented as:</p>
+<p><span class="math display">\[
+\frac{{dt\left( {\frac{{{\varepsilon _t}}}
+{{\sigma \sqrt {\left( {v - 2} \right)/\nu } }},\nu } \right)}}
+{{\sigma \sqrt {\left( {v - 2} \right)/\nu } }}
+\]</span></p>
+<p>The Student distribution has zero skewness and excess kurtosis equal to
+<span class="math inline">\(6/(\nu - 4)\)</span> for <span class="math inline">\(\nu &gt; 4\)</span>.</p>
+</div>
+<div id="tsdistributions:distributions:ged" class="section level3" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> The Generalized Error Distribution</h3>
+<p>The Generalized Error Distribution is a 3 parameter distribution belonging
+to the exponential family with conditional density given by,</p>
+<p><span class="math display">\[
+f\left( x \right) = \frac{{\kappa {e^{ - 0.5{{\left| {\frac{{x - \alpha }}
+{\beta }} \right|}^\kappa }}}}}
+{{{2^{1 + {\kappa ^{ - 1}}}}\beta \Gamma \left( {{\kappa ^{ - 1}}} \right)}}
+\]</span></p>
+<p>with <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\kappa\)</span> representing the location, scale and
+shape parameters. Since the distribution is symmetric and unimodal the location
+parameter is also the mode, median and mean of the distribution (i.e. <span class="math inline">\(\mu\)</span>).
+By symmetry, all odd moments beyond the mean are zero. The variance and kurtosis
+are given by,
+<span class="math display">\[
+\begin{gathered}
+  Var\left( x \right) = {\beta ^2}{2^{2/\kappa }}\frac{{\Gamma \left( {3{\kappa ^{ - 1}}} \right)}}
+{{\Gamma \left( {{\kappa ^{ - 1}}} \right)}} \hfill \\
+  Ku\left( x \right) = \frac{{\Gamma \left( {5{\kappa ^{ - 1}}} \right)\Gamma \left( {{\kappa ^{ - 1}}} \right)}}
+{{\Gamma \left( {3{\kappa ^{ - 1}}} \right)\Gamma \left( {3{\kappa ^{ - 1}}} \right)}} \hfill \\
+\end{gathered}
+\]</span></p>
+<p>As <span class="math inline">\(\kappa\)</span> decreases the density gets flatter and flatter while in the limit as
+<span class="math inline">\(\kappa \to \infty\)</span>, the distribution tends towards the uniform. Special cases
+are the Normal when <span class="math inline">\(\kappa=2\)</span>, the Laplace when <span class="math inline">\(\kappa=1\)</span>. Standardization is
+simple and involves re-scaling the density to have unit standard deviation:
+<span class="math display">\[
+\begin{gathered}
+  Var\left( x \right) = {\beta ^2}{2^{2/\kappa }}\frac{{\Gamma \left( {3{\kappa ^{ - 1}}} \right)}}
+{{\Gamma \left( {{\kappa ^{ - 1}}} \right)}} = 1 \hfill \\
+  \therefore \beta  = \sqrt {{2^{ - 2/\kappa }}\frac{{\Gamma \left( {{\kappa ^{ - 1}}} \right)}}
+{{\Gamma \left( {3{\kappa ^{ - 1}}} \right)}}}  \hfill \\
+\end{gathered}
+\]</span></p>
+<p>Finally, substituting into the scaled density of <span class="math inline">\(z\)</span>:</p>
+<p><span class="math display">\[
+f\left( {\frac{{x - \mu }}
+{\sigma }} \right) = \frac{1}
+{\sigma }f\left( z \right) = \frac{1}
+{\sigma }\frac{{\kappa {e^{ - 0.5{{\left| {\sqrt {{2^{ - 2/\kappa }}\frac{{\Gamma \left( {{\kappa ^{ - 1}}} \right)}}
+{{\Gamma \left( {3{\kappa ^{ - 1}}} \right)}}} z} \right|}^\kappa }}}}}
+{{\sqrt {{2^{ - 2/\kappa }}\frac{{\Gamma \left( {{\kappa ^{ - 1}}} \right)}}
+{{\Gamma \left( {3{\kappa ^{ - 1}}} \right)}}} {2^{1 + {\kappa ^{ - 1}}}}\Gamma \left( {{\kappa ^{ - 1}}} \right)}}
+\]</span></p>
+</div>
+<div id="tsdistributions:distributions:skewed" class="section level3" number="9.2.4">
+<h3><span class="header-section-number">9.2.4</span> Skewed Distributions by Inverse Scale Factors</h3>
+<p><span class="citation">Fernandez and Steel (<a href="#ref-Fernandez1998" role="doc-biblioref">1998</a>)</span> proposed introducing skewness into unimodal and symmetric
+distributions by introducing inverse scale factors in the positive and negative
+real half lines. Given a skew parameter, <span class="math inline">\(\xi\)</span>, the density of a random variable z can be
+represented as:</p>
+<p><span class="math display">\[
+f\left( {z|\xi } \right) = \frac{2}
+{{\xi  + {\xi ^{ - 1}}}}\left[ {f\left( {\xi z} \right)H\left( { - z} \right) + f\left( {{\xi ^{ - 1}}z} \right)H\left( z \right)} \right]
+\]</span></p>
+<p>where <span class="math inline">\(\xi \in {\mathbb{R}^ + }\)</span> and <span class="math inline">\(H(.)\)</span> is the Heaviside function. The
+absolute moments, required for deriving the central moments, are generated from
+the following function:</p>
+<p><span class="math display">\[
+{M_r} = 2\int_0^\infty  {{z^r}f\left( z \right)dz}.
+\]</span></p>
+<p>The mean and variance are then defined as:
+<span class="math display">\[
+\begin{gathered}
+  E\left( z \right) = {M_1}\left( {\xi  - {\xi ^{ - 1}}} \right) \hfill \\
+  Var\left( z \right) = \left( {{M_2} - M_1^2} \right)\left( {{\xi ^2} + {\xi ^{ - 2}}} \right) + 2M_1^2 - {M_2} \hfill \\
+\end{gathered}
+\]</span></p>
+<p>The Normal, Student and GED distributions have skew variants which have been
+standardized to zero mean, unit variance by making use of the moment conditions
+given above. These are named as <em>snorm</em> <em>sged</em> and <em>sstd</em> in the package.</p>
+</div>
+<div id="tsdistributions:distributions:ghyp" class="section level3" number="9.2.5">
+<h3><span class="header-section-number">9.2.5</span> The Generalized Hyperbolic Distribution and Sub-Families</h3>
+<p>In distributions where the expected moments are functions of all the parameters,
+it is not immediately obvious how to perform such a transformation. In the case
+of the ghyp distribution, because of the existence of location and scale
+invariant parameterizations and the possibility of expressing the variance in
+terms of one of those, namely the <span class="math inline">\((\zeta, \rho)\)</span>, the task of
+standardizing and estimating the density can be broken down to one of estimating
+those 2 parameters, representing a combination of shape and skewness, followed
+by a series of transformation steps to demean, scale and then translate the
+parameters into the <span class="math inline">\((\alpha, \beta, \delta, \mu)\)</span> parameterization for which
+standard formula exist for the likelihood function. The <span class="math inline">\((\xi, \chi)\)</span>
+parameterization, which is a simple transformation of the <span class="math inline">\((\zeta, \rho)\)</span>,
+could also be used in the first step and then transformed into the latter before
+proceeding further. The only difference is the kind of ‘immediate’ inference one
+can make from the different parameterizations, each providing a different direct
+insight into the kind of dynamics produced and their place in the overall ghyp
+family particularly with regards to the limit cases.</p>
+<p>The package performs estimation using the <span class="math inline">\((\zeta, \rho)\)</span>
+parameterization, after which a series of steps transform those parameters into
+the <span class="math inline">\((\alpha, \beta, \delta, \mu)\)</span> while at the same time including the
+necessary recursive substitution of parameters in order to standardize the
+resulting distribution.</p>
+<div class="proof">
+<p><span id="unlabeled-div-1" class="proof"><em>Proof</em>. </span>The Standardized Generalized Hyperbolic Distribution. Let <span class="math inline">\(\varepsilon_t\)</span> be a
+r.v. with mean <span class="math inline">\((0)\)</span> and variance <span class="math inline">\(({\sigma}^2)\)</span> distributed as <span class="math inline">\(ghyp(\zeta, \rho)\)</span>,
+and let <span class="math inline">\(z\)</span> be a scaled version of the r.v. <span class="math inline">\(\varepsilon\)</span> with variance <span class="math inline">\((1)\)</span>
+and also distributed as <span class="math inline">\(ghyp(\zeta, \rho)\)</span>.<a href="references.html#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> The density <span class="math inline">\(f(.)\)</span> of <span class="math inline">\(z\)</span> can be expressed as</p>
+<p><span class="math display">\[
+f(\frac{\varepsilon_t}{\sigma}; \zeta ,\rho ) = \frac{1}{\sigma}f_t(z;\zeta ,\rho ) =
+\frac{1}{\sigma}f_t(z;\tilde \alpha, \tilde \beta, \tilde \delta ,\tilde \mu ),
+\]</span></p>
+<p>where we make use of the <span class="math inline">\((\alpha, \beta, \delta, \mu)\)</span> parameterization since we
+can only naturally express the density in that parameterization. The steps to
+transforming from the <span class="math inline">\((\zeta, \rho)\)</span> to the <span class="math inline">\((\alpha, \beta, \delta, \mu)\)</span>
+parameterization, while at the same time standardizing for zero mean and unit
+variance are given henceforth.
+Let
+<span class="math display">\[
+\begin{eqnarray}
+\zeta &amp; = &amp; \delta \sqrt {{\alpha ^2} - {\beta ^2}} \hfill \\
+\rho &amp; = &amp; \frac{\beta }{\alpha }, \hfill
+\end{eqnarray}
+\]</span></p>
+<p>which after some substitution may be also written in terms of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> as,</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+\alpha &amp; = &amp; \frac{\zeta }{{\delta \sqrt {(1 - {\rho ^2})} }},\hfill\\
+\beta  &amp; = &amp;\alpha \rho.\hfill
+\end{eqnarray}
+\]</span></p>
+<p>For standardization we require that,</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+  E\left(X\right) &amp; = &amp; \mu  + \frac{{\beta \delta }}{{\sqrt {{\alpha ^2} - {\beta ^2}} }}\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}} = \mu  + \frac{{\beta {\delta ^2}}}{\zeta }\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}} = 0 \hfill \\
+  \therefore \mu  &amp; = &amp; - \frac{{\beta {\delta ^2}}}{\zeta }\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}}\hfill \\
+  Var\left(X\right) &amp; = &amp; {\delta ^2}\left(\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{\zeta {K_\lambda }\left(\zeta \right)}} + \frac{{{\beta ^2}}}{{{\alpha ^2} - {\beta ^2}}}\left(\frac{{{K_{\lambda  + 2}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}} - {\left(\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}}\right)^2}\right)\right) = 1 \hfill\nonumber \\
+  \therefore \delta  &amp; = &amp; {\left(\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{\zeta {K_\lambda }\left(\zeta \right)}} + \frac{{{\beta ^2}}}{{{\alpha ^2} - {\beta ^2}}}\left(\frac{{{K_{\lambda  + 2}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}} - {\left(\frac{{{K_{\lambda  + 1}}\left(\zeta \right)}}{{{K_\lambda }\left(\zeta \right)}}\right)^2}\right)\right)^{ - 0.5}} \hfill
+\end{eqnarray}
+\]</span></p>
+<p>Since we can express, <span class="math inline">\(\beta^2/\left(\alpha^2 - \beta^2\right)\)</span> as,</p>
+<p><span class="math display">\[
+\frac{{{\beta ^2}}}{{{\alpha ^2} - {\beta ^2}}} = \frac{{{\alpha ^2}{\rho ^2}}}{{{a^2} - {\alpha ^2}{\rho ^2}}} = \frac{{{\alpha ^2}{\rho ^2}}}{{{a^2}\left(1 - {\rho ^2}\right)}} = \frac{{{\rho ^2}}}{{\left(1 - {\rho ^2}\right)}},
+\]</span></p>
+<p>then we can re-write the formula for <span class="math inline">\(\delta\)</span> in terms of the estimated parameters <span class="math inline">\(\hat\zeta\)</span> and <span class="math inline">\(\hat\rho\)</span> as,</p>
+<p><span class="math display">\[
+\delta  = {\left(\frac{{{K_{\lambda  + 1}}\left(\hat \zeta \right)}}{{\hat \zeta {K_\lambda }\left(\hat \zeta \right)}} + \frac{{{{\hat \rho }^2}}}{{\left(1 - {{\hat \rho }^2}\right)}}\left(\frac{{{K_{\lambda  + 2}}\left(\hat \zeta \right)}}{{{K_\lambda }\left(\hat \zeta \right)}} - {\left(\frac{{{K_{\lambda  + 1}}\left(\hat \zeta \right)}}{{{K_\lambda }\left(\hat \zeta \right)}}\right)^2}\right)\right)^{ - 0.5}}
+\]</span></p>
+<p>Transforming into the <span class="math inline">\((\tilde \alpha ,\tilde \beta ,\tilde \delta ,\tilde \mu )\)</span>
+parameterization proceeds by first substituting <span class="math inline">\(\ref{sgh44}\)</span> into <span class="math inline">\(\ref{sgh31}\)</span> and simplifying,</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+  \tilde \alpha &amp; = &amp; \,{\frac{{\hat \zeta \left( {\frac{{{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}{{\hat \zeta {{\text{K}}_\lambda }\left( {\hat \zeta } \right)}} + \frac{{{{\hat \rho }^2}\left( {\frac{{{{\text{K}}_{\lambda  + 2}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}} - \frac{{{{\left( {{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)} \right)}^2}}}{{{{\left( {{{\text{K}}_\lambda }\left( {\hat \zeta } \right)} \right)}^2}}}} \right)}}{{\left( {1 - {{\hat \rho }^2}} \right)}}} \right)}}{{\sqrt {(1 - {{\hat \rho }^2})} }}^{0.5}}, \hfill\nonumber \\
+   &amp; = &amp;\,{\frac{{\left( {\frac{{\hat \zeta {{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}} + \frac{{{{\hat \zeta }^2}{{\hat \rho }^2}\left( {\frac{{{{\text{K}}_{\lambda  + 2}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}} - \frac{{{{\left( {{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)} \right)}^2}}}{{{{\left( {{{\text{K}}_\lambda }\left( {\hat \zeta } \right)} \right)}^2}}}} \right)}}{{\left( {1 - {{\hat \rho }^2}} \right)}}} \right)}}{{\sqrt {(1 - {\hat \rho ^2})} }}^{0.5}}, \hfill\nonumber \\
+   &amp; = &amp; {\left( {\left. {\frac{{\frac{{\hat \zeta {{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}}}}{{(1 - {{\hat \rho }^2})}} + \frac{{{\hat \zeta ^2}{\hat \rho ^2}\left( {\frac{{{{\text{K}}_{\lambda  + 2}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}\frac{{{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}} - \frac{{{{\left( {{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)} \right)}^2}}}{{{{\left( {{{\text{K}}_\lambda }\left( {\hat \zeta } \right)} \right)}^2}}}} \right)}}{{{{\left( {1 - {{\hat \rho }^2}} \right)}^2}}}} \right)} \right.^{0.5}}, \hfill\nonumber \\
+   &amp; = &amp; {\left( {\left. {\frac{{\frac{{\hat \zeta {{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}}}}{{(1 - {{\hat \rho }^2})}}\left(1 + \frac{{\hat \zeta {{\hat \rho }^2}\left( {\frac{{{{\text{K}}_{\lambda  + 2}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}} - \frac{{{{\text{K}}_{\lambda  + 1}}\left( {\hat \zeta } \right)}}{{{{\text{K}}_\lambda }\left( {\hat \zeta } \right)}}} \right)}}{{\left( {1 - {{\hat \rho }^2}} \right)}}\right)} \right)} \right.^{0.5}}. \hfill
+\end{eqnarray}
+\]</span></p>
+<p>Finally, the rest of the parameters are derived recursively from <span class="math inline">\(\tilde\alpha\)</span>
+and the previous results,</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+  \tilde \beta  &amp; = &amp; \tilde \alpha \hat \rho,\hfill\\
+  \tilde \delta &amp; = &amp; \frac{{\hat \zeta }}{{\tilde \alpha \sqrt {1 - {{\hat \rho }^2}} }}, \hfill\\
+  \tilde \mu &amp; = &amp; \frac{{ - \tilde \beta {{\tilde \delta }^2}{K_{\lambda  + 1}}\left(\hat \zeta \right)}}{{\hat \zeta {K_\lambda }\left(\hat \zeta \right)}}.\hfill
+\end{eqnarray}
+\]</span></p>
+<p>For the use of the <span class="math inline">\((\xi, \chi)\)</span> parameterization in estimation, the additional
+preliminary steps of converting to the <span class="math inline">\((\zeta, \rho)\)</span> are,</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+  \zeta  &amp; = &amp; \frac{1}{{{{\hat \xi }^2}}} - 1, \hfill\\
+  \rho  &amp; = &amp; \frac{{\hat \chi }}{{\hat \xi }}. \hfill
+\end{eqnarray}
+\]</span></p>
+</div>
+</div>
+<div id="tsdistributions:distributions:ghst" class="section level3" number="9.2.6">
+<h3><span class="header-section-number">9.2.6</span> The Generalized Hyperbolic Skew Student Distribution</h3>
+<p>The ghyp Skew-Student distribution was popularized by <span class="citation">Aas and Haff (<a href="#ref-Aas2006" role="doc-biblioref">2006</a>)</span> because of its uniqueness
+in the ghyp family in having one tail with polynomial and one with exponential behavior.
+This distribution is a limiting case of the ghyp when <span class="math inline">\(\alpha \to \left| \beta \right|\)</span>
+and <span class="math inline">\(\lambda=-\nu/2\)</span>, where <span class="math inline">\(\nu\)</span> is the shape parameter of the Student distribution.
+The domain of variation of the parameters is <span class="math inline">\(\beta \in \mathbb{R}\)</span> and <span class="math inline">\(\nu&gt;0\)</span>, but
+for the variance to be finite <span class="math inline">\(\nu&gt;4\)</span>, while for the existence of skewness and kurtosis,
+<span class="math inline">\(\nu&gt;6\)</span> and <span class="math inline">\(\nu&gt;8\)</span> respectively. The density of the random variable <span class="math inline">\(x\)</span> is then given
+by:</p>
+<p><span class="math display">\[
+f\left( x \right) = \frac{{{2^{\left( {1 - \nu } \right)/2}}{\delta ^\nu }{{\left| \beta  \right|}^{\left( {\nu  + 1} \right)/2}}{K_{\left( {\nu  + 1} \right)/2}}\left( {\sqrt {{\beta ^2}\left( {{\delta ^2} + {{\left( {x - \mu } \right)}^2}} \right)} } \right)\exp \left( {\beta \left( {x - \mu } \right)} \right)}}
+{{\Gamma \left( {\nu /2} \right)\sqrt \pi  {{\left( {\sqrt {{\delta ^2} + {{\left( {x - \mu } \right)}^2}} } \right)}^{\left( {\nu  + 1} \right)/2}}}}
+\]</span></p>
+<p>To standardize the distribution to have zero mean and unit variance, I make use
+of the first two moment conditions for the distribution which are:
+<span class="math display">\[
+\begin{gathered}
+  E\left( x \right) = \mu  + \frac{{\beta {\delta ^2}}}
+{{\nu  - 2}} \hfill \\
+  Var\left( x \right) = \frac{{2{\beta ^2}{\delta ^4}}}
+{{{{\left( {\nu  - 2} \right)}^2}\left( {\nu  - 4} \right)}} + \frac{{{\delta ^2}}}
+{{\nu  - 2}} \hfill \\
+\end{gathered}
+\]</span></p>
+<p>We require that <span class="math inline">\(Var(x)=1\)</span>, thus:</p>
+<p><span class="math display">\[
+\delta  = {\left( {\frac{{2{{\bar \beta }^2}}}
+{{{{\left( {\nu  - 2} \right)}^2}\left( {\nu  - 4} \right)}} + \frac{1}
+{{\nu  - 2}}} \right)^{ - 1/2}}
+\]</span></p>
+<p>where I have made use of the <span class="math inline">\(4^{th}\)</span> parameterization of the ghyp distribution given in
+<span class="citation">Prause (<a href="#ref-Prause1999" role="doc-biblioref">1999</a>)</span> where <span class="math inline">\(\hat \beta = \beta \delta\)</span>. The location parameter is then rescaled
+by substituting into the first moment formula <span class="math inline">\(\delta\)</span> so that it has zero mean:</p>
+<p><span class="math display">\[
+\bar \mu  =  - \frac{{\beta {\delta ^2}}}{{\nu  - 2}}
+\]</span></p>
+<p>Therefore, we model the ghyp Skew-Student using the location-scale invariant parameterization <span class="math inline">\((\bar \beta, \nu)\)</span>
+and then translate the parameters into the usual ghyp distribution’s <span class="math inline">\((\alpha, \beta, \delta, \mu)\)</span>, setting
+<span class="math inline">\(\alpha = abs(\beta)+1e-12\)</span>.</p>
+<p>The quantile function is calculated using the SkewHyperbolic package of
+<span class="citation">D. Scott and Grimson (<a href="#ref-R-SkewHyperbolic" role="doc-biblioref">2018</a>)</span> using the spline method (for speed), as is the
+cumulative distribution function.</p>
+</div>
+<div id="tsdistributions:distributions:jsu" class="section level3" number="9.2.7">
+<h3><span class="header-section-number">9.2.7</span> Johnson’s reparameterized SU Distribution</h3>
+<p>The reparameterized Johnson SU distribution, discussed in <span class="citation">Rigby and Stasinopoulos (<a href="#ref-Rigby2005" role="doc-biblioref">2005</a>)</span>, is a
+four parameter distribution denoted by <span class="math inline">\(JSU\left(\mu,\sigma,\nu,\tau\right)\)</span>,
+with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> for all values of the skew and
+shape parameters <span class="math inline">\(\nu\)</span> and <span class="math inline">\(\tau\)</span> respectively. The implementation is taken
+from the GAMLSS package of <span class="citation">Stasinopoulos, Rigby, and Akantziliotou (<a href="#ref-Stasinopoulos2009" role="doc-biblioref">2009</a>)</span> and the reader is referred
+there for further details.</p>
+</div>
+</div>
+<div id="tsdistributions:moments" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> A note on analytic higher moments</h2>
+<p>The skewness and kurtosis of all distributions is based on analytic
+forms, with the exception of the skew student distribution for which
+a bijection between this and <span class="citation">Hansen (<a href="#ref-hansen1994autoregressive" role="doc-biblioref">1994</a>)</span> Generalized
+Skew-T distribution is used.<a href="references.html#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a></p>
+</div>
+<div id="tsdistributions:code" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Implementation and Code Examples</h2>
+<p>The package implements standard d,p,q,r functions for all distributions
+in addition to the wrapper functions <code>ddist</code>,<code>pdist</code>,<code>qdist</code> and <code>rdist</code>.
+The skewness and kurtosis are provider in wrapper functions for all distributions
+in <code>dskewness</code> and <code>dkurtosis</code> as well as the <code>tsmoments</code> function on an
+estimated object of class <em>tsdistribution.estimate</em>. The following short
+demo showcases some of the available functionality.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="tsdistributions.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsdistributions)</span>
+<span id="cb232-2"><a href="tsdistributions.html#cb232-2" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="st">&quot;ghst&quot;</span></span>
+<span id="cb232-3"><a href="tsdistributions.html#cb232-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rdist</span>(dist, <span class="dv">2000</span>, <span class="at">mu =</span> <span class="fl">0.1</span>, <span class="at">sigma =</span> <span class="fl">0.3</span>, <span class="at">skew =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">shape =</span> <span class="dv">5</span>)</span>
+<span id="cb232-4"><a href="tsdistributions.html#cb232-4" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">distribution_modelspec</span>(r, dist)</span>
+<span id="cb232-5"><a href="tsdistributions.html#cb232-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span>
+<span id="cb232-6"><a href="tsdistributions.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## 
+## Parameter    Est[Value]   Std. Error   t value   Pr(&gt;|t|)
+## ----------  -----------  -----------  --------  ---------
+## mu               0.1046       0.0048   22.0206     0.0000
+## sigma            0.2263       0.0254    8.9104     0.0000
+## skew           -11.7392       4.4035   -2.6659     0.0077
+## shape            5.8773       0.5637   10.4270     0.0000</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="tsdistributions.html#cb234-1" aria-hidden="true" tabindex="-1"></a>pars <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)</span>
+<span id="cb234-2"><a href="tsdistributions.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalence</span></span>
+<span id="cb234-3"><a href="tsdistributions.html#cb234-3" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">&lt;-</span> (r <span class="sc">-</span> pars[<span class="dv">1</span>])<span class="sc">/</span>pars[<span class="dv">2</span>]</span>
+<span id="cb234-4"><a href="tsdistributions.html#cb234-4" aria-hidden="true" tabindex="-1"></a>test_llh <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">-</span><span class="fu">log</span>(<span class="fu">ddist</span>(dist, rx, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>, <span class="at">skew =</span> pars[<span class="dv">3</span>], </span>
+<span id="cb234-5"><a href="tsdistributions.html#cb234-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> pars[<span class="dv">4</span>])<span class="sc">/</span>pars[<span class="dv">2</span>]))</span>
+<span id="cb234-6"><a href="tsdistributions.html#cb234-6" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(test_llh, mod<span class="sc">$</span>llh)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Aas2006" class="csl-entry">
+Aas, K., and I.H. Haff. 2006. <span>“The Generalized Hyperbolic Skew Student’s t-Distribution.”</span> <em>Journal of Financial Econometrics</em> 4 (2): 275–309.
+</div>
+<div id="ref-Fernandez1998" class="csl-entry">
+Fernandez, C., and M.F. Steel. 1998. <span>“On Bayesian Modeling of Fat Tails and Skewness.”</span> <em>Journal of the American Statistical Association</em> 93 (441): 359–71.
+</div>
+<div id="ref-hansen1994autoregressive" class="csl-entry">
+Hansen, Bruce E. 1994. <span>“Autoregressive Conditional Density Estimation.”</span> <em>International Economic Review</em>, 705–30.
+</div>
+<div id="ref-Prause1999" class="csl-entry">
+Prause, K. 1999. <span>“The Generalized Hyperbolic Model: Estimation, Financial Derivatives, and Risk Measures.”</span> PhD thesis, University of Freiburg.
+</div>
+<div id="ref-Rigby2005" class="csl-entry">
+Rigby, R.A., and D.M. Stasinopoulos. 2005. <span>“Generalized Additive Models for Location, Scale and Shape.”</span> <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 54 (3): 507–54.
+</div>
+<div id="ref-R-SkewHyperbolic" class="csl-entry">
+Scott, David, and Fiona Grimson. 2018. <em>SkewHyperbolic: The Skew Hyperbolic Student t-Distribution</em>. <a href="https://r-forge.r-project.org/projects/rmetrics/">https://r-forge.r-project.org/projects/rmetrics/</a>.
+</div>
+<div id="ref-Stasinopoulos2009" class="csl-entry">
+Stasinopoulos, D.M., B.A. Rigby, and C. Akantziliotou. 2009. <em>Gamlss: Generalized Additive Models for Location, Scale and Shape.</em> 1.11 ed.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tscausal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Other packages | A Time Series Framework</title>
+  <title>Chapter 10 Other packages | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Other packages | A Time Series Framework" />
+  <meta property="og:title" content="Chapter 10 Other packages | A Time Series Framework" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Other packages | A Time Series Framework" />
+  <meta name="twitter:title" content="Chapter 10 Other packages | A Time Series Framework" />
   
   <meta name="twitter:description" content="Documentation for the tsmodels framework" />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2022-05-02" />
+<meta name="date" content="2022-05-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tscausal.html"/>
+<link rel="prev" href="tsdistributions.html"/>
 <link rel="next" href="experimental.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -264,17 +264,33 @@ div.csl-indent {
 <li class="chapter" data-level="8.4" data-path="tscausal.html"><a href="tscausal.html#tscausl:features"><i class="fa fa-check"></i><b>8.4</b> Package Features</a></li>
 <li class="chapter" data-level="8.5" data-path="tscausal.html"><a href="tscausal.html#tscausl:demo"><i class="fa fa-check"></i><b>8.5</b> Package Demo</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>9</b> Other packages</a></li>
-<li class="chapter" data-level="10" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>10</b> Experimental Functionality</a>
+<li class="chapter" data-level="9" data-path="tsdistributions.html"><a href="tsdistributions.html"><i class="fa fa-check"></i><b>9</b> tsdistributions package</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>10.1</b> Calibration of Predictive Distributions</a>
+<li class="chapter" data-level="9.1" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions"><i class="fa fa-check"></i><b>9.2</b> Distributions</a>
 <ul>
-<li class="chapter" data-level="10.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>10.1.1</b> Example [Coming Soon]</a></li>
+<li class="chapter" data-level="9.2.1" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:norm"><i class="fa fa-check"></i><b>9.2.1</b> The Normal Distribution</a></li>
+<li class="chapter" data-level="9.2.2" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:std"><i class="fa fa-check"></i><b>9.2.2</b> The Student Distribution</a></li>
+<li class="chapter" data-level="9.2.3" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:ged"><i class="fa fa-check"></i><b>9.2.3</b> The Generalized Error Distribution</a></li>
+<li class="chapter" data-level="9.2.4" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:skewed"><i class="fa fa-check"></i><b>9.2.4</b> Skewed Distributions by Inverse Scale Factors</a></li>
+<li class="chapter" data-level="9.2.5" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:ghyp"><i class="fa fa-check"></i><b>9.2.5</b> The Generalized Hyperbolic Distribution and Sub-Families</a></li>
+<li class="chapter" data-level="9.2.6" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:ghst"><i class="fa fa-check"></i><b>9.2.6</b> The Generalized Hyperbolic Skew Student Distribution</a></li>
+<li class="chapter" data-level="9.2.7" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:distributions:jsu"><i class="fa fa-check"></i><b>9.2.7</b> Johnson’s reparameterized SU Distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>10.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+<li class="chapter" data-level="9.3" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:moments"><i class="fa fa-check"></i><b>9.3</b> A note on analytic higher moments</a></li>
+<li class="chapter" data-level="9.4" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:code"><i class="fa fa-check"></i><b>9.4</b> Implementation and Code Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>11</b> News</a></li>
-<li class="chapter" data-level="12" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>12</b> The tsmodels team</a></li>
+<li class="chapter" data-level="10" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>10</b> Other packages</a></li>
+<li class="chapter" data-level="11" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>11</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>11.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>11.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>11.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>12</b> News</a></li>
+<li class="chapter" data-level="13" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>13</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -296,8 +312,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="other" class="section level1" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Other packages</h1>
+<div id="other" class="section level1" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Other packages</h1>
 <ul>
 <li><p>The <strong>tsaux</strong> package contains a set of functions used across all the packages of our framework.
 Included are performance metrics such as <em>mape</em> and <em>crps</em> as well as the <em>tstransform</em> function
@@ -316,7 +332,7 @@ and examples. This may be expanded in the future.</p></li>
           </div>
         </div>
       </div>
-<a href="tscausal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tsdistributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="experimental.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
