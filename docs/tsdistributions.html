@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 tsdistributions package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 tsdistributions package | A Time Series Framework" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Documentation for the tsmodels framework" />
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
@@ -24,7 +23,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2022-05-12" />
+<meta name="date" content="2022-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +31,7 @@
   
   
 <link rel="prev" href="tscausal.html"/>
-<link rel="next" href="other.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="next" href="tsgam.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -280,17 +279,26 @@ div.csl-indent {
 <li class="chapter" data-level="9.3" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:moments"><i class="fa fa-check"></i><b>9.3</b> A note on analytic higher moments</a></li>
 <li class="chapter" data-level="9.4" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:code"><i class="fa fa-check"></i><b>9.4</b> Implementation and Code Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>10</b> Other packages</a></li>
-<li class="chapter" data-level="11" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>11</b> Experimental Functionality</a>
+<li class="chapter" data-level="10" data-path="tsgam.html"><a href="tsgam.html"><i class="fa fa-check"></i><b>10</b> tsgam package</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>11.1</b> Calibration of Predictive Distributions</a>
+<li class="chapter" data-level="10.1" data-path="tsgam.html"><a href="tsgam.html#tsgam:introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="tsgam.html"><a href="tsgam.html#package-demo-electricity-load"><i class="fa fa-check"></i><b>10.2</b> Package Demo: Electricity Load</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>11.1.1</b> Example [Coming Soon]</a></li>
+<li class="chapter" data-level="10.2.1" data-path="tsgam.html"><a href="tsgam.html#estimation"><i class="fa fa-check"></i><b>10.2.1</b> Estimation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="tsgam.html"><a href="tsgam.html#prediction"><i class="fa fa-check"></i><b>10.2.2</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>11.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>12</b> News</a></li>
-<li class="chapter" data-level="13" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>13</b> The tsmodels team</a></li>
+<li class="chapter" data-level="11" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>11</b> Other packages</a></li>
+<li class="chapter" data-level="12" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>12</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>12.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>12.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>12.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>13</b> News</a></li>
+<li class="chapter" data-level="14" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>14</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -312,10 +320,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tsdistributions" class="section level1" number="9">
-<h1><span class="header-section-number">Chapter 9</span> tsdistributions package</h1>
-<div id="tsdistributions:introduction" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<div id="tsdistributions" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> tsdistributions package<a href="tsdistributions.html#tsdistributions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="tsdistributions:introduction" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction<a href="tsdistributions.html#tsdistributions:introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The objective of the <strong>tsdistributions</strong> package is to provide a set of location-scale
 invariant distributions re-parameterized in mean-variance space. The distributions
 in the package are based on those of the <a href="https://github.com/alexiosg/rugarch">rugarch</a>
@@ -325,10 +333,10 @@ differentiation via the functionality of the <a href="https://cran.r-project.org
 It is part of a longer term plan for a full re-write of rugarch, with this
 package forming a foundational set piece.</p>
 </div>
-<div id="tsdistributions:distributions" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Distributions</h2>
-<div id="tsdistributions:distributions:norm" class="section level3" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> The Normal Distribution</h3>
+<div id="tsdistributions:distributions" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Distributions<a href="tsdistributions.html#tsdistributions:distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tsdistributions:distributions:norm" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> The Normal Distribution<a href="tsdistributions.html#tsdistributions:distributions:norm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Normal Distribution is a spherical distribution described completely by it
 first two moments, the mean and variance. Formally, the random variable <span class="math inline">\(x\)</span> is
 said to be normally distributed with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>
@@ -356,8 +364,8 @@ L{L_t}\left( {{z_t};{\sigma _t}} \right) = \frac{1}
 <p>which illustrates the importance of the scaling property. Finally, the normal
 distribution has zero skewness and zero excess kurtosis.</p>
 </div>
-<div id="tsdistributions:distributions:std" class="section level3" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> The Student Distribution</h3>
+<div id="tsdistributions:distributions:std" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> The Student Distribution<a href="tsdistributions.html#tsdistributions:distributions:std" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It Student distribution is described completely by a shape parameter <span class="math inline">\(\nu\)</span>, but
 for standardization we proceed by using its 3 parameter representation as follows:</p>
 <p><span class="math display">\[
@@ -368,7 +376,7 @@ f\left( x \right) = \frac{{\Gamma \left( {\frac{{\nu  + 1}}
 {{\beta \nu }}} \right)^{ - \left( {\frac{{\nu  + 1}}
 {2}} \right)}}
 \]</span></p>
-<p>where <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\nu\)</span> are the location, scale<a href="references.html#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>
+<p>where <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\nu\)</span> are the location, scale<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>
 and shape parameters respectively, and <span class="math inline">\(\Gamma\)</span> is the Gamma function. Similar to
 the GED distribution described later, this is a unimodal and symmetric distribution
 where the location parameter <span class="math inline">\(\alpha\)</span> is the mean (and mode) of the distribution
@@ -405,8 +413,8 @@ and including a scaling by the standard deviation, this can be represented as:</
 <p>The Student distribution has zero skewness and excess kurtosis equal to
 <span class="math inline">\(6/(\nu - 4)\)</span> for <span class="math inline">\(\nu &gt; 4\)</span>.</p>
 </div>
-<div id="tsdistributions:distributions:ged" class="section level3" number="9.2.3">
-<h3><span class="header-section-number">9.2.3</span> The Generalized Error Distribution</h3>
+<div id="tsdistributions:distributions:ged" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> The Generalized Error Distribution<a href="tsdistributions.html#tsdistributions:distributions:ged" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Generalized Error Distribution is a 3 parameter distribution belonging
 to the exponential family with conditional density given by,</p>
 <p><span class="math display">\[
@@ -450,8 +458,8 @@ f\left( {\frac{{x - \mu }}
 {{\Gamma \left( {3{\kappa ^{ - 1}}} \right)}}} {2^{1 + {\kappa ^{ - 1}}}}\Gamma \left( {{\kappa ^{ - 1}}} \right)}}
 \]</span></p>
 </div>
-<div id="tsdistributions:distributions:skewed" class="section level3" number="9.2.4">
-<h3><span class="header-section-number">9.2.4</span> Skewed Distributions by Inverse Scale Factors</h3>
+<div id="tsdistributions:distributions:skewed" class="section level3 hasAnchor" number="9.2.4">
+<h3><span class="header-section-number">9.2.4</span> Skewed Distributions by Inverse Scale Factors<a href="tsdistributions.html#tsdistributions:distributions:skewed" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="citation">Fernandez and Steel (<a href="#ref-Fernandez1998" role="doc-biblioref">1998</a>)</span> proposed introducing skewness into unimodal and symmetric
 distributions by introducing inverse scale factors in the positive and negative
 real half lines. Given a skew parameter, <span class="math inline">\(\xi\)</span>, the density of a random variable z can be
@@ -477,8 +485,8 @@ the following function:</p>
 standardized to zero mean, unit variance by making use of the moment conditions
 given above. These are named as <em>snorm</em> <em>sged</em> and <em>sstd</em> in the package.</p>
 </div>
-<div id="tsdistributions:distributions:ghyp" class="section level3" number="9.2.5">
-<h3><span class="header-section-number">9.2.5</span> The Generalized Hyperbolic Distribution and Sub-Families</h3>
+<div id="tsdistributions:distributions:ghyp" class="section level3 hasAnchor" number="9.2.5">
+<h3><span class="header-section-number">9.2.5</span> The Generalized Hyperbolic Distribution and Sub-Families<a href="tsdistributions.html#tsdistributions:distributions:ghyp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In distributions where the expected moments are functions of all the parameters,
 it is not immediately obvious how to perform such a transformation. In the case
 of the ghyp distribution, because of the existence of location and scale
@@ -504,7 +512,7 @@ resulting distribution.</p>
 <p><span id="unlabeled-div-1" class="proof"><em>Proof</em>. </span>The Standardized Generalized Hyperbolic Distribution. Let <span class="math inline">\(\varepsilon_t\)</span> be a
 r.v. with mean <span class="math inline">\((0)\)</span> and variance <span class="math inline">\(({\sigma}^2)\)</span> distributed as <span class="math inline">\(ghyp(\zeta, \rho)\)</span>,
 and let <span class="math inline">\(z\)</span> be a scaled version of the r.v. <span class="math inline">\(\varepsilon\)</span> with variance <span class="math inline">\((1)\)</span>
-and also distributed as <span class="math inline">\(ghyp(\zeta, \rho)\)</span>.<a href="references.html#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> The density <span class="math inline">\(f(.)\)</span> of <span class="math inline">\(z\)</span> can be expressed as</p>
+and also distributed as <span class="math inline">\(ghyp(\zeta, \rho)\)</span>.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> The density <span class="math inline">\(f(.)\)</span> of <span class="math inline">\(z\)</span> can be expressed as</p>
 <p><span class="math display">\[
 f(\frac{\varepsilon_t}{\sigma}; \zeta ,\rho ) = \frac{1}{\sigma}f_t(z;\zeta ,\rho ) =
 \frac{1}{\sigma}f_t(z;\tilde \alpha, \tilde \beta, \tilde \delta ,\tilde \mu ),
@@ -574,8 +582,8 @@ preliminary steps of converting to the <span class="math inline">\((\zeta, \rho)
 \]</span></p>
 </div>
 </div>
-<div id="tsdistributions:distributions:ghst" class="section level3" number="9.2.6">
-<h3><span class="header-section-number">9.2.6</span> The Generalized Hyperbolic Skew Student Distribution</h3>
+<div id="tsdistributions:distributions:ghst" class="section level3 hasAnchor" number="9.2.6">
+<h3><span class="header-section-number">9.2.6</span> The Generalized Hyperbolic Skew Student Distribution<a href="tsdistributions.html#tsdistributions:distributions:ghst" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The ghyp Skew-Student distribution was popularized by <span class="citation">Aas and Haff (<a href="#ref-Aas2006" role="doc-biblioref">2006</a>)</span> because of its uniqueness
 in the ghyp family in having one tail with polynomial and one with exponential behavior.
 This distribution is a limiting case of the ghyp when <span class="math inline">\(\alpha \to \left| \beta \right|\)</span>
@@ -618,8 +626,8 @@ and then translate the parameters into the usual ghyp distribution’s <span cla
 <span class="citation">D. Scott and Grimson (<a href="#ref-R-SkewHyperbolic" role="doc-biblioref">2018</a>)</span> using the spline method (for speed), as is the
 cumulative distribution function.</p>
 </div>
-<div id="tsdistributions:distributions:jsu" class="section level3" number="9.2.7">
-<h3><span class="header-section-number">9.2.7</span> Johnson’s reparameterized SU Distribution</h3>
+<div id="tsdistributions:distributions:jsu" class="section level3 hasAnchor" number="9.2.7">
+<h3><span class="header-section-number">9.2.7</span> Johnson’s reparameterized SU Distribution<a href="tsdistributions.html#tsdistributions:distributions:jsu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The reparameterized Johnson SU distribution, discussed in <span class="citation">Rigby and Stasinopoulos (<a href="#ref-Rigby2005" role="doc-biblioref">2005</a>)</span>, is a
 four parameter distribution denoted by <span class="math inline">\(JSU\left(\mu,\sigma,\nu,\tau\right)\)</span>,
 with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> for all values of the skew and
@@ -628,27 +636,27 @@ from the GAMLSS package of <span class="citation">Stasinopoulos, Rigby, and Akan
 there for further details.</p>
 </div>
 </div>
-<div id="tsdistributions:moments" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> A note on analytic higher moments</h2>
+<div id="tsdistributions:moments" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> A note on analytic higher moments<a href="tsdistributions.html#tsdistributions:moments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The skewness and kurtosis of all distributions is based on analytic
 forms, with the exception of the skew student distribution for which
 a bijection between this and <span class="citation">Hansen (<a href="#ref-hansen1994autoregressive" role="doc-biblioref">1994</a>)</span> Generalized
-Skew-T distribution is used.<a href="references.html#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a></p>
+Skew-T distribution is used.<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a></p>
 </div>
-<div id="tsdistributions:code" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> Implementation and Code Examples</h2>
+<div id="tsdistributions:code" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Implementation and Code Examples<a href="tsdistributions.html#tsdistributions:code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The package implements standard d,p,q,r functions for all distributions
 in addition to the wrapper functions <code>ddist</code>,<code>pdist</code>,<code>qdist</code> and <code>rdist</code>.
 The skewness and kurtosis are provider in wrapper functions for all distributions
 in <code>dskewness</code> and <code>dkurtosis</code> as well as the <code>tsmoments</code> function on an
 estimated object of class <em>tsdistribution.estimate</em>. The following short
 demo showcases some of the available functionality.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="tsdistributions.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsdistributions)</span>
-<span id="cb232-2"><a href="tsdistributions.html#cb232-2" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="st">&quot;ghst&quot;</span></span>
-<span id="cb232-3"><a href="tsdistributions.html#cb232-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rdist</span>(dist, <span class="dv">2000</span>, <span class="at">mu =</span> <span class="fl">0.1</span>, <span class="at">sigma =</span> <span class="fl">0.3</span>, <span class="at">skew =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">shape =</span> <span class="dv">5</span>)</span>
-<span id="cb232-4"><a href="tsdistributions.html#cb232-4" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">distribution_modelspec</span>(r, dist)</span>
-<span id="cb232-5"><a href="tsdistributions.html#cb232-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span>
-<span id="cb232-6"><a href="tsdistributions.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="tsdistributions.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsdistributions)</span>
+<span id="cb233-2"><a href="tsdistributions.html#cb233-2" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="st">&quot;ghst&quot;</span></span>
+<span id="cb233-3"><a href="tsdistributions.html#cb233-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rdist</span>(dist, <span class="dv">2000</span>, <span class="at">mu =</span> <span class="fl">0.1</span>, <span class="at">sigma =</span> <span class="fl">0.3</span>, <span class="at">skew =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">shape =</span> <span class="dv">5</span>)</span>
+<span id="cb233-4"><a href="tsdistributions.html#cb233-4" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">distribution_modelspec</span>(r, dist)</span>
+<span id="cb233-5"><a href="tsdistributions.html#cb233-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span>
+<span id="cb233-6"><a href="tsdistributions.html#cb233-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## 
 ## Parameter    Est[Value]   Std. Error   t value   Pr(&gt;|t|)
@@ -657,17 +665,17 @@ demo showcases some of the available functionality.</p>
 ## sigma            0.2263       0.0254    8.9104     0.0000
 ## skew           -11.7392       4.4035   -2.6659     0.0077
 ## shape            5.8773       0.5637   10.4270     0.0000</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="tsdistributions.html#cb234-1" aria-hidden="true" tabindex="-1"></a>pars <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)</span>
-<span id="cb234-2"><a href="tsdistributions.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalence</span></span>
-<span id="cb234-3"><a href="tsdistributions.html#cb234-3" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">&lt;-</span> (r <span class="sc">-</span> pars[<span class="dv">1</span>])<span class="sc">/</span>pars[<span class="dv">2</span>]</span>
-<span id="cb234-4"><a href="tsdistributions.html#cb234-4" aria-hidden="true" tabindex="-1"></a>test_llh <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">-</span><span class="fu">log</span>(<span class="fu">ddist</span>(dist, rx, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>, <span class="at">skew =</span> pars[<span class="dv">3</span>], </span>
-<span id="cb234-5"><a href="tsdistributions.html#cb234-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> pars[<span class="dv">4</span>])<span class="sc">/</span>pars[<span class="dv">2</span>]))</span>
-<span id="cb234-6"><a href="tsdistributions.html#cb234-6" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(test_llh, mod<span class="sc">$</span>llh)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="tsdistributions.html#cb235-1" aria-hidden="true" tabindex="-1"></a>pars <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)</span>
+<span id="cb235-2"><a href="tsdistributions.html#cb235-2" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalence</span></span>
+<span id="cb235-3"><a href="tsdistributions.html#cb235-3" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">&lt;-</span> (r <span class="sc">-</span> pars[<span class="dv">1</span>])<span class="sc">/</span>pars[<span class="dv">2</span>]</span>
+<span id="cb235-4"><a href="tsdistributions.html#cb235-4" aria-hidden="true" tabindex="-1"></a>test_llh <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">-</span><span class="fu">log</span>(<span class="fu">ddist</span>(dist, rx, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>, <span class="at">skew =</span> pars[<span class="dv">3</span>], </span>
+<span id="cb235-5"><a href="tsdistributions.html#cb235-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> pars[<span class="dv">4</span>])<span class="sc">/</span>pars[<span class="dv">2</span>]))</span>
+<span id="cb235-6"><a href="tsdistributions.html#cb235-6" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(test_llh, mod<span class="sc">$</span>llh)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 
 </div>
 </div>
-<h3>References</h3>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Aas2006" class="csl-entry">
 Aas, K., and I.H. Haff. 2006. <span>“The Generalized Hyperbolic Skew Student’s t-Distribution.”</span> <em>Journal of Financial Econometrics</em> 4 (2): 275–309.
@@ -691,13 +699,25 @@ Scott, David, and Fiona Grimson. 2018. <em>SkewHyperbolic: The Skew Hyperbolic S
 Stasinopoulos, D.M., B.A. Rigby, and C. Akantziliotou. 2009. <em>Gamlss: Generalized Additive Models for Location, Scale and Shape.</em> 1.11 ed.
 </div>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>In some representations,
+mostly Bayesian, this is represented in its inverse form to denote the precision.<a href="tsdistributions.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>The parameters
+<span class="math inline">\(\zeta\)</span> and <span class="math inline">\(\rho\)</span> do not change as a result of being location and scale
+invariant<a href="tsdistributions.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>Based on code from Michael Rockinger
+at [here]{<a href="https://www.hec.unil.ch/matlabcodes/" class="uri">https://www.hec.unil.ch/matlabcodes/</a>}<a href="tsdistributions.html#fnref22" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="tscausal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="other.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tsgam.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

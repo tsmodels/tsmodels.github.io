@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 tscausal package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 tscausal package | A Time Series Framework" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Documentation for the tsmodels framework" />
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
@@ -24,7 +23,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2022-05-12" />
+<meta name="date" content="2022-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="tsforeign.html"/>
 <link rel="next" href="tsdistributions.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177357579-1"></script>
 <script>
@@ -280,17 +279,26 @@ div.csl-indent {
 <li class="chapter" data-level="9.3" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:moments"><i class="fa fa-check"></i><b>9.3</b> A note on analytic higher moments</a></li>
 <li class="chapter" data-level="9.4" data-path="tsdistributions.html"><a href="tsdistributions.html#tsdistributions:code"><i class="fa fa-check"></i><b>9.4</b> Implementation and Code Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>10</b> Other packages</a></li>
-<li class="chapter" data-level="11" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>11</b> Experimental Functionality</a>
+<li class="chapter" data-level="10" data-path="tsgam.html"><a href="tsgam.html"><i class="fa fa-check"></i><b>10</b> tsgam package</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>11.1</b> Calibration of Predictive Distributions</a>
+<li class="chapter" data-level="10.1" data-path="tsgam.html"><a href="tsgam.html#tsgam:introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="tsgam.html"><a href="tsgam.html#package-demo-electricity-load"><i class="fa fa-check"></i><b>10.2</b> Package Demo: Electricity Load</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>11.1.1</b> Example [Coming Soon]</a></li>
+<li class="chapter" data-level="10.2.1" data-path="tsgam.html"><a href="tsgam.html#estimation"><i class="fa fa-check"></i><b>10.2.1</b> Estimation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="tsgam.html"><a href="tsgam.html#prediction"><i class="fa fa-check"></i><b>10.2.2</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>11.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>12</b> News</a></li>
-<li class="chapter" data-level="13" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>13</b> The tsmodels team</a></li>
+<li class="chapter" data-level="11" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>11</b> Other packages</a></li>
+<li class="chapter" data-level="12" data-path="experimental.html"><a href="experimental.html"><i class="fa fa-check"></i><b>12</b> Experimental Functionality</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="experimental.html"><a href="experimental.html#calibration-of-predictive-distributions"><i class="fa fa-check"></i><b>12.1</b> Calibration of Predictive Distributions</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="experimental.html"><a href="experimental.html#example-coming-soon"><i class="fa fa-check"></i><b>12.1.1</b> Example [Coming Soon]</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="experimental.html"><a href="experimental.html#beyond-box-cox-the-logit-normal-assumption-for-ratios"><i class="fa fa-check"></i><b>12.2</b> Beyond Box-Cox : The Logit-Normal Assumption for Ratios</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="news.html"><a href="news.html"><i class="fa fa-check"></i><b>13</b> News</a></li>
+<li class="chapter" data-level="14" data-path="team.html"><a href="team.html"><i class="fa fa-check"></i><b>14</b> The tsmodels team</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -312,41 +320,41 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tscausal" class="section level1" number="8">
-<h1><span class="header-section-number">Chapter 8</span> tscausal package</h1>
-<div id="tscausal:introduction" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Introduction</h2>
-<p>The objective of the <strong>tscausal</strong> package is to provide an easy to use framework to evaluate any time series based forecast distribution, proxy for the counterfactual distribution, and generate an automatic set of diagnostics on the significance of an intervention. It is heavily influenced by the <a href="https://cran.r-project.org/web/packages/CausalImpact/index.html"><strong>CausalImpact</strong></a> package described in <span class="citation">Brodersen et al. (<a href="#ref-brodersen2015" role="doc-biblioref">2015</a>)</span>, and from which it borrows parts of the code diagnostics and output narrative.<a href="references.html#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
+<div id="tscausal" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> tscausal package<a href="tscausal.html#tscausal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="tscausal:introduction" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introduction<a href="tscausal.html#tscausal:introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The objective of the <strong>tscausal</strong> package is to provide an easy to use framework to evaluate any time series based forecast distribution, proxy for the counterfactual distribution, and generate an automatic set of diagnostics on the significance of an intervention. It is heavily influenced by the <a href="https://cran.r-project.org/web/packages/CausalImpact/index.html"><strong>CausalImpact</strong></a> package described in <span class="citation">Brodersen et al. (<a href="#ref-brodersen2015" role="doc-biblioref">2015</a>)</span>, and from which it borrows parts of the code diagnostics and output narrative.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
 <p>Unlike <strong>CausalImpact</strong>, the package is agnostic to any particular time series model, but it does require that the forecast distribution conform to certain requirements, namely that it inherits the class <code>tsmodel.distribution</code>. Any matrix of size <span class="math inline">\(N\times h\)</span>, representing the <span class="math inline">\(N\)</span> simulated points for each forecast period <span class="math inline">\(t\in h\)</span>, where <span class="math inline">\(t&gt;T\)</span> (the intervention date), can be coerced to this class. It is assumed that the user can and has trained a model on the pre-intervention period and our code repository provides for a wide array of models, with common calling conventions and the ability to generate frequentist simulated or Bayesian predictive distributions, all of which inherit class <code>tsmodel.distribution</code>.</p>
 </div>
-<div id="tscausal:evalmeasures" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Measures of Evaluation</h2>
+<div id="tscausal:evalmeasures" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Measures of Evaluation<a href="tscausal.html#tscausal:evalmeasures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This section provides a summary overview of the measures used to evaluate the possible presence of a causal effect, and follow <span class="citation">Brodersen et al. (<a href="#ref-brodersen2015" role="doc-biblioref">2015</a>)</span> closely.</p>
-<div id="tscausal:evalmeasures:pointwise" class="section level3" number="8.2.1">
-<h3><span class="header-section-number">8.2.1</span> Pointwise Impact</h3>
+<div id="tscausal:evalmeasures:pointwise" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Pointwise Impact<a href="tscausal.html#tscausal:evalmeasures:pointwise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Given an intervention date <span class="math inline">\(T\)</span>, and a post-intervention period under consideration <span class="math inline">\(T+1,\ldots,T+h\)</span>, the causal pointwise effect <span class="math inline">\(\phi^{(s)}_{t}\)</span> for all <span class="math inline">\(t \in T+1,\ldots,T+h\)</span> given a draw <span class="math inline">\(s\)</span> from the predictive distribution is:</p>
 <p><span class="math display">\[
 \phi^{(s)}_t = y_t - \hat y^{(s)}_t
 \]</span></p>
 <p>where <span class="math inline">\(y_t\)</span> represents the outcome variable and <span class="math inline">\(\hat{y}_t\)</span> the forecasted (or counterfactual) variable. Because we have a distributional forecast, which represents the uncertainty about the forecasted variable <span class="math inline">\(\hat{y}_t\)</span> at each date in the horizon <span class="math inline">\(T+1,\ldots,T+h\)</span>, and draws indexed by <span class="math inline">\((s)_1,\ldots,(s)_N\)</span>, we can generate an empirical distribution of any function applied to the distribution (e.g. summation, differences etc). Given a significance level <span class="math inline">\(a\)</span>%, the <span class="math inline">\(100-a\)</span>% confidence interval can be evaluated by making use of the empirical quantile function from this distribution.</p>
 </div>
-<div id="tscausal:evalmeasures:cumulative" class="section level3" number="8.2.2">
-<h3><span class="header-section-number">8.2.2</span> Cumulative Impact</h3>
+<div id="tscausal:evalmeasures:cumulative" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Cumulative Impact<a href="tscausal.html#tscausal:evalmeasures:cumulative" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The cumulative impact is derived from the pointwise impact as:</p>
 <p><span class="math display">\[
 \Phi _t^{(s)} = \sum\limits_{i = T + 1}^t {\phi _i^{(s)}},
 \]</span></p>
 <p>which is a useful quantity when the outcome represents a flow variable (e.g. revenue, signups), measured over an interval of time, however is not interpretable when it represents a stock variable (e.g. inventory, subscribers).</p>
 </div>
-<div id="tscausal:evalmeasures:meaneffect" class="section level3" number="8.2.3">
-<h3><span class="header-section-number">8.2.3</span> Mean Effect</h3>
+<div id="tscausal:evalmeasures:meaneffect" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Mean Effect<a href="tscausal.html#tscausal:evalmeasures:meaneffect" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Given an intervention date <span class="math inline">\(T\)</span>, and a post-intervention period <span class="math inline">\(T+1,\ldots,T+h\)</span>, then the average effect given a draw <span class="math inline">\(s\)</span> from the predictive distribution is:</p>
 <p><span class="math display">\[
 {\alpha ^{(s)}} = \frac{1}{{t - T}}\sum\limits_{i = T + 1}^{T + h} {{{y_i} - \hat y_i^{(s)}} }.
 \]</span></p>
 </div>
-<div id="tscausal:evalmeasures:relativeeffect" class="section level3" number="8.2.4">
-<h3><span class="header-section-number">8.2.4</span> Mean Relative Effect</h3>
+<div id="tscausal:evalmeasures:relativeeffect" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Mean Relative Effect<a href="tscausal.html#tscausal:evalmeasures:relativeeffect" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A related measure, showing the relative effect of the intervention can be defined:</p>
 <p><span class="math display">\[
 {r^{(s)}} = \frac{{{\alpha ^{(s)}}}}{{{\mu _{\hat y}}}},
@@ -354,8 +362,8 @@ div.csl-indent {
 where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forecasted variable <span class="math inline">\(\forall t&gt;T\)</span> and <span class="math inline">\(\forall s\)</span>.</p>
 </div>
 </div>
-<div id="tscausal:significance" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Evaluation of Significance</h2>
+<div id="tscausal:significance" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Evaluation of Significance<a href="tscausal.html#tscausal:significance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Given a significance level <span class="math inline">\(a\)</span>, under the null hypothesis that the intervention was not significant, we fail to reject if <span class="math inline">\(F^{-1}_n\left(\alpha/2\right)&lt;0\)</span> and <span class="math inline">\(F^{-1}_n\left(1-\alpha/2\right)&gt;0\)</span>, and reject otherwise. For instance, if the effect was positive with a lower quantile value above zero then we would reject the null and conclude that the effect was positive and significant. If the effect was negative with an upper quantile value less than zero we would also reject the null and conclude that the effect was negative and significant.</p>
 <p>Another statistic which can be used to evaluate whether the results could have occurred by chance is given by the following:</p>
 <p><span class="math display">\[
@@ -363,27 +371,27 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 \]</span></p>
 <p>which measures the percent of times the total net effect of the distribution was positive, measured over the entire forecast horizon and across all draws.</p>
 </div>
-<div id="tscausl:features" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Package Features</h2>
+<div id="tscausl:features" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Package Features<a href="tscausal.html#tscausl:features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The package has one main method called <code>tscausal</code> which takes as arguments a <code>tsmodel.distribution</code> object, the outcome variable (as <code>xts</code> object which includes both the pre and post intervention data), an optional <code>xts</code> vector (or <code>tsmodel.distribution</code>) of the in-sample fitted values and the significance level for hypothesis testing <strong>alpha</strong>, as shown below:</p>
 <pre><code>## function (object, actual, fitted = NULL, alpha = 0.05, include_cumulative = TRUE, 
 ##     ...) 
 ## NULL</code></pre>
 <p>Additionally, once the causal object has been created, there are methods for plotting (<code>plot</code>), printing of results (<code>print</code>) as well as a reporting (<code>tsreport</code>) which can be used to automatically generate a pdf, doc or html report with full evaluation and graphics. The next section provides a demonstration.</p>
 </div>
-<div id="tscausl:demo" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Package Demo</h2>
+<div id="tscausl:demo" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Package Demo<a href="tscausal.html#tscausl:demo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use the <code>priceunits</code> dataset from the <strong>tsdatasets</strong> package, in particular the units series, and add an artificial structural break during 1999-03, which could represent for instance a large drop in prices, a large substitution effect or a successful marketing campaign.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tscausal.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(priceunits, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb224-2"><a href="tscausal.html#cb224-2" aria-hidden="true" tabindex="-1"></a>priceunits <span class="ot">&lt;-</span> priceunits[, <span class="dv">2</span>]</span>
-<span id="cb224-3"><a href="tscausal.html#cb224-3" aria-hidden="true" tabindex="-1"></a>priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="ot">&lt;-</span> priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb224-4"><a href="tscausal.html#cb224-4" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="st">&quot;/1999-02&quot;</span></span>
-<span id="cb224-5"><a href="tscausal.html#cb224-5" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> <span class="st">&quot;1999-03/1999-08&quot;</span></span>
-<span id="cb224-6"><a href="tscausal.html#cb224-6" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">=</span> priceunits[train]</span>
-<span id="cb224-7"><a href="tscausal.html#cb224-7" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">=</span> priceunits[test]</span>
-<span id="cb224-8"><a href="tscausal.html#cb224-8" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">ets_modelspec</span>(y_train, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">0</span>, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
-<span id="cb224-9"><a href="tscausal.html#cb224-9" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span></code></pre></div>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="tscausal.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="tscausal.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(priceunits, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb225-2"><a href="tscausal.html#cb225-2" aria-hidden="true" tabindex="-1"></a>priceunits <span class="ot">&lt;-</span> priceunits[, <span class="dv">2</span>]</span>
+<span id="cb225-3"><a href="tscausal.html#cb225-3" aria-hidden="true" tabindex="-1"></a>priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="ot">&lt;-</span> priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb225-4"><a href="tscausal.html#cb225-4" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="st">&quot;/1999-02&quot;</span></span>
+<span id="cb225-5"><a href="tscausal.html#cb225-5" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> <span class="st">&quot;1999-03/1999-08&quot;</span></span>
+<span id="cb225-6"><a href="tscausal.html#cb225-6" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">=</span> priceunits[train]</span>
+<span id="cb225-7"><a href="tscausal.html#cb225-7" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">=</span> priceunits[test]</span>
+<span id="cb225-8"><a href="tscausal.html#cb225-8" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">ets_modelspec</span>(y_train, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">0</span>, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
+<span id="cb225-9"><a href="tscausal.html#cb225-9" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="tscausal.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## ETS Model [ AAN ]
 ## 
@@ -403,12 +411,12 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 ##    MAPE     MASE    MSLRE     BIAS
 ## -------  -------  -------  -------
 ##  0.0692   0.9563   0.0067   0.0054</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="tscausal.html#cb227-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="fu">nrow</span>(y_test), <span class="at">nsim =</span> <span class="dv">5000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tscausal.html#cb228-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="fu">nrow</span>(y_test), <span class="at">nsim =</span> <span class="dv">5000</span>)</span></code></pre></div>
 <p>Note that the prediction object has a number of slots, one of which is called <strong>distribution</strong> and inherits the following classes: tsets.distribution, tsmodel.distribution. All our packages have a predictable and common set of slots in the returned prediction objects.</p>
 <p>The final step is to pass the forecast distribution to the <code>tscausal</code> method and generate a report with a narrative explaining the results and a decision on whether to reject or not the null of no intervention effect.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tscausal.html#cb228-1" aria-hidden="true" tabindex="-1"></a>cause <span class="ot">&lt;-</span> <span class="fu">tscausal</span>(prediction<span class="sc">$</span>distribution, <span class="at">actual =</span> <span class="fu">rbind</span>(y_train,</span>
-<span id="cb228-2"><a href="tscausal.html#cb228-2" aria-hidden="true" tabindex="-1"></a>    y_test), <span class="at">fitted =</span> <span class="fu">fitted</span>(mod))</span>
-<span id="cb228-3"><a href="tscausal.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cause)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="tscausal.html#cb229-1" aria-hidden="true" tabindex="-1"></a>cause <span class="ot">&lt;-</span> <span class="fu">tscausal</span>(prediction<span class="sc">$</span>distribution, <span class="at">actual =</span> <span class="fu">rbind</span>(y_train,</span>
+<span id="cb229-2"><a href="tscausal.html#cb229-2" aria-hidden="true" tabindex="-1"></a>    y_test), <span class="at">fitted =</span> <span class="fu">fitted</span>(mod))</span>
+<span id="cb229-3"><a href="tscausal.html#cb229-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cause)</span></code></pre></div>
 <pre><code>## Predictive inference {tscausal}
 ## 
 ##                          Average           Cumulative     
@@ -424,29 +432,35 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 ## 
 ## Predictive Distribution tail-area probability p:   6e-04
 ## Predictive Distribution prob. of a causal effect:  99.94001%</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="tscausal.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause)</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="tscausal.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause)</span></code></pre></div>
 <p>During the post-intervention period, the response variable had an average value of approx. 37.3333. By contrast, in the absence of an intervention, we would have expected an average response of 27.88. The 95% interval of this counterfactual prediction is [23.3582, 33.1686]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 9.4529 with a 95% interval of [4.1647, 13.9751]. For a discussion of the significance of this effect, see below.</p>
 <p>Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 224.0000. By contrast, had the intervention not taken place, we would have expected a sum of 167.28. The 95% interval of this prediction is [140.1494, 199.0119].</p>
 <p>The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +34%. The 95% interval of this percentage is [+15%, +50%].</p>
 <p>This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (9.4529) to the original goal of the underlying intervention.</p>
 <p>The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant. NULL</p>
 <p>The <code>tsreport</code> method has options for printing to screen or generating a pdf, html or docx (with option to use a template as well). Example usage is provided below:</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="tscausal.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;pdf&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
-<span id="cb231-2"><a href="tscausal.html#cb231-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
-<span id="cb231-3"><a href="tscausal.html#cb231-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
-<span id="cb231-4"><a href="tscausal.html#cb231-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
-<span id="cb231-5"><a href="tscausal.html#cb231-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;doc&quot;</span>, <span class="at">doc_template =</span> <span class="st">&quot;~/tmp/mytemplate.docx&quot;</span>,</span>
-<span id="cb231-6"><a href="tscausal.html#cb231-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>,</span>
-<span id="cb231-7"><a href="tscausal.html#cb231-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="tscausal.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;pdf&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
+<span id="cb232-2"><a href="tscausal.html#cb232-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
+<span id="cb232-3"><a href="tscausal.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
+<span id="cb232-4"><a href="tscausal.html#cb232-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
+<span id="cb232-5"><a href="tscausal.html#cb232-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;doc&quot;</span>, <span class="at">doc_template =</span> <span class="st">&quot;~/tmp/mytemplate.docx&quot;</span>,</span>
+<span id="cb232-6"><a href="tscausal.html#cb232-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>,</span>
+<span id="cb232-7"><a href="tscausal.html#cb232-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 
 </div>
 </div>
-<h3>References</h3>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-brodersen2015" class="csl-entry">
 Brodersen, Kay H, Fabian Gallusser, Jim Koehler, Nicolas Remy, Steven L Scott, et al. 2015. <span>“Inferring Causal Impact Using Bayesian Structural Time-Series Models.”</span> <em>The Annals of Applied Statistics</em> 9 (1): 247–74.
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>The authors of <strong>CausalImpact</strong> as well as Steve Scott are therefore added as co-authors of the package.<a href="tscausal.html#fnref19" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

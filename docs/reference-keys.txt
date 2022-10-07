@@ -124,6 +124,11 @@ tsdistributions:distributions:ghst
 tsdistributions:distributions:jsu
 tsdistributions:moments
 tsdistributions:code
+tsgam
+tsgam:introduction
+package-demo-electricity-load
+estimation
+prediction
 other
 experimental
 calibration-of-predictive-distributions

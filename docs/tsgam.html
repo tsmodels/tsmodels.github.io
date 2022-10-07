@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | A Time Series Framework</title>
+  <title>Chapter 10 tsgam package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | A Time Series Framework" />
+  <meta property="og:title" content="Chapter 10 tsgam package | A Time Series Framework" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Documentation for the tsmodels framework" />
   <meta name="github-repo" content="tsmodels/tsmodels.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | A Time Series Framework" />
+  <meta name="twitter:title" content="Chapter 10 tsgam package | A Time Series Framework" />
   
   <meta name="twitter:description" content="Documentation for the tsmodels framework" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="team.html"/>
-
+<link rel="prev" href="tsdistributions.html"/>
+<link rel="next" href="other.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -320,191 +320,185 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="tsgam" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> tsgam package<a href="tsgam.html#tsgam" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="tsgam:introduction" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introduction<a href="tsgam.html#tsgam:introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>tsgam</strong> package provides a custom wrapper of the <code>gam</code> function from the <a href="https://cran.r-project.org/web/packages/mgcv/"><strong>mgcv</strong></a> package of <span class="citation">Wood (<a href="#ref-R-mgcv" role="doc-biblioref">2022</a>)</span>, in order to conform to the methods and outputs of the <strong>tsmodels</strong> framework. In particular, the predict method
+will return the simulated distribution of the mean forecast.</p>
+<p>The reason for introducing this model into the framework is due to the flexibility and robustness of the smooth basis functions in
+Generalized Additive Models (GAMs), the speed of estimation when working with large datasets, the ability to capture complex and multiple seasonal periods and potentially many regressors which are available at the forecast horizon which may not be purely linear in the response.</p>
+</div>
+<div id="package-demo-electricity-load" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Package Demo: Electricity Load<a href="tsgam.html#package-demo-electricity-load" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We highlight the package functionality using the Total electricity load in Greece dataset from
+the <strong>tsdatasets</strong> package.</p>
+<div id="estimation" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Estimation<a href="tsgam.html#estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The model specification, unlike previous packages in the tsmodels repo, takes as argument
+a formula describing the GAM model, in line with how many linear models work in R. This is a flexible
+approach, but does require an understanding of the types of smooth constructs available in mgcv.</p>
+<p>We first load the data and construct some additional information from the index and load information.
+We use the 48 hour lagged value of load to be conservative in terms of release schedules of the actual
+load and forecast delays. We also construct hour of day, day of week and month of year variables to capture
+stable seasonal patterns using cyclic cubic regression splines. In practice, one would hopefully have
+more information to include such as forecast temperatures, forecast demand etc.</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="tsgam.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span>
+<span id="cb237-2"><a href="tsgam.html#cb237-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsdatasets)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;tsdatasets&#39;</code></pre>
+<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
+## 
+##     priceunits</code></pre>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="tsgam.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsgam)</span>
+<span id="cb240-2"><a href="tsgam.html#cb240-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsaux)</span>
+<span id="cb240-3"><a href="tsgam.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb240-4"><a href="tsgam.html#cb240-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb240-5"><a href="tsgam.html#cb240-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gratia)</span>
+<span id="cb240-6"><a href="tsgam.html#cb240-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
+<span id="cb240-7"><a href="tsgam.html#cb240-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;ggplot2&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dlm&#39;:
+## 
+##     %+%</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="tsgam.html#cb243-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tsdatasets<span class="sc">::</span>electricload</span>
+<span id="cb243-2"><a href="tsgam.html#cb243-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">index =</span> <span class="fu">index</span>(x), <span class="at">load =</span> <span class="fu">as.numeric</span>(x))</span>
+<span id="cb243-3"><a href="tsgam.html#cb243-3" aria-hidden="true" tabindex="-1"></a>x[,lag48 <span class="sc">:</span><span class="er">=</span> <span class="fu">as.numeric</span>(<span class="fu">lag.xts</span>(<span class="fu">xts</span>(load, index),<span class="dv">48</span>))]</span>
+<span id="cb243-4"><a href="tsgam.html#cb243-4" aria-hidden="true" tabindex="-1"></a>x[,hour <span class="sc">:</span><span class="er">=</span> <span class="fu">hour</span>(index)]</span>
+<span id="cb243-5"><a href="tsgam.html#cb243-5" aria-hidden="true" tabindex="-1"></a>x[,day <span class="sc">:</span><span class="er">=</span> <span class="fu">wday</span>(index)]</span>
+<span id="cb243-6"><a href="tsgam.html#cb243-6" aria-hidden="true" tabindex="-1"></a>x[,month <span class="sc">:</span><span class="er">=</span> <span class="fu">month</span>(index)]</span>
+<span id="cb243-7"><a href="tsgam.html#cb243-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">as.xts</span>(x))</span>
+<span id="cb243-8"><a href="tsgam.html#cb243-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<pre><code>##                     load lag48 hour day month
+## 2016-10-19 00:00:00 3847  3745    0   4    10
+## 2016-10-19 01:00:00 3838  3702    1   4    10
+## 2016-10-19 02:00:00 3965  3783    2   4    10
+## 2016-10-19 03:00:00 4351  4139    3   4    10
+## 2016-10-19 04:00:00 4978  4691    4   4    10
+## 2016-10-19 05:00:00 5520  5104    5   4    10</code></pre>
+<p>We’ll estimate 2 models and compare them using an F-test. The first model simply used the 48 hour lag
+of the load for prediction, whilst the second model also makes use of the seasonal factors. We’ll
+also use approximately 90% of the data for training and leave 10% for out of sample prediction.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="tsgam.html#cb245-1" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>]</span>
+<span id="cb245-2"><a href="tsgam.html#cb245-2" aria-hidden="true" tabindex="-1"></a>test_dataset <span class="ot">&lt;-</span> x[<span class="dv">20001</span><span class="sc">:</span><span class="fu">nrow</span>(x)]</span>
+<span id="cb245-3"><a href="tsgam.html#cb245-3" aria-hidden="true" tabindex="-1"></a>f_baseline <span class="ot">&lt;-</span> <span class="st">&#39;load~s(lag48, bs = &quot;tp&quot;)&#39;</span></span>
+<span id="cb245-4"><a href="tsgam.html#cb245-4" aria-hidden="true" tabindex="-1"></a>f_extended <span class="ot">&lt;-</span> <span class="st">&#39;load~s(lag48, bs = &quot;tp&quot;) + s(hour, bs = &quot;cc&quot;, k = 23) + s(day, bs = &quot;cc&quot;, k = 6) + s(month, bs = &quot;cc&quot;, k = 11)&#39;</span></span>
+<span id="cb245-5"><a href="tsgam.html#cb245-5" aria-hidden="true" tabindex="-1"></a>spec_baseline <span class="ot">&lt;-</span> <span class="fu">gam_modelspec</span>(f_baseline, <span class="at">data =</span> train_dataset)</span>
+<span id="cb245-6"><a href="tsgam.html#cb245-6" aria-hidden="true" tabindex="-1"></a>spec_extended <span class="ot">&lt;-</span> <span class="fu">gam_modelspec</span>(f_extended, <span class="at">data =</span> train_dataset)</span>
+<span id="cb245-7"><a href="tsgam.html#cb245-7" aria-hidden="true" tabindex="-1"></a>mod_baseline <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec_baseline, <span class="at">select =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb245-8"><a href="tsgam.html#cb245-8" aria-hidden="true" tabindex="-1"></a>mod_extended <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec_extended, <span class="at">select =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span></code></pre></div>
+<p>The estimated objects include a slot for model which is the mgcv estimated object, from
+which we can use existing methods for evaluation. We first compare the extended model
+with the baseline model using a F-test.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="tsgam.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod_baseline<span class="sc">$</span>model, mod_extended<span class="sc">$</span>model, <span class="at">test =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: load ~ s(lag48, bs = &quot;tp&quot;)
+## Model 2: load ~ s(lag48, bs = &quot;tp&quot;) + s(hour, bs = &quot;cc&quot;, k = 23) + s(day, 
+##     bs = &quot;cc&quot;, k = 6) + s(month, bs = &quot;cc&quot;, k = 11)
+##   Resid. Df Resid. Dev     Df   Deviance      F    Pr(&gt;F)    
+## 1     19991 6386420897                                       
+## 2     19960 3728763057 31.286 2657657840 454.78 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Even though the extended model has significantly more parameters, the test indicates
+that it provides a better fit than the baseline. We therefore proceed with this
+model.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="tsgam.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_extended<span class="sc">$</span>model)</span></code></pre></div>
+<pre><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## load ~ s(lag48, bs = &quot;tp&quot;) + s(hour, bs = &quot;cc&quot;, k = 23) + s(day, 
+##     bs = &quot;cc&quot;, k = 6) + s(month, bs = &quot;cc&quot;, k = 11)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 5902.478      3.056    1931   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##             edf Ref.df      F p-value    
+## s(lag48)  7.785      9 1226.1  &lt;2e-16 ***
+## s(hour)  15.517     21  133.3  &lt;2e-16 ***
+## s(day)    3.996      4 1755.0  &lt;2e-16 ***
+## s(month)  8.874      9  270.8  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.853   Deviance explained = 85.4%
+## -REML = 1.4984e+05  Scale est. = 1.8679e+05  n = 20000</code></pre>
+<p>The extended model explains about 85% of the deviance. Looking at the QQ plot
+of the residuals using the appraise function from the <strong>gratia</strong> package
+suggests that the aussian assumptions is reasonable.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="tsgam.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">appraise</span>(mod_extended<span class="sc">$</span>model)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-63-1.png" width="768" /></p>
+<p>The figure below shows the marginal effect plot of the months on Load, with a clear
+peak during summer and winter months as load goes up due to temperature and hence the
+use of air-conditioners and heaters respectively.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="tsgam.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(<span class="at">fit =</span> mod_extended<span class="sc">$</span>model, <span class="at">xvar =</span> <span class="fu">c</span>(<span class="st">&quot;month&quot;</span>), <span class="at">data =</span> <span class="fu">as.data.frame</span>(train_dataset),</span>
+<span id="cb251-2"><a href="tsgam.html#cb251-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="st">&quot;conditional&quot;</span>, <span class="at">gg =</span> T, <span class="at">overlay =</span> T, <span class="at">partial =</span> F, <span class="at">rug =</span> F, <span class="at">ylab =</span> <span class="st">&quot;Load (MW)&quot;</span>,</span>
+<span id="cb251-3"><a href="tsgam.html#cb251-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Month&quot;</span>) <span class="sc">+</span> ggthemes<span class="sc">::</span><span class="fu">theme_pander</span>()</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-64-1.png" width="768" /></p>
+</div>
+<div id="prediction" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Prediction<a href="tsgam.html#prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The prediction method does not have any <code>n.ahead</code> arguments as in other time
+series methods in the tsmodels framework, instead being completely determined
+by the <code>newdata</code> argument. Additionally, the argument <code>distribution</code> can be used
+to proxy the simulated distribution by any other in the <strong>tsdistributions</strong> package
+if it is believed that the Gaussian assumption is too restrictive. Choosing another
+distribution will lead to the estimation of the distributional parameters on the
+response residuals followed by simulation of the distribution given these parameters
+and the forecast mean. Comparison of different simulated predictive distributions
+can then be carried out using for instance the CRSP or MIS functions from the
+<strong>tsaux</strong> package.
+A further argument, <code>tabulate</code>, returns a data.table object of the draws, forecast
+dates and predictions in long format which may be useful in production settings when
+such values need to be stored in a database.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="tsgam.html#cb252-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_extended, <span class="at">newdata =</span> test_dataset[,<span class="fu">c</span>(<span class="st">&quot;lag48&quot;</span>, <span class="st">&quot;hour&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;month&quot;</span>)], <span class="at">nsim =</span> <span class="dv">5000</span>, <span class="at">tabular =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb252-2"><a href="tsgam.html#cb252-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">distribution =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>Plotting the simulated predictive distribution against the realized values indicates
+reasonable performance, which we confirm with a table of statistics.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="tsgam.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p, <span class="at">n_original =</span> <span class="dv">24</span><span class="sc">*</span><span class="dv">30</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">gradient_color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">median_width =</span> <span class="dv">2</span>)</span>
+<span id="cb253-2"><a href="tsgam.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">index</span>(test_dataset), <span class="fu">as.numeric</span>(test_dataset<span class="sc">$</span>load), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-66-1.png" width="768" /></p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="tsgam.html#cb254-1" aria-hidden="true" tabindex="-1"></a>p_zoom <span class="ot">&lt;-</span> p<span class="sc">$</span>distribution[,<span class="dv">1</span><span class="sc">:</span>(<span class="dv">24</span><span class="sc">*</span><span class="dv">10</span>)]</span>
+<span id="cb254-2"><a href="tsgam.html#cb254-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(p_zoom) <span class="ot">&lt;-</span> <span class="st">&quot;tsmodel.distribution&quot;</span></span>
+<span id="cb254-3"><a href="tsgam.html#cb254-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_zoom, <span class="at">date_class =</span> <span class="st">&quot;POSIXct&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Prediction Sub-Period&quot;</span>)</span>
+<span id="cb254-4"><a href="tsgam.html#cb254-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">index</span>(test_dataset[<span class="fu">colnames</span>(p_zoom)]), <span class="fu">as.numeric</span>(test_dataset[<span class="fu">colnames</span>(p_zoom)]<span class="sc">$</span>load), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-67-1.png" width="768" /></p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="tsgam.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">data.table</span>(<span class="st">`</span><span class="at">MAPE (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mape</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb255-2"><a href="tsgam.html#cb255-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">SMAPE (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">smape</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb255-3"><a href="tsgam.html#cb255-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">BIAS (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">bias</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb255-4"><a href="tsgam.html#cb255-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">CRPS =</span> <span class="fu">crps</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>distribution)), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##    MAPE (%) SMAPE (%) BIAS (%)  CRPS
+##       &lt;num&gt;     &lt;num&gt;    &lt;num&gt; &lt;num&gt;
+## 1:     6.06      3.04   -0.823   251</code></pre>
+<p>There is also a <code>tsbacktest</code> method which will be expanded on in a separate post
+as this takes a training and testing split list of time indices which departs
+from the current approach in the other packages but offers more flexibility and is more
+suitable for models of this type.</p>
 
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Aas, K., and I.H. Haff. 2006. <span>“The Generalized Hyperbolic Skew Student’s t-Distribution.”</span> <em>Journal of Financial Econometrics</em> 4 (2): 275–309.
-</div>
-<div class="csl-entry">
-Anderson, Brian DO, and John B Moore. 2012. <em>Optimal Filtering</em>. Courier Corporation.
-</div>
-<div class="csl-entry">
-Athanasopoulos, George, and Ashton de Silva. 2012. <span>“Multivariate Exponential Smoothing for Forecasting Tourist Arrivals.”</span> <em>Journal of Travel Research</em> 51 (5): 640–52.
-</div>
-<div class="csl-entry">
-Bates, Douglas, Martin Maechler, and Mikael Jagan. 2022. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://R-Forge.R-project.org/projects/matrix/">https://R-Forge.R-project.org/projects/matrix/</a>.
-</div>
-<div class="csl-entry">
-Brodersen, Kay H, Fabian Gallusser, Jim Koehler, Nicolas Remy, Steven L Scott, et al. 2015. <span>“Inferring Causal Impact Using Bayesian Structural Time-Series Models.”</span> <em>The Annals of Applied Statistics</em> 9 (1): 247–74.
-</div>
-<div class="csl-entry">
-Brown, Robert Goodell. 1959. <em>Statistical Forecasting for Inventory Control</em>. McGraw/Hill.
-</div>
-<div class="csl-entry">
-———. 1962. <span>“Smoothing, Forecasting and Prediction of Discrete Time Series.”</span>
-</div>
-<div class="csl-entry">
-Casals, José, Sonia Sotoca, and Miguel Jerez. 1999. <span>“A Fast and Stable Method to Compute the Likelihood of Time Invariant State-Space Models.”</span> <em>Economics Letters</em> 65 (3): 329–37.
-</div>
-<div class="csl-entry">
-Clements, Adam, Ayesha Scott, and Annastiina Silvennoinen. 2015. <span>“On the Benefits of Equicorrelation for Portfolio Allocation.”</span> <em>Journal of Forecasting</em> 34 (6): 507–22.
-</div>
-<div class="csl-entry">
-De Jong, Piet et al. 1991. <span>“The Diffuse Kalman Filter.”</span> <em>The Annals of Statistics</em> 19 (2): 1073–83.
-</div>
-<div class="csl-entry">
-De Livera, Alysha M, Rob J Hyndman, and Ralph D Snyder. 2011. <span>“Forecasting Time Series with Complex Seasonal Patterns Using Exponential Smoothing.”</span> <em>Journal of the American Statistical Association</em> 106 (496): 1513–27.
-</div>
-<div class="csl-entry">
-De Silva, Ashton, Rob J Hyndman, and Ralph Snyder. 2010. <span>“The Vector Innovations Structural Time Series Framework: A Simple Approach to Multivariate Forecasting.”</span> <em>Statistical Modelling</em> 10 (4): 353–74.
-</div>
-<div class="csl-entry">
-Fernandez, C., and M.F. Steel. 1998. <span>“On Bayesian Modeling of Fat Tails and Skewness.”</span> <em>Journal of the American Statistical Association</em> 93 (441): 359–71.
-</div>
-<div class="csl-entry">
-Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
-</div>
-<div class="csl-entry">
-Gardner Jr, ES. 1985. <span>“Exponential Smoothing: The State of the Art.”</span> <em>Journal of Forecasting</em> 4 (1): 1–28.
-</div>
-<div class="csl-entry">
-Gneiting, Tilmann, and Adrian E Raftery. 2007. <span>“Strictly Proper Scoring Rules, Prediction, and Estimation.”</span> <em>Journal of the American Statistical Association</em> 102 (477): 359–78.
-</div>
-<div class="csl-entry">
-Guerrero, Victor M. 1993. <span>“Time-Series Analysis Supported by Power Transformations.”</span> <em>Journal of Forecasting</em> 12 (1): 37–48.
-</div>
-<div class="csl-entry">
-Hansen, Bruce E. 1994. <span>“Autoregressive Conditional Density Estimation.”</span> <em>International Economic Review</em>, 705–30.
-</div>
-<div class="csl-entry">
-Harvey, Andrew C. 1990. <em>Forecasting, Structural Time Series Models and the Kalman Filter</em>. Cambridge university press.
-</div>
-<div class="csl-entry">
-Holt, Charles. 1957. <span>“Forecasting Trends and Seasonals by Exponential Weighted Averages.”</span> <em>ONR Memorandum</em> 52: 1957.
-</div>
-<div class="csl-entry">
-Hyndman, Rob J, Muhammad Akram, and Blyth C Archibald. 2008. <span>“The Admissible Parameter Space for Exponential Smoothing Models.”</span> <em>Annals of the Institute of Statistical Mathematics</em> 60 (2): 407–26.
-</div>
-<div class="csl-entry">
-Hyndman, Rob J, Anne B Koehler, Ralph D Snyder, and Simone Grose. 2002. <span>“A State Space Framework for Automatic Forecasting Using Exponential Smoothing Methods.”</span> <em>International Journal of Forecasting</em> 18 (3): 439–54.
-</div>
-<div class="csl-entry">
-Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Mitchell O’Hara-Wild, Fotios Petropoulos, Slava Razbash, Earo Wang, and Farah Yasmeen. 2022. <em>Forecast: Forecasting Functions for Time Series and Linear Models</em>. <a href="https://CRAN.R-project.org/package=forecast">https://CRAN.R-project.org/package=forecast</a>.
-</div>
-<div class="csl-entry">
-Hyndman, Rob, Anne B Koehler, J Keith Ord, and Ralph D Snyder. 2008. <em>Forecasting with Exponential Smoothing: The State Space Approach</em>. Springer Science &amp; Business Media.
-</div>
-<div class="csl-entry">
-Koehler, Anne B, Ralph D Snyder, and J Keith Ord. 2001. <span>“Forecasting Models and Prediction Intervals for the Multiplicative Holt-Winters Method.”</span> <em>International Journal of Forecasting</em> 17 (2): 269–86.
-</div>
-<div class="csl-entry">
-Korkmaz, Selcuk, Dincer Goksuluk, and Gokmen Zararsiz. 2021. <em>MVN: Multivariate Normality Tests</em>. <a href="https://CRAN.R-project.org/package=MVN">https://CRAN.R-project.org/package=MVN</a>.
-</div>
-<div class="csl-entry">
-Ledoit, Olivier, and Michael Wolf. 2004. <span>“A Well-Conditioned Estimator for Large-Dimensional Covariance Matrices.”</span> <em>Journal of Multivariate Analysis</em> 88 (2): 365–411.
-</div>
-<div class="csl-entry">
-McKenzie, Ed. 1986. <span>“Error Analysis for Winters’ Additive Seasonal Forecasting System.”</span> <em>International Journal of Forecasting</em> 2 (3): 373–82.
-</div>
-<div class="csl-entry">
-Ord, John Keith, Anne B Koehler, and Ralph D Snyder. 1997. <span>“Estimation and Prediction for a Class of Dynamic Nonlinear Statistical Models.”</span> <em>Journal of the American Statistical Association</em> 92 (440): 1621–29.
-</div>
-<div class="csl-entry">
-Pegels, C. Carl. 1969. <span>“Exponential Forecasting: Some New Variations.”</span> <em>Management Science</em> 15 (5): 311–15.
-</div>
-<div class="csl-entry">
-Petris, Giovanni. 2018. <em>Dlm: Bayesian and Likelihood Analysis of Dynamic Linear Models</em>. <a href="https://CRAN.R-project.org/package=dlm">https://CRAN.R-project.org/package=dlm</a>.
-</div>
-<div class="csl-entry">
-Plummer, Martyn, Nicky Best, Kate Cowles, Karen Vines, Deepayan Sarkar, Douglas Bates, Russell Almond, and Arni Magnusson. 2020. <em>Coda: Output Analysis and Diagnostics for MCMC</em>. <a href="https://CRAN.R-project.org/package=coda">https://CRAN.R-project.org/package=coda</a>.
-</div>
-<div class="csl-entry">
-Prause, K. 1999. <span>“The Generalized Hyperbolic Model: Estimation, Financial Derivatives, and Risk Measures.”</span> PhD thesis, University of Freiburg.
-</div>
-<div class="csl-entry">
-Rigby, R.A., and D.M. Stasinopoulos. 2005. <span>“Generalized Additive Models for Location, Scale and Shape.”</span> <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 54 (3): 507–54.
-</div>
-<div class="csl-entry">
-Roberts, SA. 1982. <span>“A General Class of Holt-Winters Type Forecasting Models.”</span> <em>Management Science</em> 28 (7): 808–20.
-</div>
-<div class="csl-entry">
-Scott, David, and Fiona Grimson. 2018. <em>SkewHyperbolic: The Skew Hyperbolic Student t-Distribution</em>. <a href="https://r-forge.r-project.org/projects/rmetrics/">https://r-forge.r-project.org/projects/rmetrics/</a>.
-</div>
-<div class="csl-entry">
-Scott, Steven L. 2022. <em>Bsts: Bayesian Structural Time Series</em>. <a href="https://CRAN.R-project.org/package=bsts">https://CRAN.R-project.org/package=bsts</a>.
-</div>
-<div class="csl-entry">
-Scott, Steven L, and Hal R Varian. 2015. <span>“Bayesian Variable Selection for Nowcasting Economic Time Series.”</span> <em>Economic Analysis of the Digital Economy</em>, 119–35.
-</div>
-<div class="csl-entry">
-Stasinopoulos, D.M., B.A. Rigby, and C. Akantziliotou. 2009. <em>Gamlss: Generalized Additive Models for Location, Scale and Shape.</em> 1.11 ed.
-</div>
-<div class="csl-entry">
-Svetunkov, Ivan. 2020. <em>Smooth: Forecasting Using State Space Models</em>. <a href="https://CRAN.R-project.org/package=smooth">https://CRAN.R-project.org/package=smooth</a>.
-</div>
-<div class="csl-entry">
-Taylor, James W. 2003. <span>“Exponential Smoothing with a Damped Multiplicative Trend.”</span> <em>International Journal of Forecasting</em> 19 (4): 715–25.
-</div>
-<div class="csl-entry">
-Velilla, Santiago. 1993. <span>“A Note on the Multivariate Box—Cox Transformation to Normality.”</span> <em>Statistics &amp; Probability Letters</em> 17 (4): 259–63.
-</div>
-<div class="csl-entry">
-West, Mike, and Jeff Harrison. 2006. <em>Bayesian Forecasting and Dynamic Models</em>. Springer Science &amp; Business Media.
-</div>
-<div class="csl-entry">
-Winters, Peter R. 1960. <span>“Forecasting Sales by Exponentially Weighted Moving Averages.”</span> <em>Management Science</em> 6 (3): 324–42.
-</div>
-<div class="csl-entry">
+<div id="ref-R-mgcv" class="csl-entry">
 Wood, Simon. 2022. <em>Mgcv: Mixed GAM Computation Vehicle with Automatic Smoothness Estimation</em>. <a href="https://CRAN.R-project.org/package=mgcv">https://CRAN.R-project.org/package=mgcv</a>.
 </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="team.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="tsdistributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
