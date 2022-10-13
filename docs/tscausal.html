@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 tscausal package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 tscausal package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2022-10-07" />
+<meta name="date" content="2022-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -286,6 +286,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="10.2.1" data-path="tsgam.html"><a href="tsgam.html#estimation"><i class="fa fa-check"></i><b>10.2.1</b> Estimation</a></li>
 <li class="chapter" data-level="10.2.2" data-path="tsgam.html"><a href="tsgam.html#prediction"><i class="fa fa-check"></i><b>10.2.2</b> Prediction</a></li>
+<li class="chapter" data-level="10.2.3" data-path="tsgam.html"><a href="tsgam.html#comparison-to-issm-model"><i class="fa fa-check"></i><b>10.2.3</b> Comparison to ISSM model</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>11</b> Other packages</a></li>
@@ -382,16 +383,16 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 <div id="tscausl:demo" class="section level2 hasAnchor" number="8.5">
 <h2><span class="header-section-number">8.5</span> Package Demo<a href="tscausal.html#tscausl:demo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use the <code>priceunits</code> dataset from the <strong>tsdatasets</strong> package, in particular the units series, and add an artificial structural break during 1999-03, which could represent for instance a large drop in prices, a large substitution effect or a successful marketing campaign.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="tscausal.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(priceunits, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
-<span id="cb225-2"><a href="tscausal.html#cb225-2" aria-hidden="true" tabindex="-1"></a>priceunits <span class="ot">&lt;-</span> priceunits[, <span class="dv">2</span>]</span>
-<span id="cb225-3"><a href="tscausal.html#cb225-3" aria-hidden="true" tabindex="-1"></a>priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="ot">&lt;-</span> priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb225-4"><a href="tscausal.html#cb225-4" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="st">&quot;/1999-02&quot;</span></span>
-<span id="cb225-5"><a href="tscausal.html#cb225-5" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> <span class="st">&quot;1999-03/1999-08&quot;</span></span>
-<span id="cb225-6"><a href="tscausal.html#cb225-6" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">=</span> priceunits[train]</span>
-<span id="cb225-7"><a href="tscausal.html#cb225-7" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">=</span> priceunits[test]</span>
-<span id="cb225-8"><a href="tscausal.html#cb225-8" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">ets_modelspec</span>(y_train, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">0</span>, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
-<span id="cb225-9"><a href="tscausal.html#cb225-9" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span></code></pre></div>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="tscausal.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="tscausal.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(priceunits, <span class="at">package =</span> <span class="st">&quot;tsdatasets&quot;</span>)</span>
+<span id="cb221-2"><a href="tscausal.html#cb221-2" aria-hidden="true" tabindex="-1"></a>priceunits <span class="ot">&lt;-</span> priceunits[, <span class="dv">2</span>]</span>
+<span id="cb221-3"><a href="tscausal.html#cb221-3" aria-hidden="true" tabindex="-1"></a>priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="ot">&lt;-</span> priceunits[<span class="st">&quot;1999-03/&quot;</span>] <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb221-4"><a href="tscausal.html#cb221-4" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="st">&quot;/1999-02&quot;</span></span>
+<span id="cb221-5"><a href="tscausal.html#cb221-5" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> <span class="st">&quot;1999-03/1999-08&quot;</span></span>
+<span id="cb221-6"><a href="tscausal.html#cb221-6" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">=</span> priceunits[train]</span>
+<span id="cb221-7"><a href="tscausal.html#cb221-7" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">=</span> priceunits[test]</span>
+<span id="cb221-8"><a href="tscausal.html#cb221-8" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">ets_modelspec</span>(y_train, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">lambda =</span> <span class="dv">0</span>, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
+<span id="cb221-9"><a href="tscausal.html#cb221-9" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="tscausal.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## ETS Model [ AAN ]
 ## 
@@ -411,41 +412,41 @@ where <span class="math inline">\(\mu_{\bar y}\)</span> is the mean of the forec
 ##    MAPE     MASE    MSLRE     BIAS
 ## -------  -------  -------  -------
 ##  0.0692   0.9563   0.0067   0.0054</code></pre>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tscausal.html#cb228-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="fu">nrow</span>(y_test), <span class="at">nsim =</span> <span class="dv">5000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tscausal.html#cb224-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="fu">nrow</span>(y_test), <span class="at">nsim =</span> <span class="dv">5000</span>)</span></code></pre></div>
 <p>Note that the prediction object has a number of slots, one of which is called <strong>distribution</strong> and inherits the following classes: tsets.distribution, tsmodel.distribution. All our packages have a predictable and common set of slots in the returned prediction objects.</p>
 <p>The final step is to pass the forecast distribution to the <code>tscausal</code> method and generate a report with a narrative explaining the results and a decision on whether to reject or not the null of no intervention effect.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="tscausal.html#cb229-1" aria-hidden="true" tabindex="-1"></a>cause <span class="ot">&lt;-</span> <span class="fu">tscausal</span>(prediction<span class="sc">$</span>distribution, <span class="at">actual =</span> <span class="fu">rbind</span>(y_train,</span>
-<span id="cb229-2"><a href="tscausal.html#cb229-2" aria-hidden="true" tabindex="-1"></a>    y_test), <span class="at">fitted =</span> <span class="fu">fitted</span>(mod))</span>
-<span id="cb229-3"><a href="tscausal.html#cb229-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cause)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="tscausal.html#cb225-1" aria-hidden="true" tabindex="-1"></a>cause <span class="ot">&lt;-</span> <span class="fu">tscausal</span>(prediction<span class="sc">$</span>distribution, <span class="at">actual =</span> <span class="fu">rbind</span>(y_train,</span>
+<span id="cb225-2"><a href="tscausal.html#cb225-2" aria-hidden="true" tabindex="-1"></a>    y_test), <span class="at">fitted =</span> <span class="fu">fitted</span>(mod))</span>
+<span id="cb225-3"><a href="tscausal.html#cb225-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cause)</span></code></pre></div>
 <pre><code>## Predictive inference {tscausal}
 ## 
 ##                          Average           Cumulative     
 ## Actual                   37.33             224.00         
-## Prediction (s.d.)        27.88 (2.537)     167.28 (15.225)
+## Prediction (s.d.)        27.88 (2.541)     167.26 (15.246)
 ## 95% CI                   [23, 33]          [140, 199]     
 ##                                                           
-## Absolute effect (s.d.)   9.453 (2.537)     56.717 (15.225)
-## 95% CI                   [4.2, 14]         [25.0, 84]     
+## Absolute effect (s.d.)   9.457 (2.541)     56.740 (15.246)
+## 95% CI                   [4.1, 14]         [24.9, 84]     
 ##                                                           
-## Relative effect (s.d.)   33.91% (9.101%)   33.91% (9.101%)
+## Relative effect (s.d.)   33.92% (9.115%)   33.92% (9.115%)
 ## 95% CI                   [15%, 50%]        [15%, 50%]     
 ## 
 ## Predictive Distribution tail-area probability p:   6e-04
 ## Predictive Distribution prob. of a causal effect:  99.94001%</code></pre>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="tscausal.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause)</span></code></pre></div>
-<p>During the post-intervention period, the response variable had an average value of approx. 37.3333. By contrast, in the absence of an intervention, we would have expected an average response of 27.88. The 95% interval of this counterfactual prediction is [23.3582, 33.1686]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 9.4529 with a 95% interval of [4.1647, 13.9751]. For a discussion of the significance of this effect, see below.</p>
-<p>Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 224.0000. By contrast, had the intervention not taken place, we would have expected a sum of 167.28. The 95% interval of this prediction is [140.1494, 199.0119].</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="tscausal.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause)</span></code></pre></div>
+<p>During the post-intervention period, the response variable had an average value of approx. 37.3333. By contrast, in the absence of an intervention, we would have expected an average response of 27.88. The 95% interval of this counterfactual prediction is [23.3552, 33.1860]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 9.4567 with a 95% interval of [4.1473, 13.9782]. For a discussion of the significance of this effect, see below.</p>
+<p>Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 224.0000. By contrast, had the intervention not taken place, we would have expected a sum of 167.26. The 95% interval of this prediction is [140.1310, 199.1162].</p>
 <p>The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +34%. The 95% interval of this percentage is [+15%, +50%].</p>
-<p>This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (9.4529) to the original goal of the underlying intervention.</p>
+<p>This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (9.4567) to the original goal of the underlying intervention.</p>
 <p>The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant. NULL</p>
 <p>The <code>tsreport</code> method has options for printing to screen or generating a pdf, html or docx (with option to use a template as well). Example usage is provided below:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="tscausal.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;pdf&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
-<span id="cb232-2"><a href="tscausal.html#cb232-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
-<span id="cb232-3"><a href="tscausal.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
-<span id="cb232-4"><a href="tscausal.html#cb232-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
-<span id="cb232-5"><a href="tscausal.html#cb232-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;doc&quot;</span>, <span class="at">doc_template =</span> <span class="st">&quot;~/tmp/mytemplate.docx&quot;</span>,</span>
-<span id="cb232-6"><a href="tscausal.html#cb232-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>,</span>
-<span id="cb232-7"><a href="tscausal.html#cb232-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tscausal.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;pdf&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
+<span id="cb228-2"><a href="tscausal.html#cb228-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
+<span id="cb228-3"><a href="tscausal.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>, <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>,</span>
+<span id="cb228-4"><a href="tscausal.html#cb228-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span>
+<span id="cb228-5"><a href="tscausal.html#cb228-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tsreport</span>(cause, <span class="at">type =</span> <span class="st">&quot;doc&quot;</span>, <span class="at">doc_template =</span> <span class="st">&quot;~/tmp/mytemplate.docx&quot;</span>,</span>
+<span id="cb228-6"><a href="tscausal.html#cb228-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_dir =</span> <span class="st">&quot;~/tmp&quot;</span>, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">&quot;ETS[AAN]&quot;</span>, <span class="at">frequency =</span> <span class="dv">12</span>,</span>
+<span id="cb228-7"><a href="tscausal.html#cb228-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;Units&quot;</span>))</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 
 </div>
@@ -528,7 +529,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

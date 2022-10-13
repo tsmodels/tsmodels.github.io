@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 tsgam package | A Time Series Framework</title>
   <meta name="description" content="Documentation for the tsmodels framework" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 tsgam package | A Time Series Framework" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="The tsmodels team" />
 
 
-<meta name="date" content="2022-10-07" />
+<meta name="date" content="2022-10-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -286,6 +286,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="10.2.1" data-path="tsgam.html"><a href="tsgam.html#estimation"><i class="fa fa-check"></i><b>10.2.1</b> Estimation</a></li>
 <li class="chapter" data-level="10.2.2" data-path="tsgam.html"><a href="tsgam.html#prediction"><i class="fa fa-check"></i><b>10.2.2</b> Prediction</a></li>
+<li class="chapter" data-level="10.2.3" data-path="tsgam.html"><a href="tsgam.html#comparison-to-issm-model"><i class="fa fa-check"></i><b>10.2.3</b> Comparison to ISSM model</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>11</b> Other packages</a></li>
@@ -324,10 +325,11 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 10</span> tsgam package<a href="tsgam.html#tsgam" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="tsgam:introduction" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Introduction<a href="tsgam.html#tsgam:introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <strong>tsgam</strong> package provides a custom wrapper of the <code>gam</code> function from the <a href="https://cran.r-project.org/web/packages/mgcv/"><strong>mgcv</strong></a> package of <span class="citation">Wood (<a href="#ref-R-mgcv" role="doc-biblioref">2022</a>)</span>, in order to conform to the methods and outputs of the <strong>tsmodels</strong> framework. In particular, the predict method
-will return the simulated distribution of the mean forecast.</p>
+<p>The <strong>tsgam</strong> package provides a custom wrapper of the <code>gam</code> function from the <a href="https://cran.r-project.org/web/packages/mgcv/"><strong>mgcv</strong></a> package of <span class="citation">Wood (<a href="#ref-R-mgcv" role="doc-biblioref">2022</a>)</span>, in order to conform to the methods and outputs of the <strong>tsmodels</strong> framework. In particular, the predict method will return the simulated distribution of the mean forecast, and optionally includes the
+possibility of metafitting and using one of the distributions from the <strong>tsdistributions</strong> package for the uncertainty.</p>
 <p>The reason for introducing this model into the framework is due to the flexibility and robustness of the smooth basis functions in
-Generalized Additive Models (GAMs), the speed of estimation when working with large datasets, the ability to capture complex and multiple seasonal periods and potentially many regressors which are available at the forecast horizon which may not be purely linear in the response.</p>
+Generalized Additive Models (GAMs), the speed of estimation when working with large data sets, the ability to capture complex and
+multiple seasonal periods and potentially many regressors which are available at the forecast horizon which may not be purely linear in the response.</p>
 </div>
 <div id="package-demo-electricity-load" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Package Demo: Electricity Load<a href="tsgam.html#package-demo-electricity-load" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -343,33 +345,23 @@ We use the 48 hour lagged value of load to be conservative in terms of release s
 load and forecast delays. We also construct hour of day, day of week and month of year variables to capture
 stable seasonal patterns using cyclic cubic regression splines. In practice, one would hopefully have
 more information to include such as forecast temperatures, forecast demand etc.</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="tsgam.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span>
-<span id="cb237-2"><a href="tsgam.html#cb237-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsdatasets)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;tsdatasets&#39;</code></pre>
-<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     priceunits</code></pre>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="tsgam.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsgam)</span>
-<span id="cb240-2"><a href="tsgam.html#cb240-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsaux)</span>
-<span id="cb240-3"><a href="tsgam.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb240-4"><a href="tsgam.html#cb240-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb240-5"><a href="tsgam.html#cb240-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gratia)</span>
-<span id="cb240-6"><a href="tsgam.html#cb240-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
-<span id="cb240-7"><a href="tsgam.html#cb240-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;ggplot2&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dlm&#39;:
-## 
-##     %+%</code></pre>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="tsgam.html#cb243-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tsdatasets<span class="sc">::</span>electricload</span>
-<span id="cb243-2"><a href="tsgam.html#cb243-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">index =</span> <span class="fu">index</span>(x), <span class="at">load =</span> <span class="fu">as.numeric</span>(x))</span>
-<span id="cb243-3"><a href="tsgam.html#cb243-3" aria-hidden="true" tabindex="-1"></a>x[,lag48 <span class="sc">:</span><span class="er">=</span> <span class="fu">as.numeric</span>(<span class="fu">lag.xts</span>(<span class="fu">xts</span>(load, index),<span class="dv">48</span>))]</span>
-<span id="cb243-4"><a href="tsgam.html#cb243-4" aria-hidden="true" tabindex="-1"></a>x[,hour <span class="sc">:</span><span class="er">=</span> <span class="fu">hour</span>(index)]</span>
-<span id="cb243-5"><a href="tsgam.html#cb243-5" aria-hidden="true" tabindex="-1"></a>x[,day <span class="sc">:</span><span class="er">=</span> <span class="fu">wday</span>(index)]</span>
-<span id="cb243-6"><a href="tsgam.html#cb243-6" aria-hidden="true" tabindex="-1"></a>x[,month <span class="sc">:</span><span class="er">=</span> <span class="fu">month</span>(index)]</span>
-<span id="cb243-7"><a href="tsgam.html#cb243-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">as.xts</span>(x))</span>
-<span id="cb243-8"><a href="tsgam.html#cb243-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="tsgam.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span>
+<span id="cb233-2"><a href="tsgam.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsdatasets)</span>
+<span id="cb233-3"><a href="tsgam.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsgam)</span>
+<span id="cb233-4"><a href="tsgam.html#cb233-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsaux)</span>
+<span id="cb233-5"><a href="tsgam.html#cb233-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb233-6"><a href="tsgam.html#cb233-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb233-7"><a href="tsgam.html#cb233-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gratia)</span>
+<span id="cb233-8"><a href="tsgam.html#cb233-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
+<span id="cb233-9"><a href="tsgam.html#cb233-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb233-10"><a href="tsgam.html#cb233-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tsdatasets<span class="sc">::</span>electricload</span>
+<span id="cb233-11"><a href="tsgam.html#cb233-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">index =</span> <span class="fu">index</span>(x), <span class="at">load =</span> <span class="fu">as.numeric</span>(x))</span>
+<span id="cb233-12"><a href="tsgam.html#cb233-12" aria-hidden="true" tabindex="-1"></a>x[,lag48 <span class="sc">:</span><span class="er">=</span> <span class="fu">as.numeric</span>(<span class="fu">lag.xts</span>(<span class="fu">xts</span>(load, index),<span class="dv">48</span>))]</span>
+<span id="cb233-13"><a href="tsgam.html#cb233-13" aria-hidden="true" tabindex="-1"></a>x[,hour <span class="sc">:</span><span class="er">=</span> <span class="fu">hour</span>(index)]</span>
+<span id="cb233-14"><a href="tsgam.html#cb233-14" aria-hidden="true" tabindex="-1"></a>x[,day <span class="sc">:</span><span class="er">=</span> <span class="fu">wday</span>(index)]</span>
+<span id="cb233-15"><a href="tsgam.html#cb233-15" aria-hidden="true" tabindex="-1"></a>x[,month <span class="sc">:</span><span class="er">=</span> <span class="fu">month</span>(index)]</span>
+<span id="cb233-16"><a href="tsgam.html#cb233-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">as.xts</span>(x))</span>
+<span id="cb233-17"><a href="tsgam.html#cb233-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
 <pre><code>##                     load lag48 hour day month
 ## 2016-10-19 00:00:00 3847  3745    0   4    10
 ## 2016-10-19 01:00:00 3838  3702    1   4    10
@@ -377,21 +369,21 @@ more information to include such as forecast temperatures, forecast demand etc.<
 ## 2016-10-19 03:00:00 4351  4139    3   4    10
 ## 2016-10-19 04:00:00 4978  4691    4   4    10
 ## 2016-10-19 05:00:00 5520  5104    5   4    10</code></pre>
-<p>We’ll estimate 2 models and compare them using an F-test. The first model simply used the 48 hour lag
+<p>We’ll estimate 2 models and compare them using an F-test. The first model simply uses the 48 hour lag
 of the load for prediction, whilst the second model also makes use of the seasonal factors. We’ll
 also use approximately 90% of the data for training and leave 10% for out of sample prediction.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="tsgam.html#cb245-1" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>]</span>
-<span id="cb245-2"><a href="tsgam.html#cb245-2" aria-hidden="true" tabindex="-1"></a>test_dataset <span class="ot">&lt;-</span> x[<span class="dv">20001</span><span class="sc">:</span><span class="fu">nrow</span>(x)]</span>
-<span id="cb245-3"><a href="tsgam.html#cb245-3" aria-hidden="true" tabindex="-1"></a>f_baseline <span class="ot">&lt;-</span> <span class="st">&#39;load~s(lag48, bs = &quot;tp&quot;)&#39;</span></span>
-<span id="cb245-4"><a href="tsgam.html#cb245-4" aria-hidden="true" tabindex="-1"></a>f_extended <span class="ot">&lt;-</span> <span class="st">&#39;load~s(lag48, bs = &quot;tp&quot;) + s(hour, bs = &quot;cc&quot;, k = 23) + s(day, bs = &quot;cc&quot;, k = 6) + s(month, bs = &quot;cc&quot;, k = 11)&#39;</span></span>
-<span id="cb245-5"><a href="tsgam.html#cb245-5" aria-hidden="true" tabindex="-1"></a>spec_baseline <span class="ot">&lt;-</span> <span class="fu">gam_modelspec</span>(f_baseline, <span class="at">data =</span> train_dataset)</span>
-<span id="cb245-6"><a href="tsgam.html#cb245-6" aria-hidden="true" tabindex="-1"></a>spec_extended <span class="ot">&lt;-</span> <span class="fu">gam_modelspec</span>(f_extended, <span class="at">data =</span> train_dataset)</span>
-<span id="cb245-7"><a href="tsgam.html#cb245-7" aria-hidden="true" tabindex="-1"></a>mod_baseline <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec_baseline, <span class="at">select =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
-<span id="cb245-8"><a href="tsgam.html#cb245-8" aria-hidden="true" tabindex="-1"></a>mod_extended <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec_extended, <span class="at">select =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="tsgam.html#cb235-1" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>]</span>
+<span id="cb235-2"><a href="tsgam.html#cb235-2" aria-hidden="true" tabindex="-1"></a>test_dataset <span class="ot">&lt;-</span> x[<span class="dv">20001</span><span class="sc">:</span><span class="fu">nrow</span>(x)]</span>
+<span id="cb235-3"><a href="tsgam.html#cb235-3" aria-hidden="true" tabindex="-1"></a>f_baseline <span class="ot">&lt;-</span> <span class="st">&#39;load~s(lag48, bs = &quot;tp&quot;)&#39;</span></span>
+<span id="cb235-4"><a href="tsgam.html#cb235-4" aria-hidden="true" tabindex="-1"></a>f_extended <span class="ot">&lt;-</span> <span class="st">&#39;load~s(lag48, bs = &quot;tp&quot;) + s(hour, bs = &quot;cc&quot;, k = 23) + s(day, bs = &quot;cc&quot;, k = 6) + s(month, bs = &quot;cc&quot;, k = 11)&#39;</span></span>
+<span id="cb235-5"><a href="tsgam.html#cb235-5" aria-hidden="true" tabindex="-1"></a>spec_baseline <span class="ot">&lt;-</span> <span class="fu">gam_modelspec</span>(f_baseline, <span class="at">data =</span> train_dataset)</span>
+<span id="cb235-6"><a href="tsgam.html#cb235-6" aria-hidden="true" tabindex="-1"></a>spec_extended <span class="ot">&lt;-</span> <span class="fu">gam_modelspec</span>(f_extended, <span class="at">data =</span> train_dataset)</span>
+<span id="cb235-7"><a href="tsgam.html#cb235-7" aria-hidden="true" tabindex="-1"></a>mod_baseline <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec_baseline, <span class="at">select =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb235-8"><a href="tsgam.html#cb235-8" aria-hidden="true" tabindex="-1"></a>mod_extended <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec_extended, <span class="at">select =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span></code></pre></div>
 <p>The estimated objects include a slot for model which is the mgcv estimated object, from
 which we can use existing methods for evaluation. We first compare the extended model
 with the baseline model using a F-test.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="tsgam.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod_baseline<span class="sc">$</span>model, mod_extended<span class="sc">$</span>model, <span class="at">test =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="tsgam.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod_baseline<span class="sc">$</span>model, mod_extended<span class="sc">$</span>model, <span class="at">test =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <pre><code>## Analysis of Deviance Table
 ## 
 ## Model 1: load ~ s(lag48, bs = &quot;tp&quot;)
@@ -405,7 +397,7 @@ with the baseline model using a F-test.</p>
 <p>Even though the extended model has significantly more parameters, the test indicates
 that it provides a better fit than the baseline. We therefore proceed with this
 model.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="tsgam.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_extended<span class="sc">$</span>model)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="tsgam.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_extended)</span></code></pre></div>
 <pre><code>## 
 ## Family: gaussian 
 ## Link function: identity 
@@ -433,16 +425,25 @@ model.</p>
 ## -REML = 1.4984e+05  Scale est. = 1.8679e+05  n = 20000</code></pre>
 <p>The extended model explains about 85% of the deviance. Looking at the QQ plot
 of the residuals using the appraise function from the <strong>gratia</strong> package
-suggests that the aussian assumptions is reasonable.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="tsgam.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">appraise</span>(mod_extended<span class="sc">$</span>model)</span></code></pre></div>
+suggests that the Gaussian assumptions is reasonable.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="tsgam.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">appraise</span>(mod_extended<span class="sc">$</span>model)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-63-1.png" width="768" /></p>
 <p>The figure below shows the marginal effect plot of the months on Load, with a clear
 peak during summer and winter months as load goes up due to temperature and hence the
-use of air-conditioners and heaters respectively.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="tsgam.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(<span class="at">fit =</span> mod_extended<span class="sc">$</span>model, <span class="at">xvar =</span> <span class="fu">c</span>(<span class="st">&quot;month&quot;</span>), <span class="at">data =</span> <span class="fu">as.data.frame</span>(train_dataset),</span>
-<span id="cb251-2"><a href="tsgam.html#cb251-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="st">&quot;conditional&quot;</span>, <span class="at">gg =</span> T, <span class="at">overlay =</span> T, <span class="at">partial =</span> F, <span class="at">rug =</span> F, <span class="at">ylab =</span> <span class="st">&quot;Load (MW)&quot;</span>,</span>
-<span id="cb251-3"><a href="tsgam.html#cb251-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Month&quot;</span>) <span class="sc">+</span> ggthemes<span class="sc">::</span><span class="fu">theme_pander</span>()</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-64-1.png" width="768" /></p>
+use of air-conditioners and heaters respectively (although the inference will be slightly
+misleading here since we are using UTC whereas the local time zone is EET).</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="tsgam.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(<span class="at">fit =</span> mod_extended<span class="sc">$</span>model, <span class="at">xvar =</span> <span class="fu">c</span>(<span class="st">&quot;month&quot;</span>), <span class="at">data =</span> <span class="fu">as.data.frame</span>(train_dataset),</span>
+<span id="cb241-2"><a href="tsgam.html#cb241-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="st">&quot;conditional&quot;</span>, <span class="at">gg =</span> T, <span class="at">overlay =</span> T, <span class="at">partial =</span> F, <span class="at">rug =</span> F, <span class="at">ylab =</span> <span class="st">&quot;Load (MW)&quot;</span>,</span>
+<span id="cb241-3"><a href="tsgam.html#cb241-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Month&quot;</span>) <span class="sc">+</span> ggthemes<span class="sc">::</span><span class="fu">theme_pander</span>()</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-64-1.png" width="768" />
+We can also plot the additive decomposition of the components using the existing
+<code>tsdecompose</code> method which is available for both estimate and predicted objects.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="tsgam.html#cb242-1" aria-hidden="true" tabindex="-1"></a>tsx <span class="ot">&lt;-</span> <span class="fu">tsdecompose</span>(mod_extended)</span>
+<span id="cb242-2"><a href="tsgam.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm decomposition composure = fitted</span></span>
+<span id="cb242-3"><a href="tsgam.html#cb242-3" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">as.numeric</span>(<span class="fu">rowSums</span>(tsx)), <span class="fu">as.numeric</span>(<span class="fu">fitted</span>(mod_extended)))</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="tsgam.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tsx[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">multi.panel =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-65-1.png" width="768" /></p>
 </div>
 <div id="prediction" class="section level3 hasAnchor" number="10.2.2">
 <h3><span class="header-section-number">10.2.2</span> Prediction<a href="tsgam.html#prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -459,25 +460,77 @@ can then be carried out using for instance the CRSP or MIS functions from the
 A further argument, <code>tabulate</code>, returns a data.table object of the draws, forecast
 dates and predictions in long format which may be useful in production settings when
 such values need to be stored in a database.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="tsgam.html#cb252-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_extended, <span class="at">newdata =</span> test_dataset[,<span class="fu">c</span>(<span class="st">&quot;lag48&quot;</span>, <span class="st">&quot;hour&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;month&quot;</span>)], <span class="at">nsim =</span> <span class="dv">5000</span>, <span class="at">tabular =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb252-2"><a href="tsgam.html#cb252-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">distribution =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="tsgam.html#cb245-1" aria-hidden="true" tabindex="-1"></a>p_gam <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_extended, <span class="at">newdata =</span> test_dataset[,<span class="fu">c</span>(<span class="st">&quot;lag48&quot;</span>, <span class="st">&quot;hour&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;month&quot;</span>)], <span class="at">nsim =</span> <span class="dv">5000</span>, <span class="at">tabular =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb245-2"><a href="tsgam.html#cb245-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">distribution =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p>Note that, even though the training dataset is of length 20,000 (hours), this does not mean
+that we are performing such a long range forecast since the 48 hour lag of the actual load
+effectively allows us to forecast, at time T, from T+1 to T+48. Without re-estimation, this
+is equivalent, in the other state space type models, to a horizon of 48 with updating every
+48 hours (filtering with new data and then re-forecasting). An example and comparison is
+provided in the next section.</p>
 <p>Plotting the simulated predictive distribution against the realized values indicates
 reasonable performance, which we confirm with a table of statistics.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="tsgam.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p, <span class="at">n_original =</span> <span class="dv">24</span><span class="sc">*</span><span class="dv">30</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">gradient_color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">median_width =</span> <span class="dv">2</span>)</span>
-<span id="cb253-2"><a href="tsgam.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">index</span>(test_dataset), <span class="fu">as.numeric</span>(test_dataset<span class="sc">$</span>load), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="tsmodels_files/figure-html/unnamed-chunk-66-1.png" width="768" /></p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="tsgam.html#cb254-1" aria-hidden="true" tabindex="-1"></a>p_zoom <span class="ot">&lt;-</span> p<span class="sc">$</span>distribution[,<span class="dv">1</span><span class="sc">:</span>(<span class="dv">24</span><span class="sc">*</span><span class="dv">10</span>)]</span>
-<span id="cb254-2"><a href="tsgam.html#cb254-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(p_zoom) <span class="ot">&lt;-</span> <span class="st">&quot;tsmodel.distribution&quot;</span></span>
-<span id="cb254-3"><a href="tsgam.html#cb254-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_zoom, <span class="at">date_class =</span> <span class="st">&quot;POSIXct&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Prediction Sub-Period&quot;</span>)</span>
-<span id="cb254-4"><a href="tsgam.html#cb254-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">index</span>(test_dataset[<span class="fu">colnames</span>(p_zoom)]), <span class="fu">as.numeric</span>(test_dataset[<span class="fu">colnames</span>(p_zoom)]<span class="sc">$</span>load), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="tsgam.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_gam, <span class="at">n_original =</span> <span class="dv">24</span><span class="sc">*</span><span class="dv">30</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">gradient_color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">interval_color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">median_width =</span> <span class="dv">2</span>)</span>
+<span id="cb246-2"><a href="tsgam.html#cb246-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">index</span>(test_dataset), <span class="fu">as.numeric</span>(test_dataset<span class="sc">$</span>load), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="tsmodels_files/figure-html/unnamed-chunk-67-1.png" width="768" /></p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="tsgam.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">data.table</span>(<span class="st">`</span><span class="at">MAPE (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mape</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb255-2"><a href="tsgam.html#cb255-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">SMAPE (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">smape</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb255-3"><a href="tsgam.html#cb255-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">BIAS (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">bias</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb255-4"><a href="tsgam.html#cb255-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">CRPS =</span> <span class="fu">crps</span>(test_dataset<span class="sc">$</span>load, p<span class="sc">$</span>distribution)), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="tsgam.html#cb247-1" aria-hidden="true" tabindex="-1"></a>p_zoom <span class="ot">&lt;-</span> p_gam<span class="sc">$</span>distribution[,<span class="dv">1</span><span class="sc">:</span>(<span class="dv">24</span><span class="sc">*</span><span class="dv">10</span>)]</span>
+<span id="cb247-2"><a href="tsgam.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(p_zoom) <span class="ot">&lt;-</span> <span class="st">&quot;tsmodel.distribution&quot;</span></span>
+<span id="cb247-3"><a href="tsgam.html#cb247-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_zoom, <span class="at">date_class =</span> <span class="st">&quot;POSIXct&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Prediction Sub-Period&quot;</span>)</span>
+<span id="cb247-4"><a href="tsgam.html#cb247-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">index</span>(test_dataset[<span class="fu">colnames</span>(p_zoom)]), <span class="fu">as.numeric</span>(test_dataset[<span class="fu">colnames</span>(p_zoom)]<span class="sc">$</span>load), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="tsmodels_files/figure-html/unnamed-chunk-68-1.png" width="768" /></p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="tsgam.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">data.table</span>(<span class="st">`</span><span class="at">MAPE (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mape</span>(test_dataset<span class="sc">$</span>load, p_gam<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb248-2"><a href="tsgam.html#cb248-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">SMAPE (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">smape</span>(test_dataset<span class="sc">$</span>load, p_gam<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb248-3"><a href="tsgam.html#cb248-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">BIAS (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">bias</span>(test_dataset<span class="sc">$</span>load, p_gam<span class="sc">$</span>mean) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb248-4"><a href="tsgam.html#cb248-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">CRPS =</span> <span class="fu">crps</span>(test_dataset<span class="sc">$</span>load, p_gam<span class="sc">$</span>distribution)), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##    MAPE (%) SMAPE (%) BIAS (%)  CRPS
 ##       &lt;num&gt;     &lt;num&gt;    &lt;num&gt; &lt;num&gt;
 ## 1:     6.06      3.04   -0.823   251</code></pre>
+</div>
+<div id="comparison-to-issm-model" class="section level3 hasAnchor" number="10.2.3">
+<h3><span class="header-section-number">10.2.3</span> Comparison to ISSM model<a href="tsgam.html#comparison-to-issm-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We compare the results of the GAM model to one estimated using the ISSM model from
+the <strong>tsissm</strong> package.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="tsgam.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsissm)</span>
+<span id="cb250-2"><a href="tsgam.html#cb250-2" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">issm_modelspec</span>(train_dataset<span class="sc">$</span>load, <span class="at">slope =</span> <span class="cn">FALSE</span>, <span class="at">seasonal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb250-3"><a href="tsgam.html#cb250-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_frequency =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">24</span><span class="sc">*</span><span class="fl">30.25</span>), </span>
+<span id="cb250-4"><a href="tsgam.html#cb250-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_harmonics =</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">7</span>), </span>
+<span id="cb250-5"><a href="tsgam.html#cb250-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">seasonal_type =</span> <span class="st">&quot;trigonometric&quot;</span>, </span>
+<span id="cb250-6"><a href="tsgam.html#cb250-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sampling =</span> <span class="st">&quot;hours&quot;</span>)</span>
+<span id="cb250-7"><a href="tsgam.html#cb250-7" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">estimate</span>(spec, <span class="at">autodiff =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb250-8"><a href="tsgam.html#cb250-8" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(test_dataset), <span class="at">by =</span> <span class="dv">48</span>)</span>
+<span id="cb250-9"><a href="tsgam.html#cb250-9" aria-hidden="true" tabindex="-1"></a>p_issm <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">h =</span> <span class="dv">48</span>, <span class="at">exact_moments =</span> T)</span>
+<span id="cb250-10"><a href="tsgam.html#cb250-10" aria-hidden="true" tabindex="-1"></a>pred_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="fu">length</span>(s))</span>
+<span id="cb250-11"><a href="tsgam.html#cb250-11" aria-hidden="true" tabindex="-1"></a>pred_list[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">index =</span> <span class="dv">1</span>, <span class="at">forecast_dates =</span> <span class="fu">index</span>(p_issm<span class="sc">$</span>analytic_mean), </span>
+<span id="cb250-12"><a href="tsgam.html#cb250-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">issm_forecast =</span> <span class="fu">as.numeric</span>(p_issm<span class="sc">$</span>analytic_mean))</span>
+<span id="cb250-13"><a href="tsgam.html#cb250-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(s)) {</span>
+<span id="cb250-14"><a href="tsgam.html#cb250-14" aria-hidden="true" tabindex="-1"></a>    xmod <span class="ot">&lt;-</span> <span class="fu">tsfilter</span>(mod, <span class="at">y =</span> test_dataset[<span class="dv">1</span><span class="sc">:</span>s[i]]<span class="sc">$</span>load)</span>
+<span id="cb250-15"><a href="tsgam.html#cb250-15" aria-hidden="true" tabindex="-1"></a>    p_issm <span class="ot">&lt;-</span> <span class="fu">predict</span>(xmod, <span class="at">h =</span> <span class="dv">48</span>, <span class="at">exact_moments =</span> T)</span>
+<span id="cb250-16"><a href="tsgam.html#cb250-16" aria-hidden="true" tabindex="-1"></a>    pred_list[[i]] <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">index =</span> i, <span class="at">forecast_dates =</span> <span class="fu">index</span>(p_issm<span class="sc">$</span>analytic_mean), </span>
+<span id="cb250-17"><a href="tsgam.html#cb250-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">issm_forecast =</span> <span class="fu">as.numeric</span>(p_issm<span class="sc">$</span>analytic_mean))</span>
+<span id="cb250-18"><a href="tsgam.html#cb250-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb250-19"><a href="tsgam.html#cb250-19" aria-hidden="true" tabindex="-1"></a>pred_list <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(pred_list)</span>
+<span id="cb250-20"><a href="tsgam.html#cb250-20" aria-hidden="true" tabindex="-1"></a>pred_list <span class="ot">&lt;-</span> <span class="fu">merge</span>(pred_list, <span class="fu">data.table</span>(<span class="at">forecast_dates =</span> <span class="fu">index</span>(test_dataset), </span>
+<span id="cb250-21"><a href="tsgam.html#cb250-21" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">actual =</span> <span class="fu">as.numeric</span>(test_dataset<span class="sc">$</span>load)), <span class="at">by =</span> <span class="st">&quot;forecast_dates&quot;</span>)</span>
+<span id="cb250-22"><a href="tsgam.html#cb250-22" aria-hidden="true" tabindex="-1"></a>gamp <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">forecast_dates =</span> <span class="fu">index</span>(p_gam<span class="sc">$</span>mean), <span class="at">gam_forecast =</span> <span class="fu">as.numeric</span>(p_gam<span class="sc">$</span>mean))</span>
+<span id="cb250-23"><a href="tsgam.html#cb250-23" aria-hidden="true" tabindex="-1"></a>pred_list <span class="ot">&lt;-</span> <span class="fu">merge</span>(pred_list, gamp, <span class="at">by =</span> <span class="st">&quot;forecast_dates&quot;</span>)</span>
+<span id="cb250-24"><a href="tsgam.html#cb250-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-25"><a href="tsgam.html#cb250-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">data.table</span>(<span class="st">&quot;Metric&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;MAPE (%)&quot;</span>,<span class="st">&quot;SMAPE (%)&quot;</span>,<span class="st">&quot;BIAS (%)&quot;</span>), </span>
+<span id="cb250-26"><a href="tsgam.html#cb250-26" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;ISSM&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb250-27"><a href="tsgam.html#cb250-27" aria-hidden="true" tabindex="-1"></a>               <span class="fu">mape</span>(pred_list<span class="sc">$</span>actual, pred_list<span class="sc">$</span>issm_forecast) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb250-28"><a href="tsgam.html#cb250-28" aria-hidden="true" tabindex="-1"></a>               <span class="fu">smape</span>(pred_list<span class="sc">$</span>actual, pred_list<span class="sc">$</span>issm_forecast) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb250-29"><a href="tsgam.html#cb250-29" aria-hidden="true" tabindex="-1"></a>               <span class="fu">bias</span>(pred_list<span class="sc">$</span>actual, pred_list<span class="sc">$</span>issm_forecast) <span class="sc">*</span> <span class="dv">100</span>),</span>
+<span id="cb250-30"><a href="tsgam.html#cb250-30" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;GAM&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb250-31"><a href="tsgam.html#cb250-31" aria-hidden="true" tabindex="-1"></a>               <span class="fu">mape</span>(pred_list<span class="sc">$</span>actual, pred_list<span class="sc">$</span>gam_forecast) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb250-32"><a href="tsgam.html#cb250-32" aria-hidden="true" tabindex="-1"></a>               <span class="fu">smape</span>(pred_list<span class="sc">$</span>actual, pred_list<span class="sc">$</span>gam_forecast) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb250-33"><a href="tsgam.html#cb250-33" aria-hidden="true" tabindex="-1"></a>               <span class="fu">bias</span>(pred_list<span class="sc">$</span>actual, pred_list<span class="sc">$</span>gam_forecast) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb250-34"><a href="tsgam.html#cb250-34" aria-hidden="true" tabindex="-1"></a>           ), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##       Metric  ISSM    GAM
+##       &lt;char&gt; &lt;num&gt;  &lt;num&gt;
+## 1:  MAPE (%)  7.69  6.061
+## 2: SMAPE (%)  3.82  3.038
+## 3:  BIAS (%)  1.84 -0.823</code></pre>
+<p>The simple GAM model appears to outperform, for this series, the ISSM model on
+all 3 metrics.</p>
 <p>There is also a <code>tsbacktest</code> method which will be expanded on in a separate post
 as this takes a training and testing split list of time indices which departs
 from the current approach in the other packages but offers more flexibility and is more
@@ -558,7 +611,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

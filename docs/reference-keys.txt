@@ -129,6 +129,7 @@ tsgam:introduction
 package-demo-electricity-load
 estimation
 prediction
+comparison-to-issm-model
 other
 experimental
 calibration-of-predictive-distributions
